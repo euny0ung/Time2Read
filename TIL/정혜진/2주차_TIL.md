@@ -307,7 +307,7 @@
    scene.add(plane);
    ```
 7. 결과
-  ![image](/uploads/51fbd4ce45a145e861b6af6a538f9cb7/image.png)
+  ![cube](/uploads/41f875c3b89393b80a48ea366d6a4cf6/cube.gif)
 
 ## 🌳 회고
 
