@@ -178,3 +178,138 @@
 ```
 
 <br>
+
+# 2024.03.05
+
+특화 2주차 화요일 TIL
+
+## 🌱 한 일
+
+- FE 기능 구체화 회의
+- 컨벤션 정하기
+  - 코드, 브랜치, 커밋 컨벤션
+  - 폴더구조, 네이밍 규칙
+- 타입스크립트 강의 남은 거 다 듣기
+- three.js 공부
+  <br>
+
+## 🌿 배운 것
+
+### three.js 기본 4요소
+
+1. Scene (씬)
+
+- 3D 공간을 나타내는 컨테이너 역할을 합니다.
+- 카메라, 오브젝트, 조명 등을 포함합니다.
+- 배경색 설정 가능
+
+2. Objects (오브젝트)
+
+- 씬에 표시되는 3D 모델, 메시 등을 의미합니다.
+- 기하학적 형태 (Geometry)와 재질 (Material)을 조합하여 생성
+- 여러 오브젝트를 그룹화하여 관리 가능
+
+3. Camera (카메라)
+
+- 3D 공간을 시점에 따라 렌더링하는 역할을 합니다.
+- 투시도 (Perspective) 또는 평행 투영 (Orthographic) 선택 가능
+- 위치, 시야각, 종횡비 등을 설정하여 렌더링 결과 조절 가능
+
+4. Renderer (렌더러)
+
+- 씬을 2D 화면에 표시하는 역할을 합니다.
+- WebGL을 사용하여 3D 그래픽을 렌더링
+- 캔버스 크기, 안티엘리어싱 등을 설정 가능
+
+#### three.js 코드 실습
+
+1. 라이브러리 import 및 씬 설정
+
+   - THREE 라이브러리 import
+   - Scene 객체 생성 및 배경색 설정
+
+   ```TypeScript
+   import * as THREE from "three";
+
+   // 씬(Scene) 생성
+   const scene = new THREE.Scene();
+   scene.background = new THREE.Color(0xeeeeee); // 씬 배경색 설정
+   ```
+
+2. 카메라 생성 및 설정
+
+   - PerspectiveCamera 객체 생성
+   - 시야각, 종횡비, 근접 평면, 원거리 평면 설정
+   - 카메라 위치 설정 (z축 방향으로 5만큼 이동)
+
+   ```TypeScript
+   // 카메라(Camera) 생성
+   const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+   camera.position.z = 5;
+   ```
+
+3. 렌더러 생성 및 설정
+
+   - WebGLRenderer 객체 생성
+   - 렌더러 크기 설정 (윈도우 크기와 동일하게 설정)
+   - 렌더러 캔버스를 HTML body에 추가
+
+   ```TypeScript
+   // 렌더러(Renderer) 생성
+   const renderer = new THREE.WebGLRenderer();
+   renderer.setSize(window.innerWidth, window.innerHeight);
+   document.body.appendChild(renderer.domElement);
+   ```
+
+4. 메시 생성 및 씬에 추가
+
+   - BoxGeometry (큐브 형태) 및 MeshPhongMaterial (Phong 재질) 생성
+   - Mesh 객체 생성 (기하학적 형태와 재질을 결합)
+   - 메시를 씬에 추가
+
+   ```TypeScript
+   // 기하학적 형태(Geometry)와 재질(Material)로 메시(Mesh) 생성
+   const cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
+   const cubeMaterial = new THREE.MeshPhongMaterial({ color: 0xabcdef });
+   const cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
+   scene.add(cube);
+   ```
+
+5. 광원 생성 및 설정
+
+   - SpotLight 객체 생성 및 씬에 추가
+   - AmbientLight (환경 조명) 객체 생성 및 추가
+   - SpotLight 타겟을 큐브로 설정
+
+   ```TypeScript
+   //광원 생성
+   const spotLight = new THREE.SpotLight(0xffffff);
+   scene.add(spotLight);
+
+   // 환경 조명 추가
+   const ambientLight = new THREE.AmbientLight(0x404040);
+   spotLight.target = cube;
+   scene.add(ambientLight);
+   ```
+
+6. 지면 생성 및 설정
+
+   - PlaneGeometry (평면 형태) 및 MeshPhongMaterial (Phong 재질)
+
+   ```TypeScript
+   // 지면 생성
+   const planeGeometry = new THREE.PlaneGeometry(500, 500);
+   const planeMaterial = new THREE.MeshPhongMaterial({ color: 0xaaaaaa });
+   const plane = new THREE.Mesh(planeGeometry, planeMaterial);
+   plane.rotation.x = -Math.PI / 2;
+   plane.position.y = -2;
+   plane.receiveShadow = true; // 지면이 그림자 받기
+   scene.add(plane);
+   ```
+
+## 🌳 회고
+
+```
+- 초기 세팅에서 헤매다 실습을 많이 못했다. 내일은 더 어려운 것을 해볼 것.
+-
+```
