@@ -306,6 +306,8 @@
    plane.receiveShadow = true; // 지면이 그림자 받기
    scene.add(plane);
    ```
+7. 결과
+  ![cube](/uploads/41f875c3b89393b80a48ea366d6a4cf6/cube.gif)
 
 ## 🌳 회고
 
