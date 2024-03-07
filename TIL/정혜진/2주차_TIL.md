@@ -306,8 +306,8 @@
    plane.receiveShadow = true; // 지면이 그림자 받기
    scene.add(plane);
    ```
+
 7. 결과
-  ![cube](/uploads/41f875c3b89393b80a48ea366d6a4cf6/cube.gif)
 
 ## 🌳 회고
 
@@ -437,12 +437,8 @@
 
   React에서 **`useRef`** 와 **`mountRef.current.appendChild`** 를 사용하면, React의 라이프사이클과 상태 관리 시스템 내에서 안전하게 DOM 요소를 조작 가능
 
-#### Three.js 객체들과 관련된 함수에 타입을 지정하는 방법
-
 - React와 TypeScript를 함께 사용할 때, 컴포넌트 내부에서 생성된 객체와 함수에 타입을 지정해주면 TypeScript의 타입 체킹 기능을 통해 더 안정적인 코드를 작성 가능
 - 명령어 **`npm install @types/three --save-dev`**
-
-#### Property 'removeChild' does not exist on type 'never' 오류
 
 - 오류 발생 코드
 
@@ -459,11 +455,7 @@
   const mountRef = useRef<HTMLDivElement | null>(null);
   ```
   - **`mountRef`** 에 대한 타입을 **`HTMLDivElement`** 로 명시적으로 지정해주면 문제 해결 가능
-  - **`useRef`** 를 사용할 때, 참조하려는 DOM 요소의 타입을 **`useRef`** 에 제네릭 타입으로 전달하여 해결. 예를 들어, **`mountRef`** 가 **`div`** 요소를 참조하게 한다.
   - 이렇게 하면 mountRef.current는 HTMLDivElement 타입 또는 null이 될 수 있으며, HTMLDivElement는 removeChild 메소드를 가지고 있기 때문에 위의 오류가 해결됨
-
-#### 자전과 공전 실습 결과
-  ![solarsystem](/uploads/2540844fd290b99c8b7ebaaa652a0b69/solarsystem.gif)
 
 <br>
 
@@ -471,6 +463,58 @@
 
 ```
 - 예제 코드가 있어도 내가 쓰는 환경에 맞춰 리팩토링해서 쓰려니 오래 걸렸다. 게다가 기초 지식이 없어서 더 오래 걸린 것 같다. 지금이라도 짚고 넘어가서 다행이다. 다신 안 헷갈릴 듯.
+```
+
+<br>
+
+# 2024.03.07
+
+특화 2주차 목요일 TIL
+
+## 🌱 한 일
+
+- 전문가 멘토링 사전 질문 최종 정리
+- 와이어 프레임(피그마)
+- 전문가 멘토링
+- 알고리즘 라이브 코딩 스터디
+
+  - 주제 : 그리디
+
+  <br>
+
+## 🌿 배운 것
+
+### 우선순위 큐를 이렇게도 쓸 수 있다
+
+- BOJ 11000: 강의실 배정
+- 강의 시작 시간, 끝나는 시간을 여러 개 주고 최소 강의실 수를 구하는 문제
+- 우선순위큐를 정렬할 때만 쓰는 게 아니라 이렇게도 쓸 수 있다는 것을 알았음
+  - 각 강의실의 끝나는 시간이 큐에 들어가 있는 개념!!!
+
+```java
+for (Study s : list) {
+    //end_i ≤ start_j 일 경우 i 수업 듣고 난 뒤에 j 수업을 들을 수 있다.
+    // 리스트 순회하면서 들을 수 있는 수업을 찾는다.
+    if (!q.isEmpty() && q.peek() <= s.start) {
+         q.poll();
+        // (i수업 끝나는 시간을 빼버리고 j수업 끝나는 시간을 큐에 넣어서 해당 강의실의 종료시간을 갱신하는 느낌)
+    }
+     q.add(s.end);
+    // (들을 수 있는 수업이 없는 경우에는 큐에서 아무것도 안빼고 추가만 하니까 새로운 강의실이 하나 더 추가되는 느낌)
+}
+//큐의 사이즈가 강의실 사이즈
+System.out.println(q.size());
+```
+
+  <br>
+
+## 🌳 회고
+
+### 오늘 잘한 일
+
+```
+- 공통 중간에 들었던 모듈형 특강(UIX) 내용을 이번에 피그마할 때 좀 써먹었다. 공통 때는 시기상 피그마할 때가 아니어서 제대로 못 써보고 팀원한테만 이런 게 있다고 알려줬었는데, 딱 알려줬던 내용만 기억난다. 배운 걸 가공해서 내 걸로 만드는 과정이 역시 중요한 거 같다.
+
 ```
 
 <br>
