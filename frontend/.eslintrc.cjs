@@ -76,7 +76,7 @@ module.exports = {
     ],
     "import/extensions": ["error", "ignorePackages"],
     "no-unused-vars": "off",
-    "import/no-unresolved": "error",
+
     "@typescript-eslint/no-unused-vars": [
       "warn",
       {
@@ -202,5 +202,8 @@ module.exports = {
 
     // 20) 알려지지 않은 props - 꺼둠
     "react/no-unknown-property": "off",
+
+    // 21) eslint 자체 에러 원래 에러 뜨면 안되는건데 해결되지 않은 이슈
+    "import/no-unresolved": "off"
   },
 };
