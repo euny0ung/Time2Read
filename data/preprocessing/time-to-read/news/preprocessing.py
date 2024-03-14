@@ -17,3 +17,11 @@ def delete_email(context):
         if text:
             preprocessed_text.append(text)
     return preprocessed_text
+
+# 해시태그 지우기
+def delete_hashtag(context):
+    preprocessed_text = []
+    for text in context:
+        text = re.sub(r'#\S+', '', text).strip()
+        if text:
+            preprocessed_text.append(text)
