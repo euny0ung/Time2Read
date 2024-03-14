@@ -1,5 +1,6 @@
 import json
 
+from kafka.producer import delivery_msg
 from news.loadcsv import load_csv
 from preprocessing import *
 from news.extract_morpheme import *
@@ -20,17 +21,14 @@ def df_to_json(article_df):
     keywords = extract_noun_keywords_by_hannanum(keyword_extractor.summarize(get_hannanum_pos(sentences), topk=30))
     # 문장 요약
     summarize = summarize_sentences(sentences)
-
     article_dict['본문'] = " ".join(sentences)
     article_dict['한겨레ID'] = extract_hani_id(article_dict.get('기사주소'))
     article_dict['키워드'] = keywords
     article_dict['요약'] = summarize
-    print(article_dict)
     return json.dumps(article_dict)
 
 for row in result_df.iterrows():
-    df_to_json(row)
-
+    delivery_msg(df_to_json(row))
 
 
 
