@@ -3,6 +3,20 @@ import kss
 
 stopwords_path = '../resources/korean_stopwords.txt'
 
+# 기사 본문 전처리
+def preprocess_content(content):
+    sentences = split_content(content)  # 한문장씩으로 자르기
+    sentences = delete_html_tag(sentences)  # HTML 태그 자르기
+    sentences = delete_email(sentences)  # 이메일 지우기
+    sentences = delete_imgtag(sentences)  # 이미지 태그 지우기
+    sentences = delete_special_symbol(sentences)  # 특수문자 지우기
+    sentences = delete_start_with_special_symbols(sentences)  # 특수문자로 시작하는 문장 지우기
+    sentences = delete_url(sentences)  # url 지우기
+    sentences = sentence_seperator(sentences)  # 확실하게 자르기
+    sentences = delete_stopwords(sentences, stopwords)  # 불용어 지우기
+    delete_reporter(sentences) # 마지막 ~기자 지우기
+    return sentences
+
 def load_stopwords(stopwords_file_path):
     """
     불용어(stop words) 파일을 불러오는 함수
