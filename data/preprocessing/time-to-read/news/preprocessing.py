@@ -1,6 +1,25 @@
 import re
 import kss
 
+stopwords_path = '../resources/korean_stopwords.txt'
+
+def load_stopwords(stopwords_file_path):
+    """
+    불용어(stop words) 파일을 불러오는 함수
+
+    Parameters:
+    stopwords_file_path (str): 불용어(stop words) 파일의 경로
+
+    Returns:
+    list: 불용어(stop words) 리스트
+    """
+    with open(stopwords_file_path, 'r', encoding='utf-8') as file:
+        stopwords = file.readlines()
+    stopwords = [stopword.strip() for stopword in stopwords]
+    return stopwords
+
+stopwords = load_stopwords(stopwords_path)
+
 # HTML 태그 지우기
 def delete_html_tag(context):
     processed_context = []
@@ -91,3 +110,26 @@ def sentence_seperator(processed_context):
             splited_text = kss.split_sentences(text)
             splited_context.extend(splited_text)
     return splited_context
+
+# 불용어 제거하기
+def delete_stopwords(context, stopwords):
+    preprocessed_text = []
+    for text in context:
+        text = [w for w in text.split(' ') if len(w) > 1 and w not in stopwords] # text를 띄어쓰기로 구분하고 불용어 사전에 없는 데이터만 리스트에 추가
+        preprocessed_text.append(' '.join(text))
+    return preprocessed_text
+
+#본문 마지막 기자 문장 제거하기
+def delete_reporter(content):
+    if(content and content[-1].endswith("기자")):
+        content = content.pop(-1)
+        return content
+
+# url 주소에서 한겨레 ID 추출하기
+def extract_hani_id(url):
+    match = re.search(r'/(\d+)\.html', url)
+    if match:
+        article_id = match.group(1)
+    else:
+        article_id = None
+    return article_id
