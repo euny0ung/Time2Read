@@ -1,4 +1,5 @@
 import re
+import kss
 
 # HTML 태그 지우기
 def delete_html_tag(context):
@@ -66,3 +67,27 @@ def delete_start_with_special_symbols(context):
         if text:
             preprocessed_text.append(text)
     return preprocessed_text
+
+# url 지우기
+def delete_url(context):
+    preprocessed_text = []
+    for text  in context:
+        text = re.sub(r'\(?(http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\\(\\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+)\)?', '', text).strip()
+        if text:
+            preprocessed_text.append(text)
+    return preprocessed_text
+
+# 문장 분리하기
+def split_content(content):
+    sentences = re.split(r'(?<=[.!?])\s+', content)
+    return sentences
+
+# 문장 분리하기(kss)
+def sentence_seperator(processed_context):
+    splited_context = []
+    for text in processed_context:
+        text = text.strip()
+        if text:
+            splited_text = kss.split_sentences(text)
+            splited_context.extend(splited_text)
+    return splited_context
