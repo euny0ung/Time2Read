@@ -78,7 +78,7 @@ def delete_copyright(context):
 def delete_special_symbol(context):
     preprocessed_text = []
     for text in context:
-        text = re.sub(r'□|■|▲|&[a-zA-Z]+;', '', text)
+        text = re.sub(r'\“|\”|\‘|’|□|■|▲|&[a-zA-Z]+;', '', text)
         if text:
             preprocessed_text.append(text)
     return preprocessed_text
