@@ -1,0 +1,47 @@
+version: '3.9'
+services:
+  spark:
+    build:
+      context: ./spark
+      dockerfile: Dockerfile
+    volumes:
+      - .:/opt/bitnami/spark/work
+      - ./spark_conf/log4j2.properties:/opt/bitnami/spark/conf/log4j2.properties
+      - ./spark_conf/spark-defaults.conf:/opt/bitnami/spark/conf/spark-defaults.conf
+      - ./spark-events:/tmp/spark-events
+    environment:
+      - SPARK_MODE=master
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
+      - SPARK_USER=spark
+    user: root
+    ports:
+      - '8080:8080'
+      - '18080:18080'
+      - '4040:4040'
+    networks:
+      - backend
+  spark-worker:
+    build:
+      context: ./spark
+      dockerfile: Dockerfile
+    volumes:
+      - .:/opt/bitnami/spark/work 
+    environment:
+      - SPARK_MODE=worker
+      - SPARK_MASTER_URL=spark://spark:7077
+      - SPARK_WORKER_MEMORY=1G
+      - SPARK_WORKER_CORES=1
+      - SPARK_RPC_AUTHENTICATION_ENABLED=no
+      - SPARK_RPC_ENCRYPTION_ENABLED=no
+      - SPARK_LOCAL_STORAGE_ENCRYPTION_ENABLED=no
+      - SPARK_SSL_ENABLED=no
+      - SPARK_USER=spark
+    user: root
+    networks:
+      - backend
+networks:
+  backend:
+    driver: bridge
