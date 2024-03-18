@@ -1,4 +1,8 @@
+import useGameResultStore from '../stores/game/gameStore';
+
 const ResultPage = () => {
+  const { gameResult } = useGameResultStore();
+
   return (
     <>
       <div className="w-full max-w-[80%] mx-auto">
@@ -9,9 +13,17 @@ const ResultPage = () => {
             {/* leftbox */}
             <div className="flex flex-col justify-center w-full ">
               {/* 맞은 개수 통계 */}
-              <div className="border-4 border-violet-500">맞은 개수 통계</div>
+              <div className="border-4 border-violet-500">
+                맞은 개수 통계
+                <div>총 문제 수 {gameResult.correct + gameResult.incorrect} 개</div>
+                <div>맞은 개수 {gameResult.correct} 개</div>
+                <div>틀린 개수 {gameResult.incorrect} 개</div>
+              </div>
               {/* 타임 어택 시간 */}
-              <div className="border-4 border-pink-500">타임 어택 시간</div>
+              <div className="border-4 border-pink-500">
+                타임 어택 시간
+                <div>{gameResult.timeAttackTime}</div>
+              </div>
             </div>
             {/* rightbox */}
             <div className="flex flex-col items-start w-full border-4 border-green-500">키워드</div>
