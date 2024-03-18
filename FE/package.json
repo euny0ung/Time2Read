@@ -19,12 +19,8 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.22.3",
-<<<<<<< HEAD
     "three": "^0.162.0",
     "zustand": "^4.5.2"
-=======
-    "three": "^0.162.0"
->>>>>>> d6b57f9 (#20 - feat: 미로 텍스쳐링, 랜딩 페이지 기본 설정)
   },
   "devDependencies": {
     "@types/react": "^18.2.64",
