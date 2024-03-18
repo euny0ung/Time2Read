@@ -27,7 +27,6 @@ const SelectBox = ({ options, handleSelect, selected, defaultValue }) => {
 
 const useQuizApiHandler = () => {
   const navigate = useNavigate();
-<<<<<<< HEAD
   const { setQuiz } = useQuizStore();
 
   // API 호출, 페이지 이동, 퀴즈 데이터 저장
@@ -41,27 +40,18 @@ const useQuizApiHandler = () => {
       .catch((error) => {
         console.log(error);
       });
-=======
-
-  // API 호출, 페이지 이동, 데이터 가공
-  const handleQuizApi = () => {
-    navigate('/game');
->>>>>>> d6b57f9 (#20 - feat: 미로 텍스쳐링, 랜딩 페이지 기본 설정)
   };
 
   return handleQuizApi;
 };
 
 const LandingPage = () => {
-<<<<<<< HEAD
   const [selected, setSelected] = useState('2024');
 
   const handleSelect = (e) => {
     setSelected(e.target.value);
   };
 
-=======
->>>>>>> d6b57f9 (#20 - feat: 미로 텍스쳐링, 랜딩 페이지 기본 설정)
   const handleQuizApi = useQuizApiHandler();
 
   return (
@@ -70,11 +60,7 @@ const LandingPage = () => {
         <button>카카오 로그인</button>
       </div>
       <div>
-<<<<<<< HEAD
         <SelectBox options={OPTIONS} onChange={handleSelect} value={selected} defaultValue="2024" />
-=======
-        <SelectBox options={OPTIONS} defaultValue="2024" />
->>>>>>> d6b57f9 (#20 - feat: 미로 텍스쳐링, 랜딩 페이지 기본 설정)
       </div>
       <div>
         <button onClick={handleQuizApi}>입장하기</button>
