@@ -130,7 +130,7 @@ module.exports = {
 
     // 5) 문자열(Strings)
     'quotes': ['error', 'single'],
-    'max-len': ['error', { 'code': 100 }],
+    // 'max-len': ['error', { 'code': 100 }],
 
     // 6) 함수(Functions)
     'prefer-rest-params': 'error',

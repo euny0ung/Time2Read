@@ -1,10 +1,9 @@
 const UserPage = () => {
-    return (
-      <>
-        <div />
-      </>
-    );
-  };
-  
-  export default UserPage;
-  
+  return (
+    <>
+      <div />
+    </>
+  );
+};
+
+export default UserPage;
