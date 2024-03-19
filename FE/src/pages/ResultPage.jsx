@@ -1,4 +1,14 @@
-import useGameResultStore from '../stores/game/gameStore';
+import Keyword from '../components/result/Keyword.jsx';
+// import WordCloud from '../components/result/WordCloud.jsx';
+import useGameResultStore from '../stores/game/gameStore.jsx';
+
+const data = [
+  { text: 'Hey', value: 1000 },
+  { text: 'lol', value: 200 },
+  { text: 'first impression', value: 800 },
+  { text: 'very cool', value: 100 },
+  { text: 'duck', value: 10 },
+];
 
 const ResultPage = () => {
   const { gameResult } = useGameResultStore();
@@ -26,7 +36,11 @@ const ResultPage = () => {
               </div>
             </div>
             {/* rightbox */}
-            <div className="flex flex-col items-start w-full border-4 border-green-500">키워드</div>
+            <div className="flex flex-col items-start w-full h-[500px] border-4 border-green-500">
+              키워드
+              <Keyword data={data} width={400} height={700} />
+              {/* <WordCloud data={data} width={400} height={200} /> */}
+            </div>
           </div>
           {/* buttonbox */}
           <div className="flex flex-row items-center w-full">
