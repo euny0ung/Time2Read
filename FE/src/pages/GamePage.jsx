@@ -12,7 +12,7 @@ const GamePage = () => {
   return (
     <>
       <div className="w-screen h-screen overflow-hidden">
-        <Canvas>
+        <Canvas camera={{ position: [0, 10, 0] }}>
           {/* 환경 설정 */}
           {isPlayerMode ? <PointerLockControls /> : <OrbitControls />}
           <ambientLight intensity={0.5} />
@@ -33,7 +33,7 @@ const GamePage = () => {
         {/* 버튼 클릭으로 컨트롤 모드 전환 */}
         <button
           className="absolute top-2.5 left-2.5 bg-gray-500 text-white font-bold py-2 px-4 rounded hover:bg-gray-700 focus:outline-none focus:shadow-outline"
-          onClick={() => setIsPlayerMode(!isOrbit)}
+          onClick={() => setIsPlayerMode(!isPlayerMode)}
         >
           {isPlayerMode ? '3인칭 모드로 전환' : '1인칭 모드로 전환'}
         </button>

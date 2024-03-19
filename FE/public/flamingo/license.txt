@@ -1,0 +1,11 @@
+Model Information:
+* title:	Flamingo Golf Putter
+* source:	https://sketchfab.com/3d-models/flamingo-golf-putter-3bb6dc52de404fac8dfc0f2acf4a2dcd
+* author:	Gravity Jack (https://sketchfab.com/gravityjack)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Flamingo Golf Putter" (https://sketchfab.com/3d-models/flamingo-golf-putter-3bb6dc52de404fac8dfc0f2acf4a2dcd) by Gravity Jack (https://sketchfab.com/gravityjack) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

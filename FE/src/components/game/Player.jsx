@@ -4,7 +4,7 @@ import { useFrame } from '@react-three/fiber';
 import { RigidBody, useRapier } from '@react-three/rapier';
 import { Vector3 } from 'three';
 
-const MOVE_SPEED = 5;
+const MOVE_SPEED = 3;
 const JUMP_FORCE = 10;
 const direction = new Vector3();
 const frontVector = new Vector3();
@@ -12,6 +12,8 @@ const sideVector = new Vector3();
 
 /// //////////////
 // 나중에 hooks 파일로 옮길 것. player를 WADS키와 spacebar로 제어하는 함수
+// 현재 right가 안되는 현상 발견
+// 혜진이 누나 오면 질문 (현재 플레이어가 움직이는건 빨간 상자가 움직이는건지 아니면 카메라가 움직이는건지)
 const usePersonControls = () => {
   const keys = {
     KeyW: 'forward',
@@ -93,14 +95,15 @@ const Player = () => {
 
     // 카메라 움직이기
     const { x, y, z } = playerRef.current.translation();
-    state.camera.position.set(x + 0.1, y + 11, z + 0.1);
+    state.camera.position.set(x - 4, y + 1, z - 13);
   });
 
   return (
     <>
-      <RigidBody ref={playerRef} type="dynamic" mass={1} lockRotations>
-        <mesh position={[0, 10, 0]}>
-          <boxGeometry args={[0.5, 0.5, 0.5]} />
+      <RigidBody ref={playerRef} type="dynamic" mass={0} lockRotations>
+        {/* <mesh position={[-7.5, 0.6, -1]}> */}
+        <mesh position={[-4, 0, -13]}>
+          <boxGeometry args={[0.3, 0.3, 0.3]} />
           <meshStandardMaterial color="red" />
         </mesh>
       </RigidBody>

@@ -35,6 +35,15 @@ const MazeModel = () => {
       <RigidBody colliders="trimesh">
         <primitive object={scene} />
       </RigidBody>
+      <Cat />
+      <DoorKnob />
+      <DoDoBird />
+      <Caterpillar />
+      <CheshireCat />
+      <Rose />
+      <Flamingo />
+      <CardSoldier />
+      <HeartQueen />
     </>
   );
 };
@@ -42,12 +51,99 @@ const MazeModel = () => {
 export const Floor = () => {
   return (
     <RigidBody type="static">
-      <CuboidCollider args={[10, 0, 10]}>
+      <CuboidCollider args={[100, 0, 100]}>
         <mesh position={[0, 0, 0]} receiveShadow>
-          <boxGeometry args={[10, 0, 10]} />
+          <boxGeometry args={[100, 0, 100]} />
           <meshStandardMaterial color={'lightgray'} />
         </mesh>
       </CuboidCollider>
+    </RigidBody>
+  );
+};
+
+export const Cat = () => {
+  const cat = useGLTF('cat/scene.gltf');
+  // console.log(cat);
+  return (
+    <RigidBody>
+      <primitive object={cat.scene} scale={0.001} position={[-1, 0, -10]} />
+    </RigidBody>
+  );
+};
+
+export const DoorKnob = () => {
+  const doorKnob = useGLTF('doorknob/scene.gltf');
+  return (
+    <RigidBody>
+      <primitive object={doorKnob.scene} scale={0.1} position={[-2.5, 3, -4.2]} />
+    </RigidBody>
+  );
+};
+
+export const DoDoBird = () => {
+  const dodoBird = useGLTF('dodobird/scene.gltf');
+  return (
+    <RigidBody>
+      <primitive object={dodoBird.scene} scale={0.12} position={[-9, 1.01, -5]} />
+      {/* <axesHelper scale={10} /> */}
+    </RigidBody>
+  );
+};
+
+export const Caterpillar = () => {
+  const caterpillar = useGLTF('caterpillar/scene.gltf');
+  return (
+    <RigidBody>
+      <primitive object={caterpillar.scene} scale={20} position={[-7.5, 1, -2.5]} />
+      {/* <axesHelper scale={10} /> */}
+    </RigidBody>
+  );
+};
+
+export const CheshireCat = () => {
+  const cheshireCat = useGLTF('cheshirecat/scene.gltf');
+  return (
+    <RigidBody>
+      <primitive object={cheshireCat.scene} scale={0.01} position={[-4.5, 0, 4]} />
+      {/* <axesHelper scale={10} /> */}
+    </RigidBody>
+  );
+};
+
+export const Rose = () => {
+  const rose = useGLTF('rose/scene.gltf');
+  return (
+    <RigidBody>
+      <primitive object={rose.scene} scale={0.03} position={[4.5, 0, 0.7]} />
+      {/* <axesHelper scale={10} /> */}
+    </RigidBody>
+  );
+};
+
+export const Flamingo = () => {
+  const flamingo = useGLTF('flamingo/scene.gltf');
+  return (
+    <RigidBody>
+      <primitive object={flamingo.scene} scale={0.05} position={[7.8, 1, 9.5]} />
+      {/* <axesHelper scale={10} /> */}
+    </RigidBody>
+  );
+};
+
+export const CardSoldier = () => {
+  const cardsoldier = useGLTF('cardsoldier/cardsoldier.gltf');
+  return (
+    <RigidBody>
+      <primitive object={cardsoldier.scene} scale={0.2} position={[7.5, 2, -6]} />
+    </RigidBody>
+  );
+};
+
+export const HeartQueen = () => {
+  const heartQueen = useGLTF('heartqueen/hartqueen.gltf');
+  return (
+    <RigidBody>
+      <primitive object={heartQueen.scene} scale={0.2} position={[0.8, 1.03, 10]} />
     </RigidBody>
   );
 };
