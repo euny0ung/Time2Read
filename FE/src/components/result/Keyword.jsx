@@ -6,7 +6,7 @@ const Keyword = ({ data, width, height }) => {
   const schemeCategory10ScaleOrdinal = scaleOrdinal(schemeCategory10);
 
   return (
-    <div className="w-full h-full">
+    <div className={`w-[${width}] h-[${height}]`}>
       <WordCloud
         data={data}
         width={width}
@@ -14,7 +14,7 @@ const Keyword = ({ data, width, height }) => {
         font="Times"
         fontStyle="italic"
         fontWeight="bold"
-        fontSize={(word) => Math.log2(word.value) * 5}
+        fontSize={(word) => Math.log2(word.value) * 3}
         spiral="rectangular"
         random={Math.random}
         fill={(d, i) => schemeCategory10ScaleOrdinal(i)}
