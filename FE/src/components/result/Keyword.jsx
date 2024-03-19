@@ -6,8 +6,7 @@ const Keyword = ({ data, width, height }) => {
   const schemeCategory10ScaleOrdinal = scaleOrdinal(schemeCategory10);
 
   return (
-    <div>
-      <h2>My Word Cloud</h2>
+    <div className="w-full h-full">
       <WordCloud
         data={data}
         width={width}
@@ -17,8 +16,6 @@ const Keyword = ({ data, width, height }) => {
         fontWeight="bold"
         fontSize={(word) => Math.log2(word.value) * 5}
         spiral="rectangular"
-        rotate={(word) => word.value % 360}
-        padding={5}
         random={Math.random}
         fill={(d, i) => schemeCategory10ScaleOrdinal(i)}
         onWordClick={(event, d) => {

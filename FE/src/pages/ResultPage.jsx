@@ -1,13 +1,17 @@
 import Keyword from '../components/result/Keyword.jsx';
-// import WordCloud from '../components/result/WordCloud.jsx';
 import useGameResultStore from '../stores/game/gameStore.jsx';
 
 const data = [
-  { text: 'Hey', value: 1000 },
-  { text: 'lol', value: 200 },
-  { text: 'first impression', value: 800 },
-  { text: 'very cool', value: 100 },
-  { text: 'duck', value: 10 },
+  { text: 'Hey', value: 100 },
+  { text: 'lol', value: 100 },
+  { text: 'first impression', value: 100 },
+  { text: 'very cool', value: 200 },
+  { text: 'duck', value: 100 },
+  { text: 'lemon', value: 3000 },
+  { text: 'choco', value: 1000 },
+  { text: 'lime', value: 700 },
+  { text: 'apple', value: 300 },
+  { text: 'orange', value: 100 },
 ];
 
 const ResultPage = () => {
@@ -36,10 +40,9 @@ const ResultPage = () => {
               </div>
             </div>
             {/* rightbox */}
-            <div className="flex flex-col items-start w-full h-[500px] border-4 border-green-500">
-              키워드
-              <Keyword data={data} width={400} height={700} />
-              {/* <WordCloud data={data} width={400} height={200} /> */}
+            <div className="flex flex-col items-center w-full h-full border-4 border-green-500">
+              <div>키워드</div>
+              <Keyword data={data} height={280} />
             </div>
           </div>
           {/* buttonbox */}
