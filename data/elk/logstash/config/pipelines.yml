@@ -1,2 +1,2 @@
-- pipeline.id: bibibig_logstash
+- pipeline.id: bibibig-logstash
   path.config: "/usr/share/logstash/pipeline/logstash.conf"
