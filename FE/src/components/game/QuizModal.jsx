@@ -1,24 +1,17 @@
+import { useState, useEffect } from 'react';
 import { useQuizStore } from '@stores/store';
 
-const handleAnswerCheck = (e, answer) => {
-  console.log(e.target.value);
-  console.log(answer);
-  if (e.target.value === answer) {
+const handleAnswerCheck = (inputValue, answer) => {
+  if (inputValue === answer) {
     console.log('맞았습니다');
   } else {
     console.log('틀렸습니다');
   }
 };
 
-const handleAnagramAnswer = (clickValue) => {
-  console.log(ref.current);
-  // [] 클릭한 순서대로 화면에 답이 표시됨
-  // [] 한번 더 누르면 답 삭제
-};
-
 const handleEnter = (e, answer) => {
   if (e.key === 'Enter') {
-    handleAnswerCheck(e, answer);
+    handleAnswerCheck(e.target.value, answer);
   }
 };
 
@@ -33,6 +26,58 @@ const FisherYatesShuffle = (answer) => {
   }
 
   return array;
+};
+
+const AnagramQuiz = ({ answer, anagram }) => {
+  const anagramButtonState = anagram.map(() => false);
+
+  const [anagramColor, setAnagramColor] = useState(anagramButtonState);
+  const [inputAnswer, setInputAnswer] = useState([]);
+
+  useEffect(() => {
+    if (answer.length === inputAnswer.length) {
+      handleAnswerCheck(inputAnswer.join(''), answer);
+    }
+  }, [inputAnswer]);
+
+  const handleAnagramAnswer = (e, clickValue, index) => {
+    let state = true;
+
+    // setAnagramColor 순서때문에 삭제 로직이 제대로 동작하지 않음
+    if (anagramColor[index]) {
+      state = false;
+      const removeInputAnswer = inputAnswer.filter((it) => it.id !== index);
+      setInputAnswer(removeInputAnswer);
+    }
+    // 클릭되지 않은 상태
+    else {
+      setInputAnswer((prev) => [...prev, clickValue]);
+    }
+    setAnagramColor((prev) => prev.map((prevItem, colorStateIndex) => (colorStateIndex === index ? state : prevItem)));
+
+    // [V] 클릭한 순서대로 화면에 답이 표시됨
+    // [] 한번 더 누르면 답 삭제
+    // [V] 해당 버튼 색 변경
+    // [V] 한번 더 누르면 원래 색으로 변경
+    // [V]입력한 글자수==정답 글자수일 때 정답 체크
+  };
+
+  return (
+    <div>
+      <div>
+        {anagram.map((char, index) => (
+          <button
+            key={index}
+            onClick={(event) => handleAnagramAnswer(event, char, index)}
+            className={anagramColor[index] ? 'bg-yellow-300' : 'bg-inherit'}
+          >
+            {char}
+          </button>
+        ))}
+      </div>
+      <div>{inputAnswer}</div>
+    </div>
+  );
 };
 
 const QuizModal = () => {
@@ -56,7 +101,7 @@ const QuizModal = () => {
                 <button
                   type="button"
                   className="border-2 border-indigo-500/50"
-                  onClick={(event) => handleAnswerCheck(event, it.quiz.answer)}
+                  onClick={(event) => handleAnswerCheck(event.target.value, it.quiz.answer)}
                   value="O"
                 >
                   O
@@ -87,15 +132,7 @@ const QuizModal = () => {
               <div>{it.title}</div>
               <div>{it.content}</div>
               <div>{it.quiz.question}</div>
-              {anagram.map((str) => (
-                <button
-                  key={str.index}
-                  onClick={(event) => handleAnagramAnswer(event, str)}
-                  className="border-2 border-black-500"
-                >
-                  {str}
-                </button>
-              ))}
+              <AnagramQuiz answer={it.quiz.answer} anagram={anagram} />
             </div>
           );
         }
@@ -110,7 +147,7 @@ const QuizModal = () => {
               <input
                 placeholder="정답을 입력하세요"
                 className="border-2 border-black-500"
-                onKeyDown={() => handleEnter(it.quiz.answer)}
+                onKeyDown={(e) => handleEnter(e, it.quiz.answer)}
               />
             </div>
           </div>
