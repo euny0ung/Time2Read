@@ -1,3 +1,2 @@
 cluster.name: "bibibig-cluster"
 network.host: 0.0.0.0
-http.port: 19200
