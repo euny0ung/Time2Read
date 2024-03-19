@@ -1,8 +1,8 @@
 import { create } from 'zustand';
 
 export const useQuizStore = create((set) => ({
-  quiz: '',
-  setQuiz: (quizObject) => set({ quiz: quizObject }),
+  quizzes: [],
+  setQuiz: (quizObject) => set({ quizzes: quizObject }),
 }));
 
 export const useBooleanStore = create((set) => ({
