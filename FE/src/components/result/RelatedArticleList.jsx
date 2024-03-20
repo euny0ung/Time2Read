@@ -72,12 +72,17 @@ const RelatedArticleList = () => {
   ];
 
   const [currentStep, setCurrentStep] = useState(0);
+  const [isToggleOn, setIsToggleOn] = useState(false);
 
-  // 현재 스텝에 따라 채워진 프로그래스바의 너비를 계산
+  // 스텝과 스텝 사이의 프로그래스 바 선의 너비를 계산에서 너비만큼씩 채워지게 할 것임
   const filledLineWidth = `${(currentStep / (articleList.length - 1)) * 100}%`;
 
   const goToStep = (stepIndex) => {
     setCurrentStep(stepIndex);
+  };
+
+  const toggleHandler = () => {
+    setIsToggleOn((prevState) => !prevState);
   };
 
   return (
@@ -136,7 +141,11 @@ const RelatedArticleList = () => {
         </div>
         {/* articleDetailContainer */}
         <div className="flex flex-col items-center w-full rounded-b-lg bg-gradient-to-br from-purple-200 to-indigo-300 bg-opacity-50/50">
-          <div className="flex flex-col items-start w-full p-5 bg-white rounded-b-lg">
+          <div
+            className={`w-full bg-white rounded-b-lg transition-opacity transition-height duration-700 overflow-hidden ${
+              isToggleOn ? 'opacity-100 h-auto' : 'opacity-0 h-0'
+            }`}
+          >
             <div className="flex flex-row items-center justify-between w-full gap-3 p-2 border-4 border-orange-500">
               <div>
                 <div>{articleList[currentStep].title}</div>
@@ -170,9 +179,13 @@ const RelatedArticleList = () => {
               </button>
             </div>
           </div>
-          <div className="flex flex-col items-start p-5 text-white rounded-b-lg cursor-pointer">
-            {/* 나중에 기호이미지로 바꿀 것 */}^
-          </div>
+
+          <button
+            className="flex flex-col items-center w-full py-3 text-white rounded-b-lg cursor-pointer"
+            onClick={toggleHandler}
+          >
+            {isToggleOn ? '^' : 'v'} {/* 토글 아이콘 표시 */}
+          </button>
         </div>
       </div>
     </>
