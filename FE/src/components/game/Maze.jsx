@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { RigidBody, CuboidCollider } from '@react-three/rapier';
 import { RepeatWrapping, TextureLoader, SRGBColorSpace } from 'three';
@@ -37,7 +37,7 @@ const MazeModel = () => {
       </RigidBody>
       <Cat />
       <DoorKnob />
-      <DoDoBird />
+      <DodoBird />
       <Caterpillar />
       <CheshireCat />
       <Rose />
@@ -63,27 +63,30 @@ export const Floor = () => {
 
 export const Cat = () => {
   const cat = useGLTF('cat/scene.gltf');
+
   // console.log(cat);
   return (
-    <RigidBody>
-      <primitive object={cat.scene} scale={0.001} position={[-1, 0, -10]} />
-    </RigidBody>
+    <>
+      <RigidBody name="cat">
+        <primitive object={cat.scene} scale={0.002} position={[-1, 0, -10]} />
+      </RigidBody>
+    </>
   );
 };
 
 export const DoorKnob = () => {
   const doorKnob = useGLTF('doorknob/scene.gltf');
   return (
-    <RigidBody>
+    <RigidBody name="doorKnob">
       <primitive object={doorKnob.scene} scale={0.1} position={[-2.5, 3, -4.2]} />
     </RigidBody>
   );
 };
 
-export const DoDoBird = () => {
+export const DodoBird = () => {
   const dodoBird = useGLTF('dodobird/scene.gltf');
   return (
-    <RigidBody>
+    <RigidBody name="dodoBird">
       <primitive object={dodoBird.scene} scale={0.12} position={[-9, 1.01, -5]} />
       {/* <axesHelper scale={10} /> */}
     </RigidBody>
@@ -93,7 +96,7 @@ export const DoDoBird = () => {
 export const Caterpillar = () => {
   const caterpillar = useGLTF('caterpillar/scene.gltf');
   return (
-    <RigidBody>
+    <RigidBody name="caterpillar">
       <primitive object={caterpillar.scene} scale={20} position={[-7.5, 1, -2.5]} />
       {/* <axesHelper scale={10} /> */}
     </RigidBody>
@@ -103,7 +106,7 @@ export const Caterpillar = () => {
 export const CheshireCat = () => {
   const cheshireCat = useGLTF('cheshirecat/scene.gltf');
   return (
-    <RigidBody>
+    <RigidBody name="chesireCat">
       <primitive object={cheshireCat.scene} scale={0.01} position={[-4.5, 0, 4]} />
       {/* <axesHelper scale={10} /> */}
     </RigidBody>
@@ -113,7 +116,7 @@ export const CheshireCat = () => {
 export const Rose = () => {
   const rose = useGLTF('rose/scene.gltf');
   return (
-    <RigidBody>
+    <RigidBody name="rose">
       <primitive object={rose.scene} scale={0.03} position={[4.5, 0, 0.7]} />
       {/* <axesHelper scale={10} /> */}
     </RigidBody>
@@ -123,7 +126,7 @@ export const Rose = () => {
 export const Flamingo = () => {
   const flamingo = useGLTF('flamingo/scene.gltf');
   return (
-    <RigidBody>
+    <RigidBody name="flamingo">
       <primitive object={flamingo.scene} scale={0.05} position={[7.8, 1, 9.5]} />
       {/* <axesHelper scale={10} /> */}
     </RigidBody>
@@ -133,7 +136,7 @@ export const Flamingo = () => {
 export const CardSoldier = () => {
   const cardsoldier = useGLTF('cardsoldier/cardsoldier.gltf');
   return (
-    <RigidBody>
+    <RigidBody name="cardSoldier">
       <primitive object={cardsoldier.scene} scale={0.2} position={[7.5, 2, -6]} />
     </RigidBody>
   );
@@ -142,7 +145,7 @@ export const CardSoldier = () => {
 export const HeartQueen = () => {
   const heartQueen = useGLTF('heartqueen/hartqueen.gltf');
   return (
-    <RigidBody>
+    <RigidBody name="heartQueen">
       <primitive object={heartQueen.scene} scale={0.2} position={[0.8, 1.03, 10]} />
     </RigidBody>
   );

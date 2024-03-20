@@ -3,6 +3,7 @@ import * as RAPIER from '@dimforge/rapier3d-compat';
 import { useFrame } from '@react-three/fiber';
 import { RigidBody, useRapier } from '@react-three/rapier';
 import { Vector3 } from 'three';
+import QuizModal from './QuizModal.jsx';
 
 const MOVE_SPEED = 3;
 const JUMP_FORCE = 10;
@@ -61,8 +62,31 @@ const usePersonControls = () => {
 // 미로 벽 막혔는지 테스트할 용도로 만들어놓은 빨간 큐브. 방향키로 움직일 수 있음
 const Player = () => {
   const playerRef = useRef(null);
+  const [isBumped, setBumped] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   const { forward, backward, left, right, jump } = usePersonControls();
   const rapier = useRapier();
+  const assetArray = [
+    'cat',
+    'doorKnob',
+    'dodoBird',
+    'caterpillar',
+    'chesireCat',
+    'rose',
+    'flamingo',
+    'cardSoldier',
+    'heartQueen',
+  ];
+
+  const showModal = () => {
+    if (isBumped && !openModal) {
+      setOpenModal(true);
+    }
+  };
+
+  useEffect(() => {
+    showModal();
+  }, [isBumped]);
 
   useFrame((state) => {
     if (!playerRef.current) return;
@@ -100,13 +124,29 @@ const Player = () => {
 
   return (
     <>
-      <RigidBody ref={playerRef} type="dynamic" mass={0} lockRotations>
-        {/* <mesh position={[-7.5, 0.6, -1]}> */}
+      <RigidBody
+        ref={playerRef}
+        type="dynamic"
+        mass={0}
+        lockRotations
+        name="player"
+        onCollisionEnter={({ other }) => {
+          if (assetArray.includes(other.rigidBodyObject.name)) {
+            setBumped(true);
+          }
+        }}
+        onCollisionExit={({ other }) => {
+          if (assetArray.includes(other.rigidBodyObject.name)) {
+            setBumped(false);
+          }
+        }}
+      >
         <mesh position={[-4, 0, -13]}>
           <boxGeometry args={[0.3, 0.3, 0.3]} />
           <meshStandardMaterial color="red" />
         </mesh>
       </RigidBody>
+      {openModal && <QuizModal setOpenModal={setOpenModal} openModal={openModal} />}
     </>
   );
 };
