@@ -10,6 +10,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+import org.ssafy.bibibig.common.dto.Response;
 import org.ssafy.bibibig.oauth.dto.MemberInfo;
 import org.ssafy.bibibig.oauth.dto.response.LoginResponse;
 import org.ssafy.bibibig.oauth.dto.response.TokenResponse;
@@ -111,7 +112,7 @@ public class SocialController {
         generateSession(memberInfo, request);
 
         LoginResponse loginResponse = LoginResponse.of(memberInfo.getName());
-        return ResponseEntity.ok(loginResponse);
+        return Response.success(loginResponse);
     }
 
     private void generateSession(MemberInfo memberInfo, HttpServletRequest request){
