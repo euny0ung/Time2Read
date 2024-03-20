@@ -6,6 +6,7 @@ import WhiteContainer from '../components/commons/containers/WhiteContainer.jsx'
 import ResultContent from '../components/commons/ResultContent.jsx';
 import ResultTitle from '../components/commons/ResultTitle.jsx';
 import Keyword from '../components/result/Keyword.jsx';
+import RelatedNews from '../components/result/RelatedNews.jsx';
 import useGameResultStore from '../stores/game/gameStore.jsx';
 
 const ResultPage = () => {
@@ -79,6 +80,9 @@ const ResultPage = () => {
             <TranslucentContainer>
               <div className="w-full border-4 border-blue-500 h-[500px]">
                 <ResultTitle title={'과거와 연결된 기사'} />
+                <div className="w-full p-10 border-4 border-yellow-500 ">
+                  <RelatedNews />
+                </div>
               </div>
             </TranslucentContainer>
           </div>
