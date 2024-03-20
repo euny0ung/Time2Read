@@ -1,4 +1,4 @@
-const baseUrl = 'https://9125c14e-7471-4d8d-b96f-f340673bb420.mock.pstmn.io';
+const baseUrl = process.env.REACT_APP_BASE_URL;
 
 // 선택한 연도의 키워드
 export const fetchYearSummary = async (year) => {
