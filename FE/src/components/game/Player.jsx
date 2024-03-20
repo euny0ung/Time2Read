@@ -64,6 +64,8 @@ const Player = () => {
   const playerRef = useRef(null);
   const [isBumped, setBumped] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [clueCount, setClueCount] = useState(0);
+  const [lifeCount, setLifeCount] = useState(0);
   const { forward, backward, left, right, jump } = usePersonControls();
   const rapier = useRapier();
   const assetArray = [
@@ -76,6 +78,7 @@ const Player = () => {
     'flamingo',
     'cardSoldier',
     'heartQueen',
+    'rabbit',
   ];
 
   const showModal = () => {
@@ -133,6 +136,13 @@ const Player = () => {
         onCollisionEnter={({ other }) => {
           if (assetArray.includes(other.rigidBodyObject.name)) {
             setBumped(true);
+          }
+          if (other.rigidBodyObject.name === 'clue') {
+            setClueCount(clueCount + 1);
+            // 충돌 이후 사라지게 하는 로직 추가 필요
+          }
+          if (other.rigidBodyObject.name === 'life') {
+            setLifeCount(lifeCount + 1);
           }
         }}
         onCollisionExit={({ other }) => {
