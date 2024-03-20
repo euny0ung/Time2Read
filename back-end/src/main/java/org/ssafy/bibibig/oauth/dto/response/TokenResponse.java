@@ -1,4 +1,4 @@
-package org.ssafy.bibibig.oauth.response;
+package org.ssafy.bibibig.oauth.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
