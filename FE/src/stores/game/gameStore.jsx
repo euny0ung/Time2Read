@@ -6,7 +6,7 @@ const useGameResultStore = create(
     gameResult: {
       correct: 0, // 맞은 개수
       incorrect: 0, // 틀린 개수
-      timeAttackTime: new Date().toISOString().slice(11, 19), // 타임 어택 시간
+      timeAttackTime: '', // 타임 어택 시간
     },
     setGameResult: (gameResult) => set({ gameResult }),
   })),

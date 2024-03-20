@@ -53,7 +53,7 @@ const ResultPage = () => {
                   <WhiteContainer>
                     <ResultTitle title={'타임 어택 시간'} />
                     <ResultContent>
-                      <div>{gameResult.timeAttackTime}</div>
+                      {gameResult.timeAttackTime ? <div>{gameResult.timeAttackTime}</div> : <div> 00:00:00 </div>}
                     </ResultContent>
                   </WhiteContainer>
                 </div>
