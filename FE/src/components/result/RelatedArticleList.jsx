@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const TITLE_LENGTH_LIMIT = 10; // 기사 제목울 특정길이만큼 나타내기
+const TITLE_LENGTH_LIMIT = 8; // 기사 제목울 특정길이만큼 나타내기
 
 const RelatedArticleList = () => {
   const articleList = [
@@ -74,9 +74,6 @@ const RelatedArticleList = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isToggleOn, setIsToggleOn] = useState(false);
 
-  // 스텝과 스텝 사이의 프로그래스 바 선의 너비를 계산에서 너비만큼씩 채워지게 할 것임
-  const filledLineWidth = `${(currentStep / (articleList.length - 1)) * 100}%`;
-
   const goToStep = (stepIndex) => {
     setCurrentStep(stepIndex);
   };
@@ -91,22 +88,50 @@ const RelatedArticleList = () => {
         {/* articleListContainer */}
         <div className="flex flex-col items-start w-full gap-2 p-5 text-white rounded-t-lg bg-gradient-to-br from-purple-400 to-indigo-500">
           <div className="text-lg">#1</div>
-          <div className="relative flex items-center justify-center w-full py-4 border-4 border-gray-500">
+          <div className="w-full border-4 border-gray-500 ">
             <div>
               {/* 프로그래스바 전체 컨테이너 */}
-              <div className="relative w-full px-5">
-                <div className="relative w-full h-1 bg-gray-200">
-                  {/* 프로그래스바 채워진 선 */}
+              <div className="relative w-full">
+                {/* 프로그래스바 원 위에 설명 - 연도 */}
+                <div className="flex justify-between w-full mt-2 ">
+                  {articleList.map((article, i) => {
+                    return (
+                      <div
+                        key={i}
+                        className="flex flex-col items-center cursor-pointer"
+                        onClick={() => {
+                          goToStep(i);
+                          setIsToggleOn(true);
+                        }}
+                        onKeyPress={(e) => {
+                          if (e.key === 'Enter') {
+                            goToStep(i);
+                            setIsToggleOn(true);
+                          }
+                        }}
+                        role="button"
+                        tabIndex={0}
+                      >
+                        <div className={`mt-2  ${i === currentStep ? 'text-indigo-700' : 'text-white'}`}>
+                          {article.time.substring(0, 4)}
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+                {/* 프로그래스바 선 및 원 */}
+                <div className="relative flex justify-between h-1 mx-1 bg-gray-200">
+                  {/* 프로그래스바 채워진 선 - tailwind는 동적 조절이 힘들어서 인라인 스타일에서 width 속성 설정함 */}
                   <div
                     className="absolute top-0 left-0 h-full transition-all duration-700 ease-in-out bg-indigo-700"
-                    style={{ width: filledLineWidth }}
+                    style={{ width: `calc(${(currentStep / (articleList.length - 1)) * 100}%)` }}
                   />
                   {/* 프로그래스바 원들 */}
                   {articleList.map((_, i) => (
                     <div
                       key={i}
                       className={`absolute top-0.5 z-10 flex items-center justify-center w-4 h-4 transform -translate-y-1/2 bg-white  rounded-full ${i <= currentStep ? 'bg-indigo-700' : 'bg-indigo-200'}`}
-                      style={{ left: `calc(${(100 / (articleList.length - 1)) * i}%)` }}
+                      style={{ left: `calc(${(i / (articleList.length - 1)) * 100}% - 0.5rem)` }}
                       onClick={() => {
                         goToStep(i);
                         setIsToggleOn(true);
@@ -114,7 +139,7 @@ const RelatedArticleList = () => {
                       onKeyPress={(e) => {
                         if (e.key === 'Enter') {
                           goToStep(i);
-                          setIsToggleOn(true); // 프로그래스 바 원 엔터 키 입력 시 토글 열림
+                          setIsToggleOn(true);
                         }
                       }}
                       role="button"
@@ -122,7 +147,7 @@ const RelatedArticleList = () => {
                     />
                   ))}
                 </div>
-                {/* 프로그래스바 원 아래 설명 */}
+                {/* 프로그래스바 원 아래 설명 - 타이틀 */}
                 <div className="flex justify-between w-full mt-2">
                   {articleList.map((article, i) => {
                     return (
@@ -144,7 +169,7 @@ const RelatedArticleList = () => {
                       >
                         <div className={`mt-2  ${i === currentStep ? 'text-indigo-700' : 'text-white'}`}>
                           {article.title.length > TITLE_LENGTH_LIMIT
-                            ? `${article.title.substring(0, 10)}...`
+                            ? `${article.title.substring(0, TITLE_LENGTH_LIMIT)}...`
                             : article.title}
                         </div>
                       </div>
