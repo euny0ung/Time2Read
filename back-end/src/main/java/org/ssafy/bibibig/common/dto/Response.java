@@ -27,4 +27,10 @@ public class Response<T> {
         Response<Void> response = new Response<>(status,null );
         return new ResponseEntity<>(response, errorCode.getStatus());
     }
+
+    public static ResponseEntity<Response<Void>> error(HttpStatus httpstatus, String message){
+        ResponseStatus status = new ResponseStatus("ERROR", httpstatus, message);
+        Response<Void> response = new Response<>(status,null );
+        return new ResponseEntity<>(response, httpstatus);
+    }
 }
