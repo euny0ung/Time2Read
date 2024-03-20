@@ -107,8 +107,16 @@ const RelatedArticleList = () => {
                       key={i}
                       className={`absolute top-0.5 z-10 flex items-center justify-center w-4 h-4 transform -translate-y-1/2 bg-white  rounded-full ${i <= currentStep ? 'bg-indigo-700' : 'bg-indigo-200'}`}
                       style={{ left: `calc(${(100 / (articleList.length - 1)) * i}%)` }}
-                      onClick={() => goToStep(i)}
-                      onKeyPress={(e) => e.key === 'Enter' && goToStep(i)}
+                      onClick={() => {
+                        goToStep(i);
+                        setIsToggleOn(true);
+                      }}
+                      onKeyPress={(e) => {
+                        if (e.key === 'Enter') {
+                          goToStep(i);
+                          setIsToggleOn(true); // 프로그래스 바 원 엔터 키 입력 시 토글 열림
+                        }
+                      }}
                       role="button"
                       tabIndex={0}
                     />
@@ -121,8 +129,16 @@ const RelatedArticleList = () => {
                       <div
                         key={i}
                         className="flex flex-col items-center cursor-pointer"
-                        onClick={() => goToStep(i)}
-                        onKeyPress={(e) => e.key === 'Enter' && goToStep(i)}
+                        onClick={() => {
+                          goToStep(i);
+                          setIsToggleOn(true);
+                        }}
+                        onKeyPress={(e) => {
+                          if (e.key === 'Enter') {
+                            goToStep(i);
+                            setIsToggleOn(true); // 프로그래스 바 원 엔터 키 입력 시 토글 열림
+                          }
+                        }}
                         role="button"
                         tabIndex={0}
                       >
