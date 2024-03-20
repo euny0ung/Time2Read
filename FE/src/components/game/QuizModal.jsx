@@ -1,9 +1,12 @@
-import { useState, useEffect } from 'react';
-import { useQuizStore } from '@stores/store';
+/* eslint-disable indent */
+import { useState, useEffect, useReducer } from 'react';
+import { useQuizStore, useHitsCountStore } from '@stores/store';
 
 const handleAnswerCheck = (inputValue, answer) => {
+  const { setHitsCount } = useHitsCountStore.getState();
+
   if (inputValue === answer) {
-    console.log('맞았습니다');
+    setHitsCount();
   } else {
     console.log('틀렸습니다');
   }
@@ -19,7 +22,6 @@ const FisherYatesShuffle = (answer) => {
   const array = answer.split('');
   for (let index = array.length - 1; index > 0; index -= 1) {
     const randomNum = Math.floor(Math.random() * (index + 1));
-
     const tempNum = array[index];
     array[index] = array[randomNum];
     array[randomNum] = tempNum;
@@ -28,38 +30,60 @@ const FisherYatesShuffle = (answer) => {
   return array;
 };
 
+const inputInitialState = {
+  inputAnswer: [],
+};
+
+const reducer = (state, action) => {
+  let updatedInput;
+
+  switch (action.type) {
+    case 'ADD_OR_REMOVE_INPUT': {
+      const { index, clickValue } = action.payload;
+
+      const isExist = state.inputAnswer.findIndex((answer) => answer.index === index);
+      // 이미 존재하는 경우 삭제
+      if (isExist >= 0) {
+        updatedInput = state.inputAnswer.filter((answer) => answer.index !== index);
+      }
+      // 존재하지 않는 경우 추가
+      else {
+        updatedInput = [...state.inputAnswer, { index, clickValue }];
+      }
+
+      return { ...state, inputAnswer: updatedInput };
+    }
+    default:
+      return state;
+  }
+};
+
 const AnagramQuiz = ({ answer, anagram }) => {
   const anagramButtonState = anagram.map(() => false);
 
   const [anagramColor, setAnagramColor] = useState(anagramButtonState);
-  const [inputAnswer, setInputAnswer] = useState([]);
+  const [state, dispatch] = useReducer(reducer, inputInitialState);
 
+  // 입력값에 변화가 생길 때마다 버튼 색 변경
   useEffect(() => {
-    if (answer.length === inputAnswer.length) {
-      handleAnswerCheck(inputAnswer.join(''), answer);
+    const updatedColor = anagram.map((_, index) => state.inputAnswer.some((input) => input.index === index));
+    setAnagramColor(updatedColor);
+
+    if (state.inputAnswer.length === answer.length) {
+      const result = state.inputAnswer.map((input) => input.clickValue).join('');
+
+      handleAnswerCheck(result, answer);
     }
-  }, [inputAnswer]);
+  }, [state.inputAnswer]);
 
   const handleAnagramAnswer = (e, clickValue, index) => {
-    let state = true;
-
-    // setAnagramColor 순서때문에 삭제 로직이 제대로 동작하지 않음
-    if (anagramColor[index]) {
-      state = false;
-      const removeInputAnswer = inputAnswer.filter((it) => it.id !== index);
-      setInputAnswer(removeInputAnswer);
-    }
-    // 클릭되지 않은 상태
-    else {
-      setInputAnswer((prev) => [...prev, clickValue]);
-    }
-    setAnagramColor((prev) => prev.map((prevItem, colorStateIndex) => (colorStateIndex === index ? state : prevItem)));
-
-    // [V] 클릭한 순서대로 화면에 답이 표시됨
-    // [] 한번 더 누르면 답 삭제
-    // [V] 해당 버튼 색 변경
-    // [V] 한번 더 누르면 원래 색으로 변경
-    // [V]입력한 글자수==정답 글자수일 때 정답 체크
+    dispatch({
+      type: 'ADD_OR_REMOVE_INPUT',
+      payload: {
+        index,
+        clickValue,
+      },
+    });
   };
 
   return (
@@ -75,15 +99,17 @@ const AnagramQuiz = ({ answer, anagram }) => {
           </button>
         ))}
       </div>
-      <div>{inputAnswer}</div>
+      <div>
+        {state.inputAnswer.map((input) => (
+          <span key={input.index}>{input.clickValue}</span>
+        ))}
+      </div>
     </div>
   );
 };
 
 const QuizModal = () => {
   const { quizzes } = useQuizStore();
-
-  console.log(quizzes);
 
   // title, content, id, image, imageCaption, quiz[answer, question, type]
   return (

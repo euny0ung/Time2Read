@@ -1,6 +1,6 @@
 // [V] 시작버튼 클릭시 해당 연도 퀴즈 API 호출
-//     [] 넘어오는 퀴즈 데이터 유형은 두가지 (O/X, 단어 뚫기)
-//     [] 클라이언트쪽에서는 퀴즈 유형이 ‘단어 뚫기’인 경우 랜덤으로 애너그램, 단어 뚫기 중 선택
+//     [V] 넘어오는 퀴즈 데이터 유형은 두가지 (O/X, 단어 뚫기)
+//     [V] 클라이언트쪽에서는 퀴즈 유형이 ‘단어 뚫기’인 경우 랜덤으로 애너그램, 단어 뚫기 중 선택
 // [] 위에서 아래로 떨어지는 효과 구현
 // [] 소셜 로그인
 //     [] 카카오 로그인 버튼
@@ -31,15 +31,16 @@ const useQuizApiHandler = () => {
 
   // API 호출, 페이지 이동, 퀴즈 데이터 저장
   const handleQuizApi = () => {
-    axios
-      .get(`${import.meta.env.VITE_QUIZ_API}/game?year=2024`)
-      .then((response) => {
-        setQuiz(response.data.article);
-        navigate('/game');
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    // axios
+    //   .get(`${import.meta.env.VITE_QUIZ_API}/game?year=2024`)
+    //   .then((response) => {
+    //     setQuiz(response.data.article);
+    //     navigate('/game');
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+    navigate('/game');
   };
 
   return handleQuizApi;

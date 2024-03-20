@@ -5,12 +5,9 @@ import Player from '@components/game/Player';
 import { OrbitControls, PointerLockControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { Physics } from '@react-three/rapier';
-import { useNavigate } from 'react-router-dom';
 
 const GamePage = () => {
   const [isPlayerMode, setIsPlayerMode] = useState(true); // 1인칭, 3인칭 모드 전환. 테스트할 때 편하라고 만듦
-
-  const navigate = useNavigate();
 
   return (
     <>
@@ -39,12 +36,6 @@ const GamePage = () => {
           onClick={() => setIsPlayerMode(!isPlayerMode)}
         >
           {isPlayerMode ? '3인칭 모드로 전환' : '1인칭 모드로 전환'}
-        </button>
-        <button
-          className="absolute top-3.5 left-2.5 bg-gray-500 text-white font-bold"
-          onClick={() => navigate('/result')}
-        >
-          결과페이지
         </button>
       </div>
     </>

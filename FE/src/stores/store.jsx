@@ -5,7 +5,7 @@ export const useQuizStore = create((set) => ({
   setQuiz: (quizObject) => set({ quizzes: quizObject }),
 }));
 
-export const useBooleanStore = create((set) => ({
-  booleanState: false,
-  setBooleanState: () => set((state) => ({ booleanState: !state.booleanState })),
+export const useHitsCountStore = create((set) => ({
+  hitsCount: 0,
+  setHitsCount: () => set((state) => ({ hitsCount: state.hitsCount + 1 })),
 }));
