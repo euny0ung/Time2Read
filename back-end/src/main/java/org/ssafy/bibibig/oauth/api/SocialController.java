@@ -1,6 +1,9 @@
 package org.ssafy.bibibig.oauth.api;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.util.LinkedMultiValueMap;
@@ -71,7 +74,7 @@ public class SocialController {
     }
 
     @PostMapping("/kakao/account")
-    private ResponseEntity<?> checkAuthentication(@RequestBody Map<String, String> requestBody){
+    private ResponseEntity<?> checkAuthentication(@RequestBody Map<String, String> requestBody, HttpServletRequest request){
         String token = requestBody.get("token");
 
 
@@ -99,11 +102,23 @@ public class SocialController {
             return ResponseEntity.ok("토큰 만료");
         }
 
-        MemberInfo memberInfo = MemberInfo.of(userResponse.getKakaoAccount().getName(), userResponse.getKakaoAccount().getEmail());
-        System.out.println(memberInfo);
-        // DB에 회원이 없으면 회원가입 처리
-        LoginResponse loginResponse = socialService.checkLogin(memberInfo);
+        MemberInfo memberInfo = MemberInfo.of(null,userResponse.getKakaoAccount().getName(), userResponse.getKakaoAccount().getEmail());
 
+        // DB에 회원이 없으면 회원가입 처리
+        memberInfo = socialService.checkLogin(memberInfo);
+
+        // 세션 발급
+        generateSession(memberInfo, request);
+
+        LoginResponse loginResponse = LoginResponse.of(memberInfo.getName());
         return ResponseEntity.ok(loginResponse);
+    }
+
+    private void generateSession(MemberInfo memberInfo, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        String sessionId = session.getId(); // 세션에 고유한 ID 설정
+        session.setAttribute("sessionId", sessionId);
+        session.setAttribute("id", memberInfo.getId());
+
     }
 }

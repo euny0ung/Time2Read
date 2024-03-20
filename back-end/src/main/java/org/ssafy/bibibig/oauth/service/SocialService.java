@@ -2,6 +2,7 @@ package org.ssafy.bibibig.oauth.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataAccessException;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.ssafy.bibibig.oauth.domain.Member;
@@ -13,18 +14,16 @@ import org.ssafy.bibibig.oauth.repository.MemberRepository;
 @RequiredArgsConstructor
 public class SocialService {
     private final MemberRepository memberRepository;
+    private HttpStatus httpStatus;
 
     @Transactional
-    public LoginResponse checkLogin (MemberInfo memberInfo) {
+    public MemberInfo checkLogin (MemberInfo memberInfo) {
         try {
-            if (memberRepository.existsByEmail(memberInfo.getEmail())) {
-                // 로그인 가능
-            } else {
-                // 회원가입
-                Member member = memberInfo.toEntity();
-                memberRepository.save(member);
-            }
-            return LoginResponse.of(memberInfo.getName());
+            Member member = memberRepository.findByEmail(memberInfo.getEmail())
+                    .orElseGet(() -> memberRepository.save(memberInfo.toEntity()));
+
+             return MemberInfo.from(member);
+
         } catch (DataAccessException e) {
             //todo 예외처리
             System.out.println("데이터 저장 시 예외");
@@ -35,4 +34,5 @@ public class SocialService {
         // todo 삭제 후 예외처리로 반환
         return null;
     }
+
 }
