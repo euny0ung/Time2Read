@@ -2,6 +2,7 @@
 import { useState, useEffect, useReducer } from 'react';
 import { useQuizStore, useHitsCountStore } from '@stores/store';
 
+// 정답을 체크하고 맞으면 정답 결과 개수를 하나 더 해줌
 const handleAnswerCheck = (inputValue, answer) => {
   const { setHitsCount } = useHitsCountStore.getState();
 
@@ -12,12 +13,14 @@ const handleAnswerCheck = (inputValue, answer) => {
   }
 };
 
+// 객관식 문제에서 엔터 누를 시 정답 체크
 const handleEnter = (e, answer) => {
   if (e.key === 'Enter') {
     handleAnswerCheck(e.target.value, answer);
   }
 };
 
+// 퀴즈 유형이 객관식인 경우, 랜덤 숫자를 생성하여 애너그램과 객관식으로 나눔. 편향 때문에 random 함수 대신 피셔-예이츠 셔플 알고리즘 사용
 const FisherYatesShuffle = (answer) => {
   const array = answer.split('');
   for (let index = array.length - 1; index > 0; index -= 1) {
@@ -34,6 +37,7 @@ const inputInitialState = {
   inputAnswer: [],
 };
 
+// 애너그램 클릭 상태 변경을 해주는 reducer
 const reducer = (state, action) => {
   let updatedInput;
 
@@ -58,6 +62,7 @@ const reducer = (state, action) => {
   }
 };
 
+// 애너그램 컴포넌트
 const AnagramQuiz = ({ answer, anagram }) => {
   const anagramButtonState = anagram.map(() => false);
 
