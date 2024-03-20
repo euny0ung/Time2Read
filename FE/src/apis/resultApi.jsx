@@ -1,4 +1,4 @@
-const baseUrl = process.env.REACT_APP_BASE_URL;
+const baseUrl = import.meta.env.VITE_BASE_URL;
 
 // 선택한 연도의 키워드
 export const fetchYearSummary = async (year) => {
