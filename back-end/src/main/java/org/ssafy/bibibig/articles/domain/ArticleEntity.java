@@ -9,7 +9,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
-import java.util.Set;
+import java.util.List;
 
 @Document(indexName = "hani-news-topic-index")
 @AllArgsConstructor
@@ -37,5 +37,5 @@ public class ArticleEntity {
     @Field(name = "작성시간", type = FieldType.Text)
     private String wroteAt;
     @Field(name = "키워드", type = FieldType.Text)
-    private Set<String> keywords;
+    private List<String> keywords;
 }

@@ -2,19 +2,19 @@ package org.ssafy.bibibig.quiz.fixture;
 
 import org.ssafy.bibibig.articles.domain.ArticleEntity;
 
-import java.util.Set;
+import java.util.List;
 
 public class ArticleEntityFixture {
-    public static ArticleEntity get(String content, Set<String> keywords) {
+    public static ArticleEntity get(String id, String content, String summary, List<String> keywords) {
         return new ArticleEntity(
-                "id",
+                id,
                 "1",
                 "title",
                 "main",
                 "sub",
                 content,
                 "image",
-                "summary",
+                summary,
                 "wroteAt",
                 keywords
         );

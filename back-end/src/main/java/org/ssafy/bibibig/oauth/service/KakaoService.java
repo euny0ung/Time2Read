@@ -20,6 +20,7 @@ public class KakaoService {
     @Value("${oauth.KAKAO_USER_INFO_REQUEST_URL}") String USER_INFO_REQUEST_URL;
     @Value("${oauth.KAKAO_SECURE_RESOURCE}") String SECURE_RESOURCE;
 
+    // TODO: [예지] Refactoring : 서비스 단에서 ResponseEntity는 모듈 분리에 어려움이 있음
     public ResponseEntity<TokenResponse> requestToken(String code){
         RestTemplate restTemplate = new RestTemplate();
 
