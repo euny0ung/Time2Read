@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { fetchYearSummary } from '../apis/resultApi.jsx';
+import { getYearSummary } from '../apis/resultApi.jsx';
 import ResultButton from '../components/commons/buttons/ResultButton.jsx';
 import TranslucentContainer from '../components/commons/containers/TranslucentContainer.jsx';
 import WhiteContainer from '../components/commons/containers/WhiteContainer.jsx';
@@ -28,18 +28,14 @@ const ResultPage = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const year = 2014; // 예시 연도
-        const data = await fetchYearSummary(year);
+    getYearSummary(2024)
+      .then((data) => {
         setKeywordData(data.keywords);
-        console.log(keywordData);
-      } catch (error) {
-        console.error('Error fetching keyword data:', error);
-      }
-    };
-
-    fetchData();
+        console.log('Year Summary Data:', data.keywords);
+      })
+      .catch((error) => {
+        console.error('Error requesting year summary:', error);
+      });
   }, []);
 
   return (
