@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.ssafy.bibibig.badge.domain.Badge;
+import org.ssafy.bibibig.scrap.domain.Scrap;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -32,13 +33,25 @@ public class Member {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Badge> badges;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Scrap> scraps;
 
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
     }
 
-    public static Member of(Long id, String name, String email, LocalDateTime createdAt, List<Badge>badges){
-        return new Member(id, name, email, createdAt, badges);
+    private Member(Long id, String name, String email, LocalDateTime createdAt){
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.createdAt = createdAt;
     }
+    public static Member of(Long id, String name, String email, LocalDateTime createdAt){
+        return new Member(id, name, email, createdAt);
+    }
+    public static Member of(Long id, String name, String email, LocalDateTime createdAt, List<Badge>badges, List<Scrap>scraps){
+        return new Member(id, name, email, createdAt, badges, scraps);
+    }
+
 }
