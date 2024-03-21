@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import * as RAPIER from '@dimforge/rapier3d-compat';
 import { useFrame } from '@react-three/fiber';
 import { RigidBody, useRapier } from '@react-three/rapier';
 import { Vector3 } from 'three';
 import QuizModal from './QuizModal.jsx';
+import usePersonControls from '../../hooks/usePersonControls.jsx';
 
 const MOVE_SPEED = 3;
 const JUMP_FORCE = 10;
@@ -15,49 +16,6 @@ const sideVector = new Vector3();
 // 나중에 hooks 파일로 옮길 것. player를 WADS키와 spacebar로 제어하는 함수
 // 현재 right가 안되는 현상 발견
 // 혜진이 누나 오면 질문 (현재 플레이어가 움직이는건 빨간 상자가 움직이는건지 아니면 카메라가 움직이는건지)
-const usePersonControls = () => {
-  const keys = {
-    KeyW: 'forward',
-    KeyS: 'backward',
-    KeyA: 'left',
-    KeyD: 'right',
-    Space: 'jump',
-  };
-
-  const moveFieldByKey = (key) => keys[key];
-
-  const [movement, setMovement] = useState({
-    forward: false,
-    backward: false,
-    left: false,
-    right: false,
-    jump: false,
-  });
-
-  const setMovementStaus = (code, status) => {
-    setMovement((m) => ({ ...m, [code]: status }));
-  };
-
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      setMovementStaus(moveFieldByKey(e.code), true);
-    };
-
-    const handleKeyUp = (e) => {
-      setMovementStaus(moveFieldByKey(e.code), false);
-    };
-
-    document.addEventListener('keydown', handleKeyDown);
-    document.addEventListener('keyup', handleKeyUp);
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-      document.removeEventListener('keyup', handleKeyUp);
-    };
-  }, []);
-
-  return movement;
-};
 
 // 미로 벽 막혔는지 테스트할 용도로 만들어놓은 빨간 큐브. 방향키로 움직일 수 있음
 const Player = () => {
@@ -139,7 +97,7 @@ const Player = () => {
 
     if (jump && grounded) doJump();
 
-    // 카메라 움직이기
+    // 카메라 위치 조정
     const { x, y, z } = playerRef.current.translation();
     state.camera.position.set(x - 4, y + 1, z - 13);
 

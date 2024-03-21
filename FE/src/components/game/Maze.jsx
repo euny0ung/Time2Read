@@ -5,11 +5,6 @@ import { RigidBody, CuboidCollider } from '@react-three/rapier';
 import { RepeatWrapping, TextureLoader, SRGBColorSpace } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
-// const Model = ({ url, position, rotation, scale }) => {
-//   const { scene } = useGLTF(url, true);
-//   return <primitive object={scene} position={position} rotation={rotation} scale={scale} />;
-// };
-
 const MazeModel = () => {
   const { scene } = useGLTF('maze/scene.gltf');
   const textureLoader = new TextureLoader();
