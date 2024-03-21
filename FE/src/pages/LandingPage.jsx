@@ -7,7 +7,7 @@
 //     [] 로그인시 로그인 버튼이 ‘마이 페이지’ 버튼으로 변경됨
 
 import { useState } from 'react';
-import { useQuizStore } from '@stores/store';
+import { useQuizStore } from '@stores/game/quizStore.jsx';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -31,16 +31,15 @@ const useQuizApiHandler = () => {
 
   // API 호출, 페이지 이동, 퀴즈 데이터 저장
   const handleQuizApi = () => {
-    // axios
-    //   .get(`${import.meta.env.VITE_QUIZ_API}/game?year=2024`)
-    //   .then((response) => {
-    //     setQuiz(response.data.article);
-    //     navigate('/game');
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-    navigate('/game');
+    axios
+      .get(`${import.meta.env.VITE_QUIZ_API}/game?year=2024`)
+      .then((response) => {
+        setQuiz(response.data.article);
+        navigate('/game');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return handleQuizApi;

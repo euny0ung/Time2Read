@@ -1,21 +1,29 @@
 /* eslint-disable indent */
 import { useState, useEffect, useReducer } from 'react';
-import { useQuizStore, useHitsCountStore } from '@stores/store';
+import AnswerCheckModal from '@components/commons/AnswerCheckModal';
+import { useQuizStore, useHitsCountStore, useAnswerCheckStore } from '@stores/game/quizStore';
 
 // 정답을 체크하고 맞으면 정답 결과 개수를 하나 더 해줌
 const handleAnswerCheck = (inputValue, answer) => {
-  const { setHitsCount } = useHitsCountStore.getState();
+  const hitsCountStore = useHitsCountStore.getState();
+  const answerCheckStore = useAnswerCheckStore.getState();
+  let answerResult = '';
 
   if (inputValue === answer) {
-    setHitsCount();
+    hitsCountStore.setHitsCount();
+    answerResult = '정답입니다';
   } else {
-    console.log('틀렸습니다');
+    answerResult = '오답입니다';
   }
+  answerCheckStore.actions.setOpenAnswerResult();
+  answerCheckStore.actions.setResultState(answerResult);
 };
 
 // 객관식 문제에서 엔터 누를 시 정답 체크
 const handleEnter = (e, answer) => {
   if (e.key === 'Enter') {
+    console.log('몇번호출이냐');
+    e.preventDefault();
     handleAnswerCheck(e.target.value, answer);
   }
 };
@@ -65,6 +73,7 @@ const reducer = (state, action) => {
 // 애너그램 컴포넌트
 const AnagramQuiz = ({ answer, anagram }) => {
   const anagramButtonState = anagram.map(() => false);
+  const { openAnswerResult, resultState } = useAnswerCheckStore();
 
   const [anagramColor, setAnagramColor] = useState(anagramButtonState);
   const [state, dispatch] = useReducer(reducer, inputInitialState);
@@ -109,12 +118,14 @@ const AnagramQuiz = ({ answer, anagram }) => {
           <span key={input.index}>{input.clickValue}</span>
         ))}
       </div>
+      {openAnswerResult && resultState !== '' && <AnswerCheckModal />}
     </div>
   );
 };
 
 const QuizModal = () => {
   const { quizzes } = useQuizStore();
+  const { openAnswerResult, resultState } = useAnswerCheckStore();
 
   // title, content, id, image, imageCaption, quiz[answer, question, type]
   return (
@@ -146,6 +157,7 @@ const QuizModal = () => {
                   X
                 </button>
               </div>
+              {openAnswerResult && resultState !== '' && <AnswerCheckModal />}
             </div>
           );
         }
@@ -181,6 +193,7 @@ const QuizModal = () => {
                 onKeyDown={(e) => handleEnter(e, it.quiz.answer)}
               />
             </div>
+            {openAnswerResult && resultState !== '' && <AnswerCheckModal />}
           </div>
         );
       })}

@@ -1,7 +1,11 @@
+import QuizModal from '@components/game/QuizModal';
+
 const ScrapPage = () => {
   return (
     <>
-      <div />
+      <div>
+        <QuizModal />
+      </div>
     </>
   );
 };
