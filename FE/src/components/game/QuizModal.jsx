@@ -118,7 +118,10 @@ const QuizModal = () => {
 
   // title, content, id, image, imageCaption, quiz[answer, question, type]
   return (
-    <div className="h-screen w-screen">
+    <div
+      className="h-screen w-screen absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-500 text-white font-bold py-2 px-4 rounded hover:bg-gray-700 focus:outline-none focus:shadow-outline"
+      style={{ width: '1480px', height: '824px', overflowY: 'auto' }}
+    >
       {quizzes.map((it) => {
         // O, X
         if (it.quiz.type === 'OX_QUIZ') {
@@ -189,22 +192,3 @@ const QuizModal = () => {
 };
 
 export default QuizModal;
-
-// import { Html } from '@react-three/drei';
-
-// const QuizModal = ({ setOpenModal, openModal }) => {
-//   const closeModal = () => {
-//     setOpenModal(false);
-//     console.log(openModal);
-//   };
-//   return (
-//     <>
-//       <Html>
-//         <div className="modal-container" style={{ width: '1280px', height: '768px', backgroundColor: 'white' }}>
-//           <button onClick={closeModal}>모달 닫기(임시용)</button>
-//           <p>모달창입니다. 이곳에는 퀴즈가 들어갈 예정입니다.</p>
-//         </div>
-//       </Html>
-//     </>
-//   );
-// };
