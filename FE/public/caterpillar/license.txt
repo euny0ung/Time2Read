@@ -1,0 +1,11 @@
+Model Information:
+* title:	Caterpillar
+* source:	https://sketchfab.com/3d-models/caterpillar-d3993c8f9f9949bab2dddd193d9fdaa7
+* author:	D3mtt (https://sketchfab.com/D3mtt)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Caterpillar" (https://sketchfab.com/3d-models/caterpillar-d3993c8f9f9949bab2dddd193d9fdaa7) by D3mtt (https://sketchfab.com/D3mtt) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)

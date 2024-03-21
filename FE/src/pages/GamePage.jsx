@@ -12,7 +12,7 @@ const GamePage = () => {
   return (
     <>
       <div className="w-screen h-screen overflow-hidden">
-        <Canvas>
+        <Canvas camera={{ position: [0, 10, 0] }}>
           {/* 환경 설정 */}
           {isPlayerMode ? <PointerLockControls /> : <OrbitControls />}
           <ambientLight intensity={0.5} />
