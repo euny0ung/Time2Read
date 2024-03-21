@@ -127,27 +127,29 @@ const Player = () => {
         lockRotations
         name="player"
         onCollisionEnter={({ other }) => {
-          if (assetArray.includes(other.rigidBodyObject.name)) {
+          const target = other.rigidBodyObject;
+          if (assetArray.includes(target.name)) {
             setBumped(true);
           }
-          if (other.rigidBodyObject.name === 'clue') {
+          if (target.name === 'clue') {
             setClueCount(clueCount + 1);
             // 충돌 이후 사라지게 하는 로직 추가 필요
-            if (other.rigidBodyObject.parent) {
-              other.rigidBodyObject.parent.remove(other.rigidBodyObject);
+            if (target.parent) {
+              target.parent.remove(target);
             }
-            other.rigidBodyObject.remove();
+            target.remove();
           }
-          if (other.rigidBodyObject.name === 'life') {
+          if (target.name === 'life') {
             setLifeCount(lifeCount + 1);
-            if (other.rigidBodyObject.parent) {
-              other.rigidBodyObject.parent.remove(other.rigidBodyObject);
+            if (target.parent) {
+              target.parent.remove(target);
             }
-            other.rigidBodyObject.remove();
+            target.remove();
           }
         }}
         onCollisionExit={({ other }) => {
-          if (assetArray.includes(other.rigidBodyObject.name)) {
+          const target = other.rigidBodyObject;
+          if (assetArray.includes(target.name)) {
             setBumped(false);
           }
         }}
