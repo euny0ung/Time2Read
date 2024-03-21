@@ -38,9 +38,7 @@ public class SocialController {
 
         memberInfo = socialService.checkLogin(memberInfo);
         generateSession(memberInfo, request);
-
         LoginResponse loginResponse = LoginResponse.of(memberInfo.getName());
-
         return Response.success(loginResponse);
     }
 

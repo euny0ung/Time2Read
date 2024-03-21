@@ -23,16 +23,14 @@ public class KakaoService {
     public ResponseEntity<TokenResponse> requestToken(String code){
         RestTemplate restTemplate = new RestTemplate();
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
-
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
+
         body.add("grant_type", "authorization_code");
         body.add("client_id", CLIENT_ID);
         body.add("redirect_uri", REDIRECT_URL);
         body.add("code", code);
 
-        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(body, headers);
+        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(body, header());
 
         return restTemplate.exchange(
                 TOKEN_REQUEST_URL,
@@ -45,8 +43,7 @@ public class KakaoService {
     public MemberInfo requestAccount(String token){
         RestTemplate restTemplate = new RestTemplate();
 
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        HttpHeaders headers = header();
         headers.setBearerAuth(token);
 
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
@@ -67,7 +64,11 @@ public class KakaoService {
         }
 
         return MemberInfo.of(null,userResponse.getKakaoAccount().getName(), userResponse.getKakaoAccount().getEmail());
+    }
 
-
+    private HttpHeaders header(){
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
+        return headers;
     }
 }
