@@ -1,4 +1,4 @@
-package org.ssafy.bibibig.quiz.applicaion.wordDefine;
+package org.ssafy.bibibig.quiz.utils;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
