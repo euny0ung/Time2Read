@@ -1,0 +1,11 @@
+Model Information:
+* title:	Talking Rose
+* source:	https://sketchfab.com/3d-models/talking-rose-6874a85d26df402d9ac91e5f8c1692c8
+* author:	pan.stasian (https://sketchfab.com/pan_stasian)
+
+Model License:
+* license type:	CC-BY-NC-SA-4.0 (http://creativecommons.org/licenses/by-nc-sa/4.0/)
+* requirements:	Author must be credited. No commercial use. Modified versions must have the same license.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Talking Rose" (https://sketchfab.com/3d-models/talking-rose-6874a85d26df402d9ac91e5f8c1692c8) by pan.stasian (https://sketchfab.com/pan_stasian) licensed under CC-BY-NC-SA-4.0 (http://creativecommons.org/licenses/by-nc-sa/4.0/)
