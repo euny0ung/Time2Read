@@ -4,8 +4,11 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.ssafy.bibibig.badge.domain.Badge;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -27,12 +30,15 @@ public class Member {
 
     // todo 카테고리별 해결 개수 저장
 
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Badge> badges;
+
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
     }
 
-    public static Member of(Long id, String name, String email, LocalDateTime createdAt){
-        return new Member(id, name, email, createdAt);
+    public static Member of(Long id, String name, String email, LocalDateTime createdAt, List<Badge>badges){
+        return new Member(id, name, email, createdAt, badges);
     }
 }

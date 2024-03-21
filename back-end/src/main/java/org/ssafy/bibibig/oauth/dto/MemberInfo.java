@@ -18,7 +18,7 @@ public class MemberInfo {
     }
 
     public Member toEntity(){
-        return Member.of(null, name, email,null);
+        return Member.of(id, name, email,null, null);
     }
 
     public static MemberInfo from(Member entity){
