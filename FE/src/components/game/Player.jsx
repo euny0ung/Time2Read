@@ -62,12 +62,18 @@ const usePersonControls = () => {
 // 미로 벽 막혔는지 테스트할 용도로 만들어놓은 빨간 큐브. 방향키로 움직일 수 있음
 const Player = () => {
   const playerRef = useRef(null);
+  const modalRef = useRef(null);
   const [isBumped, setBumped] = useState(false);
-  const [openModal, setOpenModal] = useState(false);
-  const [clueCount, setClueCount] = useState(0);
-  const [lifeCount, setLifeCount] = useState(0);
+  const [openQuizModal, setOpenQuizModal] = useState(false);
+  const [openGameOverModal, setOpenGameOverModal] = useState(false);
+  // clue는 기본적으로 5개
+  const [clueCount, setClueCount] = useState(5);
+  // life는 기본적으로 3개
+  const [lifeCount, setLifeCount] = useState(3);
+  const [isOver, setGameOver] = useState(false);
   const { forward, backward, left, right, jump } = usePersonControls();
   const rapier = useRapier();
+  const [playerDirection, setPlayerDirection] = useState(new Vector3());
   const assetArray = [
     'cat',
     'doorKnob',
@@ -82,14 +88,27 @@ const Player = () => {
   ];
 
   const showModal = () => {
-    if (isBumped && !openModal) {
-      setOpenModal(true);
+    if (isBumped && !openQuizModal) {
+      setOpenQuizModal(true);
     }
   };
 
   useEffect(() => {
     showModal();
   }, [isBumped]);
+
+  // lifeCount의 변화를 추적하면서 life가 0이 되면 게임종료 모달이 나오도록 한다.
+  const showGameOverModal = () => {
+    if (isOver && !openGameOverModal) {
+      setOpenGameOverModal(true);
+    }
+  };
+
+  useEffect(() => {
+    if (lifeCount === 0) {
+      setGameOver(true);
+    }
+  }, [lifeCount]);
 
   useFrame((state) => {
     if (!playerRef.current) return;
@@ -123,7 +142,23 @@ const Player = () => {
     // 카메라 움직이기
     const { x, y, z } = playerRef.current.translation();
     state.camera.position.set(x - 4, y + 1, z - 13);
+
+    // 플레이어가 바라보는 방향 업데이트
+    const lookAtVector = new Vector3();
+    state.camera.getWorldDirection(lookAtVector);
+    setPlayerDirection(lookAtVector);
   });
+
+  useEffect(() => {
+    if (modalRef.current && playerDirection) {
+      // 모달 위치 조정
+      // 플레이어부터 모달까지의 거리
+      const distance = 2;
+      const playerPosition = playerRef.current.translation();
+      const modalPosition = playerPosition.clone().add(playerDirection.clone().multiplyScalar(distance));
+      modalRef.current.position.copy(modalPosition);
+    }
+  }, [openQuizModal, playerDirection]);
 
   return (
     <>
@@ -140,9 +175,17 @@ const Player = () => {
           if (other.rigidBodyObject.name === 'clue') {
             setClueCount(clueCount + 1);
             // 충돌 이후 사라지게 하는 로직 추가 필요
+            if (other.rigidBodyObject.parent) {
+              other.rigidBodyObject.parent.remove(other.rigidBodyObject);
+            }
+            other.rigidBodyObject.remove();
           }
           if (other.rigidBodyObject.name === 'life') {
             setLifeCount(lifeCount + 1);
+            if (other.rigidBodyObject.parent) {
+              other.rigidBodyObject.parent.remove(other.rigidBodyObject);
+            }
+            other.rigidBodyObject.remove();
           }
         }}
         onCollisionExit={({ other }) => {
@@ -156,7 +199,8 @@ const Player = () => {
           <meshStandardMaterial color="red" />
         </mesh>
       </RigidBody>
-      {openModal && <QuizModal setOpenModal={setOpenModal} openModal={openModal} />}
+      {openQuizModal && <QuizModal ref={modalRef} setOpenModal={setOpenQuizModal} openModal={openQuizModal} />}
+      {/* {openGameOverModal} */}
     </>
   );
 };
