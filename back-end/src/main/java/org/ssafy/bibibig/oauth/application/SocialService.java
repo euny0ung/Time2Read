@@ -1,4 +1,4 @@
-package org.ssafy.bibibig.oauth.service;
+package org.ssafy.bibibig.oauth.application;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -7,7 +7,7 @@ import org.ssafy.bibibig.common.dto.ErrorCode;
 import org.ssafy.bibibig.common.exception.CommonException;
 import org.ssafy.bibibig.oauth.domain.Member;
 import org.ssafy.bibibig.oauth.dto.MemberInfo;
-import org.ssafy.bibibig.oauth.repository.MemberRepository;
+import org.ssafy.bibibig.oauth.dao.MemberRepository;
 
 @Service
 @RequiredArgsConstructor
