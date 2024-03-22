@@ -4,8 +4,10 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.elasticsearch.annotations.CountQuery;
 import org.ssafy.bibibig.badge.domain.Badge;
 import org.ssafy.bibibig.scrap.domain.Scrap;
+import org.ssafy.bibibig.solvedCount.domain.SolvedCategories;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -29,7 +31,9 @@ public class Member {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    // todo 카테고리별 해결 개수 저장
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "solved_categories_id")
+    private SolvedCategories solvedCategories;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Badge> badges;
@@ -50,8 +54,4 @@ public class Member {
     public static Member of(Long id, String name, String email, LocalDateTime createdAt){
         return new Member(id, name, email, createdAt);
     }
-    public static Member of(Long id, String name, String email, LocalDateTime createdAt, List<Badge>badges, List<Scrap>scraps){
-        return new Member(id, name, email, createdAt, badges, scraps);
-    }
-
 }
