@@ -4,13 +4,12 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.data.elasticsearch.annotations.CountQuery;
 import org.ssafy.bibibig.badge.domain.Badge;
 import org.ssafy.bibibig.scrap.domain.Scrap;
 import org.ssafy.bibibig.solvedCount.domain.SolvedCategories;
+import org.ssafy.bibibig.solvedRecode.domain.SolvedRecords;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -39,7 +38,8 @@ public class Member {
     private List<Badge> badges;
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Scrap> scraps;
-
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<SolvedRecords> solvedRecords;
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
