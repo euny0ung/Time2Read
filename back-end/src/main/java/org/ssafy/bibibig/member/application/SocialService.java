@@ -1,13 +1,13 @@
-package org.ssafy.bibibig.oauth.application;
+package org.ssafy.bibibig.member.application;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.ssafy.bibibig.common.dto.ErrorCode;
 import org.ssafy.bibibig.common.exception.CommonException;
-import org.ssafy.bibibig.oauth.domain.Member;
-import org.ssafy.bibibig.oauth.dto.MemberInfo;
-import org.ssafy.bibibig.oauth.dao.MemberRepository;
+import org.ssafy.bibibig.member.domain.Member;
+import org.ssafy.bibibig.member.dto.MemberInfo;
+import org.ssafy.bibibig.member.dao.MemberRepository;
 
 @Service
 @RequiredArgsConstructor

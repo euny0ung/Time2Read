@@ -1,20 +1,16 @@
-package org.ssafy.bibibig.scrap.domain;
+package org.ssafy.bibibig.member.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-import org.elasticsearch.monitor.os.OsStats;
-import org.ssafy.bibibig.badge.domain.Badge;
-import org.ssafy.bibibig.oauth.domain.Member;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Table(name="scraped_article")
 @AllArgsConstructor
 @NoArgsConstructor
-public class Scrap {
+public class ScrapedArticle {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,8 +28,8 @@ public class Scrap {
     protected void onCreate() {
         createdAt = LocalDateTime.now();
     }
-    public static Scrap of(Long id, Long articleId, LocalDateTime createdAt, Member member){
-        return new Scrap(id, articleId, createdAt, member);
+    public static ScrapedArticle of(Long id, Long articleId, LocalDateTime createdAt, Member member){
+        return new ScrapedArticle(id, articleId, createdAt, member);
     }
 
 }

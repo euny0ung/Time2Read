@@ -1,14 +1,10 @@
-package org.ssafy.bibibig.oauth.domain;
+package org.ssafy.bibibig.member.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.ssafy.bibibig.badge.domain.Badge;
-import org.ssafy.bibibig.scrap.domain.Scrap;
-import org.ssafy.bibibig.solvedCount.domain.SolvedCategories;
-import org.ssafy.bibibig.solvedRecode.domain.SolvedRecords;
-import org.ssafy.bibibig.timeAttact.domain.TimeAttacks;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -38,7 +34,7 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Badge> badges;
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Scrap> scraps;
+    private List<ScrapedArticle> scraps;
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<SolvedRecords> solvedRecords;
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

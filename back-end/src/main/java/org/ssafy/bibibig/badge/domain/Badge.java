@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.ssafy.bibibig.oauth.domain.Member;
+import org.ssafy.bibibig.member.domain.Member;
 
 import java.time.LocalDateTime;
 

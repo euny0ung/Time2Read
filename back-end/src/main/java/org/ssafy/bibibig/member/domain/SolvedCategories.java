@@ -1,14 +1,11 @@
-package org.ssafy.bibibig.solvedCount.domain;
+package org.ssafy.bibibig.member.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.ssafy.bibibig.badge.domain.Badge;
-import org.ssafy.bibibig.scrap.domain.Scrap;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
 @Getter

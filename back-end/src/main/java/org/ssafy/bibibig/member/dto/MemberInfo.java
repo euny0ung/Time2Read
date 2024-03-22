@@ -1,9 +1,9 @@
-package org.ssafy.bibibig.oauth.dto;
+package org.ssafy.bibibig.member.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
-import org.ssafy.bibibig.oauth.domain.Member;
+import org.ssafy.bibibig.member.domain.Member;
 
 @AllArgsConstructor
 @Getter

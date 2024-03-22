@@ -1,4 +1,4 @@
-package org.ssafy.bibibig.oauth.application;
+package org.ssafy.bibibig.member.application;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -8,9 +8,9 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.ssafy.bibibig.common.dto.ErrorCode;
 import org.ssafy.bibibig.common.exception.CommonException;
-import org.ssafy.bibibig.oauth.dto.MemberInfo;
-import org.ssafy.bibibig.oauth.dto.response.TokenResponse;
-import org.ssafy.bibibig.oauth.dto.response.UserResponse;
+import org.ssafy.bibibig.member.dto.MemberInfo;
+import org.ssafy.bibibig.member.dto.response.TokenResponse;
+import org.ssafy.bibibig.member.dto.response.UserResponse;
 
 @Service
 public class KakaoService {

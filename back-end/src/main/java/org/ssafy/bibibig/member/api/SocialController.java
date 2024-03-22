@@ -1,15 +1,15 @@
-package org.ssafy.bibibig.oauth.api;
+package org.ssafy.bibibig.member.api;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.ssafy.bibibig.common.dto.Response;
-import org.ssafy.bibibig.oauth.dto.MemberInfo;
-import org.ssafy.bibibig.oauth.dto.response.LoginResponse;
-import org.ssafy.bibibig.oauth.application.KakaoService;
-import org.ssafy.bibibig.oauth.application.SocialService;
-import org.ssafy.bibibig.oauth.dto.response.TokenResponse;
+import org.ssafy.bibibig.member.dto.MemberInfo;
+import org.ssafy.bibibig.member.dto.response.LoginResponse;
+import org.ssafy.bibibig.member.application.KakaoService;
+import org.ssafy.bibibig.member.application.SocialService;
+import org.ssafy.bibibig.member.dto.response.TokenResponse;
 
 import java.util.Map;
 
