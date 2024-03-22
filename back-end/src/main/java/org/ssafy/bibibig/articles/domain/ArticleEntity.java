@@ -1,14 +1,17 @@
 package org.ssafy.bibibig.articles.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.elasticsearch.annotations.DateFormat;
 import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Document(indexName = "hani-news-topic-index")
@@ -34,8 +37,8 @@ public class ArticleEntity {
     private String image;
     @Field(name = "요약", type = FieldType.Text)
     private String summary;
-    @Field(name = "작성시간", type = FieldType.Text)
-    private String wroteAt;
+    @Field(name = "작성시간", type = FieldType.Date, format = DateFormat.custom, pattern = "yyyy-MM-dd HH:mm")
+    private LocalDateTime wroteAt;
     @Field(name = "키워드", type = FieldType.Text)
     private List<String> keywords;
 }
