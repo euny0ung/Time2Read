@@ -62,9 +62,18 @@ export const useGameModalStore = create((set) => ({
   isBumped: false, // 객체와 충돌여부를 확인하는 변수
   openQuizModal: false, // 퀴즈 모달이 열리는지 확인하는 변수
   openGameOverModal: false, // 게임 종료 모달이 열리는지 확인하는 변수
+  isOver: false, // 게임 종료 여부를 확인하는 변수
   setBumped: (value) => set({ isBumped: value }),
   setOpenQuizModal: (value) => set({ openQuizModal: value }),
   setOpenGameOverModal: (value) => set({ openGameOverModal: value }),
+  setGameOver: (value) => set({ isOver: value }),
+}));
+
+export const useGameItemStore = create((set) => ({
+  clueCount: 5,
+  lifeCount: 3,
+  setClueCount: (value) => set({ clueCount: value }),
+  setLifeCount: (value) => set({ lifeCount: value }),
 }));
 
 export default useGameResultStore;
