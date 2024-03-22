@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.ssafy.bibibig.badge.domain.Badge;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -52,5 +51,31 @@ public class Member {
     }
     public static Member of(Long id, String name, String email, LocalDateTime createdAt){
         return new Member(id, name, email, createdAt);
+    }
+
+    @Entity
+    @Getter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Table(name="badge")
+    public static class Badge {
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @Column(name = "id")
+        private Long id;
+        private int year;
+        private int count;
+        @Column(name = "created_at")
+        private LocalDateTime createdAt;
+
+        @ManyToOne
+        @JoinColumn(name = "member_id")
+        private Member member;
+
+        @PrePersist
+        protected void onCreate() {
+            createdAt = LocalDateTime.now();
+        }
+
     }
 }
