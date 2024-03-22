@@ -6,6 +6,7 @@ import CloseToggle from '../../assets/toggle/closeToggle.png';
 import OpenToggle from '../../assets/toggle/openToggle.png';
 
 import ImageComponent from '../commons/ImageComponent.jsx';
+import Tooltip from '../commons/Tooltip.jsx';
 
 // 특정 문제에 대한 관련 기사 그룹을 렌더링
 const QuizArticleGroup = ({ relatedArticles, num }) => {
@@ -51,7 +52,7 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
                   return (
                     <div
                       key={i}
-                      className={`flex flex-col items-center truncate cursor-pointer ${i === currentStep ? 'text-indigo-700' : 'text-white'}`}
+                      className={`truncate cursor-pointer ${i === currentStep ? 'text-indigo-700' : 'text-white'}`}
                       onClick={() => {
                         goToStep(i);
                         setIsToggleOn(true);
@@ -105,24 +106,31 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
               <div className="flex justify-between w-full">
                 {relatedArticles.map((article, i) => {
                   return (
-                    <div
-                      key={i}
-                      className={`flex flex-col items-center truncate cursor-pointer ${i === currentStep ? 'text-indigo-700' : 'text-white'}`}
-                      onClick={() => {
-                        goToStep(i);
-                        setIsToggleOn(true);
-                      }}
-                      onKeyPress={(e) => {
-                        if (e.key === 'Enter') {
+                    <Tooltip
+                      key={article.id}
+                      text={article.title}
+                      image={<ImageComponent src={article.image} alt={article.imageCaption} />}
+                    >
+                      <div
+                        key={i}
+                        className={` truncate cursor-pointer flex-grow flex-shrink ${i === currentStep ? 'text-indigo-700' : 'text-white'}`}
+                        style={{ maxWidth: `calc(${200 / relatedArticles.length}px)` }}
+                        onClick={() => {
                           goToStep(i);
                           setIsToggleOn(true);
-                        }
-                      }}
-                      role="button"
-                      tabIndex={0}
-                    >
-                      {article.title}
-                    </div>
+                        }}
+                        onKeyPress={(e) => {
+                          if (e.key === 'Enter') {
+                            goToStep(i);
+                            setIsToggleOn(true);
+                          }
+                        }}
+                        role="button"
+                        tabIndex={0}
+                      >
+                        {article.title}
+                      </div>
+                    </Tooltip>
                   );
                 })}
               </div>
