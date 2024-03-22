@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.ssafy.bibibig.badge.domain.Badge;
 
 import java.time.LocalDateTime;
 import java.util.List;

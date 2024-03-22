@@ -1,10 +1,9 @@
-package org.ssafy.bibibig.badge.domain;
+package org.ssafy.bibibig.member.domain;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.ssafy.bibibig.member.domain.Member;
 
 import java.time.LocalDateTime;
 
