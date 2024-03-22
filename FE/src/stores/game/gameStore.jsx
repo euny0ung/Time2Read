@@ -57,3 +57,14 @@ export const useGameResultStore = create(
     setGameResult: (gameResult) => set({ gameResult }),
   })),
 );
+
+export const useGameModalStore = create((set) => ({
+  isBumped: false, // 객체와 충돌여부를 확인하는 변수
+  openQuizModal: false, // 퀴즈 모달이 열리는지 확인하는 변수
+  openGameOverModal: false, // 게임 종료 모달이 열리는지 확인하는 변수
+  setBumped: (value) => set({ isBumped: value }),
+  setOpenQuizModal: (value) => set({ openQuizModal: value }),
+  setOpenGameOverModal: (value) => set({ openGameOverModal: value }),
+}));
+
+export default useGameResultStore;

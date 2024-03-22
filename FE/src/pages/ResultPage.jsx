@@ -1,5 +1,9 @@
 import { useState, useEffect } from 'react';
+<<<<<<< 758e90eab101a579f891fbb85c3e4e56e5e330c9
 import { fetchYearSummary, postRelationArticles } from '../apis/resultApi.jsx';
+=======
+import { getYearSummary } from '../apis/resultApi.jsx';
+>>>>>>> 40a0efde56fc681269c350645f6cd6bbd668b784
 import ResultButton from '../components/commons/buttons/ResultButton.jsx';
 import TranslucentContainer from '../components/commons/containers/TranslucentContainer.jsx';
 import WhiteContainer from '../components/commons/containers/WhiteContainer.jsx';
@@ -32,11 +36,10 @@ const ResultPage = () => {
   };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const year = 2014; // 예시 연도
-        const data = await fetchYearSummary(year);
+    getYearSummary(2024)
+      .then((data) => {
         setKeywordData(data.keywords);
+<<<<<<< 758e90eab101a579f891fbb85c3e4e56e5e330c9
         console.log(keywordData);
       } catch (error) {
         console.error('Error fetching keyword data:', error);
@@ -51,6 +54,12 @@ const ResultPage = () => {
       })
       .catch((error) => {
         console.error('Error requesting relation articles:', error);
+=======
+        console.log('Year Summary Data:', data.keywords);
+      })
+      .catch((error) => {
+        console.error('Error requesting year summary:', error);
+>>>>>>> 40a0efde56fc681269c350645f6cd6bbd668b784
       });
   }, []);
 
