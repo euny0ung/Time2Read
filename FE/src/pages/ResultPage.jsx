@@ -1,9 +1,5 @@
 import { useState, useEffect } from 'react';
-<<<<<<< 758e90eab101a579f891fbb85c3e4e56e5e330c9
-import { fetchYearSummary, postRelationArticles } from '../apis/resultApi.jsx';
-=======
-import { getYearSummary } from '../apis/resultApi.jsx';
->>>>>>> 40a0efde56fc681269c350645f6cd6bbd668b784
+import { getYearSummary, postRelationArticles } from '../apis/resultApi.jsx';
 import ResultButton from '../components/commons/buttons/ResultButton.jsx';
 import TranslucentContainer from '../components/commons/containers/TranslucentContainer.jsx';
 import WhiteContainer from '../components/commons/containers/WhiteContainer.jsx';
@@ -11,7 +7,6 @@ import ResultContent from '../components/commons/ResultContent.jsx';
 import ResultTitle from '../components/commons/ResultTitle.jsx';
 import Articles from '../components/result/Articles.jsx';
 import Keyword from '../components/result/Keyword.jsx';
-import QuizArticleGroup from '../components/result/QuizArticleGroup.jsx';
 import { useChallengedArticleStore, useGameResultStore } from '../stores/game/gameStore.jsx';
 
 const ResultPage = () => {
@@ -39,14 +34,11 @@ const ResultPage = () => {
     getYearSummary(2024)
       .then((data) => {
         setKeywordData(data.keywords);
-<<<<<<< 758e90eab101a579f891fbb85c3e4e56e5e330c9
-        console.log(keywordData);
-      } catch (error) {
-        console.error('Error fetching keyword data:', error);
-      }
-    };
-
-    fetchData();
+        console.log('Year Summary Data:', data.keywords);
+      })
+      .catch((error) => {
+        console.error('Error requesting year summary:', error);
+      });
 
     postRelationArticles([challengeArticlesIdList])
       .then((data) => {
@@ -54,12 +46,6 @@ const ResultPage = () => {
       })
       .catch((error) => {
         console.error('Error requesting relation articles:', error);
-=======
-        console.log('Year Summary Data:', data.keywords);
-      })
-      .catch((error) => {
-        console.error('Error requesting year summary:', error);
->>>>>>> 40a0efde56fc681269c350645f6cd6bbd668b784
       });
   }, []);
 
