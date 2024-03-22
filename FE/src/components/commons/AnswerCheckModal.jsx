@@ -28,7 +28,7 @@ const AnswerCheckModal = () => {
 
       return () => clearTimeout(timeout);
     }
-  }, [opacity, answerCheckStore.actions.setOpenAnswerResult]); // 의존성 배열에 setOpenAnswerResult 추가
+  }, [opacity]); // 의존성 배열에 setOpenAnswerResult 추가
 
   return (
     <>
