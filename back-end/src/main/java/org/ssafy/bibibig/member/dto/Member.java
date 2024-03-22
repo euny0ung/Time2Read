@@ -8,21 +8,21 @@ import org.ssafy.bibibig.member.domain.MemberEntity;
 @AllArgsConstructor
 @Getter
 @ToString
-public class MemberInfo {
+public class Member {
     private Long id;
     private String name;
     private String email;
 
-    public static MemberInfo of(Long id, String name, String email){
-        return new MemberInfo(id, name, email);
+    public static Member of(Long id, String name, String email){
+        return new Member(id, name, email);
     }
 
     public MemberEntity toEntity(){
         return MemberEntity.of(id, name, email,null);
     }
 
-    public static MemberInfo from(MemberEntity entity){
-        return MemberInfo.of(
+    public static Member from(MemberEntity entity){
+        return Member.of(
                 entity.getId(),
                 entity.getName(),
                 entity.getEmail()

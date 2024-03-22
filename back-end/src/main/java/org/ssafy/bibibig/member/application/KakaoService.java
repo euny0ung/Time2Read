@@ -8,7 +8,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.ssafy.bibibig.common.dto.ErrorCode;
 import org.ssafy.bibibig.common.exception.CommonException;
-import org.ssafy.bibibig.member.dto.MemberInfo;
+import org.ssafy.bibibig.member.dto.Member;
 import org.ssafy.bibibig.member.dto.response.TokenResponse;
 import org.ssafy.bibibig.member.dto.response.UserResponse;
 
@@ -49,7 +49,7 @@ public class KakaoService {
         return responseEntity.getBody();
     }
 
-    public MemberInfo requestAccount(String token){
+    public Member requestAccount(String token){
         RestTemplate restTemplate = new RestTemplate();
 
         HttpHeaders headers = header();
@@ -72,7 +72,7 @@ public class KakaoService {
             throw new CommonException(ErrorCode.INVALID_TOKEN);
         }
 
-        return MemberInfo.of(null,userResponse.getKakaoAccount().getName(), userResponse.getKakaoAccount().getEmail());
+        return Member.of(null,userResponse.getKakaoAccount().getName(), userResponse.getKakaoAccount().getEmail());
     }
 
     private HttpHeaders header(){
