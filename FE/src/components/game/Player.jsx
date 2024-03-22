@@ -7,7 +7,7 @@ import usePersonControls from '../../hooks/usePersonControls.jsx';
 import { useGameModalStore } from '../../stores/game/gameStore.jsx';
 
 const MOVE_SPEED = 3;
-const JUMP_FORCE = 2;
+const JUMP_FORCE = 10;
 const direction = new Vector3();
 const frontVector = new Vector3();
 const sideVector = new Vector3();
@@ -136,11 +136,10 @@ const Player = () => {
         }}
       >
         <mesh position={[-4, 0, -13]}>
-          <boxGeometry args={[0.3, 0.3, 0.3]} />
+          <boxGeometry args={[0.6, 0.6, 0.6]} />
           <meshStandardMaterial color="red" />
         </mesh>
       </RigidBody>
-      {/* {openQuizModal && <QuizModal setOpenModal={setOpenQuizModal} openModal={openQuizModal} />} */}
       {/* {openGameOverModal} */}
     </>
   );
