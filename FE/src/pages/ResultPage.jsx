@@ -1,30 +1,41 @@
 import { useState, useEffect } from 'react';
-import { fetchYearSummary } from '../apis/resultApi.jsx';
+import { getYearSummary } from '../apis/resultApi.jsx';
 import ResultButton from '../components/commons/buttons/ResultButton.jsx';
 import TranslucentContainer from '../components/commons/containers/TranslucentContainer.jsx';
 import WhiteContainer from '../components/commons/containers/WhiteContainer.jsx';
 import ResultContent from '../components/commons/ResultContent.jsx';
 import ResultTitle from '../components/commons/ResultTitle.jsx';
 import Keyword from '../components/result/Keyword.jsx';
+import RelatedArticleList from '../components/result/RelatedArticleList.jsx';
 import useGameResultStore from '../stores/game/gameStore.jsx';
 
 const ResultPage = () => {
   const { gameResult } = useGameResultStore();
   const [keywordData, setKeywordData] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const year = 2014; // 예시 연도
-        const data = await fetchYearSummary(year);
-        setKeywordData(data.keywords);
-        console.log(keywordData);
-      } catch (error) {
-        console.error('Error fetching keyword data:', error);
-      }
-    };
+  const news = {
+    id: '',
+    copyRight: '',
+    mainCategory: '',
+    subCategory: '',
+    time: '',
+    title: '',
+    image: '',
+    imageCaption: '',
+    content: '',
+    summary: '',
+    url: '',
+  };
 
-    fetchData();
+  useEffect(() => {
+    getYearSummary(2024)
+      .then((data) => {
+        setKeywordData(data.keywords);
+        console.log('Year Summary Data:', data.keywords);
+      })
+      .catch((error) => {
+        console.error('Error requesting year summary:', error);
+      });
   }, []);
 
   return (
@@ -77,9 +88,8 @@ const ResultPage = () => {
             </div>
             {/* relatednewsbox */}
             <TranslucentContainer>
-              <div className="w-full border-4 border-blue-500 h-[500px]">
-                <ResultTitle title={'과거와 연결된 기사'} />
-              </div>
+              <ResultTitle title={'과거와 연결된 기사'} />
+              <RelatedArticleList />
             </TranslucentContainer>
           </div>
         </div>
