@@ -213,7 +213,7 @@ const Articles = () => {
   return (
     <>
       {quizArticlegroup.map((group, index) => (
-        <QuizArticleGroup key={index} relatedArticles={group} num={index + 1} />
+        <QuizArticleGroup key={group.id} relatedArticles={group} num={index + 1} />
       ))}
     </>
   );
