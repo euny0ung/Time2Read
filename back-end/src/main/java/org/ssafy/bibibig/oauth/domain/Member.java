@@ -8,6 +8,7 @@ import org.ssafy.bibibig.badge.domain.Badge;
 import org.ssafy.bibibig.scrap.domain.Scrap;
 import org.ssafy.bibibig.solvedCount.domain.SolvedCategories;
 import org.ssafy.bibibig.solvedRecode.domain.SolvedRecords;
+import org.ssafy.bibibig.timeAttact.domain.TimeAttacks;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -40,6 +41,8 @@ public class Member {
     private List<Scrap> scraps;
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<SolvedRecords> solvedRecords;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<TimeAttacks> timeAttacks;
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
