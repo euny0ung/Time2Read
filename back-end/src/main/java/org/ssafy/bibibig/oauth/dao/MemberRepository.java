@@ -1,4 +1,4 @@
-package org.ssafy.bibibig.oauth.repository;
+package org.ssafy.bibibig.oauth.dao;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.ssafy.bibibig.oauth.domain.Member;

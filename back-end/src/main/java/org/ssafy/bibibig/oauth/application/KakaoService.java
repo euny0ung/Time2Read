@@ -1,4 +1,4 @@
-package org.ssafy.bibibig.oauth.service;
+package org.ssafy.bibibig.oauth.application;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import org.ssafy.bibibig.common.dto.ErrorCode;
+import org.ssafy.bibibig.common.exception.CommonException;
 import org.ssafy.bibibig.oauth.dto.MemberInfo;
 import org.ssafy.bibibig.oauth.dto.response.TokenResponse;
 import org.ssafy.bibibig.oauth.dto.response.UserResponse;
@@ -13,15 +15,20 @@ import org.ssafy.bibibig.oauth.dto.response.UserResponse;
 @Service
 public class KakaoService {
 
-    @Value("${oauth.KAKAO_CLIENT_ID}") String CLIENT_ID;
-    @Value("${oauth.KAKAO_AUTHORIZE_URL}") String AUTHORIZE_URL;
-    @Value("${oauth.KAKAO_REDIRECT_URL}") String REDIRECT_URL;
-    @Value("${oauth.KAKAO_TOKEN_REQUEST_URL}") String TOKEN_REQUEST_URL;
-    @Value("${oauth.KAKAO_USER_INFO_REQUEST_URL}") String USER_INFO_REQUEST_URL;
-    @Value("${oauth.KAKAO_SECURE_RESOURCE}") String SECURE_RESOURCE;
+    @Value("${oauth.KAKAO_CLIENT_ID}")
+    String CLIENT_ID;
+    @Value("${oauth.KAKAO_AUTHORIZE_URL}")
+    String AUTHORIZE_URL;
+    @Value("${oauth.KAKAO_REDIRECT_URL}")
+    String REDIRECT_URL;
+    @Value("${oauth.KAKAO_TOKEN_REQUEST_URL}")
+    String TOKEN_REQUEST_URL;
+    @Value("${oauth.KAKAO_USER_INFO_REQUEST_URL}")
+    String USER_INFO_REQUEST_URL;
+    @Value("${oauth.KAKAO_SECURE_RESOURCE}")
+    String SECURE_RESOURCE;
 
-    // TODO: [예지] Refactoring : 서비스 단에서 ResponseEntity는 모듈 분리에 어려움이 있음
-    public ResponseEntity<TokenResponse> requestToken(String code){
+    public TokenResponse requestToken(String code){
         RestTemplate restTemplate = new RestTemplate();
 
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
@@ -33,12 +40,13 @@ public class KakaoService {
 
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(body, header());
 
-        return restTemplate.exchange(
+        ResponseEntity<TokenResponse> responseEntity = restTemplate.exchange(
                 TOKEN_REQUEST_URL,
                 HttpMethod.POST,
                 requestEntity,
                 TokenResponse.class
         );
+        return responseEntity.getBody();
     }
 
     public MemberInfo requestAccount(String token){
@@ -61,7 +69,7 @@ public class KakaoService {
         );
         UserResponse userResponse = responseEntity.getBody();
         if(userResponse==null){
-            return null;
+            throw new CommonException(ErrorCode.INVALID_TOKEN);
         }
 
         return MemberInfo.of(null,userResponse.getKakaoAccount().getName(), userResponse.getKakaoAccount().getEmail());
