@@ -4,26 +4,28 @@ import AnswerCheckModal from '@components/commons/AnswerCheckModal';
 import { useQuizStore, useHitsCountStore, useAnswerCheckStore } from '@stores/game/quizStore';
 import { useGameModalStore } from '../../stores/game/gameStore.jsx';
 
-// 정답을 체크하고 맞으면 정답 결과 개수를 하나 더 해줌
+let quizIndex = 0;
+let answerResult = '';
+// 정답을 체크하고 맞으면 정답 결과 개수를 하나 더 해주고 퀴즈 모달창이 닫힘
 const handleAnswerCheck = (inputValue, answer) => {
   const hitsCountStore = useHitsCountStore.getState();
   const answerCheckStore = useAnswerCheckStore.getState();
-  let answerResult = '';
+  const gameModalStore = useGameModalStore.getState();
 
   if (inputValue === answer) {
     hitsCountStore.setHitsCount();
     answerResult = '정답입니다';
+    gameModalStore.setBumped(false);
+    gameModalStore.setOpenQuizModal(false);
   } else {
     answerResult = '오답입니다';
   }
   answerCheckStore.actions.setOpenAnswerResult();
-  answerCheckStore.actions.setResultState(answerResult);
 };
 
 // 객관식 문제에서 엔터 누를 시 정답 체크
 const handleEnter = (e, answer) => {
   if (e.key === 'Enter') {
-    console.log('몇번호출이냐');
     e.preventDefault();
     handleAnswerCheck(e.target.value, answer);
   }
@@ -71,10 +73,46 @@ const reducer = (state, action) => {
   }
 };
 
+// 단답식 컴포넌트
+const ShortAnswerQuiz = ({ answer }) => {
+  return (
+    <div>
+      <input
+        placeholder="정답을 입력하세요"
+        className="border-2 border-black-500"
+        onKeyDown={(e) => handleEnter(e, answer)}
+      />
+    </div>
+  );
+};
+
+// OX 컴포넌트
+const OxQuiz = ({ answer }) => {
+  return (
+    <div>
+      <button
+        type="button"
+        className="border-2 border-indigo-500/50"
+        onClick={(event) => handleAnswerCheck(event.target.value, answer)}
+        value="O"
+      >
+        O
+      </button>
+      <button
+        type="button"
+        className="border-2 border-indigo-500/50"
+        onClick={(event) => handleAnswerCheck(event, answer)}
+        value="X"
+      >
+        X
+      </button>
+    </div>
+  );
+};
+
 // 애너그램 컴포넌트
 const AnagramQuiz = ({ answer, anagram }) => {
   const anagramButtonState = anagram.map(() => false);
-  const { openAnswerResult, resultState } = useAnswerCheckStore();
 
   const [anagramColor, setAnagramColor] = useState(anagramButtonState);
   const [state, dispatch] = useReducer(reducer, inputInitialState);
@@ -119,15 +157,19 @@ const AnagramQuiz = ({ answer, anagram }) => {
           <span key={input.index}>{input.clickValue}</span>
         ))}
       </div>
-      {openAnswerResult && resultState !== '' && <AnswerCheckModal />}
     </div>
   );
 };
 
 const QuizModal = () => {
   const { quizzes } = useQuizStore();
-  const { openAnswerResult, resultState } = useAnswerCheckStore();
+  const { openAnswerResult } = useAnswerCheckStore();
   const setOpenQuizModal = useGameModalStore((state) => state.setOpenQuizModal);
+
+  const quiz = quizzes.filter((_, index) => index === quizIndex);
+  quizIndex += 1;
+
+  console.log('퀴즈퀴즈', quiz);
 
   const closeModal = () => {
     setOpenQuizModal(false);
@@ -139,7 +181,7 @@ const QuizModal = () => {
       style={{ width: '1480px', height: '824px', overflowY: 'auto' }}
     >
       <button onClick={closeModal}>닫기</button>
-      {quizzes.map((it) => {
+      {quiz.map((it) => {
         // O, X
         if (it.quiz.type === 'OX_QUIZ') {
           return (
@@ -148,25 +190,8 @@ const QuizModal = () => {
               <div>{it.title}</div>
               <div>{it.content}</div>
               <div>{it.quiz.question}</div>
-              <div>
-                <button
-                  type="button"
-                  className="border-2 border-indigo-500/50"
-                  onClick={(event) => handleAnswerCheck(event.target.value, it.quiz.answer)}
-                  value="O"
-                >
-                  O
-                </button>
-                <button
-                  type="button"
-                  className="border-2 border-indigo-500/50"
-                  onClick={(event) => handleAnswerCheck(event, it.quiz.answer)}
-                  value="X"
-                >
-                  X
-                </button>
-              </div>
-              {openAnswerResult && resultState !== '' && <AnswerCheckModal />}
+              <OxQuiz answer={it.quiz.result} />
+              {openAnswerResult && !answerResult === '' && <AnswerCheckModal result={answerResult} />}
             </div>
           );
         }
@@ -185,24 +210,19 @@ const QuizModal = () => {
               <div>{it.content}</div>
               <div>{it.quiz.question}</div>
               <AnagramQuiz answer={it.quiz.answer} anagram={anagram} />
+              {openAnswerResult && !answerResult === '' && <AnswerCheckModal result={answerResult} />}
             </div>
           );
         }
-        // 1이면 객관식
+        // 1이면 단답식
         return (
           <div key={it.id} className="w-1/2 h-1/3 border-2 border-black-500">
-            객관식
+            단답식
             <div>{it.title}</div>
             <div>{it.content}</div>
             <div>{it.quiz.question}</div>
-            <div>
-              <input
-                placeholder="정답을 입력하세요"
-                className="border-2 border-black-500"
-                onKeyDown={(e) => handleEnter(e, it.quiz.answer)}
-              />
-            </div>
-            {openAnswerResult && resultState !== '' && <AnswerCheckModal />}
+            <ShortAnswerQuiz answer={it.quiz.answer} />
+            {openAnswerResult && !answerResult === '' && <AnswerCheckModal result={answerResult} />}
           </div>
         );
       })}

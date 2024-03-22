@@ -1,4 +1,4 @@
-import React, { Suspense, useState } from 'react';
+import React, { Suspense, useState, useRef } from 'react';
 import Maze, { Floor } from '@components/game/Maze';
 import Overlay from '@components/game/Overlay';
 import Player from '@components/game/Player';
@@ -14,12 +14,13 @@ const GamePage = () => {
   const openQuizModal = useGameModalStore((state) => state.openQuizModal);
   const navigate = useNavigate();
 
+  console.log(openQuizModal);
   return (
     <>
       <div className="w-screen h-screen overflow-hidden">
         <Canvas camera={{ position: [0, 10, 0] }}>
           {/* 환경 설정 */}
-          {isPlayerMode ? <PointerLockControls /> : <OrbitControls />}
+          {isPlayerMode ? <PointerLockControls enabled={!openQuizModal} /> : <OrbitControls />}
           <ambientLight intensity={0.5} />
           <pointLight position={[10, 10, 10]} />
           <axesHelper scale={10} />
