@@ -3,7 +3,7 @@ package org.ssafy.bibibig.member.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
-import org.ssafy.bibibig.member.domain.Member;
+import org.ssafy.bibibig.member.domain.MemberEntity;
 
 @AllArgsConstructor
 @Getter
@@ -17,11 +17,11 @@ public class MemberInfo {
         return new MemberInfo(id, name, email);
     }
 
-    public Member toEntity(){
-        return Member.of(id, name, email,null);
+    public MemberEntity toEntity(){
+        return MemberEntity.of(id, name, email,null);
     }
 
-    public static MemberInfo from(Member entity){
+    public static MemberInfo from(MemberEntity entity){
         return MemberInfo.of(
                 entity.getId(),
                 entity.getName(),

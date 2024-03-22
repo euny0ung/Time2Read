@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="solved_categories")
-public class SolvedCategories{
+public class SolvedCategoriesEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,7 +30,7 @@ public class SolvedCategories{
         createdAt = LocalDateTime.now();
     }
 
-    public static SolvedCategories of(Long id, Long politic, Long economy, Long society, Long culture, Long sports, Long international, LocalDateTime createdAt){
-        return new SolvedCategories(id, politic, economy, society, culture, sports, international, createdAt);
+    public static SolvedCategoriesEntity of(Long id, Long politic, Long economy, Long society, Long culture, Long sports, Long international, LocalDateTime createdAt){
+        return new SolvedCategoriesEntity(id, politic, economy, society, culture, sports, international, createdAt);
     }
 }
