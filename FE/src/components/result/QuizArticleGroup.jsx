@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 import AfterScrap from '../../assets/scrap/afterScrap.png';
 import BeforeScrap from '../../assets/scrap/beforeScap.png';
@@ -31,6 +31,28 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
     setIsScraped((prevState) => !prevState);
   };
 
+  const containerRef = useRef(null); // 부모 컨테이너에 대한 ref
+  const [maxWidth, setMaxWidth] = useState('100px');
+
+  const updateMaxWidth = () => {
+    if (containerRef.current) {
+      const containerWidth = containerRef.current.offsetWidth; // 부모 컨테이너의 너비
+      const calculatedMaxWidth = `${containerWidth / relatedArticles.length}px`;
+      setMaxWidth(calculatedMaxWidth);
+    }
+  };
+
+  useEffect(() => {
+    updateMaxWidth();
+    // 리사이즈 이벤트 리스너 등록
+    window.addEventListener('resize', updateMaxWidth);
+
+    // 컴포넌트 언마운트 시 리스너 제거
+    return () => {
+      window.removeEventListener('resize', updateMaxWidth);
+    };
+  }, [relatedArticles.length]);
+
   return (
     <>
       <div className="flex flex-col items-start w-full">
@@ -45,7 +67,7 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
               <ImageComponent src={firstArticle.image} alt={firstArticle.imageCaption} width={150} />
             </div>
             {/* 프로그래스바 전체 컨테이너 */}
-            <div className="relative w-3/5">
+            <div ref={containerRef} className="relative w-3/5">
               {/* 프로그래스바 원 위에 설명 - 연도 */}
               <div className="flex justify-between w-full ">
                 {relatedArticles.map((article, i) => {
@@ -89,7 +111,6 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
                     onClick={() => {
                       goToStep(i);
                       setIsToggleOn(true);
-                      console.log('i', i, ' currentStep', currentStep);
                     }}
                     onKeyPress={(e) => {
                       if (e.key === 'Enter') {
@@ -113,8 +134,8 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
                     >
                       <div
                         key={i}
-                        className={` truncate cursor-pointer flex-grow flex-shrink ${i === currentStep ? 'text-indigo-700' : 'text-white'}`}
-                        style={{ maxWidth: `calc(${200 / relatedArticles.length}px)` }}
+                        className={`truncate cursor-pointer flex-grow flex-shrink ${i === currentStep ? 'text-indigo-700' : 'text-white'}`}
+                        style={{ maxWidth }}
                         onClick={() => {
                           goToStep(i);
                           setIsToggleOn(true);
