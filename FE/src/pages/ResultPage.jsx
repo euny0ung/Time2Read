@@ -1,19 +1,27 @@
 import { useState, useEffect } from 'react';
+<<<<<<< 758e90eab101a579f891fbb85c3e4e56e5e330c9
+import { fetchYearSummary, postRelationArticles } from '../apis/resultApi.jsx';
+=======
 import { getYearSummary } from '../apis/resultApi.jsx';
+>>>>>>> 40a0efde56fc681269c350645f6cd6bbd668b784
 import ResultButton from '../components/commons/buttons/ResultButton.jsx';
 import TranslucentContainer from '../components/commons/containers/TranslucentContainer.jsx';
 import WhiteContainer from '../components/commons/containers/WhiteContainer.jsx';
 import ResultContent from '../components/commons/ResultContent.jsx';
 import ResultTitle from '../components/commons/ResultTitle.jsx';
+import Articles from '../components/result/Articles.jsx';
 import Keyword from '../components/result/Keyword.jsx';
-import RelatedArticleList from '../components/result/RelatedArticleList.jsx';
-import useGameResultStore from '../stores/game/gameStore.jsx';
+import QuizArticleGroup from '../components/result/QuizArticleGroup.jsx';
+import { useChallengedArticleStore, useGameResultStore } from '../stores/game/gameStore.jsx';
 
 const ResultPage = () => {
-  const { gameResult } = useGameResultStore();
-  const [keywordData, setKeywordData] = useState([]);
+  const { challengeArticlesIdList } = useChallengedArticleStore(); // 유저가 게임에서 도전한(정답,오답 모두 포함한) 문제의 기사 아이디들로 만든 배열
+  const { gameResult } = useGameResultStore(); // 게임 결과 : 정답 수, 오답 수, 타임 어택 시간
 
-  const news = {
+  const [keywordData, setKeywordData] = useState([]);
+  const [articleData, setArticleData] = useState([]); // 기사리스트(총 기사 5개)
+
+  const article = {
     id: '',
     copyRight: '',
     mainCategory: '',
@@ -31,10 +39,27 @@ const ResultPage = () => {
     getYearSummary(2024)
       .then((data) => {
         setKeywordData(data.keywords);
+<<<<<<< 758e90eab101a579f891fbb85c3e4e56e5e330c9
+        console.log(keywordData);
+      } catch (error) {
+        console.error('Error fetching keyword data:', error);
+      }
+    };
+
+    fetchData();
+
+    postRelationArticles([challengeArticlesIdList])
+      .then((data) => {
+        console.log('Relation Articles Data:', data);
+      })
+      .catch((error) => {
+        console.error('Error requesting relation articles:', error);
+=======
         console.log('Year Summary Data:', data.keywords);
       })
       .catch((error) => {
         console.error('Error requesting year summary:', error);
+>>>>>>> 40a0efde56fc681269c350645f6cd6bbd668b784
       });
   }, []);
 
@@ -89,7 +114,7 @@ const ResultPage = () => {
             {/* relatednewsbox */}
             <TranslucentContainer>
               <ResultTitle title={'과거와 연결된 기사'} />
-              <RelatedArticleList />
+              <Articles />
             </TranslucentContainer>
           </div>
         </div>

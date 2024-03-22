@@ -15,4 +15,15 @@ export const getYearSummary = (year) => {
     });
 };
 
-export const getRelationArticles = async () => {};
+// 과거와 연결된 기사
+export const postRelationArticles = (articleIds) => {
+  const apiUrl = `${baseUrl}/result/related`;
+
+  return axios
+    .post(apiUrl, { id: articleIds })
+    .then((response) => response.data)
+    .catch((error) => {
+      console.error('Error requesting data:', error);
+      throw error;
+    });
+};
