@@ -1,11 +1,9 @@
 package org.ssafy.bibibig.articles.application;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.functionscore.ScoreFunctionBuilders;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
-import org.hamcrest.MatcherAssert;
+import org.elasticsearch.search.aggregations.bucket.terms.ParsedStringTerms;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
@@ -16,14 +14,11 @@ import org.springframework.data.elasticsearch.core.SearchHit;
 import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.data.elasticsearch.core.query.*;
 import org.springframework.web.client.RestTemplate;
-import org.ssafy.bibibig.articles.dao.ElasticsearchArticleRepository;
+import org.ssafy.bibibig.articles.dao.ArticleRepositoryCustom;
 import org.ssafy.bibibig.articles.domain.ArticleEntity;
-import org.ssafy.bibibig.articles.dto.Article;
 import org.ssafy.bibibig.articles.dto.CategoryType;
-import org.ssafy.bibibig.quiz.dto.Quiz;
-import org.ssafy.bibibig.quiz.dto.QuizType;
+import org.ssafy.bibibig.articles.dto.KeywordTerms;
 import org.ssafy.bibibig.quiz.fixture.ArticleEntityFixture;
-import org.ssafy.bibibig.quiz.utils.QuizUtils;
 import org.ssafy.bibibig.quiz.utils.WordDefine;
 
 import java.io.IOException;
@@ -34,7 +29,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -45,7 +39,7 @@ class ArticleServiceTest {
     @Autowired
     ElasticsearchOperations operations;
     @Autowired
-    ElasticsearchArticleRepository articleRepository;
+    ArticleRepositoryCustom articleRepository;
     @Autowired
     WordDefine wordDefine;
     @Autowired
@@ -61,57 +55,71 @@ class ArticleServiceTest {
 
         Criteria criteria = Criteria.where("id").is(id);
         Query query = new CriteriaQuery(criteria);
-        SearchHits<ArticleEntity> search = operations.search(query, ArticleEntity.class);
+        SearchHit<ArticleEntity> search = operations.search(query, ArticleEntity.class).getSearchHit(0);
+        ArticleEntity article = search.getContent();
 
-        List<ArticleEntity> article = search.stream().map(SearchHit::getContent).collect(Collectors.toList());
-
-        System.out.println("result : ");
-        System.out.println(article);
+        assertThat(id).isEqualTo(article.getId());
     }
+
     @Test
     @DisplayName("년도와 카테고리로 대표 키워드 불러오기")
-    void givenYearAndCategory_whenSearchKewordsByYearAndCategory_thenReturnKeywordsList() throws JsonProcessingException {
+    void givenYearAndCategory_whenSearchKewordsByYearAndCategory_thenReturnKeywordsList() {
         //given
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         int year = 2023;
         CategoryType category = CategoryType.ECONOMY;
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+        //when
         NativeSearchQuery query = new NativeSearchQueryBuilder()
                 .withQuery(QueryBuilders.boolQuery()
                         .must(QueryBuilders.matchQuery("대분류", category.getName()))
                         .must(QueryBuilders.rangeQuery("작성시간")
-                                .gte(LocalDateTime.of(year,1,1,0,0).format(formatter))
-                                .lte(LocalDateTime.of(year+1,1,1,0,0).format(formatter))
+                                .gte(LocalDateTime.of(year, 1, 1, 0, 0).format(formatter))
+                                .lte(LocalDateTime.of(year + 1, 1, 1, 0, 0).format(formatter))
                         )
                 ).withMaxResults(0)
                 .addAggregation(AggregationBuilders.terms("keyword_terms").field("키워드").size(10))
                 .build();
-        //SearchHits<ArticleEntity> searchHits = operations.search(query, ArticleEntity.class);
-        //String aggregationsJson = searchHits.getAggregations().toString();
-        //List<ArticleEntity> aggregationsJson = searchHits.stream().map(SearchHit::getContent).toList();
-        //System.out.println(aggregationsJson);
-        //operations.queryForPage()
-        //operations.search(query, response -> response.)
-        //when
+
+        SearchHits<?> searchHits = operations.search(query, ArticleEntity.class);
+        ParsedStringTerms pst = Objects.requireNonNull(searchHits.getAggregations()).get("keyword_terms");
 
         //then
-        SearchHits<?> searchHits = operations.search(query, ArticleEntity.class);
+        List<KeywordTerms> result = pst.getBuckets().stream().map(s ->
+                new KeywordTerms(s.getKey().toString(), s.getDocCount())
+        ).toList();
+        assertThat(result.size()).isEqualTo(10);
+    }
 
-        String aggregationsJson = searchHits.getAggregations().toString();
+    @RepeatedTest(5)
+    @DisplayName("년도, 키워드 그리고 분류를 통해 랜덤 기사 뽑기")
+    void givenKeywordAndCategory_whenSelectRandomArticle_thenReturnArticle() {
+        //given
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        int year = 2023;
+        CategoryType category = CategoryType.ECONOMY;
+        String keyword = "인공지능";
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        JsonNode aggregationsNode = objectMapper.readTree(aggregationsJson);
-
-        JsonNode keywordTermsNode = aggregationsNode.get("keyword_terms");
-        List<KeywordAggregation> aggregations = new ArrayList<>();
-        for (JsonNode bucket : keywordTermsNode.get("buckets")) {
-            String key = bucket.get("key").asText();
-            int docCount = bucket.get("doc_count").asInt();
-            aggregations.add(new KeywordAggregation(key, docCount));
-        }
-        for (KeywordAggregation word : aggregations) {
-            System.out.println(word.key);
-            System.out.println(word.doc_count);
-        }
+        //when
+        NativeSearchQuery query = new NativeSearchQueryBuilder()
+                .withQuery(QueryBuilders.functionScoreQuery(
+                        QueryBuilders.boolQuery()
+                                .must(QueryBuilders.matchQuery("대분류", category.getName()))
+                                .must(QueryBuilders.matchQuery("키워드", keyword))
+                                .must(QueryBuilders.rangeQuery("작성시간")
+                                        .gte(LocalDateTime.of(year, 1, 1, 0, 0).format(formatter))
+                                        .lte(LocalDateTime.of(year + 1, 1, 1, 0, 0).format(formatter))
+                                ),
+                        ScoreFunctionBuilders.randomFunction())
+                ).withMaxResults(1)
+                .build();
+        SearchHit<ArticleEntity> search = operations.search(query, ArticleEntity.class).getSearchHit(0);
+        ArticleEntity article = search.getContent();
+        assertAll(
+                () -> assertThat(year).isEqualTo(article.getWroteAt().getYear()),
+                () -> assertThat(category.getName()).isEqualTo(article.getMainCategory()),
+                () -> assertThat(keyword).isIn(article.getKeywords())
+        );
     }
 
     //TODO : 외부 API키를 활용하기 위한 방법 찾기 - 테스트 시에는 WordDefine의 키 값이 제대로 들어가지 않는다.
@@ -138,7 +146,7 @@ class ArticleServiceTest {
         Pattern pattern = Pattern.compile(keyword);
         int keywordLen = keyword.length();
         StringBuilder replacement = new StringBuilder();
-        for(int i = 0; i < keywordLen; i++)
+        for (int i = 0; i < keywordLen; i++)
             replacement.append("O");
 
         return pattern.matcher(content).replaceAll(replacement.toString());
@@ -149,7 +157,7 @@ class ArticleServiceTest {
     void randomCategory() {
         List<CategoryType> categoryList = new ArrayList<>(List.of(CategoryType.values()));
         Random random = new Random();
-        for(int i = 0; i < 4; i++) {
+        for (int i = 0; i < 4; i++) {
             int randomIdx = random.nextInt(CategoryType.values().length);
             categoryList.add(CategoryType.values()[randomIdx]);
         }
@@ -166,12 +174,4 @@ class ArticleServiceTest {
         return ArticleEntityFixture.get(id, content, summary, keywords);
     }
 
-    public static class KeywordAggregation {
-        String key;
-        int doc_count;
-        public KeywordAggregation(String key, int doc_count) {
-            this.key = key;
-            this.doc_count = doc_count;
-        }
-    }
 }

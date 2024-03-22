@@ -3,10 +3,11 @@ package org.ssafy.bibibig.articles.application;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.ssafy.bibibig.articles.dao.ElasticsearchArticleRepository;
+import org.ssafy.bibibig.articles.dao.ArticleRepository;
 import org.ssafy.bibibig.articles.dto.Article;
 import org.ssafy.bibibig.articles.dto.ArticleWithQuiz;
 import org.ssafy.bibibig.articles.dto.CategoryType;
+import org.ssafy.bibibig.articles.dto.KeywordTerms;
 import org.ssafy.bibibig.common.dto.ErrorCode;
 import org.ssafy.bibibig.common.exception.CommonException;
 import org.ssafy.bibibig.quiz.dto.Quiz;
@@ -21,11 +22,15 @@ import java.util.Random;
 @RequiredArgsConstructor
 public class ArticleService {
 
-    private final ElasticsearchArticleRepository articleRepository;
+    private final ArticleRepository articleRepository;
     private final QuizUtils quizUtils;
 
     public Article findById(String id) {
         return getArticleEntityOrThrowException(id);
+    }
+
+    public List<KeywordTerms> getTopKeywordsByYear(int year) {
+        return articleRepository.getTopKeywordsByYear(year);
     }
 
     public ArticleWithQuiz getArticleWithQuiz(String id) {
@@ -43,6 +48,10 @@ public class ArticleService {
     public List<ArticleWithQuiz> articles(int year) {
 
         return null;
+    }
+
+    private Article getRandomArticleByYearAndCategoryAndKeyword(int year, CategoryType category, String keyword) {
+        return Article.from(articleRepository.getRandomArticleByYearAndCategoryAndKeyword(year, category, keyword));
     }
 
     // 랜덤카테고리
