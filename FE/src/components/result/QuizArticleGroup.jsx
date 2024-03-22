@@ -6,6 +6,8 @@ const TITLE_LENGTH_LIMIT = 8; // 기사 제목울 특정길이만큼 나타내�
 const QuizArticleGroup = ({ relatedArticles, num }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isToggleOn, setIsToggleOn] = useState(false);
+  
+  const relatedArticle = relatedArticles[currentStep];
 
   const goToStep = (stepIndex) => {
     setCurrentStep(stepIndex);
@@ -125,15 +127,15 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
           >
             <div className="flex flex-row items-center justify-between w-full gap-3 p-2 border-4 border-orange-500">
               <div>
-                <div>{relatedArticles[currentStep].title}</div>
-                <div>대분류 : {relatedArticles[currentStep].mainCategory}</div>
-                <div>중분류 : {relatedArticles[currentStep].subCategory}</div>
-                <div>작성일 : {relatedArticles[currentStep].time}</div>
-                <img src={relatedArticles[currentStep].image} alt={relatedArticles[currentStep].imageCaption} />
-                <div>내용 : {relatedArticles[currentStep].content}</div>
-                <div>요약 : {relatedArticles[currentStep].summary}</div>
+                <div>{relatedArticle.title}</div>
+                <div>대분류 : {relatedArticle.mainCategory}</div>
+                <div>중분류 : {relatedArticle.subCategory}</div>
+                <div>작성일 : {relatedArticle.time}</div>
+                <img src={relatedArticle.image} alt={relatedArticle.imageCaption} />
+                <div>내용 : {relatedArticle.content}</div>
+                <div>요약 : {relatedArticle.summary}</div>
                 <div>
-                  출처 : {relatedArticles[currentStep].copyRight}, {relatedArticles[currentStep].url}
+                  출처 : {relatedArticle.copyRight}, {relatedArticle.url}
                 </div>
                 {/* 여기에 북마크 여부도 넣어야 함 */}
               </div>
