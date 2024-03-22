@@ -10,7 +10,7 @@ import org.ssafy.bibibig.result.dao.ElasticsearchRelatedArticleRepository;
 
 @EnableJpaRepositories(excludeFilters = @ComponentScan.Filter(
         type = FilterType.ASSIGNABLE_TYPE,
-        classes = {ElasticsearchArticleRepository.class, ElasticsearchRelatedArticleRepository.class}))
+        classes = {ArticleRepositoryCustom.class, ElasticsearchRelatedArticleRepository.class}))
 @SpringBootApplication
 public class BibibigApplication {
 
