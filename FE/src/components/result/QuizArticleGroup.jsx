@@ -11,6 +11,12 @@ import Tooltip from '../commons/Tooltip.jsx';
 // 특정 문제에 대한 관련 기사 그룹을 렌더링
 const QuizArticleGroup = ({ relatedArticles, num }) => {
   const [currentStep, setCurrentStep] = useState(0);
+  const [isToggleOn, setIsToggleOn] = useState(false);
+  const [isScraped, setIsScraped] = useState(false);
+  const [titleMaxWidth, setTitleMaxWidth] = useState('0px'); // 각 타이틀의 maxWidth를 위한 상태
+
+  const containerRef = useRef(null); // RelatedArticles Container의 ref
+
   const relatedArticle = relatedArticles[currentStep];
   const [firstArticle] = relatedArticles; // 가장 초기의 기사
   const mostRecentArticle = relatedArticles[relatedArticles.length - 1]; // 가장 최근의 기사
@@ -19,43 +25,41 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
     setCurrentStep(stepIndex);
   };
 
-  const [isToggleOn, setIsToggleOn] = useState(false);
-
   const hadleToggle = () => {
     setIsToggleOn((prevState) => !prevState);
   };
-
-  const [isScraped, setIsScraped] = useState(false);
 
   const handleScrap = () => {
     setIsScraped((prevState) => !prevState);
   };
 
-  const containerRef = useRef(null); // 부모 컨테이너에 대한 ref
-  const [maxWidth, setMaxWidth] = useState('100px');
+  // const updateMaxWidth = () => {
+  //   if (containerRef.current) {
+  //     const progressBarWidth = containerRef.current.offsetWidth * 0.6; // RelatedArticles Container의 너비의 60%를 프로그레스바의 너비로 설정
+  //     const titleMaxWidth = `${progressBarWidth / relatedArticles.length}px`; // 프로그레스바 너비를 relatedArticles.length로 나누어 각 기사 타이틀의 maxWidth를 계산
+  //     setMaxWidth(titleMaxWidth);
+  //   }
+  // };
 
-  const updateMaxWidth = () => {
+  const handleResize = () => {
     if (containerRef.current) {
-      const containerWidth = containerRef.current.offsetWidth; // 부모 컨테이너의 너비
-      const calculatedMaxWidth = `${containerWidth / relatedArticles.length}px`;
-      setMaxWidth(calculatedMaxWidth);
+      const progressBarWidth = containerRef.current.offsetWidth * 0.6; // 프로그레스바 너비 = 컨테이너의 60%
+      setTitleMaxWidth(`${progressBarWidth / relatedArticles.length}px`); // 프로그레스바 너비를 relatedArticles.length로 나누어 각 기사 타이틀의 maxWidth를 계산
     }
   };
 
   useEffect(() => {
-    updateMaxWidth();
-    // 리사이즈 이벤트 리스너 등록
-    window.addEventListener('resize', updateMaxWidth);
+    handleResize();
+    window.addEventListener('resize', handleResize); // 리사이즈 이벤트 리스너 등록
 
-    // 컴포넌트 언마운트 시 리스너 제거
     return () => {
-      window.removeEventListener('resize', updateMaxWidth);
+      window.removeEventListener('resize', handleResize); // 컴포넌트 언마운트 시 리스너 제거
     };
   }, [relatedArticles.length]);
 
   return (
     <>
-      <div className="flex flex-col items-start w-full">
+      <div className="flex flex-col items-start w-full" ref={containerRef}>
         {/* RelatedArticles Container */}
         <div className="flex flex-col items-start w-full gap-2 p-5 text-white rounded-t-lg bg-gradient-to-br from-purple-400 to-indigo-500 ">
           {/* 문제번호 */}
@@ -63,17 +67,17 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
           {/* 가장 초기의 기사 + 프로그래스바 + 가장 최근의 기사 */}
           <div className="flex flex-row items-center justify-between w-full">
             {/* 가장 초기의 기사 */}
-            <div className="">
+            <div className="flex justify-center" style={{ maxWidth: '20%' }}>
               <ImageComponent src={firstArticle.image} alt={firstArticle.imageCaption} width={150} />
             </div>
             {/* 프로그래스바 전체 컨테이너 */}
-            <div ref={containerRef} className="relative w-3/5">
+            <div className="relative" style={{ maxWidth: '60%' }}>
               {/* 프로그래스바 원 위에 설명 - 연도 */}
               <div className="flex justify-between w-full ">
                 {relatedArticles.map((article, i) => {
                   return (
                     <div
-                      key={i}
+                      key={article.id}
                       className={`truncate cursor-pointer ${i === currentStep ? 'text-indigo-700' : 'text-white'}`}
                       onClick={() => {
                         goToStep(i);
@@ -133,9 +137,9 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
                       image={<ImageComponent src={article.image} alt={article.imageCaption} />}
                     >
                       <div
-                        key={i}
+                        key={article.id}
                         className={`truncate cursor-pointer flex-grow flex-shrink ${i === currentStep ? 'text-indigo-700' : 'text-white'}`}
-                        style={{ maxWidth }}
+                        style={{ maxWidth: titleMaxWidth }}
                         onClick={() => {
                           goToStep(i);
                           setIsToggleOn(true);
@@ -157,7 +161,7 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
               </div>
             </div>
             {/* 가장 최근의 기사 */}
-            <div className="">
+            <div className="flex justify-center" style={{ maxWidth: '20%' }}>
               <ImageComponent src={mostRecentArticle.image} alt={mostRecentArticle.imageCaption} width={150} />
             </div>
           </div>
