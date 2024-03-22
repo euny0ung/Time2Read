@@ -3,8 +3,8 @@ import * as RAPIER from '@dimforge/rapier3d-compat';
 import { useFrame } from '@react-three/fiber';
 import { RigidBody, useRapier } from '@react-three/rapier';
 import { Vector3 } from 'three';
-import QuizModal from './QuizModal.jsx';
 import usePersonControls from '../../hooks/usePersonControls.jsx';
+import { useGameModalStore } from '../../stores/game/gameStore.jsx';
 
 const MOVE_SPEED = 3;
 const JUMP_FORCE = 10;
@@ -20,10 +20,8 @@ const sideVector = new Vector3();
 // 미로 벽 막혔는지 테스트할 용도로 만들어놓은 빨간 큐브. 방향키로 움직일 수 있음
 const Player = () => {
   const playerRef = useRef(null);
-  const modalRef = useRef(null);
-  const [isBumped, setBumped] = useState(false);
-  const [openQuizModal, setOpenQuizModal] = useState(false);
-  const [openGameOverModal, setOpenGameOverModal] = useState(false);
+  const { isBumped, openQuizModal, openGameOverModal, setBumped, setOpenQuizModal, setOpenGameOverModal } =
+    useGameModalStore();
   // clue는 기본적으로 5개
   const [clueCount, setClueCount] = useState(5);
   // life는 기본적으로 3개
@@ -31,7 +29,6 @@ const Player = () => {
   const [isOver, setGameOver] = useState(false);
   const { forward, backward, left, right, jump } = usePersonControls();
   const rapier = useRapier();
-  const [playerDirection, setPlayerDirection] = useState(new Vector3());
   const assetArray = [
     'cat',
     'doorKnob',
@@ -100,23 +97,7 @@ const Player = () => {
     // 카메라 위치 조정
     const { x, y, z } = playerRef.current.translation();
     state.camera.position.set(x - 4, y + 1, z - 13);
-
-    // 플레이어가 바라보는 방향 업데이트
-    const lookAtVector = new Vector3();
-    state.camera.getWorldDirection(lookAtVector);
-    setPlayerDirection(lookAtVector);
   });
-
-  useEffect(() => {
-    if (modalRef.current && playerDirection) {
-      // 모달 위치 조정
-      // 플레이어부터 모달까지의 거리
-      const distance = 2;
-      const playerPosition = playerRef.current.translation();
-      const modalPosition = playerPosition.clone().add(playerDirection.clone().multiplyScalar(distance));
-      modalRef.current.position.copy(modalPosition);
-    }
-  }, [openQuizModal, playerDirection]);
 
   return (
     <>
@@ -127,37 +108,38 @@ const Player = () => {
         lockRotations
         name="player"
         onCollisionEnter={({ other }) => {
-          if (assetArray.includes(other.rigidBodyObject.name)) {
+          const target = other.rigidBodyObject;
+          if (assetArray.includes(target.name)) {
             setBumped(true);
           }
-          if (other.rigidBodyObject.name === 'clue') {
+          if (target.name === 'clue') {
             setClueCount(clueCount + 1);
             // 충돌 이후 사라지게 하는 로직 추가 필요
-            if (other.rigidBodyObject.parent) {
-              other.rigidBodyObject.parent.remove(other.rigidBodyObject);
+            if (target.parent) {
+              target.parent.remove(target);
             }
-            other.rigidBodyObject.remove();
+            target.remove();
           }
-          if (other.rigidBodyObject.name === 'life') {
+          if (target.name === 'life') {
             setLifeCount(lifeCount + 1);
-            if (other.rigidBodyObject.parent) {
-              other.rigidBodyObject.parent.remove(other.rigidBodyObject);
+            if (target.parent) {
+              target.parent.remove(target);
             }
-            other.rigidBodyObject.remove();
+            target.remove();
           }
         }}
         onCollisionExit={({ other }) => {
-          if (assetArray.includes(other.rigidBodyObject.name)) {
+          const target = other.rigidBodyObject;
+          if (assetArray.includes(target.name)) {
             setBumped(false);
           }
         }}
       >
         <mesh position={[-4, 0, -13]}>
-          <boxGeometry args={[0.3, 0.3, 0.3]} />
+          <boxGeometry args={[0.6, 0.6, 0.6]} />
           <meshStandardMaterial color="red" />
         </mesh>
       </RigidBody>
-      {openQuizModal && <QuizModal ref={modalRef} setOpenModal={setOpenQuizModal} openModal={openQuizModal} />}
       {/* {openGameOverModal} */}
     </>
   );

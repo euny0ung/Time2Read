@@ -136,11 +136,18 @@ export const Floor = () => {
 
 export const Cat = () => {
   const cat = useGLTF('cat/scene.gltf');
-
+  const rotateCat = () => {
+    if (cat.scene) {
+      cat.scene.rotation.y = Math.PI; // y축을 기준으로 180도 회전
+    }
+  };
+  useEffect(() => {
+    rotateCat(); // 컴포넌트가 렌더링된 후에 실행되도록 함
+  }, []); // 한 번만 실행
   return (
     <>
       <RigidBody name="cat">
-        <primitive object={cat.scene} scale={0.002} position={[-1, 0, -10]} />
+        <primitive object={cat.scene} scale={0.003} position={[-0.8, 0.2, -10]} />
       </RigidBody>
     </>
   );
@@ -148,18 +155,35 @@ export const Cat = () => {
 
 export const DoorKnob = () => {
   const doorKnob = useGLTF('doorknob/scene.gltf');
+  const rotatedoorKnob = () => {
+    if (doorKnob.scene) {
+      doorKnob.scene.rotation.x = Math.PI / 2; // y축을 기준으로 180도 회전
+      doorKnob.scene.rotation.y = Math.PI;
+    }
+  };
+  useEffect(() => {
+    rotatedoorKnob(); // 컴포넌트가 렌더링된 후에 실행되도록 함
+  }, []); // 한 번만 실행
   return (
-    <RigidBody name="doorKnob">
-      <primitive object={doorKnob.scene} scale={0.1} position={[-2.5, 3, -4.2]} />
+    <RigidBody name="doorKnob" allowSleep={false}>
+      <primitive object={doorKnob.scene} scale={0.3} position={[-2.5, 4, -4.2]} />
     </RigidBody>
   );
 };
 
 export const DodoBird = () => {
   const dodoBird = useGLTF('dodobird/scene.gltf');
+  const rotateDodoBird = () => {
+    if (dodoBird.scene) {
+      dodoBird.scene.rotation.y = Math.PI / 2;
+    }
+  };
+  useEffect(() => {
+    rotateDodoBird(); // 컴포넌트가 렌더링된 후에 실행되도록 함
+  }, []); // 한 번만 실행
   return (
     <RigidBody name="dodoBird">
-      <primitive object={dodoBird.scene} scale={0.12} position={[-9.3, 1, -6]} />
+      <primitive object={dodoBird.scene} scale={0.12} position={[-8.9, 1, -6]} />
     </RigidBody>
   );
 };
@@ -168,16 +192,25 @@ export const Caterpillar = () => {
   const caterpillar = useGLTF('caterpillar/scene.gltf');
   return (
     <RigidBody name="caterpillar">
-      <primitive object={caterpillar.scene} scale={20} position={[-7.5, 1, -2.5]} />
+      <primitive object={caterpillar.scene} scale={25} position={[-7.5, 1, -2.1]} />
     </RigidBody>
   );
 };
 
 export const CheshireCat = () => {
   const cheshireCat = useGLTF('cheshirecat/scene.gltf');
+  const rotateCheshireCat = () => {
+    if (cheshireCat.scene) {
+      cheshireCat.scene.rotation.y = Math.PI;
+    }
+  };
+  useEffect(() => {
+    rotateCheshireCat();
+  }, []);
   return (
     <RigidBody name="chesireCat">
-      <primitive object={cheshireCat.scene} scale={0.01} position={[-4.5, 0, 4]} />
+      <primitive object={cheshireCat.scene} scale={0.016} position={[-4, 0.4, 2.8]} />
+      <axesHelper scale={10} />
     </RigidBody>
   );
 };
@@ -193,24 +226,48 @@ export const Rose = () => {
 
 export const Flamingo = () => {
   const flamingo = useGLTF('flamingo/scene.gltf');
+  const rotateFlamingo = () => {
+    if (flamingo.scene) {
+      flamingo.scene.rotation.y = Math.PI;
+    }
+  };
+  useEffect(() => {
+    rotateFlamingo();
+  }, []);
   return (
     <RigidBody name="flamingo">
-      <primitive object={flamingo.scene} scale={0.05} position={[7.8, 1, 9.5]} />
+      <primitive object={flamingo.scene} scale={0.05} position={[7.3, 1, 9]} />
     </RigidBody>
   );
 };
 
 export const CardSoldier = () => {
   const cardsoldier = useGLTF('cardsoldier/cardsoldier.gltf');
+  const rotateCardSoldier = () => {
+    if (cardsoldier.scene) {
+      cardsoldier.scene.rotation.y = (Math.PI / 2) * -1;
+    }
+  };
+  useEffect(() => {
+    rotateCardSoldier(); // 컴포넌트가 렌더링된 후에 실행되도록 함
+  }, []); // 한 번만 실행
   return (
     <RigidBody name="cardSoldier">
-      <primitive object={cardsoldier.scene} scale={0.2} position={[7.5, 2, -6]} />
+      <primitive object={cardsoldier.scene} scale={0.2} position={[7.5, 2, -5.6]} />
     </RigidBody>
   );
 };
 
 export const HeartQueen = () => {
   const heartQueen = useGLTF('heartqueen/hartqueen.gltf');
+  const rotateHeartQueen = () => {
+    if (heartQueen.scene) {
+      heartQueen.scene.rotation.y = Math.PI / 2;
+    }
+  };
+  useEffect(() => {
+    rotateHeartQueen();
+  }, []);
   return (
     <RigidBody name="heartQueen">
       <primitive object={heartQueen.scene} scale={0.2} position={[3, 1.03, 6]} />
@@ -220,9 +277,17 @@ export const HeartQueen = () => {
 
 export const Rabbit = () => {
   const rabbit = useGLTF('rabbit/rabbit.gltf');
+  const rotateRabbit = () => {
+    if (rabbit.scene) {
+      rabbit.scene.rotation.y = Math.PI;
+    }
+  };
+  useEffect(() => {
+    rotateRabbit(); // 컴포넌트가 렌더링된 후에 실행되도록 함
+  }, []); // 한 번만 실행
   return (
     <RigidBody name="rabbit">
-      <primitive object={rabbit.scene} scale={0.2} position={[0.8, 0.5, 10]} />
+      <primitive object={rabbit.scene} scale={0.3} position={[0.8, 1, 9.5]} />
     </RigidBody>
   );
 };
