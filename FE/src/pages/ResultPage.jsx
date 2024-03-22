@@ -5,8 +5,9 @@ import TranslucentContainer from '../components/commons/containers/TranslucentCo
 import WhiteContainer from '../components/commons/containers/WhiteContainer.jsx';
 import ResultContent from '../components/commons/ResultContent.jsx';
 import ResultTitle from '../components/commons/ResultTitle.jsx';
+import Articles from '../components/result/Articles.jsx';
 import Keyword from '../components/result/Keyword.jsx';
-import RelatedArticleList from '../components/result/RelatedArticleList.jsx';
+import QuizArticleGroup from '../components/result/QuizArticleGroup.jsx';
 import { useChallengedArticleStore, useGameResultStore } from '../stores/game/gameStore.jsx';
 
 const ResultPage = () => {
@@ -104,7 +105,7 @@ const ResultPage = () => {
             {/* relatednewsbox */}
             <TranslucentContainer>
               <ResultTitle title={'과거와 연결된 기사'} />
-              <RelatedArticleList />
+              <Articles />
             </TranslucentContainer>
           </div>
         </div>
