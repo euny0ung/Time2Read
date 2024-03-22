@@ -1,13 +1,13 @@
 package org.ssafy.bibibig.articles.api;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.ssafy.bibibig.articles.application.ArticleService;
 import org.ssafy.bibibig.articles.dto.ArticleWithQuiz;
+import org.ssafy.bibibig.articles.dto.KeywordTerms;
 import org.ssafy.bibibig.common.dto.Response;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/v1/game")
@@ -19,6 +19,11 @@ public class ArticleController {
     @GetMapping("/{articleId}")
     public Response<ArticleWithQuiz> getArticleWithQuiz(@PathVariable String articleId) {
         return Response.success(articleService.getArticleWithQuiz(articleId));
+    }
+
+    @GetMapping("/result/summary")
+    public Response<List<KeywordTerms>> getTopKeywordsByYear(@RequestParam int year) {
+        return Response.success(articleService.getTopKeywordsByYear(year));
     }
 
 }
