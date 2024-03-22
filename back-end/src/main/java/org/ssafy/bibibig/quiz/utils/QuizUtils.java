@@ -1,7 +1,7 @@
 package org.ssafy.bibibig.quiz.utils;
 
-
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.ssafy.bibibig.articles.dto.Article;
 import org.ssafy.bibibig.quiz.dto.Clue;
 import org.ssafy.bibibig.quiz.dto.Quiz;
@@ -11,10 +11,12 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Objects;
 import java.util.regex.Pattern;
+
+@Component
 @RequiredArgsConstructor
 public class QuizUtils {
 
-    private WordDefine wordDefineRequest;
+    private final WordDefine wordDefineRequest;
 
     // 키워드 리스트 받아서 정의 찾기
     public Quiz makeQuiz(Article article) {
@@ -26,7 +28,7 @@ public class QuizUtils {
 
     private Clue findKeyword(Article article) {
 
-        List<String> keywords = article.keywords().stream().toList();
+        List<String> keywords = article.keywords().stream().filter(this::determineKeyword).toList();
         if (keywords.isEmpty()) {
             keywords = Objects.requireNonNull(
                             WiseNerKeywords.findNerWords(article.content()))
@@ -34,8 +36,7 @@ public class QuizUtils {
                     .map(WiseNerKeywords.NameEntity::getText)
                     .toList();
         }
-        //TODO: 불용어 있으면 제거?
-        for(String keyword : keywords) {
+        for (String keyword : keywords) {
             try {
                 String description = wordDefineRequest.getWordDefine(keyword);
                 if (description != null) return new Clue(keyword, description);
@@ -50,10 +51,17 @@ public class QuizUtils {
         Pattern pattern = Pattern.compile(keyword);
         int keywordLen = keyword.length();
         StringBuilder replacement = new StringBuilder();
-        for(int i = 0; i < keywordLen; i++)
+        for (int i = 0; i < keywordLen; i++)
             replacement.append("O");
 
         return pattern.matcher(content).replaceAll(replacement.toString());
+    }
+
+    //TODO: 불용어 있으면 제거하기
+    //1. 숫자가 포함되어 있을 경우 숫자 키워드는 제거
+    private boolean determineKeyword(String keyword) {
+        Pattern pattern = Pattern.compile("\\d");
+        return !pattern.matcher(keyword).find();
     }
 
 }
