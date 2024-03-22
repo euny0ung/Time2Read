@@ -5,9 +5,12 @@ import Player from '@components/game/Player';
 import { OrbitControls, PointerLockControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { Physics } from '@react-three/rapier';
+import QuizModal from '../components/game/QuizModal.jsx';
+import { useGameModalStore } from '../stores/game/gameStore.jsx';
 
 const GamePage = () => {
   const [isPlayerMode, setIsPlayerMode] = useState(true); // 1인칭, 3인칭 모드 전환. 테스트할 때 편하라고 만듦
+  const openQuizModal = useGameModalStore((state) => state.openQuizModal);
 
   return (
     <>
@@ -30,6 +33,7 @@ const GamePage = () => {
         </Canvas>
         {/* 정보 표시 */}
         <Overlay />
+        {openQuizModal && <QuizModal />}
         {/* 버튼 클릭으로 컨트롤 모드 전환 */}
         <button
           className="absolute top-2.5 left-2.5 bg-gray-500 text-white font-bold py-2 px-4 rounded hover:bg-gray-700 focus:outline-none focus:shadow-outline"
