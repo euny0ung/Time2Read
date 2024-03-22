@@ -5,6 +5,7 @@ import Player from '@components/game/Player';
 import { OrbitControls, PointerLockControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { Physics } from '@react-three/rapier';
+import Items from '../components/game/Items.jsx';
 import QuizModal from '../components/game/QuizModal.jsx';
 import { useGameModalStore } from '../stores/game/gameStore.jsx';
 
@@ -33,6 +34,7 @@ const GamePage = () => {
         </Canvas>
         {/* 정보 표시 */}
         <Overlay />
+        <Items />
         {openQuizModal && <QuizModal />}
         {/* 버튼 클릭으로 컨트롤 모드 전환 */}
         <button

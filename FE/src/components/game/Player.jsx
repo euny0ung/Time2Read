@@ -4,7 +4,7 @@ import { useFrame } from '@react-three/fiber';
 import { RigidBody, useRapier } from '@react-three/rapier';
 import { Vector3 } from 'three';
 import usePersonControls from '../../hooks/usePersonControls.jsx';
-import { useGameModalStore } from '../../stores/game/gameStore.jsx';
+import { useGameModalStore, useGameItemStore } from '../../stores/game/gameStore.jsx';
 
 const MOVE_SPEED = 3;
 const JUMP_FORCE = 10;
@@ -20,13 +20,18 @@ const sideVector = new Vector3();
 // 미로 벽 막혔는지 테스트할 용도로 만들어놓은 빨간 큐브. 방향키로 움직일 수 있음
 const Player = () => {
   const playerRef = useRef(null);
-  const { isBumped, openQuizModal, openGameOverModal, setBumped, setOpenQuizModal, setOpenGameOverModal } =
-    useGameModalStore();
-  // clue는 기본적으로 5개
-  const [clueCount, setClueCount] = useState(5);
-  // life는 기본적으로 3개
-  const [lifeCount, setLifeCount] = useState(3);
-  const [isOver, setGameOver] = useState(false);
+  const [collidedItem, setCollidedItem] = useState([]);
+  const {
+    isBumped,
+    openQuizModal,
+    openGameOverModal,
+    isOver,
+    setBumped,
+    setOpenQuizModal,
+    setOpenGameOverModal,
+    setGameOver,
+  } = useGameModalStore();
+  const { clueCount, lifeCount, setClueCount, setLifeCount } = useGameItemStore();
   const { forward, backward, left, right, jump } = usePersonControls();
   const rapier = useRapier();
   const assetArray = [
@@ -109,23 +114,27 @@ const Player = () => {
         name="player"
         onCollisionEnter={({ other }) => {
           const target = other.rigidBodyObject;
-          if (assetArray.includes(target.name)) {
-            setBumped(true);
-          }
-          if (target.name === 'clue') {
-            setClueCount(clueCount + 1);
-            // 충돌 이후 사라지게 하는 로직 추가 필요
-            if (target.parent) {
-              target.parent.remove(target);
+          if (!collidedItem.includes(target.uuid)) {
+            setCollidedItem((prevItems) => [...prevItems, target.uuid]);
+
+            if (assetArray.includes(target.name)) {
+              setBumped(true);
             }
-            target.remove();
-          }
-          if (target.name === 'life') {
-            setLifeCount(lifeCount + 1);
-            if (target.parent) {
-              target.parent.remove(target);
+            if (target.name === 'clue') {
+              setClueCount(clueCount + 1);
+              // 충돌 이후 사라지게 하는 로직 추가 필요
+              if (target.parent) {
+                target.parent.remove(target);
+              }
+              target.remove();
             }
-            target.remove();
+            if (target.name === 'life') {
+              setLifeCount(lifeCount + 1);
+              if (target.parent) {
+                target.parent.remove(target);
+              }
+              target.remove();
+            }
           }
         }}
         onCollisionExit={({ other }) => {
