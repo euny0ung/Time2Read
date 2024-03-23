@@ -14,7 +14,7 @@ import org.ssafy.bibibig.member.dto.response.TokenResponse;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/oauth")
+@RequestMapping("/v1/oauth")
 @RequiredArgsConstructor
 public class SocialController {
 

@@ -35,8 +35,8 @@ public class MyController {
 
     @GetMapping("/solved")
     public Response<?> getSolvedCountByCategory(HttpServletRequest request){
-//        Long memberId = SessionInfo.getSessionMemberId(request);
-        SolvedCategory solvedCategory = solvedCategoryService.getSolvedCategory(1L);
+        Long memberId = SessionInfo.getSessionMemberId(request);
+        SolvedCategory solvedCategory = solvedCategoryService.getSolvedCategory(memberId);
         return Response.success(SolvedCategoryResponse.of(
                 solvedCategory.politic(),
                 solvedCategory.culture(),
