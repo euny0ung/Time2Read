@@ -32,17 +32,17 @@ const BadgeComponent = ({ year, successCount }) => {
   };
 
   return (
-    <div className="inline-block w-32 h-40 p-1 transition-transform duration-700 ease-in-out transform rounded-lg shadow-xl hover:animate-spin360">
+    <div className="inline-block w-auto h-auto transition-transform duration-700 ease-in-out transform rounded-lg shadow-xl hover:animate-spin360">
       <div
-        className="flex flex-col items-center justify-center h-full p-3 text-center rounded-lg"
+        className="flex flex-col items-center justify-center h-full p-2 text-center rounded-lg"
         style={hologramStyle}
       >
         {/* 내부 프레임 */}
-        <div className="flex flex-col items-center justify-center w-full h-full p-4 bg-white rounded ">
+        <div className="flex flex-col items-center justify-center w-full h-full p-1 bg-white rounded ">
           {/* 뱃지 컨텐츠 */}
           <div className="text-center">
-            <div className="text-2xl font-bold text-black text-shadow">{year}</div>
-            <div className="text-sm text-black text-shadow">{`${successCount}회 성공`}</div>
+            <div className="text-sm font-bold text-black text-shadow">{year}</div>
+            <div className="text-xs text-black text-shadow">{`${successCount}회 성공`}</div>
           </div>
         </div>
       </div>

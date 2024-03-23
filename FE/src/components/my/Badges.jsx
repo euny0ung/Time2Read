@@ -21,7 +21,7 @@ const Badges = () => {
   return (
     <>
       <div>
-        <div className="space-x-4">
+        <div className="">
           {badges.map((badge) => (
             <BadgeComponent key={badge.year} year={badge.year} successCount={badge.count} />
           ))}
