@@ -1,6 +1,7 @@
 package org.ssafy.bibibig.member.domain;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,8 +20,9 @@ public class MemberEntity {
     @Column(name = "id")
     private Long id;
 
+    @NotNull
     private String name;
-
+    @NotNull
     private String email;
 
     @Column(name = "created_at")
@@ -28,7 +30,8 @@ public class MemberEntity {
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "solved_categories_id")
-    private SolvedCategoriesEntity solvedCategories;
+    @NotNull
+    private SolvedCategoriesEntity solvedCategoriesEntity;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<BadgeEntity> badges;
@@ -38,18 +41,20 @@ public class MemberEntity {
     private List<SolvedRecordsEntity> solvedRecords;
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<TimeAttacksEntity> timeAttacks;
-    @PrePersist
-    protected void onCreate() {
-        createdAt = LocalDateTime.now();
-    }
 
-    private MemberEntity(Long id, String name, String email, LocalDateTime createdAt){
+    public MemberEntity(Long id, String name, String email, LocalDateTime createdAt, SolvedCategoriesEntity solvedCategoriesEntity) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.createdAt = createdAt;
+        this.solvedCategoriesEntity = solvedCategoriesEntity;
     }
-    public static MemberEntity of(Long id, String name, String email, LocalDateTime createdAt){
-        return new MemberEntity(id, name, email, createdAt);
+
+    @PrePersist
+    protected void onCreate() {
+        createdAt = LocalDateTime.now();
+    }
+    public static MemberEntity of(Long id, String name, String email, LocalDateTime createdAt, SolvedCategoriesEntity solvedCategoriesEntity){
+        return new MemberEntity(id, name, email, createdAt, solvedCategoriesEntity);
     }
 }

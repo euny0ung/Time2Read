@@ -5,7 +5,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.ssafy.bibibig.common.dto.Response;
 import org.ssafy.bibibig.member.application.ScrapService;
+import org.ssafy.bibibig.member.application.SolvedCategoryService;
 import org.ssafy.bibibig.member.dto.response.ScrapedArticlesByMainCateResponse;
+import org.ssafy.bibibig.member.dto.response.SolvedCategory;
+import org.ssafy.bibibig.member.dto.response.SolvedCategoryResponse;
 import org.ssafy.bibibig.member.utils.SessionInfo;
 
 @RestController
@@ -14,6 +17,7 @@ import org.ssafy.bibibig.member.utils.SessionInfo;
 public class MyController {
 
     private final ScrapService scrapService;
+    private final SolvedCategoryService solvedCategoryService;
 
 
     @PutMapping("/scraped-articles/{articleId}/{status}")
@@ -27,5 +31,19 @@ public class MyController {
     public Response<ScrapedArticlesByMainCateResponse> getScrapedArticles(HttpServletRequest request){
         Long memberId = SessionInfo.getSessionMemberId(request);
         return Response.success(scrapService.getScrapedArticles(memberId));
+    }
+
+    @GetMapping("/solved")
+    public Response<?> getSolvedCountByCategory(HttpServletRequest request){
+//        Long memberId = SessionInfo.getSessionMemberId(request);
+        SolvedCategory solvedCategory = solvedCategoryService.getSolvedCategory(1L);
+        return Response.success(SolvedCategoryResponse.of(
+                solvedCategory.politic(),
+                solvedCategory.culture(),
+                solvedCategory.economy(),
+                solvedCategory.society(),
+                solvedCategory.sports(),
+                solvedCategory.international()
+        ));
     }
 }
