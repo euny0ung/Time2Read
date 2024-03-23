@@ -1,10 +1,11 @@
 package org.ssafy.bibibig.result.dto;
 
-import lombok.Data;
+import org.ssafy.bibibig.articles.dto.Article;
 
 import java.util.List;
 
-@Data
-public class RelatedArticle {
-    private List<String> id;
+public record RelatedArticle(
+        String relatedArticleId,
+        List<Article> article
+) {
 }

@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.ssafy.bibibig.articles.dao.ArticleRepository;
-import org.ssafy.bibibig.articles.domain.ArticleEntity;
 import org.ssafy.bibibig.articles.dto.Article;
 import org.ssafy.bibibig.articles.dto.ArticleWithQuiz;
 import org.ssafy.bibibig.articles.dto.CategoryType;
@@ -38,15 +37,16 @@ public class ArticleService {
     public ArticleWithQuiz getArticleWithQuiz(Article article) {
         return ArticleWithQuiz.from(article, makeQuiz(article));
     }
+
     public List<ArticleWithQuiz> getArticleWithQuizes(int year) {
         List<ArticleWithQuiz> result = new ArrayList<>();
         List<CategoryType> randomCategory = randomCategory();
-        List<CategoryType> categories= List.of(CategoryType.values());
+        List<CategoryType> categories = List.of(CategoryType.values());
 
-        for(CategoryType category : categories) {
+        for (CategoryType category : categories) {
             int size = Collections.frequency(randomCategory, category);
             List<KeywordTerms> keywords = getTopKeywordsByYearAndCategory(year, category, size);
-            for(KeywordTerms keyword : keywords) {
+            for (KeywordTerms keyword : keywords) {
                 Article article = getRandomArticleByYearAndCategoryAndKeyword(year, category, keyword.word());
                 result.add(getArticleWithQuiz(article));
             }
@@ -59,21 +59,16 @@ public class ArticleService {
         List<KeywordTerms> keywordList = articleRepository.getTopKeywordsByYearAndCategory(year, categoryType);
         Random random = new Random();
 
-        for(int i = 0; i < size; i++) {
+        for (int i = 0; i < size; i++) {
             int randomIdx = random.nextInt(keywordList.size());
             result.add(keywordList.get(randomIdx));
         }
         return result;
     }
 
-
-    /**
-     * 1. 년도 선택
-     * 2. 대분류 6개 + 랜덤 4개 [완료]
-     * 3. 년도 대분류 -> 키워드 100개 추출하여 픽
-     * 4. 년도 대분류 키워드 -> 기사 하나 조회 (같은 기사일 경우 재요청)
-     * 5. 기사별 문제 생성 [완료]
-     */
+    public List<Article> getRelatedArticlesTop5(String id) {
+        return articleRepository.getRelatedArticlesTop5(id).stream().map(Article::from).toList();
+    }
 
     private Article getRandomArticleByYearAndCategoryAndKeyword(int year, CategoryType category, String keyword) {
         return Article.from(articleRepository.getRandomArticleByYearAndCategoryAndKeyword(year, category, keyword));

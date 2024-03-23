@@ -7,7 +7,7 @@ import org.ssafy.bibibig.articles.application.ArticleService;
 import org.ssafy.bibibig.articles.domain.ArticleEntity;
 import org.ssafy.bibibig.articles.dto.Article;
 import org.ssafy.bibibig.result.dao.ElasticsearchRelatedArticleRepository;
-import org.ssafy.bibibig.result.dto.response.RelatedArticleResponse;
+import org.ssafy.bibibig.result.dto.RelatedArticle;
 
 import java.util.List;
 
@@ -19,11 +19,11 @@ public class ResultService {
     private final ArticleService articleService;
     private final ElasticsearchRelatedArticleRepository relatedArticleRepository;
 
-    public List<RelatedArticleResponse> getRelatedArticles(List<String> id) {
+    public List<RelatedArticle> getRelatedArticlesFromPast(List<String> id) {
         return id
                 .stream()
                 .map(articleService::findById)
-                .map(article -> new RelatedArticleResponse(article.id(), articleToRelateArticle(article)))
+                .map(article -> new RelatedArticle(article.id(), articleToRelateArticle(article)))
                 .toList();
     }
 
@@ -39,4 +39,5 @@ public class ResultService {
                 .map(Article::from)
                 .toList();
     }
+
 }
