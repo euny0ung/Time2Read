@@ -10,7 +10,7 @@ const UserPage = () => {
     <>
       <div className="bg-gradient-to-br from-purple-200 to-blue-200">
         <div className="w-full max-w-[60%] mx-auto ">
-          <h1>결과페이지</h1>
+          <h1>마이페이지</h1>
           <div className="relative flex flex-col items-center w-full gap-4 border-4 border-red-500 ">
             {/* 나의 기록 */}
             <TranslucentContainer>
