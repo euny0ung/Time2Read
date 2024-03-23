@@ -7,9 +7,7 @@ import org.ssafy.bibibig.articles.domain.ArticleEntity;
 import java.util.Optional;
 
 @Repository
-public interface ElasticsearchArticleRepository extends ElasticsearchRepository<ArticleEntity, String> {
+public interface ArticleRepository extends ElasticsearchRepository<ArticleEntity, String>, ArticleRepositoryCustom {
     Optional<ArticleEntity> findByHaniId(String haniId);
     Optional<ArticleEntity> findById(String id);
 }
-
-
