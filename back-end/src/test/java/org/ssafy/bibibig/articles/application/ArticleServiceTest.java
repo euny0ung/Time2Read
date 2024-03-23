@@ -24,10 +24,7 @@ import org.ssafy.bibibig.quiz.utils.WordDefine;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 import java.util.regex.Pattern;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -61,13 +58,13 @@ class ArticleServiceTest {
         assertThat(id).isEqualTo(article.getId());
     }
 
-    @Test
+    @RepeatedTest(5)
     @DisplayName("년도와 카테고리로 대표 키워드 불러오기")
     void givenYearAndCategory_whenSearchKewordsByYearAndCategory_thenReturnKeywordsList() {
         //given
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         int year = 2023;
-        CategoryType category = CategoryType.ECONOMY;
+        CategoryType category = CategoryType.SOCIETY;
 
         //when
         NativeSearchQuery query = new NativeSearchQueryBuilder()
@@ -78,7 +75,7 @@ class ArticleServiceTest {
                                 .lte(LocalDateTime.of(year + 1, 1, 1, 0, 0).format(formatter))
                         )
                 ).withMaxResults(0)
-                .addAggregation(AggregationBuilders.terms("keyword_terms").field("키워드").size(10))
+                .addAggregation(AggregationBuilders.terms("keyword_terms").field("키워드").size(50))
                 .build();
 
         SearchHits<?> searchHits = operations.search(query, ArticleEntity.class);
@@ -88,7 +85,8 @@ class ArticleServiceTest {
         List<KeywordTerms> result = pst.getBuckets().stream().map(s ->
                 new KeywordTerms(s.getKey().toString(), s.getDocCount())
         ).toList();
-        assertThat(result.size()).isEqualTo(10);
+        System.out.println(result);
+        assertThat(result.size()).isEqualTo(50);
     }
 
     @RepeatedTest(5)
@@ -163,6 +161,23 @@ class ArticleServiceTest {
         }
         assertThat(categoryList.size()).isEqualTo(10);
         System.out.println(categoryList);
+    }
+
+    @Test
+    @DisplayName("분류 카테고리에서 특정 카테고리 개수 세기")
+    void givenCategory_whenCategoryCount_thenReturnSize() {
+        //given
+        List<CategoryType> categoryList = List.of(CategoryType.ECONOMY, CategoryType.ECONOMY, CategoryType.CULTURE, CategoryType.POLITICS, CategoryType.ECONOMY);
+        List<CategoryType> categories= List.of(CategoryType.values());
+        assertAll(
+                () -> assertThat(Collections.frequency(categoryList, CategoryType.ECONOMY)).isEqualTo(3),
+                () -> assertThat(Collections.frequency(categoryList, CategoryType.CULTURE)).isEqualTo(1),
+                () -> assertThat(Collections.frequency(categoryList, CategoryType.POLITICS)).isEqualTo(1),
+                () -> assertThat(Collections.frequency(categoryList, CategoryType.INTERNATIONAL)).isEqualTo(0)
+        );
+        for(CategoryType category : categories) {
+            int size = Collections.frequency(categoryList, category);
+        }
     }
 
 

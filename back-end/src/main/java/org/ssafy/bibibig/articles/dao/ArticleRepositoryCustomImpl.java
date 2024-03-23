@@ -60,7 +60,7 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
                                 .lte(LocalDateTime.of(year + 1, 1, 1, 0, 0).format(formatter))
                         )
                 ).withMaxResults(0)
-                .addAggregation(AggregationBuilders.terms("keyword_terms").field("키워드").size(10))
+                .addAggregation(AggregationBuilders.terms("keyword_terms").field("키워드").size(50))
                 .build();
         SearchHits<?> searchHits = operations.search(query, ArticleEntity.class);
         ParsedStringTerms pst = Objects.requireNonNull(searchHits.getAggregations()).get("keyword_terms");
