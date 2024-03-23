@@ -5,11 +5,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.ssafy.bibibig.articles.dao.ElasticsearchArticleRepository;
+import org.ssafy.bibibig.articles.dao.ArticleRepositoryCustom;
+import org.ssafy.bibibig.result.dao.ElasticsearchRelatedArticleRepository;
 
 @EnableJpaRepositories(excludeFilters = @ComponentScan.Filter(
         type = FilterType.ASSIGNABLE_TYPE,
-        classes = ElasticsearchArticleRepository.class))
+        classes = {ArticleRepositoryCustom.class, ElasticsearchRelatedArticleRepository.class}))
 @SpringBootApplication
 public class BibibigApplication {
 

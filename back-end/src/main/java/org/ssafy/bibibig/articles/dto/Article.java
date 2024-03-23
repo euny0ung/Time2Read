@@ -2,6 +2,7 @@ package org.ssafy.bibibig.articles.dto;
 
 import org.ssafy.bibibig.articles.domain.ArticleEntity;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public record Article(
@@ -13,7 +14,7 @@ public record Article(
         String content,
         String image,
         String summary,
-        String wroteAt,
+        LocalDateTime wroteAt,
         List<String> keywords
 ) {
     public static Article from(ArticleEntity entity) {

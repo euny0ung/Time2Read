@@ -2,6 +2,7 @@ package org.ssafy.bibibig.quiz.fixture;
 
 import org.ssafy.bibibig.articles.domain.ArticleEntity;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class ArticleEntityFixture {
@@ -15,7 +16,7 @@ public class ArticleEntityFixture {
                 content,
                 "image",
                 summary,
-                "wroteAt",
+                LocalDateTime.of(2014, 2, 13, 11, 30),
                 keywords
         );
     }
