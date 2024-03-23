@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getYearSummary, postRelationArticles } from '../apis/resultApi.jsx';
+import { getYearSummary } from '../apis/resultApi.jsx';
 import ResultButton from '../components/commons/buttons/ResultButton.jsx';
 import TranslucentContainer from '../components/commons/containers/TranslucentContainer.jsx';
 import WhiteContainer from '../components/commons/containers/WhiteContainer.jsx';
@@ -8,30 +8,13 @@ import ResultContent from '../components/commons/ResultContent.jsx';
 import ResultTitle from '../components/commons/ResultTitle.jsx';
 import Articles from '../components/result/Articles.jsx';
 import Keyword from '../components/result/Keyword.jsx';
-import { useChallengedArticleStore, useGameResultStore } from '../stores/game/gameStore.jsx';
+import { useGameResultStore } from '../stores/game/gameStore.jsx';
 
 const ResultPage = () => {
   const navigate = useNavigate();
 
-  const { challengeArticlesIdList } = useChallengedArticleStore(); // 유저가 게임에서 도전한(정답,오답 모두 포함한) 문제의 기사 아이디들로 만든 배열
   const { gameResult } = useGameResultStore(); // 게임 결과 : 정답 수, 오답 수, 타임 어택 시간
-
   const [keywordData, setKeywordData] = useState([]);
-  const [articleData, setArticleData] = useState([]); // 기사리스트(총 기사 5개)
-
-  const article = {
-    id: '',
-    copyRight: '',
-    mainCategory: '',
-    subCategory: '',
-    time: '',
-    title: '',
-    image: '',
-    imageCaption: '',
-    content: '',
-    summary: '',
-    url: '',
-  };
 
   useEffect(() => {
     getYearSummary(2024)
@@ -41,14 +24,6 @@ const ResultPage = () => {
       })
       .catch((error) => {
         console.error('Error requesting year summary:', error);
-      });
-
-    postRelationArticles([challengeArticlesIdList])
-      .then((data) => {
-        console.log('Relation Articles Data:', data);
-      })
-      .catch((error) => {
-        console.error('Error requesting relation articles:', error);
       });
   }, []);
 

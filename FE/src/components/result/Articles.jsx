@@ -1,212 +1,7 @@
-import QuizArticleGroup from './QuizArticleGroup.jsx';
-
-const articlesData = [
-  [
-    {
-      id: '1',
-      copyRight: '가상뉴스',
-      mainCategory: '환경',
-      subCategory: '기후 변화',
-      time: '2020-04-01 09:00',
-      title: '전세계 기후 변화 대응 촉구, 국제 환경 단체 시위 개최',
-      image: 'https://flexible.img.hani.co.kr/flexible/normal/970/647/imgdb/original/2024/0107/20240107502017.jpg',
-      imageCaption: '기후 변화 대응 시위 모습',
-      content: '세계 각국에서 환경 보호와 기후 변화 대응을 촉구하는 대규모 시위가 열렸다...',
-      summary: '전세계에서 기후 변화 대응을 위한 시위가 벌어졌습니다.',
-      url: 'https://example.com/news/environment/climatechange01',
-    },
-    {
-      id: '2',
-      copyRight: '가상뉴스',
-      mainCategory: '경제',
-      subCategory: '시장 동향',
-      time: '2021-04-02 11:30',
-      title: '가상화폐 시장, 새로운 규제안 발표에 급등락',
-      image: 'https://example.com/image02.jpg',
-      imageCaption: '가상화폐 시장 동향',
-      content: '최근 발표된 가상화폐 관련 규제안에 따라 가상화폐 시장이 급등락하는 모습을 보였다...',
-      summary: '가상화폐 시장이 새로운 규제안 발표에 따라 급등락했습니다.',
-      url: 'https://example.com/news/economy/cryptomarket02',
-    },
-    {
-      id: '3',
-      copyRight: '가상뉴스',
-      mainCategory: '문화',
-      subCategory: '예술',
-      time: '2022-04-03 14:45',
-      title: '현대 미술 전시회 개최, 새로운 경향 소개',
-      image: 'https://example.com/image03.jpg',
-      imageCaption: '현대 미술 전시회',
-      content: '이번 주 현대 미술관에서는 새로운 경향의 현대 미술 작품들을 소개하는 전시회가 개최된다...',
-      summary: '새로운 경향의 현대 미술 작품들을 만날 수 있는 전시회가 열립니다.',
-      url: 'https://example.com/news/culture/artexhibition03',
-    },
-    {
-      id: '4',
-      copyRight: '가상뉴스',
-      mainCategory: '과학',
-      subCategory: '우주 탐사',
-      time: '2023-04-04 16:20',
-      title: '새로운 우주 탐사 프로젝트 발표, 인류의 달 탐사 재개',
-      image: 'https://example.com/image04.jpg',
-      imageCaption: '달 탐사 프로젝트 발표',
-      content: '국제 우주 탐사 기관이 새로운 달 탐사 프로젝트를 발표했다. 이 프로젝트는 인류가 다시 달을 탐사하는...',
-      summary: '인류의 달 탐사가 새로운 프로젝트를 통해 재개됩니다.',
-      url: 'https://example.com/news/science/spacemission04',
-    },
-    {
-      id: '5',
-      copyRight: '가상뉴스',
-      mainCategory: '기술',
-      subCategory: '인공지능',
-      time: '2024-04-05 10:15',
-      title: '인공지능 기술의 새로운 도약, 일상 생활에 더 깊숙이',
-      image: 'https://example.com/image05.jpg',
-      imageCaption: '인공지능 기술 발전',
-      content: '인공지능 기술이 새로운 발전을 이루면서, 우리의 일상 생활 속에서 더욱 중요한 역할을 하게 됐다...',
-      summary: '인공지능 기술이 일상 생활에 더 깊숙이 자리잡고 있습니다.',
-      url: 'https://example.com/news/tech/aiadvances05',
-    },
-  ],
-  [
-    {
-      id: '6',
-      copyRight: '가상뉴스',
-      mainCategory: '사회',
-      subCategory: '교통',
-      time: '2024-04-06 12:40',
-      title: '자율 주행 차량의 도로 안전성 논란, 전문가들의 의견 분분',
-      image: 'https://example.com/image06.jpg',
-      imageCaption: '자율 주행 차량 테스트',
-      content: '최근 자율 주행 차량의 도로 테스트가 확대되면서 이에 대한 안전성 논란이 일고 있다. 여러 전문가들은...',
-      summary: '자율 주행 차량의 도로 안전성에 대한 논란이 계속되고 있습니다.',
-      url: 'https://example.com/news/society/autonomouscars06',
-    },
-
-    {
-      id: '7',
-      copyRight: '가상뉴스',
-      mainCategory: '건강',
-      subCategory: '영양학',
-      time: '2024-04-07 15:30',
-      title: '현대인의 식습관 변화, 영양학적 관점에서 본 트렌드 분석',
-      image: 'https://example.com/image07.jpg',
-      imageCaption: '현대인의 식습관',
-      content: '식습관이 급격히 변화하고 있는 현대 사회에서, 영양학적 관점에서 이러한 변화를 분석해보았다...',
-      summary: '현대인의 식습관 변화를 영양학적 관점에서 분석합니다.',
-      url: 'https://example.com/news/health/nutritiontrends07',
-    },
-    {
-      id: '8',
-      copyRight: '가상뉴스',
-      mainCategory: '문화',
-      subCategory: '도서',
-      time: '2024-04-08 17:55',
-      title: '올해의 베스트셀러 도서 발표, 독서 트렌드에 미치는 영향',
-      image: 'https://example.com/image08.jpg',
-      imageCaption: '올해의 베스트셀러 도서',
-      content:
-        '이번 년도에는 어떤 도서가 베스트셀러에 올랐으며, 이러한 도서들이 현재의 독서 트렌드에 어떤 영향을 미쳤는지 살펴보았다...',
-      summary: '올해의 베스트셀러 도서를 통해 독서 트렌드를 분석합니다.',
-      url: 'https://example.com/news/culture/bestsellers08',
-    },
-
-    {
-      id: '9',
-      copyRight: '가상뉴스통신',
-      mainCategory: '스포츠',
-      subCategory: '축구',
-      time: '2024-05-01 18:00',
-      title: '국제 축구 연맹, 새로운 리그 개최 발표',
-      image: 'https://example.com/image09.jpg',
-      imageCaption: '국제 축구 연맹 기자회견',
-      content: '국제 축구 연맹이 오는 가을에 새로운 글로벌 축구 리그를 개최한다고 발표했습니다...',
-      summary: '국제 축구 연맹이 가을에 새로운 글로벌 리그 개최를 발표했습니다.',
-      url: 'https://example.com/news/sports/football09',
-    },
-    {
-      id: '10',
-      copyRight: '가상뉴스통신',
-      mainCategory: '과학',
-      subCategory: '생명 과학',
-      time: '2024-05-02 09:20',
-      title: '유전자 편집 기술의 진보, 새로운 치료법 개발에 기여',
-      image: 'https://example.com/image10.jpg',
-      imageCaption: '유전자 편집 연구',
-      content: '최근 유전자 편집 기술의 눈부신 진보가 새로운 치료법 개발에 중요한 기여를 하고 있습니다...',
-      summary: '유전자 편집 기술의 진보가 새로운 치료법 개발에 기여하고 있습니다.',
-      url: 'https://example.com/news/science/lifescience10',
-    },
-  ],
-  [
-    {
-      id: '11',
-      copyRight: '가상뉴스통신',
-      mainCategory: '교육',
-      subCategory: '온라인 교육',
-      time: '2024-05-03 14:35',
-      title: '온라인 교육의 새로운 패러다임, 학습 효율성 증가',
-      image: 'https://example.com/image11.jpg',
-      imageCaption: '온라인 교육 플랫폼',
-      content: '온라인 교육이 가져온 새로운 학습 패러다임으로 인해 학습 효율성이 크게 증가했습니다...',
-      summary: '온라인 교육이 학습 효율성을 크게 증가시키고 있습니다.',
-      url: 'https://example.com/news/education/onlinelearning11',
-    },
-    {
-      id: '12',
-      copyRight: '가상뉴스통신',
-      mainCategory: '여행',
-      subCategory: '생태 관광',
-      time: '2024-05-04 16:50',
-      title: '지속 가능한 여행, 생태 관광의 인기 상승',
-      image: 'https://example.com/image12.jpg',
-      imageCaption: '생태 관광지',
-      content: '지속 가능한 여행에 대한 관심이 높아지면서 생태 관광이 인기를 얻고 있습니다...',
-      summary: '지속 가능한 여행의 일환으로 생태 관광이 인기를 끌고 있습니다.',
-      url: 'https://example.com/news/travel/ecotourism12',
-    },
-    {
-      id: '13',
-      copyRight: '가상뉴스통신',
-      mainCategory: '건강',
-      subCategory: '정신 건강',
-      time: '2024-05-05 12:00',
-      title: '현대 사회의 스트레스 관리, 정신 건강의 중요성 증가',
-      image: 'https://example.com/image13.jpg',
-      imageCaption: '스트레스 관리와 정신 건강',
-      content: '현대 사회에서 스트레스 관리의 중요성이 강조되면서, 정신 건강에 대한 인식이 높아지고 있습니다...',
-      summary: '스트레스 관리와 정신 건강 유지가 현대 사회에서 점점 더 중요해지고 있습니다.',
-      url: 'https://example.com/news/health/mentalhealth13',
-    },
-
-    {
-      id: '14',
-      copyRight: '가상뉴스통신',
-      mainCategory: '경제',
-      subCategory: '글로벌 경제',
-      time: '2024-05-06 08:30',
-      title: '글로벌 경제의 새로운 동향, 변화하는 시장 분석',
-      image: 'https://example.com/image14.jpg',
-      imageCaption: '글로벌 경제 동향',
-      content: '세계 경제의 새로운 동향을 분석하며, 변화하는 글로벌 시장의 미래에 대해 탐구합니다...',
-      summary: '글로벌 경제의 최신 동향과 변화하는 시장의 미래를 분석합니다.',
-      url: 'https://example.com/news/economy/global14',
-    },
-    {
-      id: '15',
-      copyRight: '가상뉴스통신',
-      mainCategory: '과학',
-      subCategory: '천문학',
-      time: '2024-05-07 19:45',
-      title: '최근 발견된 외계 행성, 생명체 존재 가능성 탐구',
-      image: 'https://example.com/image15.jpg',
-      imageCaption: '새로 발견된 외계 행성',
-      content: '천문학자들이 최근 발견한 외계 행성에서 생명체의 존재 가능성에 대해 연구하고 있습니다...',
-      summary: '새로 발검된 외계 행성에서 생명체의 존재 가능성을 탐구하는 연구가 진행 중입니다.',
-      url: 'https://example.com/news/science/astronomy15',
-    },
-  ],
-];
+import { useState, useEffect } from 'react';
+import { postRelationArticles } from '@/apis/resultApi.jsx';
+import QuizArticleGroup from '@/components/result/QuizArticleGroup.jsx';
+import { useChallengedArticleStore } from '@/stores/game/gameStore.jsx';
 
 const articlesData2 = [
   {
@@ -289,7 +84,7 @@ const articlesData2 = [
         mainCategory: '경제',
         subCategory: '금융·증권',
         time: '2024-01-08 05:00',
-        title: '은행 의결권 다 합쳐도 33%…태영 채권단의 표심은 어디로',
+        title: '삐리리ㅣ로',
         image: 'https://flexible.img.hani.co.kr/flexible/normal/970/647/imgdb/original/2024/0107/20240107502017.jpg',
         imageCaption: '7일 서울 영등포구 태영건설 본사. 연합뉴스',
         content: '이 기사의 내용은 변경되었습니다.',
@@ -353,16 +148,28 @@ const articlesData2 = [
   },
 ];
 
-// 관련된 기사 api 호출해와서
-// 상태관리에 저장해놨던 기사데이터랑 합침
-// ->
-// 전체 기사데이터 리스트를 만들어서
-// 그 다음에 렌더링
 const Articles = () => {
+  // const { challengeArticlesIdList } = useChallengedArticleStore(); // 유저가 게임에서 도전한(정답,오답 모두 포함한) 문제의 기사 아이디들로 만든 배열
+  const [articlesData, setArticlesData] = useState([]); // 모든 기사
+
+  useEffect(() => {
+    postRelationArticles(['1', '2'])
+      .then((data) => {
+        setArticlesData(data.articles);
+        console.log('Articles Data:', data);
+      })
+      .catch((error) => {
+        console.error('Error requesting relation articles:', error);
+      });
+  }, []);
+
   return (
     <>
-      {articlesData2.map((quizArticleGroup, i) => (
-        <QuizArticleGroup key={quizArticleGroup.id} quizArticleGroup={quizArticleGroup.related} num={i + 1} />
+      {/* {articlesData2.map((quizArticleGroup, i) => (
+        <QuizArticleGroup key={quizArticleGroup.id} relatedArticles={quizArticleGroup.related} num={i + 1} />
+      ))} */}
+      {articlesData.map((quizArticleGroup, i) => (
+        <QuizArticleGroup key={quizArticleGroup[0].id} relatedArticles={quizArticleGroup.related} num={i + 1} />
       ))}
     </>
   );

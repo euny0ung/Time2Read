@@ -38,7 +38,7 @@ const articleTemplate = {
 
 // -------------- 상태 관리 --------------
 
-// 유저가 게임에서 도전한(정답,오답 모두 포함한) 퀴즈의 기사 아이디들
+// 유저가 게임에서 도전한(정답,오답 모두 포함한) 퀴즈의 기사 아이디들 (퀴즈 푼 순서대로 배열에 저장)
 export const useChallengedArticleStore = create(
   devtools((set) => ({
     challengeArticlesIdList: [challengeArticleTemplate.id],
@@ -66,11 +66,3 @@ export const useGameModalStore = create((set) => ({
   setOpenQuizModal: (value) => set({ openQuizModal: value }),
   setOpenGameOverModal: (value) => set({ openGameOverModal: value }),
 }));
-
-// 유저가 게임에서 푼 기사들 + 과거와 연결된 기사들
-export const useArticlesStore = create(
-  devtools((set) => ({
-    articles: [articleTemplate],
-    setArticles: (articles) => set({ articles }),
-  })),
-);
