@@ -8,6 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.ssafy.bibibig.articles.domain.ArticleEntity;
+import org.ssafy.bibibig.common.utils.MainCategory;
 import org.ssafy.bibibig.member.application.fixture.MemberFixture;
 import org.ssafy.bibibig.member.dao.ElasticsearchMemberRepository;
 import org.ssafy.bibibig.member.dao.ScrapedArticesRepository;
@@ -45,39 +46,39 @@ class ScrapServiceTest {
         when(elasticsearchMemberRepository.getAllArticles(id)).thenReturn(articles);
 
         // when
-        Map<String, List<ArticleEntity>> result = service.getScrapedArticles(1L).map();
+        Map<String, List<ArticleEntity>> result = service.getScrapedArticles(1L).data();
 
         // then
         assertEquals(6, result.size());
-        assertEquals(2, result.get("정치").size());
-        assertEquals(1, result.get("경제").size());
-        assertEquals(1, result.get("문화").size());
-        assertEquals(1, result.get("스포츠").size());
-        assertEquals(1, result.get("국제").size());
-        assertEquals(1, result.get("사회").size());
+        assertEquals(2, result.get(MainCategory.POLITICS.getEnglish()).size());
+        assertEquals(1, result.get(MainCategory.ECONOMY.getEnglish()).size());
+        assertEquals(1, result.get(MainCategory.CULTURE.getEnglish()).size());
+        assertEquals(1, result.get(MainCategory.SPORTS.getEnglish()).size());
+        assertEquals(1, result.get(MainCategory.INTERNATIONAL.getEnglish()).size());
+        assertEquals(1, result.get(MainCategory.SOCIAL.getEnglish()).size());
     }
 
     private static List<ScrapedArticleEntity> getScraped() {
         return List.of(
-                MemberFixture.getScrapedArticleForGrouping("1"),
-                MemberFixture.getScrapedArticleForGrouping("2"),
-                MemberFixture.getScrapedArticleForGrouping("3"),
-                MemberFixture.getScrapedArticleForGrouping("4"),
-                MemberFixture.getScrapedArticleForGrouping("5"),
-                MemberFixture.getScrapedArticleForGrouping("6"),
-                MemberFixture.getScrapedArticleForGrouping("7")
+                MemberFixture.getScrapedArticleForGrouping(),
+                MemberFixture.getScrapedArticleForGrouping(),
+                MemberFixture.getScrapedArticleForGrouping(),
+                MemberFixture.getScrapedArticleForGrouping(),
+                MemberFixture.getScrapedArticleForGrouping(),
+                MemberFixture.getScrapedArticleForGrouping(),
+                MemberFixture.getScrapedArticleForGrouping()
         );
     }
 
     private static List<ArticleEntity> getArticles() {
         return List.of(
-                MemberFixture.getArticleForGrouping("정치"),
-                MemberFixture.getArticleForGrouping("정치"),
-                MemberFixture.getArticleForGrouping("경제"),
-                MemberFixture.getArticleForGrouping("문화"),
-                MemberFixture.getArticleForGrouping("스포츠"),
-                MemberFixture.getArticleForGrouping("국제"),
-                MemberFixture.getArticleForGrouping("사회")
+                MemberFixture.getArticleForGrouping(MainCategory.POLITICS.getKorean()),
+                MemberFixture.getArticleForGrouping(MainCategory.POLITICS.getKorean()),
+                MemberFixture.getArticleForGrouping(MainCategory.ECONOMY.getKorean()),
+                MemberFixture.getArticleForGrouping(MainCategory.CULTURE.getKorean()),
+                MemberFixture.getArticleForGrouping(MainCategory.SPORTS.getKorean()),
+                MemberFixture.getArticleForGrouping(MainCategory.INTERNATIONAL.getKorean()),
+                MemberFixture.getArticleForGrouping(MainCategory.SOCIAL.getKorean())
         );
     }
 }

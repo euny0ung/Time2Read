@@ -23,10 +23,10 @@ public class MemberFixture {
         );
     }
 
-    public static ScrapedArticleEntity getScrapedArticleForGrouping(String id) {
+    public static ScrapedArticleEntity getScrapedArticleForGrouping() {
         return new ScrapedArticleEntity(
                 null,
-                id,
+                null,
                 null,
                 null
         );
