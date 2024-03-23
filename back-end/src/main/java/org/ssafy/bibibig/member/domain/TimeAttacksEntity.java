@@ -17,7 +17,7 @@ public class TimeAttacksEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name="time_attack_time")
-    private int timeAttackTime;
+    private String timeAttackTime;
     @Column(name = "created_at")
     private LocalDateTime createdAt;
     @ManyToOne

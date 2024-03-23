@@ -7,10 +7,8 @@ import org.ssafy.bibibig.common.dto.Response;
 import org.ssafy.bibibig.member.application.BadgeService;
 import org.ssafy.bibibig.member.application.ScrapService;
 import org.ssafy.bibibig.member.application.SolvedCategoryService;
-import org.ssafy.bibibig.member.dto.response.BadgeResponse;
-import org.ssafy.bibibig.member.dto.response.ScrapedArticlesByMainCateResponse;
-import org.ssafy.bibibig.member.dto.response.SolvedCategory;
-import org.ssafy.bibibig.member.dto.response.SolvedCategoryResponse;
+import org.ssafy.bibibig.member.application.TimeAttackRecordService;
+import org.ssafy.bibibig.member.dto.response.*;
 import org.ssafy.bibibig.member.utils.SessionInfo;
 
 import java.util.List;
@@ -23,7 +21,7 @@ public class MyController {
     private final ScrapService scrapService;
     private final SolvedCategoryService solvedCategoryService;
     private final BadgeService badgeService;
-
+    private final TimeAttackRecordService timeAttackRecordService;
 
     @PutMapping("/scraped-articles/{articleId}/{status}")
     public Response<?> changeScrapStatus(HttpServletRequest request, @PathVariable(name = "articleId") String articleId, @PathVariable(name = "status") boolean status){
@@ -53,9 +51,15 @@ public class MyController {
     }
 
     @GetMapping("/badges")
-    public Response<?> getBadges(HttpServletRequest request){
+    public Response<List<BadgeResponse>> getBadges(HttpServletRequest request){
         Long memberId = SessionInfo.getSessionMemberId(request);
-        List<BadgeResponse> badges = badgeService.getBadges(memberId);
-        return Response.success(badges);
+        return Response.success(badgeService.getBadges(memberId));
+    }
+
+    @GetMapping("/records")
+    public Response<List<TimeAttackResponse>> getRecords(HttpServletRequest request){
+        Long memberId = SessionInfo.getSessionMemberId(request);
+        return Response.success(timeAttackRecordService.getRecords(memberId));
+
     }
 }
