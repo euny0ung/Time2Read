@@ -58,7 +58,7 @@ public class ArticleService {
     private List<CategoryType> randomCategory() {
         List<CategoryType> categoryList = new ArrayList<>(List.of(CategoryType.values()));
         Random random = new Random();
-        for(int i = 0; i < 4; i++) {
+        for (int i = 0; i < 4; i++) {
             int randomIdx = random.nextInt(CategoryType.values().length);
             categoryList.add(CategoryType.values()[randomIdx]);
         }
@@ -72,7 +72,7 @@ public class ArticleService {
 
     private Article getArticleEntityOrThrowException(String id) {
         return Article.from(articleRepository.findById(id).orElseThrow(() ->
-                        new CommonException(ErrorCode.ARTICLE_NOT_FOUND, String.format("articles id : %s is not founded", id))
+                        new CommonException(ErrorCode.ARTICLE_NOT_FOUND, String.format("article id : %s is not founded", id))
                 )
         );
     }

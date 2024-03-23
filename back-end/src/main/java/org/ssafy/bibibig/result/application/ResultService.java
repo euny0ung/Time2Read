@@ -9,8 +9,6 @@ import org.ssafy.bibibig.articles.dto.Article;
 import org.ssafy.bibibig.result.dao.ElasticsearchRelatedArticleRepository;
 import org.ssafy.bibibig.result.dto.response.RelatedArticleResponse;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service

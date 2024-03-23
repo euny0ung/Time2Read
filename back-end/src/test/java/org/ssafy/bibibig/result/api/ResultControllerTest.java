@@ -1,5 +1,6 @@
 package org.ssafy.bibibig.result.api;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.junit.jupiter.api.DisplayName;
@@ -8,14 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.List;
+import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
@@ -45,7 +47,9 @@ class ResultControllerTest {
         // then
         perform.andExpect(status().isOk());
 
-        System.out.println(perform.andReturn().getResponse().getContentAsString());
-    }
+        String response = perform.andReturn().getResponse().getContentAsString();
+        Map<String, List<Object>> map = new ObjectMapper().readValue(response, Map.class);
 
+        assertTrue(map.get("result").size() > 0);
+    }
 }

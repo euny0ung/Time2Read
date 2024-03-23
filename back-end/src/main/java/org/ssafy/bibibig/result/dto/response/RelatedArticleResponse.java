@@ -6,6 +6,6 @@ import java.util.List;
 
 public record RelatedArticleResponse(
         String relatedArticleId,
-        List<Article> articles
-){
+        List<Article> article
+) {
 }
