@@ -2,7 +2,7 @@ package org.ssafy.bibibig.result.api;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.ssafy.bibibig.articles.dto.KeywordTerms;
 import org.ssafy.bibibig.common.dto.Response;
 import org.ssafy.bibibig.result.application.ResultService;
 import org.ssafy.bibibig.result.dto.request.RelatedArticleRequest;
@@ -24,6 +24,18 @@ public class ResultController {
                         .stream()
                         .map(RelatedArticleResponse::from)
                         .toList());
+    }
+
+    @GetMapping("/related/{articleId}")
+    public Response<RelatedArticleResponse> getRelatedArticlesTop5(@PathVariable String articleId) {
+        return Response.success(
+                new RelatedArticleResponse(articleId, resultService.getRelatedArticlesTop5(articleId))
+        );
+    }
+
+    @GetMapping("/summary")
+    public Response<List<KeywordTerms>> getTopKeywordsByYear(@RequestParam int year) {
+        return Response.success(resultService.getTopKeywordsByYear(year));
     }
 
 }

@@ -1,5 +1,6 @@
 package org.ssafy.bibibig.articles.application;
 
+import org.elasticsearch.index.query.MoreLikeThisQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.functionscore.ScoreFunctionBuilders;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
@@ -28,6 +29,7 @@ import java.util.*;
 import java.util.regex.Pattern;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.elasticsearch.index.query.QueryBuilders.moreLikeThisQuery;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
 @SpringBootTest
@@ -180,6 +182,35 @@ class ArticleServiceTest {
         }
     }
 
+    @Test
+    @DisplayName("관련된 기사 top 5- more like this")
+    void givenIdAndContent_whenSearchRelationalArticles_thenReturnArticleLists() {
+        //given
+        String index = "hani-news-topic-index";
+        String id = "c33049bb-e879-470e-8e77-7654bf4d3a53";
+
+        //when
+        MoreLikeThisQueryBuilder.Item[] likeItems = {
+                new MoreLikeThisQueryBuilder.Item(index, id)
+        };
+        NativeSearchQuery query = new NativeSearchQueryBuilder()
+                .withQuery(
+                        moreLikeThisQuery(likeItems)
+                                .minTermFreq(1)
+                                .maxQueryTerms(12)
+                )
+                .build();
+        //then
+        SearchHits<?> searchHits = operations.search(query, ArticleEntity.class);
+        List<ArticleEntity> result = searchHits.getSearchHits().stream()
+                .limit(5)
+                .map(SearchHit::getContent)
+                .filter(ArticleEntity.class::isInstance)
+                .map(ArticleEntity.class::cast)
+                .toList();
+        assertThat(result.size()).isEqualTo(5);
+        System.out.println(result);
+    }
 
     private ArticleEntity fixture() {
         String id = "2f630765-7955-46d2-97f6-b849086d609b";

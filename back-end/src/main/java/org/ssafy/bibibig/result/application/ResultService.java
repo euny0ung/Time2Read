@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.ssafy.bibibig.articles.application.ArticleService;
 import org.ssafy.bibibig.articles.domain.ArticleEntity;
 import org.ssafy.bibibig.articles.dto.Article;
+import org.ssafy.bibibig.articles.dto.KeywordTerms;
 import org.ssafy.bibibig.result.dao.ElasticsearchRelatedArticleRepository;
 import org.ssafy.bibibig.result.dto.RelatedArticle;
 
@@ -25,6 +26,14 @@ public class ResultService {
                 .map(articleService::findById)
                 .map(article -> new RelatedArticle(article.id(), articleToRelateArticle(article)))
                 .toList();
+    }
+
+    public List<Article> getRelatedArticlesTop5(String id) {
+        return articleService.getRelatedArticlesTop5(id);
+    }
+
+    public List<KeywordTerms> getTopKeywordsByYear(int year) {
+        return articleService.getTopKeywordsByYear(year);
     }
 
     private List<Article> articleToRelateArticle(Article article) {

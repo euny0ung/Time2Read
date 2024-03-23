@@ -1,6 +1,7 @@
 package org.ssafy.bibibig.articles.dao;
 
 import lombok.RequiredArgsConstructor;
+import org.elasticsearch.index.query.MoreLikeThisQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.index.query.functionscore.ScoreFunctionBuilders;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
@@ -19,6 +20,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
+
+import static org.elasticsearch.index.query.QueryBuilders.moreLikeThisQuery;
 
 @Repository
 @RequiredArgsConstructor
@@ -70,6 +73,7 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
         ).toList();
     }
 
+    // 랜덤 기사 추출하기
     @Override
     public ArticleEntity getRandomArticleByYearAndCategoryAndKeyword(int year, CategoryType category, String keyword) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -88,6 +92,32 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
         SearchHit<ArticleEntity> search = operations.search(query, ArticleEntity.class).getSearchHit(0);
         ArticleEntity article = search.getContent();
         return article;
+    }
+
+    // 특정 기사와 관련된 기사 Top5개 뽑기
+    @Override
+    public List<ArticleEntity> getRelatedArticlesTop5(String id) {
+        String index = "hani-news-topic-index";
+        MoreLikeThisQueryBuilder.Item[] likeItems = {
+                new MoreLikeThisQueryBuilder.Item(index, id)
+        };
+        NativeSearchQuery query = new NativeSearchQueryBuilder()
+                .withQuery(
+                        moreLikeThisQuery(likeItems)
+                                .minTermFreq(1)
+                                .maxQueryTerms(12)
+                )
+                .build();
+        //then
+        SearchHits<?> searchHits = operations.search(query, ArticleEntity.class);
+        List<ArticleEntity> result = searchHits.getSearchHits().stream()
+                .limit(5)
+                .map(SearchHit::getContent)
+                .filter(ArticleEntity.class::isInstance)
+                .map(ArticleEntity.class::cast)
+                .toList();
+
+        return result;
     }
 }
 

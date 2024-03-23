@@ -12,6 +12,8 @@ public interface ArticleRepositoryCustom {
     List<KeywordTerms> getTopKeywordsByYearAndCategory(int year, CategoryType category);
 
     ArticleEntity getRandomArticleByYearAndCategoryAndKeyword(int year, CategoryType category, String keyword);
+
+    List<ArticleEntity> getRelatedArticlesTop5(String id);
 }
 
 
