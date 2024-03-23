@@ -165,12 +165,12 @@ const Articles = () => {
 
   return (
     <>
-      {/* {articlesData2.map((quizArticleGroup, i) => (
+      {articlesData2.map((quizArticleGroup, i) => (
         <QuizArticleGroup key={quizArticleGroup.id} relatedArticles={quizArticleGroup.related} num={i + 1} />
-      ))} */}
-      {articlesData.map((quizArticleGroup, i) => (
-        <QuizArticleGroup key={quizArticleGroup[0].id} relatedArticles={quizArticleGroup.related} num={i + 1} />
       ))}
+      {/* {articlesData.map((quizArticleGroup, i) => (
+        <QuizArticleGroup key={quizArticleGroup[0].id} relatedArticles={quizArticleGroup.related} num={i + 1} />
+      ))} */}
     </>
   );
 };
