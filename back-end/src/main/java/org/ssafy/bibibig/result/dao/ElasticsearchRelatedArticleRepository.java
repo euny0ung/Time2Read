@@ -1,23 +1,84 @@
 package org.ssafy.bibibig.result.dao;
 
-import org.springframework.data.elasticsearch.annotations.Query;
-import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
-import org.springframework.data.repository.query.Param;
+import lombok.RequiredArgsConstructor;
+import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.search.aggregations.AggregationBuilders;
+import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogramAggregationBuilder;
+import org.elasticsearch.search.aggregations.bucket.histogram.DateHistogramInterval;
+import org.elasticsearch.search.aggregations.bucket.terms.ParsedStringTerms;
+import org.elasticsearch.search.aggregations.bucket.terms.Terms;
+import org.elasticsearch.search.sort.SortOrder;
+import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
+import org.springframework.data.elasticsearch.core.SearchHit;
+import org.springframework.data.elasticsearch.core.SearchHits;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQuery;
+import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+import org.springframework.stereotype.Repository;
 import org.ssafy.bibibig.articles.domain.ArticleEntity;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
-public interface ElasticsearchRelatedArticleRepository extends ElasticsearchRepository<ArticleEntity, String> {
+@Repository
+@RequiredArgsConstructor
+public class ElasticsearchRelatedArticleRepository {
 
+    private final ElasticsearchOperations operations;
 
-    @Query("{\"bool\": {\"must\": [{\"match\": {\"대분류\": :mainCategory}}, {\"range\": {\"작성시간\": {\"gte\": :gte, \"lte\": :lte}}}], \"should\": [{\"match\": {\"키워드\": :keyword1}}, {\"match\": {\"키워드\": :keyword2}}, {\"match\": {\"키워드\": :keyword3}}, {\"match\": {\"키워드\": :keyword4}}, {\"match\": {\"키워드\": :keyword5}}], \"minimum_should_match\": :minimum_should_match}, \"size\": 0, \"aggs\": {\"most_relate_per_year\": {\"date_histogram\": {\"field\": \"작성시간\", \"calendar_interval\": \"year\", \"format\": \"yyyy\"}, \"aggs\": {\"related_top_per_year\": {\"top_hits\": {\"size\": 1, \"sort\": [{\"_score\": {\"order\": \"desc\"}}]}}}}}}")
-    ArticleEntity getRelatedArticles(@Param("mainCategory") String mainCategory,
-                                     @Param("gte") String gte,
-                                     @Param("lte") String lte,
-                                     @Param("keyword1") String keyword1,
-                                     @Param("keyword2") String keyword2,
-                                     @Param("keyword3") String keyword3,
-                                     @Param("keyword4") String keyword4,
-                                     @Param("keyword5") String keyword5,
-                                     @Param("minimum_should_match") int minimum_should_match);
+    public List<ArticleEntity> getRelatedArticles(String mainCategory,
+                                            int nextYear,
+                                            int lastYear,
+                                            List<String> keywords,
+                                            int minimumShouldMatch) {
+        NativeSearchQuery query = new NativeSearchQueryBuilder()
+                .withQuery(getBoolQuery(mainCategory, nextYear, lastYear, keywords, minimumShouldMatch))
+                .withMaxResults(0)
+                .addAggregation(getAggregation())
+                .build();
 
+        SearchHits<?> searchHits = operations.search(query, ArticleEntity.class);
+        ParsedStringTerms pst = Objects.requireNonNull(searchHits.getAggregations()).get("most_relate_per_year");
+
+        List<ArticleEntity> articleList = new ArrayList<>();
+        for (Terms.Bucket bucket : pst.getBuckets()) {
+            SearchHits<ArticleEntity> hits = bucket.getAggregations().get("related_top_per_year");
+            for (SearchHit<ArticleEntity> hit : hits) {
+                articleList.add(hit.getContent());
+            }
+        }
+
+        return articleList;
+    }
+
+    private static BoolQueryBuilder getBoolQuery(String mainCategory, int nextYear, int lastYear, List<String> keywords, int minimumShouldMatch) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        BoolQueryBuilder boolQuery = QueryBuilders.boolQuery()
+                .must(QueryBuilders.matchQuery("대분류", mainCategory))
+                .must(QueryBuilders.rangeQuery("작성시간")
+                        .gte(LocalDateTime.of(nextYear, 1, 1, 0, 0).format(formatter))
+                        .lt(LocalDateTime.of(lastYear + 1, 1, 1, 0, 0).format(formatter))
+                );
+        keywords.forEach(key -> boolQuery.should(QueryBuilders.matchQuery("키워드", key)));
+        boolQuery.minimumShouldMatch(minimumShouldMatch);
+        return boolQuery;
+    }
+
+    private DateHistogramAggregationBuilder getAggregation() {
+        return AggregationBuilders
+                .dateHistogram("most_relate_per_year")
+                .field("작성시간")
+                .calendarInterval(DateHistogramInterval.YEAR)
+                .format("yyyy")
+                .subAggregation(
+                        AggregationBuilders
+                                .topHits("related_top_per_year")
+                                .size(1)
+                                .sort("_score", SortOrder.DESC)
+                );
+    }
 }
+

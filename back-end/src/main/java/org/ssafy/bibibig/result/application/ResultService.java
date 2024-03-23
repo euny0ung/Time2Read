@@ -29,27 +29,16 @@ public class ResultService {
                 .toList();
     }
 
-    private String toFormat(LocalDateTime localDateTime) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        return localDateTime.format(formatter);
-    }
-
-    private Article articleToRelateArticle(Article article) {
-        String tmp = toFormat(article.wroteAt());
-
-        ArticleEntity relatedArticles = relatedArticleRepository.getRelatedArticles(
+    private List<Article> articleToRelateArticle(Article article) {
+        List<ArticleEntity> relatedArticles = relatedArticleRepository.getRelatedArticles(
                 article.mainCategory(),
-                toFormat(article.wroteAt()),
-                "2024-12-13 23:59",
-                article.keywords().get(0),
-                article.keywords().get(1),
-                article.keywords().get(2),
-                article.keywords().get(3),
-                article.keywords().get(4),
+                article.wroteAt().getYear() + 1,
+                2024,
+                article.keywords(),
                 1);
-        relatedArticles = relatedArticles;
 
-        return Article.from(relatedArticles
-        );
+        return relatedArticles.stream()
+                .map(Article::from)
+                .toList();
     }
 }

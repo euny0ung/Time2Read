@@ -72,7 +72,7 @@ public class ArticleService {
 
     private Article getArticleEntityOrThrowException(String id) {
         return Article.from(articleRepository.findById(id).orElseThrow(() ->
-                        new CommonException(ErrorCode.ARTICLE_NOT_FOUND, String.format("article id : %s is not founded", id))
+                        new CommonException(ErrorCode.ARTICLE_NOT_FOUND, String.format("articles id : %s is not founded", id))
                 )
         );
     }
