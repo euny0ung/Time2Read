@@ -16,9 +16,9 @@ public class ArticleController {
 
     private final ArticleService articleService;
 
-    @GetMapping("/{articleId}")
-    public Response<ArticleWithQuiz> getArticleWithQuiz(@PathVariable String articleId) {
-        return Response.success(articleService.getArticleWithQuiz(articleId));
+    @GetMapping("/{year}")
+    public Response<List<ArticleWithQuiz>> getArticleWithQuiz(@PathVariable int year) {
+        return Response.success(articleService.getArticleWithQuizes(year));
     }
 
     @GetMapping("/result/summary")
