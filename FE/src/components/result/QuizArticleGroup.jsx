@@ -9,7 +9,7 @@ import ImageComponent from '../commons/ImageComponent.jsx';
 import Tooltip from '../commons/Tooltip.jsx';
 
 // 특정 문제에 대한 관련 기사 그룹을 렌더링
-const QuizArticleGroup = ({ quizArticleGroup, num }) => {
+const QuizArticleGroup = ({ relatedArticles, num }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isToggleOn, setIsToggleOn] = useState(false);
   const [isScraped, setIsScraped] = useState(false);
@@ -17,9 +17,9 @@ const QuizArticleGroup = ({ quizArticleGroup, num }) => {
 
   const containerRef = useRef(null); // QuizArticleGroup Container의 ref
 
-  const relatedArticle = quizArticleGroup[currentStep];
-  const [firstArticle] = quizArticleGroup; // 가장 초기의 기사
-  const mostRecentArticle = quizArticleGroup[quizArticleGroup.length - 1]; // 가장 최근의 기사
+  const relatedArticle = relatedArticles[currentStep];
+  const [firstArticle] = relatedArticles; // 가장 초기의 기사
+  const mostRecentArticle = relatedArticles[relatedArticles.length - 1]; // 가장 최근의 기사
 
   const goToStep = (stepIndex) => {
     setCurrentStep(stepIndex);
@@ -36,7 +36,7 @@ const QuizArticleGroup = ({ quizArticleGroup, num }) => {
   const handleResize = () => {
     if (containerRef.current) {
       const progressBarWidth = containerRef.current.offsetWidth * 0.6; // 프로그레스바 너비 = 컨테이너의 60%
-      setTitleMaxWidth(`${progressBarWidth / quizArticleGroup.length}px`); // 프로그레스바 너비를 quizArticleGroup.length로 나누어 각 기사 타이틀의 maxWidth를 계산
+      setTitleMaxWidth(`${progressBarWidth / relatedArticles.length}px`); // 프로그레스바 너비를 relatedArticles.length로 나누어 각 기사 타이틀의 maxWidth를 계산
     }
   };
 
@@ -47,12 +47,12 @@ const QuizArticleGroup = ({ quizArticleGroup, num }) => {
     return () => {
       window.removeEventListener('resize', handleResize); // 컴포넌트 언마운트 시 리스너 제거
     };
-  }, [quizArticleGroup.length]);
+  }, [relatedArticles.length]);
 
   return (
     <>
       <div className="flex flex-col items-start w-full" ref={containerRef}>
-        {/* QuizArticleGroup Container */}
+        {/* RelatedArticles Container */}
         <div className="flex flex-col items-start w-full gap-2 p-5 text-white rounded-t-lg bg-gradient-to-br from-purple-400 to-indigo-500 ">
           {/* 문제번호 */}
           <div className="text-lg">#{num}</div>
@@ -66,7 +66,7 @@ const QuizArticleGroup = ({ quizArticleGroup, num }) => {
             <div className="relative" style={{ maxWidth: '60%' }}>
               {/* 프로그래스바 원 위에 설명 - 연도 */}
               <div className="flex justify-between w-full ">
-                {quizArticleGroup.map((article, i) => {
+                {relatedArticles.map((article, i) => {
                   return (
                     <Tooltip
                       key={article.id}
@@ -100,10 +100,10 @@ const QuizArticleGroup = ({ quizArticleGroup, num }) => {
                 {/* 프로그래스바 채워진 선 - tailwind는 동적 조절이 힘들어서 인라인 스타일에서 width 속성 설정함 */}
                 <div
                   className="absolute top-0 left-0 h-full transition-all duration-700 ease-in-out bg-indigo-700"
-                  style={{ width: `calc(${(currentStep / (quizArticleGroup.length - 1)) * 100}%)` }}
+                  style={{ width: `calc(${(currentStep / (relatedArticles.length - 1)) * 100}%)` }}
                 />
                 {/* 프로그래스바 원들 */}
-                {quizArticleGroup.map((article, i) => (
+                {relatedArticles.map((article, i) => (
                   <Tooltip
                     key={article.id}
                     text={article.title}
@@ -113,7 +113,7 @@ const QuizArticleGroup = ({ quizArticleGroup, num }) => {
                       key={article.id}
                       className={`absolute top-0.5 z-10 flex items-center justify-center w-4 h-4 transform -translate-y-1/2 rounded-full ${i <= currentStep ? 'bg-indigo-700' : 'bg-indigo-200'}`}
                       style={{
-                        left: `calc(${(i / (quizArticleGroup.length - 1)) * 100}% - 0.5rem)`,
+                        left: `calc(${(i / (relatedArticles.length - 1)) * 100}% - 0.5rem)`,
                       }}
                       onClick={() => {
                         goToStep(i);
@@ -133,7 +133,7 @@ const QuizArticleGroup = ({ quizArticleGroup, num }) => {
               </div>
               {/* 프로그래스바 원 아래 설명 - 타이틀 */}
               <div className="flex justify-between w-full">
-                {quizArticleGroup.map((article, i) => {
+                {relatedArticles.map((article, i) => {
                   return (
                     <Tooltip
                       key={article.id}
@@ -215,10 +215,10 @@ const QuizArticleGroup = ({ quizArticleGroup, num }) => {
                 </button>
                 <button
                   className="px-4 py-1 text-white bg-blue-600 rounded hover:bg-blue-700 disabled:opacity-50"
-                  onClick={() => setCurrentStep((prev) => Math.min(prev + 1, quizArticleGroup.length - 1))}
-                  disabled={currentStep === quizArticleGroup.length - 1}
+                  onClick={() => setCurrentStep((prev) => Math.min(prev + 1, relatedArticles.length - 1))}
+                  disabled={currentStep === relatedArticles.length - 1}
                 >
-                  {currentStep === quizArticleGroup.length - 1 ? '마지막 기사' : '다음 기사'}
+                  {currentStep === relatedArticles.length - 1 ? '마지막 기사' : '다음 기사'}
                 </button>
               </div>
             </div>
