@@ -1,4 +1,4 @@
-const YearBadge = ({ year, successCount }) => {
+const BadgeComponent = ({ year, successCount }) => {
   // const medalBorderColors = {
   //   gold: 'border-yellow-500',
   //   silver: 'border-gray-300',
@@ -50,4 +50,4 @@ const YearBadge = ({ year, successCount }) => {
   );
 };
 
-export default YearBadge;
+export default BadgeComponent;
