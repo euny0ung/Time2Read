@@ -33,14 +33,6 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
     setIsScraped((prevState) => !prevState);
   };
 
-  // const updateMaxWidth = () => {
-  //   if (containerRef.current) {
-  //     const progressBarWidth = containerRef.current.offsetWidth * 0.6; // RelatedArticles Container의 너비의 60%를 프로그레스바의 너비로 설정
-  //     const titleMaxWidth = `${progressBarWidth / relatedArticles.length}px`; // 프로그레스바 너비를 relatedArticles.length로 나누어 각 기사 타이틀의 maxWidth를 계산
-  //     setMaxWidth(titleMaxWidth);
-  //   }
-  // };
-
   const handleResize = () => {
     if (containerRef.current) {
       const progressBarWidth = containerRef.current.offsetWidth * 0.6; // 프로그레스바 너비 = 컨테이너의 60%
@@ -76,9 +68,53 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
               <div className="flex justify-between w-full ">
                 {relatedArticles.map((article, i) => {
                   return (
+                    <Tooltip
+                      key={article.id}
+                      text={article.title}
+                      image={<ImageComponent src={article.image} alt={article.imageCaption} />}
+                    >
+                      <div
+                        key={article.id}
+                        className={`truncate cursor-pointer ${i === currentStep ? 'text-indigo-700' : 'text-white'}`}
+                        onClick={() => {
+                          goToStep(i);
+                          setIsToggleOn(true);
+                        }}
+                        onKeyPress={(e) => {
+                          if (e.key === 'Enter') {
+                            goToStep(i);
+                            setIsToggleOn(true);
+                          }
+                        }}
+                        role="button"
+                        tabIndex={0}
+                      >
+                        {article.time.substring(0, 4)}
+                      </div>
+                    </Tooltip>
+                  );
+                })}
+              </div>
+              {/* 프로그래스바 선 및 원 */}
+              <div className="relative flex justify-between h-1 m-4 bg-gray-200">
+                {/* 프로그래스바 채워진 선 - tailwind는 동적 조절이 힘들어서 인라인 스타일에서 width 속성 설정함 */}
+                <div
+                  className="absolute top-0 left-0 h-full transition-all duration-700 ease-in-out bg-indigo-700"
+                  style={{ width: `calc(${(currentStep / (relatedArticles.length - 1)) * 100}%)` }}
+                />
+                {/* 프로그래스바 원들 */}
+                {relatedArticles.map((article, i) => (
+                  <Tooltip
+                    key={article.id}
+                    text={article.title}
+                    image={<ImageComponent src={article.image} alt={article.imageCaption} />}
+                  >
                     <div
                       key={article.id}
-                      className={`truncate cursor-pointer ${i === currentStep ? 'text-indigo-700' : 'text-white'}`}
+                      className={`absolute top-0.5 z-10 flex items-center justify-center w-4 h-4 transform -translate-y-1/2 rounded-full ${i <= currentStep ? 'bg-indigo-700' : 'bg-indigo-200'}`}
+                      style={{
+                        left: `calc(${(i / (relatedArticles.length - 1)) * 100}% - 0.5rem)`,
+                      }}
                       onClick={() => {
                         goToStep(i);
                         setIsToggleOn(true);
@@ -91,40 +127,8 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
                       }}
                       role="button"
                       tabIndex={0}
-                    >
-                      {article.time.substring(0, 4)}
-                    </div>
-                  );
-                })}
-              </div>
-              {/* 프로그래스바 선 및 원 */}
-              <div className="relative flex justify-between h-1 m-4 bg-gray-200">
-                {/* 프로그래스바 채워진 선 - tailwind는 동적 조절이 힘들어서 인라인 스타일에서 width 속성 설정함 */}
-                <div
-                  className="absolute top-0 left-0 h-full transition-all duration-700 ease-in-out bg-indigo-700"
-                  style={{ width: `calc(${(currentStep / (relatedArticles.length - 1)) * 100}%)` }}
-                />
-                {/* 프로그래스바 원들 */}
-                {relatedArticles.map((_, i) => (
-                  <div
-                    key={i}
-                    className={`absolute top-0.5 z-10 flex items-center justify-center w-4 h-4 transform -translate-y-1/2 rounded-full ${i <= currentStep ? 'bg-indigo-700' : 'bg-indigo-200'}`}
-                    style={{
-                      left: `calc(${(i / (relatedArticles.length - 1)) * 100}% - 0.5rem)`,
-                    }}
-                    onClick={() => {
-                      goToStep(i);
-                      setIsToggleOn(true);
-                    }}
-                    onKeyPress={(e) => {
-                      if (e.key === 'Enter') {
-                        goToStep(i);
-                        setIsToggleOn(true);
-                      }
-                    }}
-                    role="button"
-                    tabIndex={0}
-                  />
+                    />
+                  </Tooltip>
                 ))}
               </div>
               {/* 프로그래스바 원 아래 설명 - 타이틀 */}
