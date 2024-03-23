@@ -31,4 +31,12 @@ public class BadgeEntity {
         createdAt = LocalDateTime.now();
     }
 
+    private BadgeEntity(int year, int count){
+        this.year = year;
+        this.count = count;
+    }
+    public static BadgeEntity of(int year, int count){
+        return new BadgeEntity(year,count);
+    }
+
 }
