@@ -1,6 +1,6 @@
 import QuizArticleGroup from './QuizArticleGroup.jsx';
 
-const quizArticlegroup = [
+const articlesData = [
   [
     {
       id: '1',
@@ -212,8 +212,8 @@ const quizArticlegroup = [
 const Articles = () => {
   return (
     <>
-      {quizArticlegroup.map((group, i) => (
-        <QuizArticleGroup key={group[0].id} relatedArticles={group} num={i + 1} />
+      {articlesData.map((quizArticleGroup, i) => (
+        <QuizArticleGroup key={quizArticleGroup[0].id} quizArticleGroup={quizArticleGroup} num={i + 1} />
       ))}
     </>
   );

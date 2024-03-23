@@ -38,7 +38,7 @@ const articleTemplate = {
 
 // -------------- 상태 관리 --------------
 
-// 유저가 게임에서 도전한(정답,오답 모두 포함한) 문제의 기사 아이디들
+// 유저가 게임에서 도전한(정답,오답 모두 포함한) 퀴즈의 기사 아이디들
 export const useChallengedArticleStore = create(
   devtools((set) => ({
     challengeArticlesIdList: [challengeArticleTemplate.id],
@@ -67,4 +67,10 @@ export const useGameModalStore = create((set) => ({
   setOpenGameOverModal: (value) => set({ openGameOverModal: value }),
 }));
 
-export default useGameResultStore;
+// 유저가 게임에서 푼 기사들 + 과거와 연결된 기사들
+export const useArticlesStore = create(
+  devtools((set) => ({
+    articles: [articleTemplate],
+    setArticles: (articles) => set({ articles }),
+  })),
+);
