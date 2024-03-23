@@ -1,32 +1,15 @@
 package org.ssafy.bibibig.member.dto.response;
 
+import org.ssafy.bibibig.articles.domain.ArticleEntity;
+
 import java.util.List;
+import java.util.Map;
 
 public record ScrapedArticlesByMainCateResponse(
-        List<ScrapedArticleResponse> politic,
-        List<ScrapedArticleResponse> economy,
-        List<ScrapedArticleResponse> society,
-        List<ScrapedArticleResponse> culture,
-        List<ScrapedArticleResponse> sports,
-        List<ScrapedArticleResponse> international
+        Map<String, List<ArticleEntity>> map
 ) {
 
-    public static ScrapedArticlesByMainCateResponse of(
-            List<ScrapedArticleResponse> politic,
-            List<ScrapedArticleResponse> economy,
-            List<ScrapedArticleResponse> society,
-            List<ScrapedArticleResponse> culture,
-            List<ScrapedArticleResponse> sports,
-            List<ScrapedArticleResponse> international
-    ) {
-        return new ScrapedArticlesByMainCateResponse(
-                politic,
-                economy,
-                society,
-                culture,
-                sports,
-                international
-        );
+    public static ScrapedArticlesByMainCateResponse from(Map<String, List<ArticleEntity>> map) {
+        return new ScrapedArticlesByMainCateResponse(map);
     }
-
 }
