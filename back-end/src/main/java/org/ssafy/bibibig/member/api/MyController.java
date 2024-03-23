@@ -54,8 +54,8 @@ public class MyController {
 
     @GetMapping("/badges")
     public Response<?> getBadges(HttpServletRequest request){
-//        Long memberId = SessionInfo.getSessionMemberId(request);
-        List<BadgeResponse> badges = badgeService.getBadges(1L);
+        Long memberId = SessionInfo.getSessionMemberId(request);
+        List<BadgeResponse> badges = badgeService.getBadges(memberId);
         return Response.success(badges);
     }
 }
