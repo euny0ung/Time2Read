@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { getYearSummary, postRelationArticles } from '../apis/resultApi.jsx';
 import ResultButton from '../components/commons/buttons/ResultButton.jsx';
 import TranslucentContainer from '../components/commons/containers/TranslucentContainer.jsx';
@@ -10,6 +11,8 @@ import Keyword from '../components/result/Keyword.jsx';
 import { useChallengedArticleStore, useGameResultStore } from '../stores/game/gameStore.jsx';
 
 const ResultPage = () => {
+  const navigate = useNavigate();
+
   const { challengeArticlesIdList } = useChallengedArticleStore(); // 유저가 게임에서 도전한(정답,오답 모두 포함한) 문제의 기사 아이디들로 만든 배열
   const { gameResult } = useGameResultStore(); // 게임 결과 : 정답 수, 오답 수, 타임 어택 시간
 
@@ -49,6 +52,15 @@ const ResultPage = () => {
       });
   }, []);
 
+  // 홈 페이지로 이동하는 함수
+  const navigateToLandingPage = () => {
+    navigate('/');
+  };
+
+  // 사용자 정보 페이지로 이동하는 함수
+  const navigateToMyPage = () => {
+    navigate('/user');
+  };
   return (
     <>
       <div className="bg-gradient-to-br from-purple-200 to-blue-200">
@@ -90,12 +102,16 @@ const ResultPage = () => {
             </TranslucentContainer>
             {/* buttonbox */}
             <div className="flex items-center w-full justify-evenly">
-              <ResultButton>
-                <ResultTitle title={'다시 시계토끼 쫓아가기'} />
-              </ResultButton>
-              <ResultButton>
-                <ResultTitle title={'내 정보 더 자세하게 보기'} />
-              </ResultButton>
+              <button onClick={navigateToLandingPage}>
+                <ResultButton>
+                  <ResultTitle title={'다시 시계토끼 쫓아가기'} />
+                </ResultButton>
+              </button>
+              <button onClick={navigateToMyPage}>
+                <ResultButton>
+                  <ResultTitle title={'내 정보 더 자세하게 보기'} />
+                </ResultButton>
+              </button>
             </div>
             {/* relatednewsbox */}
             <TranslucentContainer>
