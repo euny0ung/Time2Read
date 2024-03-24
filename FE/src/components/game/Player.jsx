@@ -65,6 +65,10 @@ const Player = () => {
   };
 
   useEffect(() => {
+    showGameOverModal();
+  }, [isOver]);
+
+  useEffect(() => {
     if (lifeCount === 0) {
       setGameOver(true);
     }
@@ -114,11 +118,14 @@ const Player = () => {
         name="player"
         onCollisionEnter={({ other }) => {
           const target = other.rigidBodyObject;
+
           if (!collidedItem.includes(target.uuid)) {
             setCollidedItem((prevItems) => [...prevItems, target.uuid]);
-
             if (assetArray.includes(target.name)) {
               setBumped(true);
+            }
+            if (target.name === 'endPoint') {
+              setGameOver(true);
             }
             if (target.name === 'clue') {
               setClueCount(clueCount + 1);
@@ -149,7 +156,6 @@ const Player = () => {
           <meshStandardMaterial color="red" />
         </mesh>
       </RigidBody>
-      {/* {openGameOverModal} */}
     </>
   );
 };
