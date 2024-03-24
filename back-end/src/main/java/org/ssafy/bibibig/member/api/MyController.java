@@ -3,6 +3,7 @@ package org.ssafy.bibibig.member.api;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.ssafy.bibibig.articles.dao.ArticleRepository;
 import org.ssafy.bibibig.common.dto.Response;
 import org.ssafy.bibibig.member.application.BadgeService;
 import org.ssafy.bibibig.member.application.ScrapService;
@@ -34,6 +35,11 @@ public class MyController {
     public Response<ScrapedArticlesByMainCateResponse> getScrapedArticles(HttpServletRequest request){
         Long memberId = SessionInfo.getSessionMemberId(request);
         return Response.success(scrapService.getScrapedArticles(memberId));
+    }
+
+    @GetMapping("/scraped-article/{articleId}")
+    public Response<ScrapedArticleResponse> getScrapedArticle(@PathVariable(name = "articleId") String articleId){
+        return Response.success(ScrapedArticleResponse.from(scrapService.getScrapedArticle(articleId)));
     }
 
     @GetMapping("/solved")
