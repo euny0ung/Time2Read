@@ -9,7 +9,7 @@ const quizArticlegroup = [
       subCategory: '기후 변화',
       time: '2020-04-01 09:00',
       title: '전세계 기후 변화 대응 촉구, 국제 환경 단체 시위 개최',
-      image: 'https://example.com/image01.jpg',
+      image: 'https://flexible.img.hani.co.kr/flexible/normal/970/647/imgdb/original/2024/0107/20240107502017.jpg',
       imageCaption: '기후 변화 대응 시위 모습',
       content: '세계 각국에서 환경 보호와 기후 변화 대응을 촉구하는 대규모 시위가 열렸다...',
       summary: '전세계에서 기후 변화 대응을 위한 시위가 벌어졌습니다.',
@@ -212,8 +212,8 @@ const quizArticlegroup = [
 const Articles = () => {
   return (
     <>
-      {quizArticlegroup.map((group, index) => (
-        <QuizArticleGroup key={group.id} relatedArticles={group} num={index + 1} />
+      {quizArticlegroup.map((group, i) => (
+        <QuizArticleGroup key={group[0].id} relatedArticles={group} num={i + 1} />
       ))}
     </>
   );
