@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getYearSummary } from '../apis/resultApi.jsx';
 import ResultButton from '../components/commons/buttons/ResultButton.jsx';
@@ -15,6 +15,13 @@ const ResultPage = () => {
 
   const { gameResult } = useGameResultStore(); // 게임 결과 : 정답 수, 오답 수, 타임 어택 시간
   const [keywordData, setKeywordData] = useState([]);
+  const topboxRef = useRef(null); // topbox의 ref
+  const leftboxRef = useRef(null);
+  const rightboxRef = useRef(null);
+  const [rightboxWidth, setRightboxWidth] = useState('0px');
+  const [rightboxHeight, setRightboxHeight] = useState('0px');
+  const [keywordWidth, setKeywordWidth] = useState(0);
+  const [keywordHeight, setKeywordHeight] = useState(0);
 
   useEffect(() => {
     getYearSummary(2024)
@@ -27,15 +34,48 @@ const ResultPage = () => {
       });
   }, []);
 
-  // 홈 페이지로 이동하는 함수
   const navigateToLandingPage = () => {
     navigate('/');
   };
 
-  // 사용자 정보 페이지로 이동하는 함수
   const navigateToMyPage = () => {
     navigate('/user');
   };
+
+  // 너비 및 높이 동적 조절
+  const handleResize = () => {
+    requestAnimationFrame(() => {
+      if (topboxRef.current && leftboxRef.current && rightboxRef.current) {
+        const newWidth = topboxRef.current.offsetWidth / 2; // topbox 너비에 따라 leftbox와 rightbox 너비 조절
+        let maxHeight = Math.max(leftboxRef.current.offsetHeight, rightboxRef.current.offsetHeight); // leftbox와 rightbox 높이 비교 후 더 큰 값으로 설정
+
+        if (newWidth !== rightboxWidth) {
+          setRightboxWidth(`${newWidth}px`);
+          setKeywordWidth(newWidth);
+        }
+
+        // 창 너비에 따른 높이 조절 로직. 768px 이하일 때 (tailwind에서 md 기준이 768px임) maxHeight가 작아지도록
+        if (window.innerWidth < 768) {
+          maxHeight /= 2;
+        }
+
+        if (maxHeight !== rightboxHeight) {
+          setRightboxHeight(`${maxHeight}px`); // 더 큰 높이로 rightboxHeight 업데이트
+          setKeywordHeight(maxHeight * 0.7); // Keyword 컴포넌트의 높이도 maxHeight로 설정
+        }
+      }
+    });
+  };
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize); // 리사이즈 이벤트 리스너 등록
+
+    return () => {
+      window.removeEventListener('resize', handleResize); // 컴포넌트 언마운트 시 리스너 제거
+    };
+  }, []);
+
   return (
     <>
       <div className="bg-gradient-to-br from-purple-200 to-blue-200">
@@ -44,9 +84,16 @@ const ResultPage = () => {
           <div className="relative flex flex-col items-center w-full gap-4 border-4 border-red-500 ">
             {/* topbox */}
             <TranslucentContainer>
-              <div className="flex flex-row items-center w-full gap-6 border-4 border-blue-500">
+              <div
+                className="flex flex-col items-center w-full gap-6 border-4 border-blue-500 md:flex-row"
+                ref={topboxRef}
+              >
                 {/* leftbox */}
-                <div className="flex flex-col justify-center w-2/6 gap-6 ">
+                <div
+                  className="flex flex-col items-center justify-center w-full gap-6 md:w-2/6"
+                  style={{ rightboxWidth }}
+                  ref={leftboxRef}
+                >
                   {/* 맞은 개수 통계 */}
                   <WhiteContainer>
                     <ResultTitle title={'맞은 개수 통계'} />
@@ -67,16 +114,20 @@ const ResultPage = () => {
                   </WhiteContainer>
                 </div>
                 {/* rightbox */}
-                <div className="w-4/6 h-full">
+                <div
+                  className="flex justify-center w-full h-full md:w-4/6"
+                  style={{ rightboxWidth, rightboxHeight }}
+                  ref={rightboxRef}
+                >
                   <WhiteContainer>
                     <ResultTitle title={'키워드'} />
-                    <Keyword data={keywordData} width={300} height={200} />
+                    <Keyword data={keywordData} width={keywordWidth} height={keywordHeight} />
                   </WhiteContainer>
                 </div>
               </div>
             </TranslucentContainer>
             {/* buttonbox */}
-            <div className="flex items-center w-full justify-evenly">
+            <div className="flex flex-col items-center w-full gap-6 justify-evenly md:flex-row">
               <button onClick={navigateToLandingPage}>
                 <ResultButton>
                   <ResultTitle title={'다시 시계토끼 쫓아가기'} />
