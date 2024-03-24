@@ -9,6 +9,8 @@ import { Canvas } from '@react-three/fiber';
 import { Physics } from '@react-three/rapier';
 import { useAnswerCheckStore } from '@stores/game/quizStore';
 import { useNavigate } from 'react-router-dom';
+import GameOverModal from '../components/game/GameOverModal.jsx';
+import Items from '../components/game/Items.jsx';
 import { useGameModalStore } from '../stores/game/gameStore.jsx';
 
 const GamePage = () => {
@@ -20,6 +22,9 @@ const GamePage = () => {
   const navigate = useNavigate();
 
   console.log(resultState);
+  const openGameOverModal = useGameModalStore((state) => state.openGameOverModal);
+
+  console.log('openGameOverModal : ', openGameOverModal);
   return (
     <>
       <div className="w-screen h-screen overflow-hidden">
@@ -41,7 +46,10 @@ const GamePage = () => {
         </Canvas>
         {/* 정보 표시 */}
         <Overlay />
+
+        <Items />
         {openQuizModal && <QuizModal quizIndex={quizIndex} />}
+        {openGameOverModal && <GameOverModal />}
         {/* 버튼 클릭으로 컨트롤 모드 전환 */}
         <button
           className="absolute top-2.5 left-2.5 bg-gray-500 text-white font-bold py-2 px-4 rounded hover:bg-gray-700 focus:outline-none focus:shadow-outline"

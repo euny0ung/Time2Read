@@ -38,7 +38,7 @@ const articleTemplate = {
 
 // -------------- 상태 관리 --------------
 
-// 유저가 게임에서 도전한(정답,오답 모두 포함한) 문제의 기사 아이디들
+// 유저가 게임에서 도전한(정답,오답 모두 포함한) 퀴즈의 기사 아이디들 (퀴즈 푼 순서대로 배열에 저장)
 export const useChallengedArticleStore = create(
   devtools((set) => ({
     challengeArticlesIdList: [challengeArticleTemplate.id],
@@ -62,9 +62,16 @@ export const useGameModalStore = create((set) => ({
   isBumped: false, // 객체와 충돌여부를 확인하는 변수
   openQuizModal: false, // 퀴즈 모달이 열리는지 확인하는 변수
   openGameOverModal: false, // 게임 종료 모달이 열리는지 확인하는 변수
+  isOver: false, // 게임 종료 여부를 확인하는 변수
   setBumped: (value) => set({ isBumped: value }),
   setOpenQuizModal: (value) => set({ openQuizModal: value }),
   setOpenGameOverModal: (value) => set({ openGameOverModal: value }),
+  setGameOver: (value) => set({ isOver: value }),
 }));
 
-export default useGameResultStore;
+export const useGameItemStore = create((set) => ({
+  clueCount: 5,
+  lifeCount: 3,
+  setClueCount: (value) => set({ clueCount: value }),
+  setLifeCount: (value) => set({ lifeCount: value }),
+}));
