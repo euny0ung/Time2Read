@@ -15,7 +15,7 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
   const [isScraped, setIsScraped] = useState(false);
   const [titleMaxWidth, setTitleMaxWidth] = useState('0px'); // 각 타이틀의 maxWidth를 위한 상태
 
-  const containerRef = useRef(null); // RelatedArticles Container의 ref
+  const containerRef = useRef(null); // QuizArticleGroup Container의 ref
 
   const relatedArticle = relatedArticles[currentStep];
   const [firstArticle] = relatedArticles; // 가장 초기의 기사
@@ -170,7 +170,7 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
             </div>
           </div>
         </div>
-        {/* RelatedArticleDetail Container */}
+        {/* ArticleDetail Container */}
         <div className="flex flex-col items-center w-full rounded-b-lg bg-gradient-to-bl from-indigo-300 to-purple-300 ">
           <div
             className={`w-full bg-white rounded-b-lg transition-opacity transition-height duration-700 overflow-hidden ${
