@@ -68,7 +68,7 @@ const LandingPage = () => {
         <button>카카오 로그인</button>
       </div>
       <div>
-        <SelectBox options={OPTIONS} onChange={handleSelect} value={selected} defaultValue="2024" />
+        <SelectBox options={OPTIONS} handleSelect={handleSelect} selected={selected} />
       </div>
       <div>
         <button onClick={handleQuizApi}>입장하기</button>
