@@ -47,7 +47,7 @@ public class ArticleEntity {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
         return new ArticleEntity(
-                (String) map.getOrDefault("대분류", ""),
+                (String) map.get("id"),
                 (String) map.getOrDefault("한겨레ID", ""),
                 (String) map.getOrDefault("제목", ""),
                 (String) map.getOrDefault("대분류", ""),

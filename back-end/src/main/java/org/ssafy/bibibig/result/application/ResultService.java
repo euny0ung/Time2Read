@@ -38,11 +38,9 @@ public class ResultService {
 
     private List<Article> articleToRelateArticle(Article article) {
         List<ArticleEntity> relatedArticles = relatedArticleRepository.getRelatedArticles(
-                article.mainCategory(),
+                article.id(),
                 article.wroteAt().getYear() + 1,
-                2024,
-                article.keywords(),
-                1);
+                2030);
 
         return relatedArticles.stream()
                 .map(Article::from)
