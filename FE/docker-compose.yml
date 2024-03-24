@@ -1,0 +1,9 @@
+version: "3"
+services:
+  time2read-frontend:
+    container_name: "t2r-frontend"
+    build:
+      context: .
+      dockerfile: "Dockerfile"
+    ports:
+      - "5173:5173"
