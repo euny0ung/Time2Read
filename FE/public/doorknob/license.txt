@@ -1,0 +1,11 @@
+Model Information:
+* title:	Alice in Wonderland Doorknoob
+* source:	https://sketchfab.com/3d-models/alice-in-wonderland-doorknoob-3fa8105d8f7d402a8769d8b91e6849f4
+* author:	resistance-studios (https://sketchfab.com/resistance-studios)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Alice in Wonderland Doorknoob" (https://sketchfab.com/3d-models/alice-in-wonderland-doorknoob-3fa8105d8f7d402a8769d8b91e6849f4) by resistance-studios (https://sketchfab.com/resistance-studios) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
