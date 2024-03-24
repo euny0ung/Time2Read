@@ -25,7 +25,8 @@ const SelectBox = ({ options, handleSelect, selected, defaultValue }) => {
   );
 };
 
-const useQuizApiHandler = () => {
+const useQuizApiHandler = (selected) => {
+  console.log(selected);
   const navigate = useNavigate();
   const { setQuiz } = useQuizStore();
 
@@ -33,7 +34,7 @@ const useQuizApiHandler = () => {
   const handleQuizApi = () => {
     console.log('API 호출..');
     axios
-      .get(`${import.meta.env.VITE_QUIZ_API}/game/2024`)
+      .get(`${import.meta.env.VITE_QUIZ_API}/game/${selected}`)
       .then((response) => {
         console.log(response);
         setQuiz(response.data.result);
@@ -56,7 +57,7 @@ const LandingPage = () => {
     setSelected(e.target.value);
   };
 
-  const handleQuizApi = useQuizApiHandler();
+  const handleQuizApi = useQuizApiHandler(selected);
 
   // test
   useEffect(() => {

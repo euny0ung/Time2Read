@@ -57,10 +57,7 @@ const GamePage = () => {
         >
           {isPlayerMode ? '3인칭 모드로 전환' : '1인칭 모드로 전환'}
         </button>
-        <button
-          className="absolute top-2.5 left-2.5 bg-gray-500 text-white font-bold py-2 px-4 rounded hover:bg-gray-700 focus:outline-none focus:shadow-outline"
-          onClick={() => navigate('/scraps')}
-        />
+
         {resultState !== '' && openAnswerResult && <AnswerCheckModal />}
       </div>
     </>

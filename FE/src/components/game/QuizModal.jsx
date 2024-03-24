@@ -1,5 +1,6 @@
 /* eslint-disable indent */
 import React from 'react';
+import EntireContentButton from '@components/commons/buttons/EntireContentButton';
 import AnagramQuiz from '@components/quizTypes/AnagramQuiz.jsx';
 import OxQuiz from '@components/quizTypes/OxQuiz.jsx';
 import ShortAnswerQuiz from '@components/quizTypes/ShortAnswerQuiz.jsx';
@@ -41,6 +42,9 @@ const QuizModal = React.memo(
               {type}
               <div>{it.title}</div>
               <div>{it.quiz.questionSummary}</div>
+              <div>
+                <EntireContentButton content={it.quiz.questionContent} />
+              </div>
               {additionalProps && React.createElement(additionalProps.component, additionalProps.componentProps)}
             </div>
           );
