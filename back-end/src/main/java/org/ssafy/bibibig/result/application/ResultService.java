@@ -10,6 +10,7 @@ import org.ssafy.bibibig.articles.dto.KeywordTerms;
 import org.ssafy.bibibig.result.dao.ElasticsearchRelatedArticleRepository;
 import org.ssafy.bibibig.result.dto.RelatedArticle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -42,9 +43,16 @@ public class ResultService {
                 article.wroteAt().getYear() + 1,
                 2030);
 
-        return relatedArticles.stream()
-                .map(Article::from)
-                .toList();
+        return getArticles(article, relatedArticles);
     }
 
+    private static List<Article> getArticles(Article article, List<ArticleEntity> relatedArticles) {
+        List<Article> list = new ArrayList<>();
+        list.add(article); // 첫 번째 위치에 과거(원본) 추가
+
+        for (ArticleEntity entity : relatedArticles) {
+            list.add(Article.from(entity));
+        }
+        return list;
+    }
 }
