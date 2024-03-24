@@ -35,7 +35,6 @@ const useQuizApiHandler = (selected) => {
     axios
       .get(`${import.meta.env.VITE_QUIZ_API}/game/${selected}`)
       .then((response) => {
-        console.log(response);
         setQuiz(response.data.result);
 
         navigate('/game');
