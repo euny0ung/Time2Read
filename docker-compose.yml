@@ -4,13 +4,13 @@ services:
     container_name: bibibig-mysql
     build:
       dockerfile: Dockerfile
-      context: ./back-end/mysql
+      context: ./back-end/database
     image: xntm10/bibibig-mysql
     volumes:
       # 설정파일 저장될  위치
-      - ./database/config:/etc/mysql/conf.d
+      - ./back-end/database/config:/etc/mysql/conf.d
       # DB 데이터 저장 디렉토리
-      - /home/ubuntu/database/data:/var/lib/mysql
+      - ./back-end/database/data:/var/lib/mysql
     environment:
       - MARIADB_DATABASE=${MYSQL_DATABASE}
       - MARIADB_USER=${MYSQL_USER}
@@ -34,10 +34,4 @@ services:
     ports:
       - "8081:8081"
     restart: always
-  bibibig-frontend:
-    container_name: "bibibig-frontend"
-    build:
-      context: "./FE"
-      dockerfile: "Dockerfile"
-    ports:
-      - "5173:5173"
+
