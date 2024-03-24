@@ -114,6 +114,7 @@ const MazeModel = () => {
       <Flamingo />
       <CardSoldier />
       <HeartQueen />
+      <Finish />
       <Rabbit />
       <ClueLoader />
       <LifeLoader />
@@ -210,7 +211,7 @@ export const CheshireCat = () => {
   return (
     <RigidBody name="chesireCat">
       <primitive object={cheshireCat.scene} scale={0.016} position={[-4, 0.4, 2.8]} />
-      <axesHelper scale={10} />
+      {/* <axesHelper scale={10} /> */}
     </RigidBody>
   );
 };
@@ -305,6 +306,31 @@ export const Life = ({ instance, position }) => {
     <RigidBody name="life">
       <primitive object={instance} scale={4} position={position} />
     </RigidBody>
+  );
+};
+
+export const Finish = () => {
+  return (
+    <>
+      <RigidBody name="endPoint" mass={1000000}>
+        <mesh position={[0.85, 1.51, 11]}>
+          <boxGeometry args={[1.3, 3, 0.2]} />
+          <meshStandardMaterial color={0xff0000} transparent opacity={0.5} />
+        </mesh>
+      </RigidBody>
+      <RigidBody name="endPoint" mass={1000000}>
+        <mesh position={[1.6, 1.51, 10.6]}>
+          <boxGeometry args={[0.1, 3, 1]} />
+          <meshStandardMaterial color={0xff0000} transparent opacity={0.5} />
+        </mesh>
+      </RigidBody>
+      <RigidBody name="endPoint" mass={1000000}>
+        <mesh position={[0.1, 1.51, 10.6]}>
+          <boxGeometry args={[0.1, 3, 1]} />
+          <meshStandardMaterial color={0xff0000} transparent opacity={0.5} />
+        </mesh>
+      </RigidBody>
+    </>
   );
 };
 
