@@ -8,7 +8,6 @@ import { OrbitControls, PointerLockControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { Physics } from '@react-three/rapier';
 import { useAnswerCheckStore } from '@stores/game/quizStore';
-import { useNavigate } from 'react-router-dom';
 import GameOverModal from '../components/game/GameOverModal.jsx';
 import Items from '../components/game/Items.jsx';
 import { useGameModalStore } from '../stores/game/gameStore.jsx';
@@ -19,9 +18,6 @@ const GamePage = () => {
   const openAnswerResult = useAnswerCheckStore((state) => state.openAnswerResult);
   const resultState = useAnswerCheckStore((state) => state.resultState);
   const quizIndex = useAnswerCheckStore((state) => state.quizIndex);
-  const navigate = useNavigate();
-
-  console.log(resultState);
   const openGameOverModal = useGameModalStore((state) => state.openGameOverModal);
 
   console.log('openGameOverModal : ', openGameOverModal);

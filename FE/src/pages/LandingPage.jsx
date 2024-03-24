@@ -26,7 +26,6 @@ const SelectBox = ({ options, handleSelect, selected, defaultValue }) => {
 };
 
 const useQuizApiHandler = (selected) => {
-  console.log(selected);
   const navigate = useNavigate();
   const { setQuiz } = useQuizStore();
 
