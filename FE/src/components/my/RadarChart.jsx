@@ -25,7 +25,7 @@ const RadarChart = ({ solvedCount }) => {
 
   const options = {
     chart: {
-      height: 500,
+      height: 300,
       type: 'radar',
     },
     xaxis: {
