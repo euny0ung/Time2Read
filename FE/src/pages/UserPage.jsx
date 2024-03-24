@@ -1,11 +1,64 @@
+import { useState, useEffect } from 'react';
+import { format } from 'date-fns';
+import { getTimeRecords, getSolved } from '../apis/myApi.jsx';
 import ResultButton from '../components/commons/buttons/ResultButton.jsx';
 import TranslucentContainer from '../components/commons/containers/TranslucentContainer.jsx';
 import WhiteContainer from '../components/commons/containers/WhiteContainer.jsx';
 import ResultContent from '../components/commons/ResultContent.jsx';
 import ResultTitle from '../components/commons/ResultTitle.jsx';
 import Badges from '../components/my/Badges.jsx';
+import RadarChart from '../components/my/RadarChart.jsx';
+
+// {
+// 	"records": [
+// 		{
+// 			"timeAttactTime": str
+// 			"playDate": datetime
+// 		},
+// 		...
+// 	]
+// }
+
+// {
+//   "social": int,
+//   "politics": int,
+//   "economy": int,
+//   "international": int,
+//   "culture": int,
+//   "sports": int
+// }
 
 const UserPage = () => {
+  const [timeRecords, setTimeRecords] = useState([]);
+  const [solvedCount, setSolvedCount] = useState({
+    social: 10,
+    politics: 80,
+    economy: 20,
+    international: 90,
+    culture: 40,
+    sports: 60,
+  });
+
+  useEffect(() => {
+    getTimeRecords()
+      .then((data) => {
+        setTimeRecords(data.records);
+        console.log('TimeRecords Data:', data.records);
+      })
+      .catch((error) => {
+        console.error('Error requesting badge:', error);
+      });
+
+    getSolved()
+      .then((data) => {
+        setSolvedCount(data);
+        console.log('SolvedCount Data:', data);
+      })
+      .catch((error) => {
+        console.error('Error requesting badge:', error);
+      });
+  }, []);
+
   return (
     <>
       <div className="bg-gradient-to-br from-purple-200 to-blue-200">
@@ -18,9 +71,21 @@ const UserPage = () => {
               <div className="flex flex-row items-center w-full gap-6 border-4 border-blue-500">
                 <WhiteContainer>
                   <ResultTitle title={'타임어택 기록'} />
+                  <ResultContent>
+                    {timeRecords.map((record, i) => (
+                      <div key={record.playDate} className="flex justify-between">
+                        <span>{`기록 ${i + 1}:`}</span>
+                        <span>{record.timeAttackTime}</span>
+                        <span>{format(new Date(record.playDate), 'yyyy-MM-dd HH:mm')}</span>
+                      </div>
+                    ))}
+                  </ResultContent>
                 </WhiteContainer>
                 <WhiteContainer>
                   <ResultTitle title={'카테고리별 기록'} />
+                  <ResultContent>
+                    <RadarChart solvedCount={solvedCount} />
+                  </ResultContent>
                 </WhiteContainer>
                 <WhiteContainer>
                   <ResultTitle title={'획득한 뱃지'} />
