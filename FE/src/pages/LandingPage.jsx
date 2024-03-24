@@ -6,8 +6,8 @@
 //     [] 카카오 로그인 버튼
 //     [] 로그인시 로그인 버튼이 ‘마이 페이지’ 버튼으로 변경됨
 
-import { useState } from 'react';
-import { useQuizStore } from '@stores/store';
+import { useEffect, useState } from 'react';
+import { useQuizStore } from '@stores/game/quizStore.jsx';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
@@ -25,22 +25,23 @@ const SelectBox = ({ options, handleSelect, selected, defaultValue }) => {
   );
 };
 
-const useQuizApiHandler = () => {
+const useQuizApiHandler = (selected) => {
   const navigate = useNavigate();
   const { setQuiz } = useQuizStore();
 
   // API 호출, 페이지 이동, 퀴즈 데이터 저장
   const handleQuizApi = () => {
-    // axios
-    //   .get(`${import.meta.env.VITE_QUIZ_API}/game?year=2024`)
-    //   .then((response) => {
-    //     setQuiz(response.data.article);
-    //     navigate('/game');
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
-    navigate('/game');
+    console.log('API 호출..');
+    axios
+      .get(`${import.meta.env.VITE_QUIZ_API}/game/${selected}`)
+      .then((response) => {
+        setQuiz(response.data.result);
+
+        navigate('/game');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return handleQuizApi;
@@ -48,12 +49,18 @@ const useQuizApiHandler = () => {
 
 const LandingPage = () => {
   const [selected, setSelected] = useState('2024');
+  const quizzes = useQuizStore((state) => state.quizzes);
 
   const handleSelect = (e) => {
     setSelected(e.target.value);
   };
 
-  const handleQuizApi = useQuizApiHandler();
+  const handleQuizApi = useQuizApiHandler(selected);
+
+  // test
+  useEffect(() => {
+    console.log(quizzes);
+  }, [quizzes]);
 
   return (
     <>
@@ -61,7 +68,7 @@ const LandingPage = () => {
         <button>카카오 로그인</button>
       </div>
       <div>
-        <SelectBox options={OPTIONS} onChange={handleSelect} value={selected} defaultValue="2024" />
+        <SelectBox options={OPTIONS} handleSelect={handleSelect} selected={selected} />
       </div>
       <div>
         <button onClick={handleQuizApi}>입장하기</button>

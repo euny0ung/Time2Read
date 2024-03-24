@@ -1,9 +1,5 @@
 const ScrapPage = () => {
-  return (
-    <>
-      <div />
-    </>
-  );
+  return <></>;
 };
 
 export default ScrapPage;

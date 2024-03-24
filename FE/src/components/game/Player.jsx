@@ -49,6 +49,7 @@ const Player = () => {
 
   const showModal = () => {
     if (isBumped && !openQuizModal) {
+      document.exitPointerLock();
       setOpenQuizModal(true);
     }
   };
@@ -76,6 +77,7 @@ const Player = () => {
 
   useFrame((state) => {
     if (!playerRef.current) return;
+    if (openQuizModal) return;
 
     // 상하좌우
     const velocity = playerRef.current.linvel();
