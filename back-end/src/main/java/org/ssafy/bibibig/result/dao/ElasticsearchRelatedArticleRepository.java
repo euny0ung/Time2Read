@@ -1,8 +1,9 @@
 package org.ssafy.bibibig.result.dao;
 
 import lombok.RequiredArgsConstructor;
-import org.elasticsearch.index.query.BoolQueryBuilder;
+import org.elasticsearch.index.query.MoreLikeThisQueryBuilder;
 import org.elasticsearch.index.query.QueryBuilders;
+import org.elasticsearch.index.query.RangeQueryBuilder;
 import org.elasticsearch.search.aggregations.Aggregation;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.Aggregations;
@@ -24,6 +25,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.elasticsearch.index.query.QueryBuilders.moreLikeThisQuery;
+
 @Repository
 @RequiredArgsConstructor
 public class ElasticsearchRelatedArticleRepository {
@@ -33,18 +36,47 @@ public class ElasticsearchRelatedArticleRepository {
 
     private final ElasticsearchOperations operations;
 
-    public List<ArticleEntity> getRelatedArticles(String mainCategory,
-                                                  int nextYear,
-                                                  int lastYear,
-                                                  List<String> keywords,
-                                                  int minimumShouldMatch) {
+
+    public List<ArticleEntity> getRelatedArticles(String id, int nextYear, int lastYear) {
+        String index = "hani-news-topic-index";
+
         NativeSearchQuery query = new NativeSearchQueryBuilder()
-                .withQuery(getBoolQuery(mainCategory, nextYear, lastYear, keywords, minimumShouldMatch))
-                .withMaxResults(0)
+                .withQuery(
+                        QueryBuilders.boolQuery()
+                                .must(getMostLikeThisQuery(index, id))
+                                .must(getDateRangeQuery(nextYear, lastYear))
+
+                ).withMaxResults(0)
                 .addAggregation(getAggregation())
                 .build();
 
         return doQuery(query);
+    }
+
+    private static RangeQueryBuilder getDateRangeQuery(int nextYear, int lastYear) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        return QueryBuilders.rangeQuery("작성시간")
+                .gte(LocalDateTime.of(nextYear, 1, 1, 0, 0).format(formatter))
+                .lt(LocalDateTime.of(lastYear, 1, 1, 0, 0).format(formatter));
+    }
+
+
+    private static MoreLikeThisQueryBuilder getMostLikeThisQuery(String index, String id) {
+        MoreLikeThisQueryBuilder.Item[] likeItems = {
+                new MoreLikeThisQueryBuilder.Item(index, id)
+        };
+        return moreLikeThisQuery(likeItems)
+                .maxQueryTerms(12)
+                .minTermFreq(3)
+                .minDocFreq(5)
+                .maxDocFreq(Integer.MAX_VALUE)
+                .minWordLength(0)
+                .maxWordLength(0)
+                .minimumShouldMatch("50%")
+                .boostTerms(0.0f)
+                .include(false)
+                .failOnUnsupportedField(false)
+                .boost(1.0f);
     }
 
     private List<ArticleEntity> doQuery(NativeSearchQuery query) {
@@ -70,19 +102,6 @@ public class ElasticsearchRelatedArticleRepository {
             }
         }
         return articles;
-    }
-
-    private static BoolQueryBuilder getBoolQuery(String mainCategory, int nextYear, int lastYear, List<String> keywords, int minimumShouldMatch) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        BoolQueryBuilder boolQuery = QueryBuilders.boolQuery()
-                .must(QueryBuilders.matchQuery("대분류", mainCategory))
-                .must(QueryBuilders.rangeQuery("작성시간")
-                        .gte(LocalDateTime.of(nextYear, 1, 1, 0, 0).format(formatter))
-                        .lt(LocalDateTime.of(lastYear + 1, 1, 1, 0, 0).format(formatter))
-                );
-        keywords.forEach(key -> boolQuery.should(QueryBuilders.matchQuery("키워드", key)));
-        boolQuery.minimumShouldMatch(minimumShouldMatch);
-        return boolQuery;
     }
 
     private DateHistogramAggregationBuilder getAggregation() {

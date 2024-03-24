@@ -31,7 +31,10 @@ class ResultControllerTest {
     @DisplayName("연관된 기사 조회")
     public void relatedTest() throws Exception {
         // given
-        List<String> id = List.of("10648964-7421-4ac9-b874-400a05021562");
+        List<String> id = List.of(
+                "10648964-7421-4ac9-b874-400a05021562",
+                "871b5fa9-daed-44d2-a89e-acb1442bcfc0"
+        );
         JSONArray jsonArray = new JSONArray(id);
         JSONObject body = new JSONObject();
         body.put("id", jsonArray);
