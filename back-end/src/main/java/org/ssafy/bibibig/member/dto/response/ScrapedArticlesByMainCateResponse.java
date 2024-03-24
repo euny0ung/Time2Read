@@ -1,32 +1,22 @@
 package org.ssafy.bibibig.member.dto.response;
 
+import org.ssafy.bibibig.articles.domain.ArticleEntity;
+import org.ssafy.bibibig.common.utils.MainCategory;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public record ScrapedArticlesByMainCateResponse(
-        List<ScrapedArticleResponse> politic,
-        List<ScrapedArticleResponse> economy,
-        List<ScrapedArticleResponse> society,
-        List<ScrapedArticleResponse> culture,
-        List<ScrapedArticleResponse> sports,
-        List<ScrapedArticleResponse> international
+        Map<String, List<ArticleEntity>> data
 ) {
 
-    public static ScrapedArticlesByMainCateResponse of(
-            List<ScrapedArticleResponse> politic,
-            List<ScrapedArticleResponse> economy,
-            List<ScrapedArticleResponse> society,
-            List<ScrapedArticleResponse> culture,
-            List<ScrapedArticleResponse> sports,
-            List<ScrapedArticleResponse> international
-    ) {
-        return new ScrapedArticlesByMainCateResponse(
-                politic,
-                economy,
-                society,
-                culture,
-                sports,
-                international
-        );
-    }
+    public static ScrapedArticlesByMainCateResponse from(Map<String, List<ArticleEntity>> map) {
+        Map<String, List<ArticleEntity>> data = new HashMap<>();
 
+        for (String key : map.keySet()) {
+            data.put(MainCategory.findByKorean(key), map.get(key));
+        }
+        return new ScrapedArticlesByMainCateResponse(data);
+    }
 }
