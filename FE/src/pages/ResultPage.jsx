@@ -24,10 +24,10 @@ const ResultPage = () => {
   const [keywordHeight, setKeywordHeight] = useState(0);
 
   useEffect(() => {
-    getYearSummary(2024)
+    getYearSummary(2023)
       .then((data) => {
-        setKeywordData(data.keywords);
-        console.log('Year Summary Data:', data.keywords);
+        setKeywordData(data.result);
+        console.log('Year Summary Data:', data.result);
       })
       .catch((error) => {
         console.error('Error requesting year summary:', error);

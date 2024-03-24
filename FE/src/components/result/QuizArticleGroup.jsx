@@ -89,7 +89,7 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
                         role="button"
                         tabIndex={0}
                       >
-                        {article.time.substring(0, 4)}
+                        {article.wroteAt.substring(0, 4)}
                       </div>
                     </Tooltip>
                   );
