@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useAnswerCheckStore } from '@stores/game/quizStore';
 
-const AnswerCheckModal = ({ result }) => {
+const AnswerCheckModal = () => {
   const [opacity, setOpacity] = useState(1); // 시작 시 완전 불투명
   const answerCheckStore = useAnswerCheckStore();
-
-  console.log(answerCheckStore.resultState);
 
   // eslint-disable-next-line consistent-return
   useEffect(() => {
@@ -36,7 +34,7 @@ const AnswerCheckModal = ({ result }) => {
     <>
       <div className="fixed inset-0  bg-opacity-50 flex justify-center content-start p-4">
         <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md h-32" style={{ opacity }}>
-          {result}
+          {answerCheckStore.resultState}
         </div>
       </div>
     </>

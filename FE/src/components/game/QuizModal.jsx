@@ -1,35 +1,13 @@
 /* eslint-disable indent */
-import { useState, useEffect, useReducer } from 'react';
-import AnswerCheckModal from '@components/commons/AnswerCheckModal';
-import { useQuizStore, useHitsCountStore, useAnswerCheckStore } from '@stores/game/quizStore';
+import React from 'react';
+import AnagramQuiz from '@components/quizTypes/AnagramQuiz.jsx';
+import OxQuiz from '@components/quizTypes/OxQuiz.jsx';
+import ShortAnswerQuiz from '@components/quizTypes/ShortAnswerQuiz.jsx';
+import { useQuizStore } from '@stores/game/quizStore';
 import { useGameModalStore } from '../../stores/game/gameStore.jsx';
 
 let quizIndex = 0;
-let answerResult = '';
 // 정답을 체크하고 맞으면 정답 결과 개수를 하나 더 해주고 퀴즈 모달창이 닫힘
-const handleAnswerCheck = (inputValue, answer) => {
-  const hitsCountStore = useHitsCountStore.getState();
-  const answerCheckStore = useAnswerCheckStore.getState();
-  const gameModalStore = useGameModalStore.getState();
-
-  if (inputValue === answer) {
-    hitsCountStore.setHitsCount();
-    answerResult = '정답입니다';
-    gameModalStore.setBumped(false);
-    gameModalStore.setOpenQuizModal(false);
-  } else {
-    answerResult = '오답입니다';
-  }
-  answerCheckStore.actions.setOpenAnswerResult();
-};
-
-// 객관식 문제에서 엔터 누를 시 정답 체크
-const handleEnter = (e, answer) => {
-  if (e.key === 'Enter') {
-    e.preventDefault();
-    handleAnswerCheck(e.target.value, answer);
-  }
-};
 
 // 퀴즈 유형이 객관식인 경우, 랜덤 숫자를 생성하여 애너그램과 객관식으로 나눔. 편향 때문에 random 함수 대신 피셔-예이츠 셔플 알고리즘 사용
 const FisherYatesShuffle = (answer) => {
@@ -44,126 +22,8 @@ const FisherYatesShuffle = (answer) => {
   return array;
 };
 
-const inputInitialState = {
-  inputAnswer: [],
-};
-
-// 애너그램 클릭 상태 변경을 해주는 reducer
-const reducer = (state, action) => {
-  let updatedInput;
-
-  switch (action.type) {
-    case 'ADD_OR_REMOVE_INPUT': {
-      const { index, clickValue } = action.payload;
-
-      const isExist = state.inputAnswer.findIndex((answer) => answer.index === index);
-      // 이미 존재하는 경우 삭제
-      if (isExist >= 0) {
-        updatedInput = state.inputAnswer.filter((answer) => answer.index !== index);
-      }
-      // 존재하지 않는 경우 추가
-      else {
-        updatedInput = [...state.inputAnswer, { index, clickValue }];
-      }
-
-      return { ...state, inputAnswer: updatedInput };
-    }
-    default:
-      return state;
-  }
-};
-
-// 단답식 컴포넌트
-const ShortAnswerQuiz = ({ answer }) => {
-  return (
-    <div>
-      <input
-        placeholder="정답을 입력하세요"
-        className="border-2 border-black-500"
-        onKeyDown={(e) => handleEnter(e, answer)}
-      />
-    </div>
-  );
-};
-
-// OX 컴포넌트
-const OxQuiz = ({ answer }) => {
-  return (
-    <div>
-      <button
-        type="button"
-        className="border-2 border-indigo-500/50"
-        onClick={(event) => handleAnswerCheck(event.target.value, answer)}
-        value="O"
-      >
-        O
-      </button>
-      <button
-        type="button"
-        className="border-2 border-indigo-500/50"
-        onClick={(event) => handleAnswerCheck(event, answer)}
-        value="X"
-      >
-        X
-      </button>
-    </div>
-  );
-};
-
-// 애너그램 컴포넌트
-const AnagramQuiz = ({ answer, anagram }) => {
-  const anagramButtonState = anagram.map(() => false);
-
-  const [anagramColor, setAnagramColor] = useState(anagramButtonState);
-  const [state, dispatch] = useReducer(reducer, inputInitialState);
-
-  // 입력값에 변화가 생길 때마다 버튼 색 변경
-  useEffect(() => {
-    const updatedColor = anagram.map((_, index) => state.inputAnswer.some((input) => input.index === index));
-    setAnagramColor(updatedColor);
-
-    if (state.inputAnswer.length === answer.length) {
-      const result = state.inputAnswer.map((input) => input.clickValue).join('');
-
-      handleAnswerCheck(result, answer);
-    }
-  }, [state.inputAnswer]);
-
-  const handleAnagramAnswer = (e, clickValue, index) => {
-    dispatch({
-      type: 'ADD_OR_REMOVE_INPUT',
-      payload: {
-        index,
-        clickValue,
-      },
-    });
-  };
-
-  return (
-    <div>
-      <div>
-        {anagram.map((char, index) => (
-          <button
-            key={index}
-            onClick={(event) => handleAnagramAnswer(event, char, index)}
-            className={anagramColor[index] ? 'bg-yellow-300' : 'bg-inherit'}
-          >
-            {char}
-          </button>
-        ))}
-      </div>
-      <div>
-        {state.inputAnswer.map((input) => (
-          <span key={input.index}>{input.clickValue}</span>
-        ))}
-      </div>
-    </div>
-  );
-};
-
 const QuizModal = () => {
   const { quizzes } = useQuizStore();
-  const { openAnswerResult } = useAnswerCheckStore();
   const setOpenQuizModal = useGameModalStore((state) => state.setOpenQuizModal);
 
   const quiz = quizzes.filter((_, index) => index === quizIndex);
@@ -182,18 +42,22 @@ const QuizModal = () => {
     >
       <button onClick={closeModal}>닫기</button>
       {quiz.map((it) => {
+        const renderQuiz = (type, additionalProps = {}) => (
+          <div key={it.id} className="w-1/2 h-1/3 border-2 border-black-500">
+            {type}
+            <div>{it.title}</div>
+            <div>{it.content}</div>
+            <div>{it.quiz.question}</div>
+            {additionalProps && React.createElement(additionalProps.component, additionalProps.componentProps)}
+          </div>
+        );
+
         // O, X
         if (it.quiz.type === 'OX_QUIZ') {
-          return (
-            <div key={it.id} className="w-1/2 h-1/3 border-2 border-black-500">
-              OX 퀴즈
-              <div>{it.title}</div>
-              <div>{it.content}</div>
-              <div>{it.quiz.question}</div>
-              <OxQuiz answer={it.quiz.result} />
-              {openAnswerResult && !answerResult === '' && <AnswerCheckModal result={answerResult} />}
-            </div>
-          );
+          return renderQuiz('OX퀴즈', {
+            component: OxQuiz,
+            componentProps: { answer: it.quiz.answer },
+          });
         }
 
         // 랜덤 함수 돌리기 (0,1)
@@ -202,29 +66,17 @@ const QuizModal = () => {
         // 0이면 애너그램
         if (randNum === 0) {
           const anagram = FisherYatesShuffle(it.quiz.answer);
-
-          return (
-            <div key={it.id} className="w-1/2 h-1/3 border-2 border-black-500">
-              애너그램
-              <div>{it.title}</div>
-              <div>{it.content}</div>
-              <div>{it.quiz.question}</div>
-              <AnagramQuiz answer={it.quiz.answer} anagram={anagram} />
-              {openAnswerResult && !answerResult === '' && <AnswerCheckModal result={answerResult} />}
-            </div>
-          );
+          return renderQuiz('애너그램', {
+            component: AnagramQuiz,
+            componentProps: { answer: it.quiz.answer, anagram },
+          });
         }
         // 1이면 단답식
-        return (
-          <div key={it.id} className="w-1/2 h-1/3 border-2 border-black-500">
-            단답식
-            <div>{it.title}</div>
-            <div>{it.content}</div>
-            <div>{it.quiz.question}</div>
-            <ShortAnswerQuiz answer={it.quiz.answer} />
-            {openAnswerResult && !answerResult === '' && <AnswerCheckModal result={answerResult} />}
-          </div>
-        );
+
+        return renderQuiz('단답식', {
+          component: ShortAnswerQuiz,
+          componentProps: { answer: it.quiz.answer },
+        });
       })}
     </div>
   );

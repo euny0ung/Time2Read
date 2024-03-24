@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { useGameModalStore } from './gameStore.jsx';
 
 export const useQuizStore = create((set) => ({
   quizzes: [],
@@ -19,3 +20,19 @@ export const useAnswerCheckStore = create((set) => ({
     setResultState: (newResult) => set({ resultState: newResult }),
   },
 }));
+
+export const handleAnswerCheck = (inputValue, answer) => {
+  const hitsCountStore = useHitsCountStore.getState();
+  const answerCheckStore = useAnswerCheckStore.getState();
+  const gameModalStore = useGameModalStore.getState();
+
+  if (inputValue === answer) {
+    hitsCountStore.setHitsCount();
+    gameModalStore.setBumped(false);
+    gameModalStore.setOpenQuizModal(false);
+    answerCheckStore.actions.setResultState('정답입니다');
+  } else {
+    answerCheckStore.actions.setResultState('오답입니다');
+  }
+  answerCheckStore.actions.setOpenAnswerResult();
+};
