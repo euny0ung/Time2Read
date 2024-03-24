@@ -3,7 +3,8 @@ import { useAnswerCheckStore } from '@stores/game/quizStore';
 
 const AnswerCheckModal = () => {
   const [opacity, setOpacity] = useState(1); // 시작 시 완전 불투명
-  const answerCheckStore = useAnswerCheckStore();
+  const { setOpenAnswerResult } = useAnswerCheckStore((state) => state.actions);
+  const resultState = useAnswerCheckStore((state) => state.resultState);
 
   // eslint-disable-next-line consistent-return
   useEffect(() => {
@@ -16,7 +17,7 @@ const AnswerCheckModal = () => {
 
             // opacity가 0 이하로 내려갈 경우 0으로 설정하고, 모달 상태를 false로 설정
             if (nextOpacity <= 0) {
-              answerCheckStore.actions.setOpenAnswerResult(); // 여기서 모달을 닫기
+              setOpenAnswerResult(); // 여기서 모달을 닫기
               return 0; // opacity를 0으로 설정
             }
 
@@ -34,7 +35,7 @@ const AnswerCheckModal = () => {
     <>
       <div className="fixed inset-0  bg-opacity-50 flex justify-center content-start p-4">
         <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md h-32" style={{ opacity }}>
-          {answerCheckStore.resultState}
+          {resultState}
         </div>
       </div>
     </>

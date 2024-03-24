@@ -6,7 +6,7 @@
 //     [] 카카오 로그인 버튼
 //     [] 로그인시 로그인 버튼이 ‘마이 페이지’ 버튼으로 변경됨
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuizStore } from '@stores/game/quizStore.jsx';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -31,10 +31,12 @@ const useQuizApiHandler = () => {
 
   // API 호출, 페이지 이동, 퀴즈 데이터 저장
   const handleQuizApi = () => {
+    console.log('API 호출..');
     axios
-      .get(`${import.meta.env.VITE_QUIZ_API}/game?year=2024`)
+      .get(`${import.meta.env.VITE_QUIZ_API}/game/2024`)
       .then((response) => {
-        setQuiz(response.data.article);
+        setQuiz(response.data.result);
+        console.log(response);
         navigate('/game');
       })
       .catch((error) => {
@@ -47,12 +49,18 @@ const useQuizApiHandler = () => {
 
 const LandingPage = () => {
   const [selected, setSelected] = useState('2024');
+  const quizzes = useQuizStore((state) => state.quizzes);
 
   const handleSelect = (e) => {
     setSelected(e.target.value);
   };
 
   const handleQuizApi = useQuizApiHandler();
+
+  // test
+  useEffect(() => {
+    console.log(quizzes);
+  }, [quizzes]);
 
   return (
     <>
