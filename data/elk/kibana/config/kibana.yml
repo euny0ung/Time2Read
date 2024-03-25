@@ -1,4 +1,4 @@
-server.name: bibibig_kibana
+server.name: bibibig-kibana
 server.host: 0.0.0.0
-elasticsearch.hosts: ["http://elasticsearch:19200"]
+elasticsearch.hosts: ["http://elasticsearch:9200"]
 monitoring.ui.container.elasticsearch.enabled: true

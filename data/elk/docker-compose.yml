@@ -15,7 +15,8 @@ services:
         target: /usr/share/elasticsearch/config/elasticsearch.yml
         read_only: true
     ports:
-      - 19200:19200
+      - 9200:9200
+      - 9300:9300
     networks:
       - es-bridge
 
@@ -29,21 +30,17 @@ services:
         source: ./logstash/config/logstash.yml # 설정 yml파일을 가져와 바인드
         target: /usr/share/logstash/config/logstash.yml
         read_only: true
-      # - type: bind
-      #   source: ./logstash/config/pipelines.yml # 커스텀 pipeline을 사용할 수 있게 함
-      #   target: /usr/share/logstash/config/pipelines.yml
-      #   read_only: true
-      # - type: bind
-      #   source: ./logstash/pipeline # 커스텀 pipeline을 바인드
-      #   target: /usr/share/logstash/pipeline
-      #   read_only: true
-      # - type: bind
-      #   source: ./logstash/mysql-connector-j-8.0.33.jar # mysql을 연결할 수 있도록 커넥터 바인드
-      #   target: /usr/share/logstash/logstash-core/lib/jars/mysql-connector-j-8.0.33.jar
+      - type: bind
+        source: ./logstash/config/pipelines.yml # 커스텀 pipeline을 사용할 수 있게 함
+        target: /usr/share/logstash/config/pipelines.yml
+        read_only: true
+      - type: bind
+        source: ./logstash/pipeline # 커스텀 pipeline을 바인드
+        target: /usr/share/logstash/pipeline
+        read_only: true
     ports:
       - 5044:5044
       - 9600:9600
-      - 9900:9900
     environment:
       LS_JAVA_OPTS: "-Xmx256m -Xms256m" # 사용할 수 있는 힙의 크기를 제한
     networks:
