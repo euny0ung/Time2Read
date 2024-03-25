@@ -76,4 +76,6 @@ export const useGameItemStore = create((set) => ({
   setLifeCount: (value) => set({ lifeCount: value }),
   decreaseLifeCount: () => set((state) => ({ lifeCount: Math.max(0, state.lifeCount - 1) })), // 생명 개수 감소
   increaseLifeCount: () => set((state) => ({ lifeCount: Math.min(3, state.lifeCount + 1) })), // 생명 개수 증가
+  decreaseClueCount: () => set((state) => ({ clueCount: Math.max(0, state.clueCount - 1) })), // 단서 개수 감소
+  increaseClueCount: () => set((state) => ({ clueCount: Math.min(10, state.clueCount + 1) })), // 단서 개수 증가
 }));
