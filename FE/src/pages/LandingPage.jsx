@@ -7,6 +7,7 @@
 //     [] 로그인시 로그인 버튼이 ‘마이 페이지’ 버튼으로 변경됨
 
 import { useEffect, useState } from 'react';
+import KakaoLogin from '@components/kakao/KakaoLogin';
 import { useQuizStore } from '@stores/game/quizStore.jsx';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -33,10 +34,10 @@ const useQuizApiHandler = (selected) => {
   const handleQuizApi = () => {
     console.log('API 호출..');
     axios
-      .get(`${import.meta.env.VITE_QUIZ_API}/game/${selected}`)
+      .get(`${import.meta.env.VITE_BASE_API}/game/${selected}`)
       .then((response) => {
         setQuiz(response.data.result);
-
+        console.log(response);
         navigate('/game');
       })
       .catch((error) => {
@@ -64,9 +65,7 @@ const LandingPage = () => {
 
   return (
     <>
-      <div>
-        <button>카카오 로그인</button>
-      </div>
+      <KakaoLogin />
       <div>
         <SelectBox options={OPTIONS} handleSelect={handleSelect} selected={selected} />
       </div>
