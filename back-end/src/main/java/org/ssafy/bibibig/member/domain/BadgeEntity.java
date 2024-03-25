@@ -35,8 +35,8 @@ public class BadgeEntity {
         this.year = year;
         this.count = count;
     }
-    public static BadgeEntity of(int year, int count){
-        return new BadgeEntity(year,count);
+    public static BadgeEntity of(Long id, int year, int count, LocalDateTime createdAt, MemberEntity member){
+        return new BadgeEntity(id, year, count, createdAt, member);
     }
 
 }

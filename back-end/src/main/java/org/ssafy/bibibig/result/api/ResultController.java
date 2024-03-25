@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.ssafy.bibibig.common.dto.Response;
 import org.ssafy.bibibig.result.application.ResultService;
+import org.ssafy.bibibig.member.dto.request.GameResultRequest;
 import org.ssafy.bibibig.result.dto.request.RelatedArticleRequest;
 import org.ssafy.bibibig.result.dto.response.KeywordTermsResponse;
 import org.ssafy.bibibig.result.dto.response.RelatedArticleResponse;
