@@ -33,7 +33,7 @@ const useQuizApiHandler = (selected) => {
   const handleQuizApi = () => {
     console.log('API 호출..');
     axios
-      .get(`${import.meta.env.VITE_QUIZ_API}/game/${selected}`)
+      .get(`${import.meta.env.VITE_BASE_API}/game/${selected}`)
       .then((response) => {
         setQuiz(response.data.result);
 
