@@ -24,10 +24,10 @@ const ResultPage = () => {
   const [keywordHeight, setKeywordHeight] = useState(0);
 
   useEffect(() => {
-    getYearSummary(2024)
+    getYearSummary(2023)
       .then((data) => {
-        setKeywordData(data.keywords);
-        console.log('Year Summary Data:', data.keywords);
+        setKeywordData(data.result);
+        console.log('Year Summary Data:', data.result);
       })
       .catch((error) => {
         console.error('Error requesting year summary:', error);
@@ -47,7 +47,10 @@ const ResultPage = () => {
     requestAnimationFrame(() => {
       if (topboxRef.current && leftboxRef.current && rightboxRef.current) {
         const newWidth = topboxRef.current.offsetWidth / 2; // topbox 너비에 따라 leftbox와 rightbox 너비 조절
+        // let maxHeight = 0;
+        // if (leftboxRef.current.offsetHeight < rightboxRef.current.offsetHeight) {
         let maxHeight = Math.max(leftboxRef.current.offsetHeight, rightboxRef.current.offsetHeight); // leftbox와 rightbox 높이 비교 후 더 큰 값으로 설정
+        // }
 
         if (newWidth !== rightboxWidth) {
           setRightboxWidth(`${newWidth}px`);
@@ -79,7 +82,7 @@ const ResultPage = () => {
   return (
     <>
       <div className="bg-gradient-to-br from-purple-200 to-blue-200">
-        <div className="w-full max-w-[60%] mx-auto ">
+        <div className="w-full max-w-[90%] lg:max-w-[60%] md:max-w-[75%] mx-auto ">
           <h1>결과페이지</h1>
           <div className="relative flex flex-col items-center w-full gap-4 border-4 border-red-500 ">
             {/* topbox */}
