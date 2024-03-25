@@ -7,8 +7,10 @@ import org.ssafy.bibibig.articles.application.ArticleService;
 import org.ssafy.bibibig.articles.domain.ArticleEntity;
 import org.ssafy.bibibig.articles.dto.Article;
 import org.ssafy.bibibig.articles.dto.KeywordTerms;
+import org.ssafy.bibibig.member.dao.MemberRepository;
 import org.ssafy.bibibig.result.dao.ElasticsearchRelatedArticleRepository;
 import org.ssafy.bibibig.result.dto.RelatedArticle;
+import org.ssafy.bibibig.member.dto.request.GameResultRequest;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +22,7 @@ public class ResultService {
 
     private final ArticleService articleService;
     private final ElasticsearchRelatedArticleRepository relatedArticleRepository;
+    private final MemberRepository memberRepository;
 
     public List<RelatedArticle> getRelatedArticlesFromPast(List<String> id) {
         return id
