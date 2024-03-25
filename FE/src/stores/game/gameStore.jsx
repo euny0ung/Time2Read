@@ -75,3 +75,26 @@ export const useGameItemStore = create((set) => ({
   setClueCount: (value) => set({ clueCount: value }),
   setLifeCount: (value) => set({ lifeCount: value }),
 }));
+
+export const useVisibilityStore = create((set) => ({
+  catVisible: true,
+  doorKnobVisible: true,
+  dodoBirdVisible: true,
+  caterpillarVisible: true,
+  cheshireCatVisible: true,
+  roseVisible: true,
+  flamingoVisible: true,
+  cardSoldierVisible: true,
+  heartQueenVisible: true,
+  rabbitVisible: true,
+  setCatVisible: (visible) => set({ catVisible: visible }),
+  setDoorKnobVisible: (visible) => set({ doorKnobVisible: visible }),
+  setDodoBirdVisible: (visible) => set({ dodoBirdVisible: visible }),
+  setCaterpillarVisible: (visible) => set({ caterpillarVisible: visible }),
+  setCheshireCatVisible: (visible) => set({ cheshireCatVisible: visible }),
+  setRoseVisible: (visible) => set({ roseVisible: visible }),
+  setFlamingoVisible: (visible) => set({ flamingoVisible: visible }),
+  setCardSoldierVisible: (visible) => set({ cardSoldierVisible: visible }),
+  setHeartQueenVisible: (visible) => set({ heartQueenVisible: visible }),
+  setRabbitVisible: (visible) => set({ rabbitVisible: visible }),
+}));

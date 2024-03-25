@@ -4,7 +4,7 @@ import { useFrame } from '@react-three/fiber';
 import { RigidBody, useRapier } from '@react-three/rapier';
 import { Vector3 } from 'three';
 import usePersonControls from '../../hooks/usePersonControls.jsx';
-import { useGameModalStore, useGameItemStore } from '../../stores/game/gameStore.jsx';
+import { useGameModalStore, useGameItemStore, useVisibilityStore } from '../../stores/game/gameStore.jsx';
 
 const MOVE_SPEED = 3;
 const JUMP_FORCE = 10;
@@ -33,13 +33,25 @@ const Player = () => {
   } = useGameModalStore();
   const { clueCount, lifeCount, setClueCount, setLifeCount } = useGameItemStore();
   const { forward, backward, left, right, jump } = usePersonControls();
+  const {
+    setCatVisible,
+    setDoorKnobVisible,
+    setDodoBirdVisible,
+    setCaterpillarVisible,
+    setCheshireCatVisible,
+    setRoseVisible,
+    setFlamingoVisible,
+    setCardSoldierVisible,
+    setHeartQueenVisible,
+    setRabbitVisible,
+  } = useVisibilityStore();
   const rapier = useRapier();
   const assetArray = [
     'cat',
     'doorKnob',
     'dodoBird',
     'caterpillar',
-    'chesireCat',
+    'cheshireCat',
     'rose',
     'flamingo',
     'cardSoldier',
@@ -52,6 +64,19 @@ const Player = () => {
       document.exitPointerLock();
       setOpenQuizModal(true);
     }
+  };
+
+  const showAsset = (name) => {
+    if (name === 'cat') setCatVisible(false);
+    if (name === 'doorKnob') setDoorKnobVisible(false);
+    if (name === 'dodoBird') setDodoBirdVisible(false);
+    if (name === 'caterpillar') setCaterpillarVisible(false);
+    if (name === 'cheshireCat') setCheshireCatVisible(false);
+    if (name === 'rose') setRoseVisible(false);
+    if (name === 'flamingo') setFlamingoVisible(false);
+    if (name === 'cardSoldier') setCardSoldierVisible(false);
+    if (name === 'heartQueen') setHeartQueenVisible(false);
+    if (name === 'rabbit') setRabbitVisible(false);
   };
 
   useEffect(() => {
@@ -125,6 +150,7 @@ const Player = () => {
             setCollidedItem((prevItems) => [...prevItems, target.uuid]);
             if (assetArray.includes(target.name)) {
               setBumped(true);
+              showAsset(target.name);
             }
             if (target.name === 'endPoint') {
               setGameOver(true);
