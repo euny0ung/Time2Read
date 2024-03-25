@@ -73,7 +73,6 @@ const MazeModel = () => {
       if (child.isMesh && child.material) {
         if (child.material.name === 'walls') {
           const { material } = child;
-          console.log(material);
           material.map = textures;
           material.needsUpdate = true;
         } else if (child.material.name === 'ground') {
