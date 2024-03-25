@@ -80,12 +80,13 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
         NativeSearchQuery query = new NativeSearchQueryBuilder()
                 .withQuery(QueryBuilders.functionScoreQuery(
                         QueryBuilders.boolQuery()
-                                .must(QueryBuilders.matchQuery("대분류", category.getName()))
-                                .must(QueryBuilders.matchQuery("키워드", keyword))
                                 .must(QueryBuilders.rangeQuery("작성시간")
                                         .gte(LocalDateTime.of(year, 1, 1, 0, 0).format(formatter))
                                         .lte(LocalDateTime.of(year + 1, 1, 1, 0, 0).format(formatter))
-                                ),
+                                )
+                                .must(QueryBuilders.matchQuery("대분류", category.getName()))
+                                .must(QueryBuilders.matchQuery("키워드", keyword))
+                                .must(QueryBuilders.matchQuery("요약", keyword)),
                         ScoreFunctionBuilders.randomFunction())
                 ).withMaxResults(1)
                 .build();
