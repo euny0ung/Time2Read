@@ -3,39 +3,39 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
-      colors:{
+      colors: {
         primary: {
-          red:{
+          red: {
             DEFAULT: '#FFA19F',
-            1: `#FDB9AE`,
+            1: '#FDB9AE',
             2: '#FE8E8C',
             3: '#FF7465',
             4: '#C13F3F',
           },
-          teal:{
+          teal: {
             DEFAULT: '#2BBAB4',
             1: '#D3FFEE',
             2: '#A4E3D6',
-            3: '#249593'
+            3: '#249593',
           },
-          yellow:{
+          yellow: {
             DEFAULT: '#FEFEC3',
             1: '#E3F1BE',
             2: '#C0CFA4',
-          },  
-          indigo:{
+          },
+          indigo: {
             DEFAULT: '#8096C5',
             1: '#E8FFF7',
             2: '#7281AA',
             3: '#9A769A',
-            4: `#603049`
-          },     
+            4: '#603049',
+          },
         },
-        black:{
-          DEFAULT: '#212529' 
+        black: {
+          DEFAULT: '#212529',
         },
-        white:{
-          DEFAULT: '#FFFFF5'
+        white: {
+          DEFAULT: '#FFFFF5',
         },
         light: {
           text: {
@@ -79,7 +79,6 @@ export default {
       backgroundSize: {
         '300%': '300% 300%',
       },
-      
     },
   },
   plugins: [],
