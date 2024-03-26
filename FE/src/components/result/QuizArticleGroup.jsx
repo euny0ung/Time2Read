@@ -53,7 +53,7 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
     <>
       <div className="flex flex-col items-start w-full" ref={containerRef}>
         {/* RelatedArticles Container */}
-        <div className="flex flex-col items-start w-full gap-2 p-5 text-white rounded-t-lg bg-gradient-to-br from-purple-400 to-indigo-500 ">
+        <div className="flex flex-col items-start w-full gap-2 p-5 text-white rounded-t-lg bg-gradient-to-r from-primary-red to-primary-teal ">
           {/* 문제번호 */}
           <div className="text-lg">#{num}</div>
           {/* 가장 초기의 기사 + 프로그래스바 + 가장 최근의 기사 */}
@@ -75,7 +75,7 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
                     >
                       <div
                         key={article.id}
-                        className={`truncate cursor-pointer ${i === currentStep ? 'text-indigo-700' : 'text-white'}`}
+                        className={`truncate cursor-pointer ${i === currentStep ? 'text-teal-900' : 'text-white'}`}
                         onClick={() => {
                           goToStep(i);
                           setIsToggleOn(true);
@@ -96,10 +96,10 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
                 })}
               </div>
               {/* 프로그래스바 선 및 원 */}
-              <div className="relative flex justify-between h-1 m-4 bg-gray-200">
+              <div className="relative flex justify-between h-1 m-4 bg-white">
                 {/* 프로그래스바 채워진 선 - tailwind는 동적 조절이 힘들어서 인라인 스타일에서 width 속성 설정함 */}
                 <div
-                  className="absolute top-0 left-0 h-full transition-all duration-700 ease-in-out bg-indigo-700"
+                  className="absolute top-0 left-0 h-full transition-all duration-700 ease-in-out bg-teal-300"
                   style={{ width: `calc(${(currentStep / (relatedArticles.length - 1)) * 100}%)` }}
                 />
                 {/* 프로그래스바 원들 */}
@@ -111,7 +111,7 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
                   >
                     <div
                       key={article.id}
-                      className={`absolute top-0.5 z-10 flex items-center justify-center w-4 h-4 transform -translate-y-1/2 rounded-full ${i <= currentStep ? 'bg-indigo-700' : 'bg-indigo-200'}`}
+                      className={`absolute top-0.5 z-10 flex items-center justify-center w-4 h-4 transform -translate-y-1/2 rounded-full ${i < currentStep ? 'bg-teal-300' : 'bg-white'} ${i === currentStep ? 'bg-teal-800' : ''}`}
                       style={{
                         left: `calc(${(i / (relatedArticles.length - 1)) * 100}% - 0.5rem)`,
                       }}
@@ -142,7 +142,7 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
                     >
                       <div
                         key={article.id}
-                        className={`truncate cursor-pointer flex-grow flex-shrink ${i === currentStep ? 'text-indigo-700' : 'text-white'}`}
+                        className={`truncate cursor-pointer flex-grow flex-shrink ${i === currentStep ? 'text-teal-900' : 'text-white'}`}
                         style={{ maxWidth: titleMaxWidth }}
                         onClick={() => {
                           goToStep(i);
@@ -171,7 +171,7 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
           </div>
         </div>
         {/* ArticleDetail Container */}
-        <div className="flex flex-col items-center w-full rounded-b-lg bg-gradient-to-bl from-indigo-300 to-purple-300 ">
+        <div className="flex flex-col items-center w-full rounded-b-lg bg-gradient-to-r from-primary-red-1 to-primary-teal-2 ">
           <div
             className={`w-full bg-white rounded-b-lg transition-opacity transition-height duration-700 overflow-hidden ${
               isToggleOn ? 'opacity-100 h-auto' : 'opacity-0 h-0'
@@ -195,7 +195,7 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
                 </div>
                 <div>대분류 : {relatedArticle.mainCategory}</div>
                 <div>중분류 : {relatedArticle.subCategory}</div>
-                <div>작성일 : {relatedArticle.time}</div>
+                <div>작성일 : {relatedArticle.wroteAt}</div>
                 <ImageComponent src={relatedArticle.image} alt={relatedArticle.imageCaption} width={400} />
                 <div>내용 : {relatedArticle.content}</div>
                 <div>요약 : {relatedArticle.summary}</div>
@@ -207,14 +207,14 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
               {/* 이전/다음 버튼 */}
               <div className="flex justify-between mt-3">
                 <button
-                  className="px-4 py-1 bg-gray-300 rounded hover:bg-gray-400 disabled:opacity-50"
+                  className="px-4 py-1 text-white rounded bg-primary-red hover:bg-primary-red-3 disabled:opacity-50"
                   onClick={() => setCurrentStep((prev) => Math.max(prev - 1, 0))}
                   disabled={currentStep === 0}
                 >
                   {currentStep === 0 ? '첫 기사' : '이전 기사'}
                 </button>
                 <button
-                  className="px-4 py-1 text-white bg-blue-600 rounded hover:bg-blue-700 disabled:opacity-50"
+                  className="px-4 py-1 text-white rounded bg-primary-teal hover:bg-primary-teal-3 disabled:opacity-50"
                   onClick={() => setCurrentStep((prev) => Math.min(prev + 1, relatedArticles.length - 1))}
                   disabled={currentStep === relatedArticles.length - 1}
                 >
