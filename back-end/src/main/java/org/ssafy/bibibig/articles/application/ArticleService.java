@@ -37,38 +37,70 @@ public class ArticleService {
         return articleRepository.getTopKeywordsByYear(year);
     }
 
-    public ArticleWithQuiz getArticleWithQuiz(Article article) {
-        return ArticleWithQuiz.from(article, makeQuiz(article));
+    public ArticleWithQuiz getArticleWithQuiz(Article article, CategoryType category) {
+        return ArticleWithQuiz.from(category, article, makeQuiz(article));
     }
 
-    public List<ArticleWithQuiz> getArticleWithQuizes(int year) {
+    public ArticleWithQuiz getArticleWithQuiz(Article article, CategoryType category, String keyword) {
+        return ArticleWithQuiz.from(category, article, makeQuiz(article, keyword));
+    }
+
+    public List<ArticleWithQuiz> getArticleWithQuizzes(int year) {
         List<ArticleWithQuiz> result = new ArrayList<>();
         List<CategoryType> randomCategory = randomCategory();
         List<CategoryType> categories = List.of(CategoryType.values());
 
-        Map<String, List<CategoryType>> grouping = randomCategory
-                .stream()
-                .collect(Collectors.groupingBy(CategoryType::getName));
-
-        for (CategoryType category : categories) { // 카테고리 별로
-            int size = grouping.getOrDefault(category.getName(), List.of()).size();
-
-            if (size == 0) continue;
-
-            List<KeywordTerms> keywords = getTopKeywordsByYearAndCategory(year, category);
-
-            List<Article> articles = getRandomArticleByYearAndCategoryAndKeyword(year, size, category, keywords);
-
-            for (Article article : articles) {
-                result.add(getArticleWithQuiz(article));
+        for (CategoryType category : categories) {
+            int size = Collections.frequency(randomCategory, category);
+            List<KeywordTerms> keywords = getTopKeywordsByYearAndCategory(year, category, size);
+            for (KeywordTerms keyword : keywords) {
+                Article article = getRandomArticleByYearAndCategoryAndKeyword(year, category, keyword.word());
+                result.add(getArticleWithQuiz(article, category, keyword.word()));
             }
         }
         return result;
     }
 
-    // 대표 키워드 뽑기
-    private List<KeywordTerms> getTopKeywordsByYearAndCategory(int year, CategoryType categoryType) {
-        return articleRepository.getTopKeywordsByYearAndCategory(year, categoryType);
+    public List<ArticleWithQuiz> getFirstArticleWithQuizzes(int year) {
+        List<ArticleWithQuiz> result = new ArrayList<>();
+        List<CategoryType> categories = firstCategory();
+
+        for (CategoryType category : categories) {
+            System.out.println(category.getName());
+            List<KeywordTerms> keywords = getTopKeywordsByYearAndCategory(year, category, 1);
+            for (KeywordTerms keyword : keywords) {
+                Article article = getRandomArticleByYearAndCategoryAndKeyword(year, category, keyword.word());
+                result.add(getArticleWithQuiz(article, category, keyword.word()));
+            }
+        }
+        return result;
+    }
+
+    public List<ArticleWithQuiz> getSecondArticleWithQuizzes(int year) {
+        List<ArticleWithQuiz> result = new ArrayList<>();
+        List<CategoryType> categories = secondCategory();
+
+        for (CategoryType category : categories) {
+            List<KeywordTerms> keywords = getTopKeywordsByYearAndCategory(year, category, 1);
+            for (KeywordTerms keyword : keywords) {
+                Article article = getRandomArticleByYearAndCategoryAndKeyword(year, category, keyword.word());
+                result.add(getArticleWithQuiz(article, category));
+            }
+        }
+        return result;
+    }
+
+
+    private List<KeywordTerms> getTopKeywordsByYearAndCategory(int year, CategoryType categoryType, int size) {
+        List<KeywordTerms> result = new ArrayList<>();
+        List<KeywordTerms> keywordList = articleRepository.getTopKeywordsByYearAndCategory(year, categoryType);
+        Random random = new Random();
+
+        for (int i = 0; i < size; i++) {
+            int randomIdx = random.nextInt(keywordList.size());
+            result.add(keywordList.get(randomIdx));
+        }
+        return result;
     }
 
     public List<Article> getRelatedArticlesTop5(String id) {
@@ -104,21 +136,50 @@ public class ArticleService {
         return numbers;
     }
 
-    // 랜덤카테고리
+    //TODO - 사회 기사 추가되면 카테고리 리스트 수정할 것
+    //랜덤카테고리 - 10개
     private List<CategoryType> randomCategory() {
-        // 대분류 별 기사가 전부 들어있지 않은 관계로
-        return List.of(CategoryType.POLITICS, CategoryType.POLITICS, CategoryType.POLITICS, CategoryType.POLITICS, CategoryType.POLITICS, CategoryType.POLITICS, CategoryType.POLITICS, CategoryType.POLITICS, CategoryType.POLITICS, CategoryType.POLITICS);
+        return List.of(CategoryType.POLITICS, CategoryType.ECONOMY, CategoryType.CULTURE, CategoryType.INTERNATIONAL, CategoryType.SPORTS, CategoryType.INTERNATIONAL, CategoryType.POLITICS, CategoryType.ECONOMY, CategoryType.CULTURE, CategoryType.INTERNATIONAL, CategoryType.SPORTS, CategoryType.INTERNATIONAL);
+
 //        List<CategoryType> categoryList = new ArrayList<>(List.of(CategoryType.values()));
 //        Random random = new Random();
-//        for(int i = 0; i < 4; i++) {
+//        for (int i = 0; i < 4; i++) {
 //            int randomIdx = random.nextInt(CategoryType.values().length);
 //            categoryList.add(CategoryType.values()[randomIdx]);
 //        }
 //        return categoryList;
     }
 
+    // 카테고리 - 6개
+    private List<CategoryType> firstCategory() {
+        return List.of(CategoryType.POLITICS, CategoryType.ECONOMY, CategoryType.CULTURE, CategoryType.INTERNATIONAL, CategoryType.SPORTS, CategoryType.INTERNATIONAL);
+//        List<CategoryType> categoryList = new ArrayList<>();
+//        Random random = new Random();
+//        for (int i = 0; i < 6; i++) {
+//            int randomIdx = random.nextInt(CategoryType.values().length);
+//            categoryList.add(CategoryType.values()[randomIdx]);
+//        }
+//        return categoryList;
+    }
+
+    // 랜덤 카테고리 - 4개
+    private List<CategoryType> secondCategory() {
+        List<CategoryType> categoryList = new ArrayList<>();
+        Random random = new Random();
+        for (int i = 0; i < 4; i++) {
+            int randomIdx = random.nextInt(CategoryType.values().length);
+            categoryList.add(CategoryType.values()[randomIdx]);
+        }
+        return categoryList;
+    }
+
+
     private Quiz makeQuiz(Article article) {
         return quizUtils.makeQuiz(article);
+    }
+
+    private Quiz makeQuiz(Article article, String keyword) {
+        return quizUtils.makeQuiz(article, keyword);
     }
 
     private Article getArticleEntityOrThrowException(String id) {

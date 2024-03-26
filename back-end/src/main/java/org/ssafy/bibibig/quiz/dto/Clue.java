@@ -1,7 +1,7 @@
 package org.ssafy.bibibig.quiz.dto;
 
 public record Clue(
-        String word,
+        ClueType type,
         String description
 ) {
 }
