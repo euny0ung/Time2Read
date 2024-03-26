@@ -27,3 +27,17 @@ export const postRelationArticles = (articleIds) => {
       throw error;
     });
 };
+
+export const postGameResult = (resultData) => {
+  const apiUrl = `${baseUrl}/my/result`;
+
+  return axios
+    .post(apiUrl, resultData)
+    .then((response) => {
+      console.log('게임 결과 Post 성공');
+    })
+    .catch((error) => {
+      console.log('Error requesting data: ', error);
+      throw error;
+    });
+};

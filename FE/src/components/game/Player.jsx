@@ -4,7 +4,12 @@ import { useFrame } from '@react-three/fiber';
 import { RigidBody, useRapier } from '@react-three/rapier';
 import { Vector3 } from 'three';
 import usePersonControls from '../../hooks/usePersonControls.jsx';
-import { useGameModalStore, useGameItemStore, useVisibilityStore } from '../../stores/game/gameStore.jsx';
+import {
+  useGameModalStore,
+  useGameItemStore,
+  useVisibilityStore,
+  checkCollidedStore,
+} from '../../stores/game/gameStore.jsx';
 
 const MOVE_SPEED = 3;
 const JUMP_FORCE = 10;
@@ -20,7 +25,8 @@ const sideVector = new Vector3();
 // 미로 벽 막혔는지 테스트할 용도로 만들어놓은 빨간 큐브. 방향키로 움직일 수 있음
 const Player = () => {
   const playerRef = useRef(null);
-  const [collidedItem, setCollidedItem] = useState([]);
+  // const [collidedItem, setCollidedItem] = useState([]);
+  const { collidedItem, setCollidedItem } = checkCollidedStore();
   const {
     isBumped,
     openQuizModal,
@@ -133,6 +139,7 @@ const Player = () => {
     // 카메라 위치 조정
     const { x, y, z } = playerRef.current.translation();
     state.camera.position.set(x - 4, y + 1, z - 13);
+    // state.camera.position.set(x + 1, y + 1, z + 15);
   });
 
   return (
@@ -147,7 +154,9 @@ const Player = () => {
           const target = other.rigidBodyObject;
 
           if (!collidedItem.includes(target.uuid)) {
-            setCollidedItem((prevItems) => [...prevItems, target.uuid]);
+            // setCollidedItem((prevItems) => [...prevItems, target.uuid]);
+            const updateCollision = [...collidedItem, target.uuid];
+            setCollidedItem(updateCollision);
             if (assetArray.includes(target.name)) {
               setBumped(true);
               showAsset(target.name);
@@ -158,6 +167,12 @@ const Player = () => {
             if (target.name === 'clue') {
               setClueCount(clueCount + 1);
               // 충돌 이후 사라지게 하는 로직 추가 필요
+              // 아직 안먹은 애면?
+              // if (!usedClueList.includes(target.cid)) {
+              //   // 먹게 해야지
+              //   console.log('아직 안먹은 target의 cid: ', target.cid);
+              //   setUsedClueList([...usedClueList, target.cid]);
+              // }
               if (target.parent) {
                 target.parent.remove(target);
               }
@@ -180,6 +195,7 @@ const Player = () => {
         }}
       >
         <mesh position={[-4, 0, -13]}>
+          {/* <mesh position={[1, 0, 15]}> */}
           <boxGeometry args={[0.6, 0.6, 0.6]} />
           <meshStandardMaterial color="red" />
         </mesh>
