@@ -1,20 +1,20 @@
 package org.ssafy.bibibig.member.dto.response;
 
 public record SolvedCategoryResponse (
-        Long social,
-        Long politics,
-        Long economy,
-        Long international,
-        Long culture,
-        Long sports
+        int social,
+        int politics,
+        int economy,
+        int international,
+        int culture,
+        int sports
         ){
         public static SolvedCategoryResponse of(
-                Long social,
-                Long politics,
-                Long economy,
-                Long international,
-                Long culture,
-                Long sports
+                int social,
+                int politics,
+                int economy,
+                int international,
+                int culture,
+                int sports
         ){
                 return new SolvedCategoryResponse(
                  social,

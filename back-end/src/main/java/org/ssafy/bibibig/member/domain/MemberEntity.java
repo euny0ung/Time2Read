@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.ssafy.bibibig.member.dto.Member;
 
 import java.time.LocalDateTime;
 import java.util.List;

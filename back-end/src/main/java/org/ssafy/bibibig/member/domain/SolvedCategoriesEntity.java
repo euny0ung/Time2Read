@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
+import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDateTime;
 
@@ -17,30 +17,30 @@ public class SolvedCategoriesEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long politic;
-    private Long economy;
-    private Long society;
-    private Long culture;
-    private Long sports;
-    private Long international;
+    @ColumnDefault("0")
+    private int politic;
+    @ColumnDefault("0")
+    private int economy;
+    @ColumnDefault("0")
+    private int society;
+    @ColumnDefault("0")
+    private int culture;
+    @ColumnDefault("0")
+    private int sports;
+    @ColumnDefault("0")
+    private int international;
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();
-        if (politic == null) {politic = 0L;}
-        if (economy == null) {economy = 0L;}
-        if (society == null) {society = 0L;}
-        if (culture == null) {culture = 0L;}
-        if (sports == null) {sports = 0L;}
-        if (international == null) {international = 0L;}
     }
 
     public static SolvedCategoriesEntity of(){
         return new SolvedCategoriesEntity();
     }
-    public static SolvedCategoriesEntity of(Long id, Long politic, Long economy, Long society, Long culture, Long sports, Long international, LocalDateTime createdAt){
+    public static SolvedCategoriesEntity of(Long id, int politic, int economy, int society, int culture, int sports, int international, LocalDateTime createdAt){
         return new SolvedCategoriesEntity(id, politic, economy, society, culture, sports, international, createdAt);
     }
 }
