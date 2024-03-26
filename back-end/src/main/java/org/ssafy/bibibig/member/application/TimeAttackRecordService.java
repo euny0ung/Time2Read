@@ -22,7 +22,7 @@ public class TimeAttackRecordService {
     private final TimeAttackRecordRepository timeAttackRecordRepository;
     private final MemberRepository memberRepository;
     public List<TimeAttackResponse> getRecords(Long memberId){
-        List<TimeAttacksEntity> timeAttacksEntities = timeAttackRecordRepository.findByMemberId(memberId);
+        List<TimeAttacksEntity> timeAttacksEntities = timeAttackRecordRepository.findByMemberIdOrderByTimeAttackTime(memberId);
         List<TimeAttackResponse> records = new ArrayList<>();
         for(TimeAttacksEntity row : timeAttacksEntities){
             TimeAttack timeAttack = TimeAttack.from(row);

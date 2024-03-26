@@ -6,5 +6,5 @@ import org.ssafy.bibibig.member.domain.TimeAttacksEntity;
 import java.util.List;
 
 public interface TimeAttackRecordRepository extends JpaRepository<TimeAttacksEntity, Long> {
-    List<TimeAttacksEntity> findByMemberId(Long memberId);
+    List<TimeAttacksEntity> findByMemberIdOrderByTimeAttackTime(Long memberId);
 }
