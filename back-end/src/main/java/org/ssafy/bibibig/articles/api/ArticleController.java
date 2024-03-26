@@ -20,6 +20,16 @@ public class ArticleController {
 
     @GetMapping("/{year}")
     public Response<List<ArticleWithQuiz>> getArticleWithQuiz(@PathVariable int year) {
-        return Response.success(articleService.getArticleWithQuizes(year));
+        return Response.success(articleService.getArticleWithQuizzes(year));
     }
+
+    @GetMapping("/{year}/first")
+    public Response<List<ArticleWithQuiz>> getFirstArticleWithQuiz(@PathVariable int year) {
+        return Response.success(articleService.getQuizzes(year));
+    }
+
+    /*@GetMapping("/{year}/second")
+    public Response<List<ArticleWithQuiz>> getSecondArticleWithQuiz(@PathVariable int year) {
+        return Response.success(articleService.getSecondArticleWithQuizzes(year));
+    }*/
 }

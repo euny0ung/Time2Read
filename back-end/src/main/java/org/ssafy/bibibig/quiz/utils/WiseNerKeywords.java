@@ -8,21 +8,22 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.google.gson.Gson;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
+@Component
+@RequiredArgsConstructor
 public class WiseNerKeywords {
 
     private static String openApiURL = "http://aiopen.etri.re.kr:8000/WiseNLU";
 
     @Value("${quiz.word-define.key}")
-    private static String accessKey;   // 발급받은 API Key
+    private String accessKey;   // 발급받은 API Key
     @Getter
     static public class NameEntity {
         final String text;
@@ -35,8 +36,7 @@ public class WiseNerKeywords {
         }
     }
 
-    static public List<NameEntity> findNerWords(String text) {
-        System.out.println(accessKey);
+    public List<NameEntity> findNerWords(String text) {
         String analysisCode = "ner";        // 언어 분석 코드
 
         Gson gson = new Gson();
@@ -111,6 +111,10 @@ public class WiseNerKeywords {
                 // 개체명 분석 결과 수집 및 정렬
                 List<Map<String, Object>> nameEntityRecognitionResult = (List<Map<String, Object>>) sentence.get("NE");
                 for( Map<String, Object> nameEntityInfo : nameEntityRecognitionResult ) {
+                    if(Objects.equals((String) nameEntityInfo.get("type"), "PS_NAME")){
+                        //System.out.println("이름을 걸러라");
+                        continue;
+                    }
                     String name = (String) nameEntityInfo.get("text");
                     NameEntity nameEntity = nameEntitiesMap.get(name);
                     if ( nameEntity == null ) {
