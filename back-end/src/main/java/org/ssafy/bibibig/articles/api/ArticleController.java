@@ -28,8 +28,8 @@ public class ArticleController {
         return Response.success(articleService.getFirstArticleWithQuizzes(year));
     }
 
-    @GetMapping("/{year}/second")
+    /*@GetMapping("/{year}/second")
     public Response<List<ArticleWithQuiz>> getSecondArticleWithQuiz(@PathVariable int year) {
         return Response.success(articleService.getSecondArticleWithQuizzes(year));
-    }
+    }*/
 }
