@@ -25,7 +25,7 @@ public class ArticleController {
 
     @GetMapping("/{year}/first")
     public Response<List<ArticleWithQuiz>> getFirstArticleWithQuiz(@PathVariable int year) {
-        return Response.success(articleService.getFirstArticleWithQuizzes(year));
+        return Response.success(articleService.getQuizzes(year));
     }
 
     /*@GetMapping("/{year}/second")
