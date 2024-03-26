@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = import.meta.env.VITE_BASE_URL;
+const baseUrl = import.meta.env.VITE_BASE_API;
 
 // 선택한 연도의 키워드
 export const getYearSummary = (year) => {
