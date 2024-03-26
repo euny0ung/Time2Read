@@ -120,6 +120,31 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
 
         return result;
     }
+
+    @Override
+    public List<KeywordTerms> getMultipleChoice(int year, CategoryType category, String keyword, int count) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        NativeSearchQuery query = new NativeSearchQueryBuilder()
+                .withQuery(
+                        QueryBuilders.boolQuery()
+                                .must(QueryBuilders.rangeQuery("작성시간")
+                                        .gte(LocalDateTime.of(year, 1, 1, 0, 0).format(formatter))
+                                        .lte(LocalDateTime.of(year + 1, 1, 1, 0, 0).format(formatter))
+                                )
+                                .must(QueryBuilders.matchQuery("대분류", category.getName()))
+                                .mustNot(QueryBuilders.matchQuery("키워드", keyword))
+                ).withMaxResults(0)
+                .addAggregation(AggregationBuilders.terms("keyword_terms").field("키워드").size(count))
+                .build();
+
+        SearchHits<?> searchHits = operations.search(query, ArticleEntity.class);
+        ParsedStringTerms pst = Objects.requireNonNull(searchHits.getAggregations()).get("keyword_terms");
+
+        return pst.getBuckets().stream().map(s ->
+                new KeywordTerms(s.getKey().toString(), s.getDocCount())
+        ).toList();
+
+    }
 }
 
 

@@ -26,10 +26,10 @@ class ArticleControllerTest {
     @DisplayName("게임 시작")
     void getScrapedArticle() throws Exception {
         // given
-        int year = 2023;
+        int year = 2014;
 
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
-                .get(String.format("/v1/game/%d", year))
+                .get(String.format("/v1/game/%d/first", year))
                 .contentType(MediaType.APPLICATION_JSON);
 
         // when

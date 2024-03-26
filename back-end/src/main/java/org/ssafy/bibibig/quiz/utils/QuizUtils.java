@@ -3,10 +3,7 @@ package org.ssafy.bibibig.quiz.utils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.ssafy.bibibig.articles.dto.Article;
-import org.ssafy.bibibig.quiz.dto.Clue;
-import org.ssafy.bibibig.quiz.dto.ClueType;
-import org.ssafy.bibibig.quiz.dto.Quiz;
-import org.ssafy.bibibig.quiz.dto.QuizType;
+import org.ssafy.bibibig.quiz.dto.*;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -20,22 +17,28 @@ public class QuizUtils {
     private final WiseNerKeywords wiseNerKeywords;
 
     // 키워드 리스트 받아서 정의 찾기
-    public Quiz makeQuiz(Article article) {
+    public Quiz makeKeywordQuiz(Article article) {
         Word word = findKeyword(article);
         String blurContent = makeBlur(article.content(), word.word);
         String blurSummary = makeBlur(article.summary(), word.word);
         Clue clue = new Clue(ClueType.KEYWORD, word.description);
-        return new Quiz(QuizType.KEYWORD, blurContent, blurSummary, word.word, List.of(clue));
+        return new KeywordQuiz(QuizType.KEYWORD, blurContent, blurSummary, word.word, List.of(clue));
     }
 
     // 단서 - 본문, 초성힌트
-    public Quiz makeQuiz(Article article, String keyword) {
+    public Quiz makeKeywordQuiz(Article article, String keyword) {
         String blurContent = makeBlur(article.content(), keyword);
         String blurSummary = makeBlur(article.summary(), keyword);
         Clue clue1 = new Clue(ClueType.ARTICLE, article.content());
         Clue clue2 = new Clue(ClueType.FIRST_LETTER, firstLetter(keyword));
-        return new Quiz(QuizType.KEYWORD, blurContent, blurSummary, keyword, List.of(clue1, clue2));
+        return new KeywordQuiz(QuizType.KEYWORD, blurContent, blurSummary, keyword, List.of(clue1, clue2));
     }
+    public Quiz makeMultipleChoiceQuiz(Article article, String answer, List<String> choices) {
+        String blurSummary = makeUnderBar(article.summary(), choices.get(Integer.parseInt(answer)));
+        Clue clue1 = new Clue(ClueType.ARTICLE, article.content());
+        return new MultipleChoiceQuiz(QuizType.MULTIPLE_CHOICE, blurSummary, answer, List.of(clue1), choices);
+    }
+
 
     public String firstLetter(String word) {
         String[] CHO = {"ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"};
@@ -93,6 +96,12 @@ public class QuizUtils {
             replacement.append("O");
 
         return pattern.matcher(content).replaceAll(replacement.toString());
+    }
+
+    private String makeUnderBar(String content, String keyword) {
+        Pattern pattern = Pattern.compile(keyword);
+
+        return pattern.matcher(content).replaceAll("______");
     }
 
     //TODO: 불용어 있으면 제거하기

@@ -34,14 +34,20 @@ public class ArticleService {
         return articleRepository.getTopKeywordsByYear(year);
     }
 
-    public ArticleWithQuiz getArticleWithQuiz(Article article, CategoryType category) {
-        return ArticleWithQuiz.from(category, article, makeQuiz(article));
+    public ArticleWithQuiz getArticleWithKeywordQuiz(Article article, CategoryType category) {
+        return ArticleWithQuiz.from(category, article, makeKeywordQuiz(article));
     }
 
-    public ArticleWithQuiz getArticleWithQuiz(Article article, CategoryType category, String keyword) {
-        return ArticleWithQuiz.from(category, article, makeQuiz(article, keyword));
+    public ArticleWithQuiz getArticleWithKeywordQuiz(Article article, CategoryType category, String keyword) {
+        return ArticleWithQuiz.from(category, article, makeKeywordQuiz(article, keyword));
     }
 
+    public ArticleWithQuiz getArticleWithMultipleChoiceQuiz(Article article, CategoryType category,
+                                                            String answer, List<String> choice) {
+        return ArticleWithQuiz.from(category, article, makeMultipleChoiceQuiz(article, answer, choice));
+    }
+
+    // 사용 안함
     public List<ArticleWithQuiz> getArticleWithQuizzes(int year) {
         List<ArticleWithQuiz> result = new ArrayList<>();
         List<CategoryType> randomCategory = randomCategory();
@@ -61,16 +67,21 @@ public class ArticleService {
             List<ArticleWithWord> articles = getRandomArticleByYearAndCategoryAndKeyword(year, size, category, keywords);
 
             for (ArticleWithWord article : articles) {
-                result.add(getArticleWithQuiz(article.article, category, article.word));
+                result.add(getArticleWithKeywordQuiz(article.article, category, article.word));
             }
         }
         return result;
-
     }
 
-    public List<ArticleWithQuiz> getFirstArticleWithQuizzes(int year) {
+    public List<ArticleWithQuiz> get(int year) {
+        List<ArticleWithQuiz> quizzes = getFirstArticleWithKeywordQuizzes(year);
+        quizzes.addAll(getFirstArticleWithMultipleChoiceQuizzes(year));
+        return quizzes;
+    }
+
+    public List<ArticleWithQuiz> getFirstArticleWithKeywordQuizzes(int year) {
         List<ArticleWithQuiz> result = new ArrayList<>();
-        List<CategoryType> randomCategory = firstCategory();
+        List<CategoryType> randomCategory = firstCategory(4);
         List<CategoryType> categories = List.of(CategoryType.values());
 
         Map<String, List<CategoryType>> grouping = randomCategory
@@ -87,7 +98,37 @@ public class ArticleService {
             List<ArticleWithWord> articles = getRandomArticleByYearAndCategoryAndKeyword(year, size, category, keywords);
 
             for (ArticleWithWord article : articles) {
-                result.add(getArticleWithQuiz(article.article, category, article.word));
+                result.add(getArticleWithKeywordQuiz(article.article, category, article.word));
+            }
+        }
+        return result;
+    }
+
+    public List<ArticleWithQuiz> getFirstArticleWithMultipleChoiceQuizzes(int year) {
+        List<ArticleWithQuiz> result = new ArrayList<>();
+        List<CategoryType> randomCategory = firstCategory(2);
+        List<CategoryType> categories = List.of(CategoryType.values());
+
+        Map<String, List<CategoryType>> grouping = randomCategory
+                .stream()
+                .collect(Collectors.groupingBy(CategoryType::getName));
+
+        for (CategoryType category : categories) { // 카테고리 별로
+            int size = grouping.getOrDefault(category.getName(), List.of()).size();
+
+            if (size == 0) continue;
+
+            List<KeywordTerms> keywords = getTopKeywordsByYearAndCategory(year, category); // 50개
+
+            List<ArticleWithMultipleChoice> articles = getRandomArticleByYearAndCategoryAndKeywordForMultipleChoice(year, size, category, keywords);
+
+            for (ArticleWithMultipleChoice article : articles) {
+                result.add(getArticleWithMultipleChoiceQuiz(
+                        article.article,
+                        category,
+                        String.valueOf(article.wordLocation),
+                        article.multipleChoices)
+                );
             }
         }
         return result;
@@ -107,24 +148,32 @@ public class ArticleService {
         return result;
     }*/
 
-
     private List<KeywordTerms> getTopKeywordsByYearAndCategory(int year, CategoryType categoryType) {
         return articleRepository.getTopKeywordsByYearAndCategory(year, categoryType);
-
     }
 
     public List<Article> getRelatedArticlesTop5(String id) {
         return articleRepository.getRelatedArticlesTop5(id).stream().map(Article::from).toList();
     }
 
+    public List<String> getMultipleChoice(int year, CategoryType category, String keyword, int count) {
+        List<KeywordTerms> multipleChoice = articleRepository.getMultipleChoice(year, category, keyword, count);
+
+        List<String> words = multipleChoice.stream()
+                .map(KeywordTerms::word)
+                .collect(Collectors.toList());
+        words.add(keyword);
+
+        Collections.shuffle(words);
+        return words;
+    }
+
     // 기사 랜덤 뽑기
     private List<ArticleWithWord> getRandomArticleByYearAndCategoryAndKeyword(int year, int size, CategoryType category, List<KeywordTerms> keywords) {
         List<ArticleWithWord> result = new ArrayList<>();
-
         for (int i = 0; i < size; i++) {
-            List<Integer> randoms = getRandomNumber(keywords.size());
-            for (int j = 0; j < randoms.size(); j++) {
-                int randomNumber = randoms.get(j);
+            List<Integer> randoms = getRandomNumbers(keywords.size());
+            for (int randomNumber : randoms) {
                 ArticleEntity entity = articleRepository.getRandomArticleByYearAndCategoryAndKeyword(
                         year, category, keywords.get(randomNumber).word()
                 );
@@ -138,7 +187,34 @@ public class ArticleService {
         return result;
     }
 
-    private List<Integer> getRandomNumber(int keywordSize) {
+    private List<ArticleWithMultipleChoice> getRandomArticleByYearAndCategoryAndKeywordForMultipleChoice(int year,
+                                                                                                         int size,
+                                                                                                         CategoryType category,
+                                                                                                         List<KeywordTerms> keywords) {
+        List<ArticleWithMultipleChoice> result = new ArrayList<>();
+        for (int i = 0; i < size; i++) {
+            List<Integer> randoms = getRandomNumbers(keywords.size());
+            for (int randomNumber : randoms) {
+                String collect = keywords.get(randomNumber).word();
+
+                ArticleEntity entity = articleRepository.getRandomArticleByYearAndCategoryAndKeyword(
+                        year, category, collect
+                );
+
+                if (entity == null) continue; // 조회가 되지 않으면 다른 키워드 선택
+
+                result.add(new ArticleWithMultipleChoice(
+                        Article.from(entity),
+                        collect,
+                        getMultipleChoice(year, category, collect, 4))
+                );
+                break;
+            }
+        }
+        return result;
+    }
+
+    private List<Integer> getRandomNumbers(int keywordSize) {
         List<Integer> numbers = IntStream.range(0, keywordSize)
                 .boxed()
                 .collect(Collectors.toList());
@@ -161,15 +237,15 @@ public class ArticleService {
     }
 
     // 카테고리 - 6개
-    private List<CategoryType> firstCategory() {
-        return List.of(CategoryType.POLITICS, CategoryType.ECONOMY, CategoryType.CULTURE, CategoryType.INTERNATIONAL, CategoryType.SPORTS, CategoryType.INTERNATIONAL);
-//        List<CategoryType> categoryList = new ArrayList<>();
-//        Random random = new Random();
-//        for (int i = 0; i < 6; i++) {
-//            int randomIdx = random.nextInt(CategoryType.values().length);
-//            categoryList.add(CategoryType.values()[randomIdx]);
-//        }
-//        return categoryList;
+    private List<CategoryType> firstCategory(int size) {
+        // return List.of(CategoryType.POLITICS, CategoryType.ECONOMY, CategoryType.CULTURE, CategoryType.INTERNATIONAL, CategoryType.SPORTS, CategoryType.INTERNATIONAL);
+        List<CategoryType> categoryList = new ArrayList<>();
+        Random random = new Random();
+        for (int i = 0; i < size; i++) {
+            int randomIdx = random.nextInt(CategoryType.values().length);
+            categoryList.add(CategoryType.values()[randomIdx]);
+        }
+        return categoryList;
     }
 
     // 랜덤 카테고리 - 4개
@@ -184,12 +260,16 @@ public class ArticleService {
     }
 
 
-    private Quiz makeQuiz(Article article) {
-        return quizUtils.makeQuiz(article);
+    private Quiz makeKeywordQuiz(Article article) {
+        return quizUtils.makeKeywordQuiz(article);
     }
 
-    private Quiz makeQuiz(Article article, String keyword) {
-        return quizUtils.makeQuiz(article, keyword);
+    private Quiz makeKeywordQuiz(Article article, String keyword) {
+        return quizUtils.makeKeywordQuiz(article, keyword);
+    }
+
+    private Quiz makeMultipleChoiceQuiz(Article article, String answer, List<String> choice) {
+        return quizUtils.makeMultipleChoiceQuiz(article, answer, choice);
     }
 
     private Article getArticleEntityOrThrowException(String id) {
@@ -200,13 +280,33 @@ public class ArticleService {
     }
 
     private static class ArticleWithWord {
-    Article article;
-    String word;
+        Article article;
+        String word;
+
         public ArticleWithWord(Article article, String word) {
             this.article = article;
             this.word = word;
         }
-
     }
 
+    private static class ArticleWithMultipleChoice {
+        Article article;
+        int wordLocation; // 아래 multipleChoices에서의 정답 위치
+        List<String> multipleChoices;
+
+        public ArticleWithMultipleChoice(Article article, String word, List<String> multipleChoices) {
+            this.article = article;
+            this.multipleChoices = multipleChoices;
+            this.wordLocation = wordLocation;
+        }
+
+        private int findWordLocation(String word) {
+            for (int i = 0; i < this.multipleChoices.size(); i++) {
+                if (multipleChoices.get(i).equals(word)) {
+                    return i;
+                }
+            }
+            return 0;
+        }
+    }
 }
