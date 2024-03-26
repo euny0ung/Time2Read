@@ -1,9 +1,11 @@
 /* eslint-disable indent */
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import ClueContentButton from '@components/commons/buttons/ClueContentButton';
 import EntireContentButton from '@components/commons/buttons/EntireContentButton';
 import AnagramQuiz from '@components/quizTypes/AnagramQuiz.jsx';
 import OxQuiz from '@components/quizTypes/OxQuiz.jsx';
 import ShortAnswerQuiz from '@components/quizTypes/ShortAnswerQuiz.jsx';
+import { useGameItemStore } from '@stores/game/gameStore';
 import { useQuizStore } from '@stores/game/quizStore';
 
 // 정답을 체크하고 맞으면 정답 결과 개수를 하나 더 해주고 퀴즈 모달창이 닫힘
@@ -26,8 +28,20 @@ const QuizModal = React.memo(
     if (quizIndex > 10) return null;
 
     const { quizzes } = useQuizStore();
+    const { clueCount, decreaseClueCount } = useGameItemStore();
+    const [hintUsed, setHintUsed] = useState(false);
 
     const quiz = quizzes.filter((_, index) => index === quizIndex);
+
+    const handleClueClick = () => {
+      if (hintUsed) return;
+      decreaseClueCount();
+      setHintUsed(true);
+    };
+
+    useEffect(() => {
+      setHintUsed(false);
+    }, [quizIndex]);
 
     console.log('퀴즈퀴즈', quiz);
     return (
@@ -42,10 +56,11 @@ const QuizModal = React.memo(
               {type}
               <div>{it.title}</div>
               <div>{it.quiz.questionSummary}</div>
-              <div>
-                <EntireContentButton content={it.quiz.questionContent} />
-              </div>
               {additionalProps && React.createElement(additionalProps.component, additionalProps.componentProps)}
+              <div>
+                <EntireContentButton onClueClick={() => handleClueClick()} clues={it.quiz.clues[0]} />
+                <ClueContentButton onClueClick={() => handleClueClick()} clues={it.quiz.clues[1]} />
+              </div>
             </div>
           );
 

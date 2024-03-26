@@ -31,7 +31,7 @@ const Player = () => {
     setOpenGameOverModal,
     setGameOver,
   } = useGameModalStore();
-  const { clueCount, lifeCount, increaseLifeCount, increaseClueCount } = useGameItemStore();
+  const { lifeCount, increaseLifeCount, increaseClueCount } = useGameItemStore();
   const { forward, backward, left, right, jump } = usePersonControls();
   const rapier = useRapier();
   const assetArray = [
@@ -130,7 +130,7 @@ const Player = () => {
               setGameOver(true);
             }
             if (target.name === 'clue') {
-              increaseLifeCount();
+              increaseClueCount();
               // 충돌 이후 사라지게 하는 로직 추가 필요
               if (target.parent) {
                 target.parent.remove(target);
@@ -138,7 +138,7 @@ const Player = () => {
               target.remove();
             }
             if (target.name === 'life') {
-              increaseClueCount();
+              increaseLifeCount();
               if (target.parent) {
                 target.parent.remove(target);
               }
