@@ -73,7 +73,7 @@ public class ArticleService {
         return result;
     }
 
-    public List<ArticleWithQuiz> get(int year) {
+    public List<ArticleWithQuiz> getQuizzes(int year) {
         List<ArticleWithQuiz> quizzes = getFirstArticleWithKeywordQuizzes(year);
         quizzes.addAll(getFirstArticleWithMultipleChoiceQuizzes(year));
         return quizzes;
@@ -297,7 +297,7 @@ public class ArticleService {
         public ArticleWithMultipleChoice(Article article, String word, List<String> multipleChoices) {
             this.article = article;
             this.multipleChoices = multipleChoices;
-            this.wordLocation = wordLocation;
+            this.wordLocation = findWordLocation(word);
         }
 
         private int findWordLocation(String word) {
