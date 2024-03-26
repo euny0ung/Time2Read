@@ -59,7 +59,7 @@ const ResultPage = () => {
         }
 
         setRightboxHeight(`${maxHeight}px`);
-        setKeywordHeight(maxHeight * 0.65);
+        setKeywordHeight(maxHeight * 0.7);
       }
     });
   };
@@ -75,7 +75,8 @@ const ResultPage = () => {
 
   return (
     <>
-      <div className="min-h-screen bg-gradient-to-br from-primary-red-1 to-primary-teal-1">
+      <TopButton />
+      <div className="min-h-screen bg-gradient-to-br from-primary-red-1 to-primary-teal-1" id="top">
         <div className="w-full max-w-[90%] lg:max-w-[60%] md:max-w-[75%] mx-auto ">
           <h1>결과페이지</h1>
           <div className="relative flex flex-col items-center w-full gap-4">
@@ -109,7 +110,7 @@ const ResultPage = () => {
                 </div>
                 {/* rightbox */}
                 <div
-                  className="flex justify-center w-full max-h-[600px] md:w-4/6 transition-width transition-height"
+                  className="flex justify-center w-full h-full md:w-4/6 transition-width transition-height"
                   style={{ rightboxWidth, rightboxHeight }}
                   ref={rightboxRef}
                 >
@@ -138,7 +139,6 @@ const ResultPage = () => {
               <Articles />
             </TranslucentContainer>
           </div>
-          <TopButton />
         </div>
       </div>
     </>
