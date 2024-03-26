@@ -6,6 +6,7 @@ import TranslucentContainer from '../components/commons/containers/TranslucentCo
 import WhiteContainer from '../components/commons/containers/WhiteContainer.jsx';
 import ResultContent from '../components/commons/ResultContent.jsx';
 import ResultTitle from '../components/commons/ResultTitle.jsx';
+import TopButton from '../components/commons/TopButton.jsx';
 import Articles from '../components/result/Articles.jsx';
 import Keyword from '../components/result/Keyword.jsx';
 import { useGameResultStore } from '../stores/game/gameStore.jsx';
@@ -47,10 +48,7 @@ const ResultPage = () => {
     requestAnimationFrame(() => {
       if (topboxRef.current && leftboxRef.current && rightboxRef.current) {
         const newWidth = topboxRef.current.offsetWidth / 2; // topbox 너비에 따라 leftbox와 rightbox 너비 조절
-        // let maxHeight = 0;
-        // if (leftboxRef.current.offsetHeight < rightboxRef.current.offsetHeight) {
         let maxHeight = Math.max(leftboxRef.current.offsetHeight, rightboxRef.current.offsetHeight); // leftbox와 rightbox 높이 비교 후 더 큰 값으로 설정
-        // }
 
         setRightboxWidth(`${newWidth}px`);
         setKeywordWidth(newWidth);
@@ -61,7 +59,7 @@ const ResultPage = () => {
         }
 
         setRightboxHeight(`${maxHeight}px`);
-        setKeywordHeight(maxHeight * 0.7);
+        setKeywordHeight(maxHeight * 0.65);
       }
     });
   };
@@ -83,10 +81,7 @@ const ResultPage = () => {
           <div className="relative flex flex-col items-center w-full gap-4">
             {/* topbox */}
             <TranslucentContainer>
-              <div
-                className="flex flex-col items-center w-full gap-6 border-4 border-blue-500 md:flex-row"
-                ref={topboxRef}
-              >
+              <div className="flex flex-col items-center justify-center w-full gap-6 md:flex-row" ref={topboxRef}>
                 {/* leftbox */}
                 <div
                   className="flex flex-col items-center justify-center w-full gap-6 md:w-2/6"
@@ -114,7 +109,7 @@ const ResultPage = () => {
                 </div>
                 {/* rightbox */}
                 <div
-                  className="flex justify-center w-full md:w-4/6 transition-width transition-height"
+                  className="flex justify-center w-full max-h-[600px] md:w-4/6 transition-width transition-height"
                   style={{ rightboxWidth, rightboxHeight }}
                   ref={rightboxRef}
                 >
@@ -143,6 +138,7 @@ const ResultPage = () => {
               <Articles />
             </TranslucentContainer>
           </div>
+          <TopButton />
         </div>
       </div>
     </>
