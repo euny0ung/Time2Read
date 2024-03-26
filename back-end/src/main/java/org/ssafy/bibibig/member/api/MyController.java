@@ -2,13 +2,14 @@ package org.ssafy.bibibig.member.api;
 
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import org.ssafy.bibibig.articles.dao.ArticleRepository;
 import org.ssafy.bibibig.common.dto.Response;
 import org.ssafy.bibibig.member.application.BadgeService;
 import org.ssafy.bibibig.member.application.ScrapService;
 import org.ssafy.bibibig.member.application.SolvedCategoryService;
 import org.ssafy.bibibig.member.application.TimeAttackRecordService;
+import org.ssafy.bibibig.member.dto.request.GameResultRequest;
 import org.ssafy.bibibig.member.dto.response.*;
 import org.ssafy.bibibig.member.utils.SessionInfo;
 
@@ -67,5 +68,16 @@ public class MyController {
         Long memberId = SessionInfo.getSessionMemberId(request);
         return Response.success(timeAttackRecordService.getRecords(memberId));
 
+    }
+
+    // 타임 어택 기록 저장
+    @PostMapping("/result")
+    @Transactional
+    public Response<?> saveGameResult(HttpServletRequest request, @RequestBody GameResultRequest gameResultRequest){
+        Long memberId = SessionInfo.getSessionMemberId(request);
+        badgeService.saveBadge(memberId,gameResultRequest.getYear());
+        solvedCategoryService.saveSolvedCategory(memberId, gameResultRequest.getSolvedCategoryRequest());
+        timeAttackRecordService.saveRecord(memberId,gameResultRequest.getTimeAttackTime());
+        return Response.success();
     }
 }
