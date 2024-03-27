@@ -1,3 +1,4 @@
+import KakaoRedirect from '@components/kakao/KakaoRedirect';
 import GamePage from '@pages/GamePage';
 import LandingPage from '@pages/LandingPage';
 import ResultPage from '@pages/ResultPage';
@@ -13,6 +14,7 @@ const App = () => {
       <Route path="/result" element={<ResultPage />} />
       <Route path="/scraps" element={<ScrapPage />} />
       <Route path="/user" element={<UserPage />} />
+      <Route path="/kakao" element={<KakaoRedirect />} />
     </Routes>
   );
 };
