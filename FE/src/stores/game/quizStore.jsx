@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { useGameModalStore, useGameItemStore } from './gameStore.jsx';
+import { useGameModalStore, useGameItemStore, useGameResultStore } from './gameStore.jsx';
 
 export const useQuizStore = create((set) => ({
   quizzes: [],
@@ -35,14 +35,16 @@ export const useClueStateStore = create((set) => ({
 }));
 
 export const handleAnswerCheck = (inputValue, answer, mainCategory) => {
-  const hitsCountStore = useHitsCountStore.getState();
+  const { gameResult, setGameResult } = useGameResultStore.getState();
   const answerCheckStore = useAnswerCheckStore.getState();
   const gameModalStore = useGameModalStore.getState();
   const gameItemStore = useGameItemStore.getState();
   const hitsCategoryStore = useHitsCategoryStore.getState();
 
   if (inputValue === answer) {
-    hitsCountStore.setHitsCount();
+    const prevResult = { ...gameResult };
+    prevResult.correct += 1;
+    setGameResult(prevResult);
     hitsCategoryStore.setHitsCategory(mainCategory);
     gameModalStore.setBumped(false);
     gameModalStore.setOpenQuizModal(false);
