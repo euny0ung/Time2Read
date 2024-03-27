@@ -19,7 +19,6 @@ const KakaoRedirect = () => {
         const res = await axios.post(`${import.meta.env.VITE_BASE_API}/oauth/kakao/account`, {
           token: accessToken,
         });
-        console.log('응답응답', res);
         sessionStorage.setItem('name', res.data.result.name);
       }
 
