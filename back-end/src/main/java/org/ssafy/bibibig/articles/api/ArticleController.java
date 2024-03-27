@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.ssafy.bibibig.articles.application.ArticleService;
 import org.ssafy.bibibig.articles.dto.ArticleWithQuiz;
+import org.ssafy.bibibig.articles.dto.response.GameResponse;
 import org.ssafy.bibibig.common.dto.Response;
+import org.ssafy.bibibig.quiz.dto.Quiz;
 
 import java.util.List;
 
