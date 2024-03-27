@@ -7,6 +7,8 @@ import WhiteContainer from '../components/commons/containers/WhiteContainer.jsx'
 import ResultContent from '../components/commons/ResultContent.jsx';
 import ResultTitle from '../components/commons/ResultTitle.jsx';
 import Badges from '../components/my/Badges.jsx';
+import Book from '../components/my/book/Book.jsx';
+import Newspaper from '../components/my/newspaper/Newspaper.jsx';
 import RadarChart from '../components/my/RadarChart.jsx';
 
 // {
@@ -104,7 +106,11 @@ const UserPage = () => {
             <TranslucentContainer>
               <ResultTitle title={'스크랩한 기사'} />
               <WhiteContainer>
-                <div className="h-40">스크랩한 기사 컴포넌트 만들어서 여기 넣으면 됨</div>
+                <Book />
+                <div className="flex flex-row">
+                  <Newspaper showTitle />
+                  <Newspaper showTitle={false} />
+                </div>
               </WhiteContainer>
             </TranslucentContainer>
             {/* 다시 시계토끼 쫓아가기 */}
