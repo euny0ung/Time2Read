@@ -9,6 +9,8 @@ import java.util.List;
 @AllArgsConstructor
 public class Quiz {
     private QuizType quizType;
+    private String questionSummary;
     private String answer;
     private List<Clue> clues;
+    private QuizAdditionalInfo additionalInfo;
 }

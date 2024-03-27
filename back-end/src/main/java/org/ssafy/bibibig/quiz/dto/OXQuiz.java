@@ -4,8 +4,7 @@ import java.util.List;
 
 public class OXQuiz extends Quiz{
 
-
-    public OXQuiz(QuizType quizType, String answer, List<Clue> clues) {
-        super(quizType, answer, clues);
+    public OXQuiz(QuizType quizType, String questionSummary, String answer, List<Clue> clues) {
+        super(quizType, questionSummary, answer, clues, null);
     }
 }
