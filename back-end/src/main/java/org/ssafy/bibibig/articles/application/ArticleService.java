@@ -11,6 +11,8 @@ import org.ssafy.bibibig.articles.dto.CategoryType;
 import org.ssafy.bibibig.articles.dto.KeywordTerms;
 import org.ssafy.bibibig.common.dto.ErrorCode;
 import org.ssafy.bibibig.common.exception.CommonException;
+import org.ssafy.bibibig.quiz.dto.KeywordQuiz;
+import org.ssafy.bibibig.quiz.dto.MultipleChoiceQuiz;
 import org.ssafy.bibibig.quiz.dto.Quiz;
 import org.ssafy.bibibig.quiz.utils.QuizUtils;
 
@@ -43,7 +45,7 @@ public class ArticleService {
     }
 
     public ArticleWithQuiz getArticleWithMultipleChoiceQuiz(Article article, CategoryType category,
-                                                            String answer, List<String> choice) {
+                                                                                String answer, List<String> choice) {
         return ArticleWithQuiz.from(category, article, makeMultipleChoiceQuiz(article, answer, choice));
     }
 
@@ -74,14 +76,17 @@ public class ArticleService {
     }
 
     public List<ArticleWithQuiz> getQuizzes(int year) {
-        List<ArticleWithQuiz> quizzes = getFirstArticleWithKeywordQuizzes(year);
+        List<ArticleWithQuiz> quizzes = new ArrayList<>();
+        quizzes.addAll(getFirstArticleWithKeywordQuizzes(year));
         quizzes.addAll(getFirstArticleWithMultipleChoiceQuizzes(year));
         return quizzes;
     }
 
     public List<ArticleWithQuiz> getFirstArticleWithKeywordQuizzes(int year) {
+        int quizCount = 6;
+
         List<ArticleWithQuiz> result = new ArrayList<>();
-        List<CategoryType> randomCategory = firstCategory(4);
+        List<CategoryType> randomCategory = firstCategory(quizCount);
         List<CategoryType> categories = List.of(CategoryType.values());
 
         Map<String, List<CategoryType>> grouping = randomCategory
@@ -105,8 +110,10 @@ public class ArticleService {
     }
 
     public List<ArticleWithQuiz> getFirstArticleWithMultipleChoiceQuizzes(int year) {
+        int quizCount = 4;
+
         List<ArticleWithQuiz> result = new ArrayList<>();
-        List<CategoryType> randomCategory = firstCategory(2);
+        List<CategoryType> randomCategory = firstCategory(quizCount);
         List<CategoryType> categories = List.of(CategoryType.values());
 
         Map<String, List<CategoryType>> grouping = randomCategory
@@ -264,11 +271,11 @@ public class ArticleService {
         return quizUtils.makeKeywordQuiz(article);
     }
 
-    private Quiz makeKeywordQuiz(Article article, String keyword) {
+    private KeywordQuiz makeKeywordQuiz(Article article, String keyword) {
         return quizUtils.makeKeywordQuiz(article, keyword);
     }
 
-    private Quiz makeMultipleChoiceQuiz(Article article, String answer, List<String> choice) {
+    private MultipleChoiceQuiz makeMultipleChoiceQuiz(Article article, String answer, List<String> choice) {
         return quizUtils.makeMultipleChoiceQuiz(article, answer, choice);
     }
 
