@@ -2,9 +2,9 @@
 //     [V] 넘어오는 퀴즈 데이터 유형은 두가지 (O/X, 단어 뚫기)
 //     [V] 클라이언트쪽에서는 퀴즈 유형이 ‘단어 뚫기’인 경우 랜덤으로 애너그램, 단어 뚫기 중 선택
 // [] 위에서 아래로 떨어지는 효과 구현
-// [] 소셜 로그인
-//     [] 카카오 로그인 버튼
-//     [] 로그인시 로그인 버튼이 ‘마이 페이지’ 버튼으로 변경됨
+// [V] 소셜 로그인
+//     [V] 카카오 로그인 버튼
+//     [V] 로그인시 로그인 버튼이 ‘마이 페이지’ 버튼으로 변경됨
 
 import { useEffect, useState } from 'react';
 import KakaoLogin from '@components/kakao/KakaoLogin';
@@ -34,7 +34,7 @@ const useQuizApiHandler = (selected) => {
   const handleQuizApi = () => {
     console.log('API 호출..');
     axios
-      .get(`${import.meta.env.VITE_BASE_API}/game/${selected}`)
+      .get(`${import.meta.env.VITE_BASE_API}/game/${selected}/first`)
       .then((response) => {
         setQuiz(response.data.result);
         console.log(response);

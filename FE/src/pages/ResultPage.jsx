@@ -6,12 +6,22 @@ import TranslucentContainer from '../components/commons/containers/TranslucentCo
 import WhiteContainer from '../components/commons/containers/WhiteContainer.jsx';
 import ResultContent from '../components/commons/ResultContent.jsx';
 import ResultTitle from '../components/commons/ResultTitle.jsx';
+import { formatTime } from '../components/game/Timer.jsx';
+import TopButton from '../components/commons/TopButton.jsx';
 import Articles from '../components/result/Articles.jsx';
 import Keyword from '../components/result/Keyword.jsx';
-import { useGameResultStore } from '../stores/game/gameStore.jsx';
+import {
+  useGameResultStore,
+  useGameModalStore,
+  useGameItemStore,
+  useVisibilityStore,
+  checkCollidedStore,
+} from '../stores/game/gameStore.jsx';
 
 const ResultPage = () => {
   const navigate = useNavigate();
+
+  console.log('resultPAge 입장');
 
   const { gameResult } = useGameResultStore(); // 게임 결과 : 정답 수, 오답 수, 타임 어택 시간
   const [keywordData, setKeywordData] = useState([]);
@@ -24,17 +34,26 @@ const ResultPage = () => {
   const [keywordHeight, setKeywordHeight] = useState(0);
 
   useEffect(() => {
-    getYearSummary(2024)
+    getYearSummary(2023)
       .then((data) => {
-        setKeywordData(data.keywords);
-        console.log('Year Summary Data:', data.keywords);
+        setKeywordData(data.result);
+        console.log('Year Summary Data:', data.result);
       })
       .catch((error) => {
         console.error('Error requesting year summary:', error);
       });
   }, []);
 
+  const resetGame = () => {
+    useGameModalStore.getState().reset();
+    useGameResultStore.getState().reset();
+    useGameItemStore.getState().reset();
+    useVisibilityStore.getState().reset();
+    checkCollidedStore.getState().reset();
+  };
+
   const navigateToLandingPage = () => {
+    resetGame();
     navigate('/');
   };
 
@@ -49,20 +68,16 @@ const ResultPage = () => {
         const newWidth = topboxRef.current.offsetWidth / 2; // topbox 너비에 따라 leftbox와 rightbox 너비 조절
         let maxHeight = Math.max(leftboxRef.current.offsetHeight, rightboxRef.current.offsetHeight); // leftbox와 rightbox 높이 비교 후 더 큰 값으로 설정
 
-        if (newWidth !== rightboxWidth) {
-          setRightboxWidth(`${newWidth}px`);
-          setKeywordWidth(newWidth);
-        }
+        setRightboxWidth(`${newWidth}px`);
+        setKeywordWidth(newWidth);
 
         // 창 너비에 따른 높이 조절 로직. 768px 이하일 때 (tailwind에서 md 기준이 768px임) maxHeight가 작아지도록
         if (window.innerWidth < 768) {
           maxHeight /= 2;
         }
 
-        if (maxHeight !== rightboxHeight) {
-          setRightboxHeight(`${maxHeight}px`); // 더 큰 높이로 rightboxHeight 업데이트
-          setKeywordHeight(maxHeight * 0.7); // Keyword 컴포넌트의 높이도 maxHeight로 설정
-        }
+        setRightboxHeight(`${maxHeight}px`);
+        setKeywordHeight(maxHeight * 0.7);
       }
     });
   };
@@ -78,16 +93,14 @@ const ResultPage = () => {
 
   return (
     <>
-      <div className="bg-gradient-to-br from-purple-200 to-blue-200">
-        <div className="w-full max-w-[60%] mx-auto ">
+      <TopButton />
+      <div className="min-h-screen bg-gradient-to-br from-primary-red-1 to-primary-teal-1" id="top">
+        <div className="w-full max-w-[90%] lg:max-w-[60%] md:max-w-[75%] mx-auto ">
           <h1>결과페이지</h1>
-          <div className="relative flex flex-col items-center w-full gap-4 border-4 border-red-500 ">
+          <div className="relative flex flex-col items-center w-full gap-4">
             {/* topbox */}
             <TranslucentContainer>
-              <div
-                className="flex flex-col items-center w-full gap-6 border-4 border-blue-500 md:flex-row"
-                ref={topboxRef}
-              >
+              <div className="flex flex-col items-center justify-center w-full gap-6 md:flex-row" ref={topboxRef}>
                 {/* leftbox */}
                 <div
                   className="flex flex-col items-center justify-center w-full gap-6 md:w-2/6"
@@ -109,13 +122,17 @@ const ResultPage = () => {
                   <WhiteContainer>
                     <ResultTitle title={'타임 어택 시간'} />
                     <ResultContent>
-                      {gameResult.timeAttackTime ? <div>{gameResult.timeAttackTime}</div> : <div> 00:00:00 </div>}
+                      {gameResult.timeAttackTime ? (
+                        <div>{formatTime(600 - gameResult.timeAttackTime)}</div>
+                      ) : (
+                        <div> 00:10:00 </div>
+                      )}
                     </ResultContent>
                   </WhiteContainer>
                 </div>
                 {/* rightbox */}
                 <div
-                  className="flex justify-center w-full h-full md:w-4/6"
+                  className="flex justify-center w-full h-full md:w-4/6 transition-width transition-height"
                   style={{ rightboxWidth, rightboxHeight }}
                   ref={rightboxRef}
                 >
@@ -139,7 +156,6 @@ const ResultPage = () => {
                 </ResultButton>
               </button>
             </div>
-            {/* relatednewsbox */}
             <TranslucentContainer>
               <ResultTitle title={'과거와 연결된 기사'} />
               <Articles />

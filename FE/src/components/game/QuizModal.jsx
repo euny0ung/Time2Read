@@ -1,9 +1,12 @@
 /* eslint-disable indent */
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
+import ClueContentButton from '@components/commons/buttons/ClueContentButton';
 import EntireContentButton from '@components/commons/buttons/EntireContentButton';
 import AnagramQuiz from '@components/quizTypes/AnagramQuiz.jsx';
+import ChoiceQuiz from '@components/quizTypes/ChoiceQuiz.jsx';
 import OxQuiz from '@components/quizTypes/OxQuiz.jsx';
 import ShortAnswerQuiz from '@components/quizTypes/ShortAnswerQuiz.jsx';
+import { useGameItemStore } from '@stores/game/gameStore';
 import { useQuizStore } from '@stores/game/quizStore';
 
 // 정답을 체크하고 맞으면 정답 결과 개수를 하나 더 해주고 퀴즈 모달창이 닫힘
@@ -26,14 +29,13 @@ const QuizModal = React.memo(
     if (quizIndex > 10) return null;
 
     const { quizzes } = useQuizStore();
-
     const quiz = quizzes.filter((_, index) => index === quizIndex);
 
     console.log('퀴즈퀴즈', quiz);
     return (
       <div
         className="h-screen w-screen absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-500 text-white font-bold py-2 px-4 rounded hover:bg-gray-700 focus:outline-none focus:shadow-outline"
-        style={{ width: '1480px', height: '824px', overflowY: 'auto' }}
+        style={{ width: '80rem', height: '45rem', overflowY: 'auto' }}
       >
         {/* <button onClick={closeModal}>닫기</button> */}
         {quiz.map((it) => {
@@ -42,10 +44,11 @@ const QuizModal = React.memo(
               {type}
               <div>{it.title}</div>
               <div>{it.quiz.questionSummary}</div>
-              <div>
-                <EntireContentButton content={it.quiz.questionContent} />
-              </div>
               {additionalProps && React.createElement(additionalProps.component, additionalProps.componentProps)}
+              <div>
+                <EntireContentButton clues={it.quiz.clues[0]} />
+                {type !== '객관식' && <ClueContentButton clues={it.quiz.clues[1]} />}
+              </div>
             </div>
           );
 
@@ -53,7 +56,17 @@ const QuizModal = React.memo(
           if (it.quiz.quizType === 'OX_QUIZ') {
             return renderQuiz('OX퀴즈', {
               component: OxQuiz,
-              componentProps: { answer: it.quiz.answer },
+              componentProps: { answer: it.quiz.answer, mainCategory: it.mainCategory },
+            });
+          }
+          if (it.quiz.quizType === 'MULTIPLE_CHOICE') {
+            return renderQuiz('객관식 퀴즈', {
+              component: ChoiceQuiz,
+              componentProps: {
+                answer: it.quiz.answer,
+                choices: it.quiz.additionalInfo.choices,
+                mainCategory: it.mainCategory,
+              },
             });
           }
 
@@ -65,14 +78,14 @@ const QuizModal = React.memo(
             const anagram = FisherYatesShuffle(it.quiz.answer);
             return renderQuiz('애너그램', {
               component: AnagramQuiz,
-              componentProps: { answer: it.quiz.answer, anagram },
+              componentProps: { answer: it.quiz.answer, anagram, mainCategory: it.mainCategory },
             });
           }
           // 1이면 단답식
 
           return renderQuiz('단답식', {
             component: ShortAnswerQuiz,
-            componentProps: { answer: it.quiz.answer },
+            componentProps: { answer: it.quiz.answer, mainCategory: it.mainCategory },
           });
         })}
       </div>
