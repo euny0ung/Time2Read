@@ -6,10 +6,17 @@ import TranslucentContainer from '../components/commons/containers/TranslucentCo
 import WhiteContainer from '../components/commons/containers/WhiteContainer.jsx';
 import ResultContent from '../components/commons/ResultContent.jsx';
 import ResultTitle from '../components/commons/ResultTitle.jsx';
+import { formatTime } from '../components/game/Timer.jsx';
 import TopButton from '../components/commons/TopButton.jsx';
 import Articles from '../components/result/Articles.jsx';
 import Keyword from '../components/result/Keyword.jsx';
-import { useGameResultStore, useGameModalStore } from '../stores/game/gameStore.jsx';
+import {
+  useGameResultStore,
+  useGameModalStore,
+  useGameItemStore,
+  useVisibilityStore,
+  checkCollidedStore,
+} from '../stores/game/gameStore.jsx';
 
 const ResultPage = () => {
   const navigate = useNavigate();
@@ -25,7 +32,6 @@ const ResultPage = () => {
   const [rightboxHeight, setRightboxHeight] = useState('0px');
   const [keywordWidth, setKeywordWidth] = useState(0);
   const [keywordHeight, setKeywordHeight] = useState(0);
-  const { setOpenGameOverModal, setGameOver } = useGameModalStore();
 
   useEffect(() => {
     getYearSummary(2023)
@@ -38,9 +44,16 @@ const ResultPage = () => {
       });
   }, []);
 
+  const resetGame = () => {
+    useGameModalStore.getState().reset();
+    useGameResultStore.getState().reset();
+    useGameItemStore.getState().reset();
+    useVisibilityStore.getState().reset();
+    checkCollidedStore.getState().reset();
+  };
+
   const navigateToLandingPage = () => {
-    setGameOver(false);
-    setOpenGameOverModal(false);
+    resetGame();
     navigate('/');
   };
 
@@ -109,7 +122,11 @@ const ResultPage = () => {
                   <WhiteContainer>
                     <ResultTitle title={'타임 어택 시간'} />
                     <ResultContent>
-                      {gameResult.timeAttackTime ? <div>{gameResult.timeAttackTime}</div> : <div> 00:00:00 </div>}
+                      {gameResult.timeAttackTime ? (
+                        <div>{formatTime(600 - gameResult.timeAttackTime)}</div>
+                      ) : (
+                        <div> 00:10:00 </div>
+                      )}
                     </ResultContent>
                   </WhiteContainer>
                 </div>

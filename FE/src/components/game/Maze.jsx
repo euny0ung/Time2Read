@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import { RigidBody, CuboidCollider } from '@react-three/rapier';
@@ -86,7 +86,13 @@ const MazeModel = () => {
       loader.load('clue/scene.gltf', (gltf) => {
         gltfRef.current = gltf;
         const newClueList = randomCluePositions.map((position, index) => {
+          // const cid = `${index}_clue`;
+          // console.log('usedClueList: ', usedClueList);
+          // if (usedClueList.includes(cid)) {
+          //   return null;
+          // }
           const instance = gltf.scene.clone();
+          // return <Clue instance={instance} position={position} key={index} cid={cid} />;
           return <Clue instance={instance} position={position} key={index} />;
         });
         setClueList(newClueList);
@@ -305,6 +311,14 @@ export const Rabbit = () => {
     </RigidBody>
   );
 };
+
+// export const Clue = ({ instance, position, cid }) => {
+//   return (
+//     <RigidBody name="clue">
+//       <primitive object={instance} scale={0.01} position={position} cid={cid} />
+//     </RigidBody>
+//   );
+// };
 
 export const Clue = ({ instance, position }) => {
   return (

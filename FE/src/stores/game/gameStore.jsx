@@ -52,9 +52,10 @@ export const useGameResultStore = create(
     gameResult: {
       correct: 0, // 정답 수
       incorrect: 0, // 오답 수
-      timeAttackTime: '', // 타임 어택 시간
+      timeAttackTime: 600, // 타임 어택 시간 초 단위 저장
     },
     setGameResult: (gameResult) => set({ gameResult }),
+    reset: () => set({ gameResult: { correct: 0, incorrect: 0, timeAttackTime: 600 } }),
   })),
 );
 
@@ -67,6 +68,7 @@ export const useGameModalStore = create((set) => ({
   setOpenQuizModal: (value) => set({ openQuizModal: value }),
   setOpenGameOverModal: (value) => set({ openGameOverModal: value }),
   setGameOver: (value) => set({ isOver: value }),
+  reset: () => set({ isBumped: false, openQuizModal: false, openGameOverModal: false, isOver: false }),
 }));
 
 export const useGameItemStore = create((set) => ({
@@ -74,6 +76,7 @@ export const useGameItemStore = create((set) => ({
   lifeCount: 3,
   setClueCount: (value) => set({ clueCount: value }),
   setLifeCount: (value) => set({ lifeCount: value }),
+  reset: () => set({ clueCount: 5, lifeCount: 3 }),
 }));
 
 export const useVisibilityStore = create((set) => ({
@@ -97,4 +100,23 @@ export const useVisibilityStore = create((set) => ({
   setCardSoldierVisible: (visible) => set({ cardSoldierVisible: visible }),
   setHeartQueenVisible: (visible) => set({ heartQueenVisible: visible }),
   setRabbitVisible: (visible) => set({ rabbitVisible: visible }),
+  reset: () =>
+    set({
+      catVisible: true,
+      doorKnobVisible: true,
+      dodoBirdVisible: true,
+      caterpillarVisible: true,
+      cheshireCatVisible: true,
+      roseVisible: true,
+      flamingoVisible: true,
+      cardSoldierVisible: true,
+      heartQueenVisible: true,
+      rabbitVisible: true,
+    }),
+}));
+
+export const checkCollidedStore = create((set) => ({
+  collidedItem: [],
+  setCollidedItem: (value) => set({ collidedItem: value }),
+  reset: () => set({ collidedItem: [] }),
 }));

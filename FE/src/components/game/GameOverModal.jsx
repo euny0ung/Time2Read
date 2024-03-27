@@ -15,7 +15,7 @@ const GameOverModal = () => {
       >
         <button
           onClick={moveToResult}
-          className="block mx-auto mt-10rem mb-70rem bg-white hover:bg-gray-700 text-gray-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className="absolute bg-white hover:bg-gray-700 text-gray-700 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline top-3/4 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
         >
           결과 페이지로 이동하기
         </button>
