@@ -4,12 +4,25 @@ import { useFrame } from '@react-three/fiber';
 import { RigidBody, CuboidCollider } from '@react-three/rapier';
 import { RepeatWrapping, TextureLoader, SRGBColorSpace } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { useVisibilityStore } from '../../stores/game/gameStore.jsx';
 
 const MazeModel = () => {
   const { scene } = useGLTF('maze/scene.gltf');
   const textureLoader = new TextureLoader();
   const textures = textureLoader.load('maze/textures/grass-seamless-texture-tileable.jpg');
   textures.colorSpace = SRGBColorSpace;
+  const {
+    catVisible,
+    doorKnobVisible,
+    dodoBirdVisible,
+    caterpillarVisible,
+    cheshireCatVisible,
+    roseVisible,
+    flamingoVisible,
+    cardSoldierVisible,
+    heartQueenVisible,
+    rabbitVisible,
+  } = useVisibilityStore();
   const cluePositions = [
     [-9.3, 0.3, -7.5],
     [4.2, 0.3, -7.5],
@@ -105,17 +118,17 @@ const MazeModel = () => {
       <RigidBody colliders="trimesh">
         <primitive object={scene} />
       </RigidBody>
-      <Cat />
-      <DoorKnob />
-      <DodoBird />
-      <Caterpillar />
-      <CheshireCat />
-      <Rose />
-      <Flamingo />
-      <CardSoldier />
-      <HeartQueen />
+      {catVisible && <Cat />}
+      {doorKnobVisible && <DoorKnob />}
+      {dodoBirdVisible && <DodoBird />}
+      {caterpillarVisible && <Caterpillar />}
+      {cheshireCatVisible && <CheshireCat />}
+      {roseVisible && <Rose />}
+      {flamingoVisible && <Flamingo />}
+      {cardSoldierVisible && <CardSoldier />}
+      {heartQueenVisible && <HeartQueen />}
+      {rabbitVisible && <Rabbit />}
       <Finish />
-      <Rabbit />
       <ClueLoader />
       <LifeLoader />
     </>
@@ -209,7 +222,7 @@ export const CheshireCat = () => {
     rotateCheshireCat();
   }, []);
   return (
-    <RigidBody name="chesireCat">
+    <RigidBody name="cheshireCat">
       <primitive object={cheshireCat.scene} scale={0.016} position={[-4, 0.4, 2.8]} />
       {/* <axesHelper scale={10} /> */}
     </RigidBody>

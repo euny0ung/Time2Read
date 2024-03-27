@@ -9,10 +9,12 @@ import ResultTitle from '../components/commons/ResultTitle.jsx';
 import TopButton from '../components/commons/TopButton.jsx';
 import Articles from '../components/result/Articles.jsx';
 import Keyword from '../components/result/Keyword.jsx';
-import { useGameResultStore } from '../stores/game/gameStore.jsx';
+import { useGameResultStore, useGameModalStore } from '../stores/game/gameStore.jsx';
 
 const ResultPage = () => {
   const navigate = useNavigate();
+
+  console.log('resultPAge 입장');
 
   const { gameResult } = useGameResultStore(); // 게임 결과 : 정답 수, 오답 수, 타임 어택 시간
   const [keywordData, setKeywordData] = useState([]);
@@ -23,6 +25,7 @@ const ResultPage = () => {
   const [rightboxHeight, setRightboxHeight] = useState('0px');
   const [keywordWidth, setKeywordWidth] = useState(0);
   const [keywordHeight, setKeywordHeight] = useState(0);
+  const { setOpenGameOverModal, setGameOver } = useGameModalStore();
 
   useEffect(() => {
     getYearSummary(2023)
@@ -36,6 +39,8 @@ const ResultPage = () => {
   }, []);
 
   const navigateToLandingPage = () => {
+    setGameOver(false);
+    setOpenGameOverModal(false);
     navigate('/');
   };
 
