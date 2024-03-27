@@ -6,7 +6,9 @@ import TranslucentContainer from '../components/commons/containers/TranslucentCo
 import WhiteContainer from '../components/commons/containers/WhiteContainer.jsx';
 import ResultContent from '../components/commons/ResultContent.jsx';
 import ResultTitle from '../components/commons/ResultTitle.jsx';
-import Badges from '../components/my/Badges.jsx';
+import Badges from '../components/my/badge/Badges.jsx';
+import Book from '../components/my/book/Book.jsx';
+import Newspaper from '../components/my/newspaper/Newspaper.jsx';
 import RadarChart from '../components/my/RadarChart.jsx';
 
 // {
@@ -69,7 +71,7 @@ const UserPage = () => {
             <TranslucentContainer>
               <ResultTitle title={'나의 기록'} />
               <div className="flex flex-col items-center justify-between w-full gap-6 lg:flex-row lg:justify-center">
-                <div className="w-full lg:w-4/12">
+                <div className="w-full ">
                   <WhiteContainer>
                     <ResultTitle title={'타임어택 기록'} />
                     <ResultContent>
@@ -84,13 +86,13 @@ const UserPage = () => {
                     </ResultContent>
                   </WhiteContainer>
                 </div>
-                <div className="w-full lg:w-6/12">
+                <div className="w-full">
                   <WhiteContainer>
                     <ResultTitle title={'카테고리별 기록'} />
                     <RadarChart solvedCount={solvedCount} />
                   </WhiteContainer>
                 </div>
-                <div className="w-full lg:w-3/12">
+                <div className="w-full">
                   <WhiteContainer>
                     <ResultTitle title={'획득한 뱃지'} />
                     <div className="overflow-y-auto h-[200px]">
@@ -103,9 +105,7 @@ const UserPage = () => {
             {/* 스크랩한 기사 scapedArticlebox */}
             <TranslucentContainer>
               <ResultTitle title={'스크랩한 기사'} />
-              <WhiteContainer>
-                <div className="h-40">스크랩한 기사 컴포넌트 만들어서 여기 넣으면 됨</div>
-              </WhiteContainer>
+              <WhiteContainer>스크랩한 기사 컴포넌트를 여기에 넣자..</WhiteContainer>
             </TranslucentContainer>
             {/* 다시 시계토끼 쫓아가기 */}
             <div className="flex justify-end w-full">
