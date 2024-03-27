@@ -33,11 +33,10 @@ const useQuizApiHandler = (selected) => {
   const handleQuizApi = () => {
     console.log('API 호출..');
     axios
-      .get(`${import.meta.env.VITE_BASE_API}/game/${selected}`)
+      .get(`${import.meta.env.VITE_BASE_API}/game/${selected}/first`)
       .then((response) => {
-        // setQuiz(response.data.result);
-        setQuiz(response.data.article);
-        console.log(response.data.article);
+        setQuiz(response.data.result);
+        console.log(response.data.result);
 
         navigate('/game');
       })

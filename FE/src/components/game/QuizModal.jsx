@@ -3,10 +3,11 @@ import React, { useState, useEffect, useCallback } from 'react';
 import ClueContentButton from '@components/commons/buttons/ClueContentButton';
 import EntireContentButton from '@components/commons/buttons/EntireContentButton';
 import AnagramQuiz from '@components/quizTypes/AnagramQuiz.jsx';
+import ChoiceQuiz from '@components/quizTypes/ChoiceQuiz.jsx';
 import OxQuiz from '@components/quizTypes/OxQuiz.jsx';
 import ShortAnswerQuiz from '@components/quizTypes/ShortAnswerQuiz.jsx';
 import { useGameItemStore } from '@stores/game/gameStore';
-import { useQuizStore, useClueStateStore } from '@stores/game/quizStore';
+import { useQuizStore } from '@stores/game/quizStore';
 
 // 정답을 체크하고 맞으면 정답 결과 개수를 하나 더 해주고 퀴즈 모달창이 닫힘
 
@@ -72,12 +73,22 @@ const QuizModal = React.memo(
           );
 
           // O, X
-          // if (it.quiz.quizType === 'OX_QUIZ') {
-          //   return renderQuiz('OX퀴즈', {
-          //     component: OxQuiz,
-          //     componentProps: { answer: it.quiz.answer },
-          //   });
-          // }
+          if (it.quiz.quizType === 'OX_QUIZ') {
+            return renderQuiz('OX퀴즈', {
+              component: OxQuiz,
+              componentProps: { answer: it.quiz.answer, mainCategory: it.mainCategory },
+            });
+          }
+          if (it.quiz.quizType === 'MULTIPLE_CHOICE') {
+            return renderQuiz('객관식 퀴즈', {
+              component: ChoiceQuiz,
+              componentProps: {
+                answer: it.quiz.answer,
+                choices: it.quiz.additionalInfo.choices,
+                mainCategory: it.mainCategory,
+              },
+            });
+          }
 
           // 랜덤 함수 돌리기 (0,1)
           const randNum = Math.floor(Math.random() * 2);
@@ -87,14 +98,14 @@ const QuizModal = React.memo(
             const anagram = FisherYatesShuffle(it.quiz.answer);
             return renderQuiz('애너그램', {
               component: AnagramQuiz,
-              componentProps: { answer: it.quiz.answer, anagram },
+              componentProps: { answer: it.quiz.answer, anagram, mainCategory: it.mainCategory },
             });
           }
           // 1이면 단답식
 
           return renderQuiz('단답식', {
             component: ShortAnswerQuiz,
-            componentProps: { answer: it.quiz.answer },
+            componentProps: { answer: it.quiz.answer, mainCategory: it.mainCategory },
           });
         })}
       </div>

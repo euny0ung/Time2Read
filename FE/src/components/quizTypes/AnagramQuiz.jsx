@@ -32,7 +32,7 @@ const reducer = (state, action) => {
 };
 
 // 애너그램 컴포넌트
-const AnagramQuiz = ({ answer, anagram }) => {
+const AnagramQuiz = ({ answer, anagram, mainCategory }) => {
   const anagramButtonState = anagram.map(() => false);
 
   const [anagramColor, setAnagramColor] = useState(anagramButtonState);
@@ -46,7 +46,7 @@ const AnagramQuiz = ({ answer, anagram }) => {
     if (state.inputAnswer.length === answer.length) {
       const result = state.inputAnswer.map((input) => input.clickValue).join('');
 
-      handleAnswerCheck(result, answer);
+      handleAnswerCheck(result, answer, mainCategory);
     }
   }, [state.inputAnswer]);
 

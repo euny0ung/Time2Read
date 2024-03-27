@@ -11,6 +11,12 @@ export const useHitsCountStore = create((set) => ({
   setHitsCount: () => set((state) => ({ hitsCount: state.hitsCount + 1 })),
 }));
 
+export const useHitsCategoryStore = create((set) => ({
+  hitsCategory: { POLITICS: 0, SOCIETY: 0, ECONOMY: 0, INTERNATIONAL: 0, CULTURE: 0, SPORTS: 0 },
+  setHitsCategory: (category) =>
+    set((state) => ({ hitsCategory: { ...state.hitsCategory, [category]: state.hitsCategory[category] + 1 } })),
+}));
+
 export const useAnswerCheckStore = create((set) => ({
   openAnswerResult: false,
   resultState: '',
@@ -28,14 +34,16 @@ export const useClueStateStore = create((set) => ({
   setShowClueState: () => set((state) => ({ showClueState: !state.showClueState })),
 }));
 
-export const handleAnswerCheck = (inputValue, answer) => {
+export const handleAnswerCheck = (inputValue, answer, mainCategory) => {
   const hitsCountStore = useHitsCountStore.getState();
   const answerCheckStore = useAnswerCheckStore.getState();
   const gameModalStore = useGameModalStore.getState();
   const gameItemStore = useGameItemStore.getState();
+  const hitsCategoryStore = useHitsCategoryStore.getState();
 
   if (inputValue === answer) {
     hitsCountStore.setHitsCount();
+    hitsCategoryStore.setHitsCategory(mainCategory);
     gameModalStore.setBumped(false);
     gameModalStore.setOpenQuizModal(false);
     answerCheckStore.actions.setResultState('정답입니다');
