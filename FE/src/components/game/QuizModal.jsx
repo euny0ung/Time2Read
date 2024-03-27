@@ -29,23 +29,7 @@ const QuizModal = React.memo(
     if (quizIndex > 10) return null;
 
     const { quizzes } = useQuizStore();
-    const { clueCount, decreaseClueCount } = useGameItemStore();
-    const [clueUsed, setClueUsed] = useState(false);
     const quiz = quizzes.filter((_, index) => index === quizIndex);
-
-    const handleClueClick = useCallback(() => {
-      // 단서 개수가 남아있고 아직 안쓴 버튼이면 감소, 힌트 변경처리
-      // 단서 개수가 없으면 clueUsed가 계속 false인 상태임
-      if (clueCount !== 0 && !clueUsed) {
-        decreaseClueCount();
-        setClueUsed(true);
-      }
-    }, [clueUsed, decreaseClueCount, setClueUsed]);
-
-    useEffect(() => {
-      console.log(quizIndex);
-      setClueUsed(false);
-    }, [quizIndex]);
 
     console.log('퀴즈퀴즈', quiz);
     return (
@@ -62,12 +46,8 @@ const QuizModal = React.memo(
               <div>{it.quiz.questionSummary}</div>
               {additionalProps && React.createElement(additionalProps.component, additionalProps.componentProps)}
               <div>
-                <EntireContentButton
-                  onClueClick={() => handleClueClick()}
-                  clues={it.quiz.clues[0]}
-                  clueUsed={clueUsed}
-                />
-                <ClueContentButton onClueClick={() => handleClueClick()} clues={it.quiz.clues[1]} clueUsed={clueUsed} />
+                <EntireContentButton clues={it.quiz.clues[0]} />
+                {type !== '객관식' && <ClueContentButton clues={it.quiz.clues[1]} />}
               </div>
             </div>
           );
