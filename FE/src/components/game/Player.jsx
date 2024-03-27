@@ -37,7 +37,7 @@ const Player = () => {
     setOpenGameOverModal,
     setGameOver,
   } = useGameModalStore();
-  const { clueCount, lifeCount, setClueCount, setLifeCount } = useGameItemStore();
+  const { lifeCount, increaseLifeCount, increaseClueCount } = useGameItemStore();
   const { forward, backward, left, right, jump } = usePersonControls();
   const {
     setCatVisible,
@@ -165,7 +165,7 @@ const Player = () => {
               setGameOver(true);
             }
             if (target.name === 'clue') {
-              setClueCount(clueCount + 1);
+              increaseClueCount();
               // 충돌 이후 사라지게 하는 로직 추가 필요
               // 아직 안먹은 애면?
               // if (!usedClueList.includes(target.cid)) {
@@ -179,7 +179,7 @@ const Player = () => {
               target.remove();
             }
             if (target.name === 'life') {
-              setLifeCount(lifeCount + 1);
+              increaseLifeCount();
               if (target.parent) {
                 target.parent.remove(target);
               }
