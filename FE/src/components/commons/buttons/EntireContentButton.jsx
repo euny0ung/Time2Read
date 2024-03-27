@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useGameItemStore } from '@stores/game/gameStore';
 import { useClueStateStore } from '@stores/game/quizStore';
 
-const EntireContentButton = React.memo(({ onClueClick, clues, hintUsed }) => {
+const EntireContentButton = React.memo(({ onClueClick, clues, clueUsed }) => {
   const [isEntireContent, setIsEntireContent] = useState(false);
   const { clueCount } = useGameItemStore();
   const { setShowClueState } = useClueStateStore();
@@ -12,7 +12,7 @@ const EntireContentButton = React.memo(({ onClueClick, clues, hintUsed }) => {
 
     // 단서가 0개일 때 이미 사용된 단서이면 볼 수 있고, 그렇지 않으면 볼 수 없음
     if (clueCount === 0) {
-      if (hintUsed) {
+      if (clueUsed) {
         setIsEntireContent(!isEntireContent);
       } else {
         setShowClueState();
