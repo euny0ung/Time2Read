@@ -30,40 +30,82 @@ const RadarChart = ({ solvedCount }) => {
     },
     xaxis: {
       categories: countCategories,
+      labels: {
+        style: {
+          colors: ['#212529', '#212529', '#212529', '#212529', '#212529', '#212529'], // x 축 레이블의 색상을 변경
+          fontSize: '16px',
+        },
+      },
+    },
+    yaxis: {
+      tickAmount: 5,
+      labels: {
+        style: {
+          fontSize: '14px',
+        },
+      },
+      axisBorder: {
+        color: '#249593',
+        offsetX: 0,
+        offsetY: 0,
+      },
+      axisTicks: {
+        color: '#249593',
+        width: 6,
+        offsetX: 0,
+        offsetY: 0,
+      },
     },
     title: {
       text: 'Solved Count',
     },
     fill: {
       opacity: 0.5,
-      colors: ['#f9d833'],
+      colors: ['#FEFEC3'],
+      type: 'gradient',
+      gradient: {
+        shade: 'dark',
+        type: 'diagonal1',
+        shadeIntensity: 0.5,
+        gradientToColors: ['#D3FFEE'],
+        inverseColors: false,
+        opacityFrom: 0.8,
+        opacityTo: 0.8,
+        stops: [0, 50, 100],
+        colorStops: [],
+      },
     },
     stroke: {
       show: true,
       width: 3,
-      colors: ['#0b91e3'],
-      dashArray: 1,
+      colors: ['#A4E3D6'],
     },
     markers: {
       size: 5,
-      colors: ['#0b91e3'],
-      strokeColors: '#fff',
+      colors: ['#FEFEC3'],
+      strokeColors: '#2BBAB4',
       strokeWidth: 3,
-      strokeOpacity: 0.9,
+      strokeOpacity: 0.7,
       strokeDashArray: 0,
       fillOpacity: 1,
       hover: {
         size: 10,
         sizeOffset: 3,
       },
-      plotOptions: {
-        radar: {
-          polygons: {
-            strokeColor: '#e8e8e8',
-            fill: {
-              colors: ['#f8f8f8', '#fff'],
-            },
-          },
+    },
+    tooltip: {
+      enabled: true,
+      style: {
+        fontSize: '14px',
+      },
+      x: {
+        show: true,
+        formatter: undefined,
+      },
+      y: {
+        formatter: undefined,
+        title: {
+          formatter: () => '',
         },
       },
     },

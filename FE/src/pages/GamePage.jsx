@@ -11,6 +11,7 @@ import { Physics } from '@react-three/rapier';
 import { useAnswerCheckStore, useClueStateStore } from '@stores/game/quizStore';
 import GameOverModal from '../components/game/GameOverModal.jsx';
 import Items from '../components/game/Items.jsx';
+import Timer from '../components/game/Timer.jsx';
 import { useGameModalStore } from '../stores/game/gameStore.jsx';
 
 const GamePage = () => {
@@ -46,17 +47,23 @@ const GamePage = () => {
         <Overlay />
 
         <Items />
+        <Timer />
         {openQuizModal && <QuizModal quizIndex={quizIndex} />}
         {openGameOverModal && <GameOverModal />}
 
         {/* 버튼 클릭으로 컨트롤 모드 전환 */}
-        <button
+        {/* <button
           className="absolute top-2.5 left-2.5 bg-gray-500 text-white font-bold py-2 px-4 rounded hover:bg-gray-700 focus:outline-none focus:shadow-outline"
           onClick={() => setIsPlayerMode(!isPlayerMode)}
         >
           {isPlayerMode ? '3인칭 모드로 전환' : '1인칭 모드로 전환'}
+<<<<<<< 73d660482b5da379064e19d91bb1d341d8c75ce9
         </button>
         {showClueState && <ClueCountStateModal />}
+=======
+        </button> */}
+
+>>>>>>> 4a3d477e4e2f8b3030555a497425d8d70c88e864
         {resultState !== '' && openAnswerResult && <AnswerCheckModal />}
       </div>
     </>

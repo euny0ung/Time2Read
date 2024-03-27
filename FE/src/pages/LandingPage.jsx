@@ -33,7 +33,11 @@ const useQuizApiHandler = (selected) => {
   const handleQuizApi = () => {
     console.log('API 호출..');
     axios
+<<<<<<< 73d660482b5da379064e19d91bb1d341d8c75ce9
       .get(`${import.meta.env.VITE_BASE_API}/game/${selected}/first`)
+=======
+      .get(`${import.meta.env.VITE_BASE_API}/game/${selected}`)
+>>>>>>> 4a3d477e4e2f8b3030555a497425d8d70c88e864
       .then((response) => {
         setQuiz(response.data.result);
         console.log(response.data.result);
