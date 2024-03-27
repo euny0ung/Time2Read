@@ -1,6 +1,5 @@
 import React, { Suspense, useState } from 'react';
 import AnswerCheckModal from '@components/commons/AnswerCheckModal';
-import ClueCountStateModal from '@components/commons/ClueCountStateModal';
 import Maze, { Floor } from '@components/game/Maze';
 import Overlay from '@components/game/Overlay';
 import Player from '@components/game/Player';
@@ -57,13 +56,8 @@ const GamePage = () => {
           onClick={() => setIsPlayerMode(!isPlayerMode)}
         >
           {isPlayerMode ? '3인칭 모드로 전환' : '1인칭 모드로 전환'}
-<<<<<<< 73d660482b5da379064e19d91bb1d341d8c75ce9
-        </button>
-        {showClueState && <ClueCountStateModal />}
-=======
         </button> */}
 
->>>>>>> 4a3d477e4e2f8b3030555a497425d8d70c88e864
         {resultState !== '' && openAnswerResult && <AnswerCheckModal />}
       </div>
     </>

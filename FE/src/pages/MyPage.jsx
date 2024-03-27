@@ -30,7 +30,7 @@ import RadarChart from '../components/my/RadarChart.jsx';
 //   "sports": int
 // }
 
-const UserPage = () => {
+const MyPage = () => {
   const [timeRecords, setTimeRecords] = useState([]);
   const [solvedCount, setSolvedCount] = useState({
     social: 10,
@@ -120,4 +120,4 @@ const UserPage = () => {
   );
 };
 
-export default UserPage;
+export default MyPage;
