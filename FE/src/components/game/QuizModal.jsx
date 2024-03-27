@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import ClueContentButton from '@components/commons/buttons/ClueContentButton';
 import EntireContentButton from '@components/commons/buttons/EntireContentButton';
 import AnagramQuiz from '@components/quizTypes/AnagramQuiz.jsx';
@@ -27,25 +27,24 @@ const QuizModal = React.memo(
   ({ quizIndex }) => {
     if (quizIndex > 10) return null;
 
+    console.log('퀴즈 모달 리렌더링됨');
+
     const { quizzes } = useQuizStore();
-    const { setShowClueState } = useClueStateStore();
     const { clueCount, decreaseClueCount } = useGameItemStore();
     const [hintUsed, setHintUsed] = useState(false);
     const quiz = quizzes.filter((_, index) => index === quizIndex);
 
-    const handleClueClick = () => {
-      if (hintUsed) return null;
-      if (clueCount === 0) {
-        setShowClueState();
-        return null;
+    const handleClueClick = useCallback(() => {
+      // 단서 개수가 남아있고 아직 안쓴 버튼이면 감소, 힌트 변경처리
+      // 단서 개수가 없으면 hintUsed가 계속 false인 상태임
+      if (clueCount !== 0 && !hintUsed) {
+        decreaseClueCount();
+        setHintUsed(true);
       }
-      decreaseClueCount();
-      setHintUsed(true);
-
-      return null;
-    };
+    }, [hintUsed, decreaseClueCount, setHintUsed]);
 
     useEffect(() => {
+      console.log(quizIndex);
       setHintUsed(false);
     }, [quizIndex]);
 
@@ -64,19 +63,23 @@ const QuizModal = React.memo(
               <div>{it.quiz.questionSummary}</div>
               {additionalProps && React.createElement(additionalProps.component, additionalProps.componentProps)}
               <div>
-                <EntireContentButton onClueClick={() => handleClueClick()} clues={it.quiz.clues[0]} />
-                <ClueContentButton onClueClick={() => handleClueClick()} clues={it.quiz.clues[1]} />
+                <EntireContentButton
+                  onClueClick={() => handleClueClick()}
+                  clues={it.quiz.clues[0]}
+                  hintUsed={hintUsed}
+                />
+                <ClueContentButton onClueClick={() => handleClueClick()} clues={it.quiz.clues[1]} hintUsed={hintUsed} />
               </div>
             </div>
           );
 
           // O, X
-          if (it.quiz.quizType === 'OX_QUIZ') {
-            return renderQuiz('OX퀴즈', {
-              component: OxQuiz,
-              componentProps: { answer: it.quiz.answer },
-            });
-          }
+          // if (it.quiz.quizType === 'OX_QUIZ') {
+          //   return renderQuiz('OX퀴즈', {
+          //     component: OxQuiz,
+          //     componentProps: { answer: it.quiz.answer },
+          //   });
+          // }
 
           // 랜덤 함수 돌리기 (0,1)
           const randNum = Math.floor(Math.random() * 2);

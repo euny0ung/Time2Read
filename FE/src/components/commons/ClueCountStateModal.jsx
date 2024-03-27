@@ -3,7 +3,7 @@ import { useClueStateStore } from '@stores/game/quizStore';
 
 const ClueCountStateModal = () => {
   const [opacity, setOpacity] = useState(1);
-  const { showClueState, setShowClueState } = useClueStateStore();
+  const { setShowClueState } = useClueStateStore();
 
   // eslint-disable-next-line consistent-return
   useEffect(() => {
