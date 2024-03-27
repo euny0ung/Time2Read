@@ -23,6 +23,11 @@ export const useAnswerCheckStore = create((set) => ({
   },
 }));
 
+export const useClueStateStore = create((set) => ({
+  showClueState: false,
+  setShowClueState: () => set((state) => ({ showClueState: !state.showClueState })),
+}));
+
 export const handleAnswerCheck = (inputValue, answer) => {
   const hitsCountStore = useHitsCountStore.getState();
   const answerCheckStore = useAnswerCheckStore.getState();

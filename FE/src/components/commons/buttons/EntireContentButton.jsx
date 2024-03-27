@@ -1,10 +1,16 @@
 import { useState } from 'react';
+import { useGameItemStore } from '@stores/game/gameStore';
+import { useClueStateStore } from '@stores/game/quizStore';
 
 const EntireContentButton = ({ onClueClick, clues }) => {
   const [isEntireContent, setIsEntireContent] = useState(false);
+  const { clueCount } = useGameItemStore();
 
   const handleClick = () => {
     onClueClick();
+    if (clueCount === 0) {
+      return;
+    }
     setIsEntireContent(!isEntireContent);
   };
 

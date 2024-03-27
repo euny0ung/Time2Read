@@ -6,7 +6,7 @@ import AnagramQuiz from '@components/quizTypes/AnagramQuiz.jsx';
 import OxQuiz from '@components/quizTypes/OxQuiz.jsx';
 import ShortAnswerQuiz from '@components/quizTypes/ShortAnswerQuiz.jsx';
 import { useGameItemStore } from '@stores/game/gameStore';
-import { useQuizStore } from '@stores/game/quizStore';
+import { useQuizStore, useClueStateStore } from '@stores/game/quizStore';
 
 // 정답을 체크하고 맞으면 정답 결과 개수를 하나 더 해주고 퀴즈 모달창이 닫힘
 
@@ -28,15 +28,21 @@ const QuizModal = React.memo(
     if (quizIndex > 10) return null;
 
     const { quizzes } = useQuizStore();
+    const { setShowClueState } = useClueStateStore();
     const { clueCount, decreaseClueCount } = useGameItemStore();
     const [hintUsed, setHintUsed] = useState(false);
-
     const quiz = quizzes.filter((_, index) => index === quizIndex);
 
     const handleClueClick = () => {
-      if (hintUsed) return;
+      if (hintUsed) return null;
+      if (clueCount === 0) {
+        setShowClueState();
+        return null;
+      }
       decreaseClueCount();
       setHintUsed(true);
+
+      return null;
     };
 
     useEffect(() => {
