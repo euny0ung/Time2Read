@@ -17,7 +17,7 @@ const ArticleCard = ({ article, hoverState, gridPosition, cardSize }) => {
       {/* // 박스 형태의 기하학적 모양 정의 */}
       <boxGeometry args={[cardSize.width, cardSize.height, cardSize.depth]} />
       {/* // 메쉬의 재질 및 색상 설정 */}
-      <meshStandardMaterial color="lightblue" />
+      <meshStandardMaterial color="lightyellow" />
       <Text
         position={[0, 0, cardSize.depth / 2 + 0.1]} // 박스의 앞면에 텍스트를 표시
         color="black" // 텍스트 색상
