@@ -11,16 +11,15 @@ const KakaoRedirect = () => {
   const getKakaoToken = async () => {
     // 인증 코드 요청
     try {
-      const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/oauth/kakao/account`, {
-        access_token: code,
-      });
-
-      console.log('카카오 로그인 응답', response);
+      const response = await axios.get(`${import.meta.env.VITE_BASE_API}/oauth/kakao/login?code=${code}`);
+      const accessToken = response.data.result.access_token;
 
       // reponse 응답 status보고 사용자 토큰 요청
       if (response.status === 200) {
-        const token = await axios.get(`${import.meta.env.VITE_BASE_URL}/oauth/kakao/login?code=${code}`);
-        sessionStorage.setItem('token', token);
+        const res = await axios.post(`${import.meta.env.VITE_BASE_API}/oauth/kakao/account`, {
+          token: accessToken,
+        });
+        sessionStorage.setItem('name', res.data.result.name);
       }
 
       navigate('/');
