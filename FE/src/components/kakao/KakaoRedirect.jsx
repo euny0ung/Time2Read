@@ -16,13 +16,9 @@ const KakaoRedirect = () => {
 
       // reponse 응답 status보고 사용자 토큰 요청
       if (response.status === 200) {
-        const res = await axios.post(
-          `${import.meta.env.VITE_BASE_API}/oauth/kakao/account`,
-          {
-            token: accessToken,
-          },
-          { withCredentials: true },
-        );
+        const res = await axios.post(`${import.meta.env.VITE_BASE_API}/oauth/kakao/account`, {
+          token: accessToken,
+        });
         console.log('응답응답', res);
         sessionStorage.setItem('name', res.data.result.name);
       }
