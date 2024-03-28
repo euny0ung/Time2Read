@@ -59,7 +59,7 @@ const QuizModal = React.memo(
             });
           }
           if (it.quiz.quizType === 'MULTIPLE_CHOICE') {
-            return renderQuiz('객관식 퀴즈', {
+            return renderQuiz('객관식', {
               component: ChoiceQuiz,
               componentProps: {
                 answer: it.quiz.answer,

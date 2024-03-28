@@ -27,6 +27,7 @@ const AxiosInterceptor = () => {
         if (res.status === 401 || res.status === 403) {
           // 로그아웃 처리
           console.log('재로그인 필요');
+          sessionStorage.removeItem('name');
           navigate('/');
         } else if (res.status === 404) {
           console.log('존재하지 않는 페이지 입니다.');
