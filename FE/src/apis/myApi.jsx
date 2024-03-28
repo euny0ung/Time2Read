@@ -47,7 +47,7 @@ export const getScrapArticles = () => {
 
   return axios
     .get(apiUrl)
-    .then((response) => console.log('스크랩한 기사 리스트', response))
+    .then((response) => response.data)
     .catch((error) => {
       console.error('Error requesting data:', error);
       throw error;
@@ -60,7 +60,7 @@ export const getArticleDetail = (articleId) => {
 
   return axios
     .get(apiUrl)
-    .then((response) => console.log('스크랩 기사 상세보기', response))
+    .then((response) => response.data)
     .catch((error) => {
       console.error('Error requesting data:', error);
       throw error;
@@ -73,7 +73,7 @@ export const putArticleStatus = (articleId, status) => {
 
   return axios
     .get(apiUrl)
-    .then((response) => console.log('스크랩 상태 변경', response))
+    .then((response) => response.data)
     .catch((error) => {
       console.error('Error requesting data:', error);
       throw error;

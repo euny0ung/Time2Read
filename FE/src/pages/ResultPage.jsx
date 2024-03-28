@@ -58,7 +58,12 @@ const ResultPage = () => {
   };
 
   const navigateToMyPage = () => {
-    navigate('/mypage');
+    const name = sessionStorage.getItem('name');
+
+    if (name) navigate('/mypage');
+    else {
+      console.log(console.log('로그인 필요'), navigate('/'));
+    }
   };
 
   // 너비 및 높이 동적 조절

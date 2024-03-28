@@ -1,7 +1,14 @@
 import { useState, useEffect, useRef } from 'react';
-import { useGameResultStore } from '@stores/game/gameStore';
+import {
+  useGameResultStore,
+  useGameModalStore,
+  useGameItemStore,
+  useVisibilityStore,
+  checkCollidedStore,
+} from '@stores/game/gameStore';
 import { format } from 'date-fns';
-import { getTimeRecords, getSolved } from '../apis/myApi.jsx';
+import { useNavigate } from 'react-router-dom';
+import { getTimeRecords, getSolved, getScrapArticles, getArticleDetail, putArticleStatus } from '../apis/myApi.jsx';
 import ResultButton from '../components/commons/buttons/ResultButton.jsx';
 import TranslucentContainer from '../components/commons/containers/TranslucentContainer.jsx';
 import WhiteContainer from '../components/commons/containers/WhiteContainer.jsx';
@@ -23,8 +30,24 @@ const MyPage = () => {
     culture: 0,
     sports: 0,
   });
+  const [scrapedArticle, setScrapedArticle] = useState([]);
+  const [articleDetail, setArticleDetail] = useState([]);
 
   const { gameResult } = useGameResultStore();
+
+  const navigate = useNavigate();
+
+  const resetGame = () => {
+    useGameModalStore.getState().reset();
+    useGameResultStore.getState().reset();
+    useGameItemStore.getState().reset();
+    useVisibilityStore.getState().reset();
+    checkCollidedStore.getState().reset();
+  };
+  const navigateToLandingPage = () => {
+    resetGame();
+    navigate('/');
+  };
 
   useEffect(() => {
     getTimeRecords()
@@ -40,6 +63,24 @@ const MyPage = () => {
       .then((data) => {
         setSolvedCount(data);
         console.log('SolvedCount Data:', data);
+      })
+      .catch((error) => {
+        console.error('Error requesting badge:', error);
+      });
+
+    getScrapArticles()
+      .then((data) => {
+        setScrapedArticle(data);
+        console.log('Scraped Articles', data);
+      })
+      .catch((error) => {
+        console.error('Error requesting badge:', error);
+      });
+
+    getArticleDetail()
+      .then((data) => {
+        setArticleDetail(data);
+        console.log('Article Detail', data);
       })
       .catch((error) => {
         console.error('Error requesting badge:', error);
@@ -94,9 +135,11 @@ const MyPage = () => {
             </TranslucentContainer>
             {/* 다시 시계토끼 쫓아가기 */}
             <div className="flex justify-end w-full">
-              <ResultButton>
-                <ResultTitle title={'다시 시계토끼 쫓아가기'} />
-              </ResultButton>
+              <button onClick={navigateToLandingPage}>
+                <ResultButton>
+                  <ResultTitle title={'다시 시계토끼 쫓아가기'} />
+                </ResultButton>
+              </button>
             </div>
           </div>
         </div>
