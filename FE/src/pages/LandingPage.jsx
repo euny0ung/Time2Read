@@ -11,20 +11,25 @@ import KakaoLogin from '@components/kakao/KakaoLogin';
 import { useQuizStore } from '@stores/game/quizStore.jsx';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Dropdown from '../components/commons/Dropdown.jsx';
 
 const OPTIONS = Array.from({ length: 2024 - 2005 + 1 }, (v, k) => `${2024 - k}`);
 
-const SelectBox = ({ options, handleSelect, selected, defaultValue }) => {
-  return (
-    <select onChange={handleSelect} value={selected}>
+const SelectBox = ({ options, handleSelect, selected, defaultValue }) => (
+  <div className="relative inline-block text-left">
+    <select
+      onChange={handleSelect}
+      value={selected}
+      className="block w-full px-4 py-2 text-base font-normal text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+    >
       {options.map((option) => (
         <option key={option} value={option} defaultValue={defaultValue === option.defaultValue}>
           {option}
         </option>
       ))}
     </select>
-  );
-};
+  </div>
+);
 
 const useQuizApiHandler = (selected) => {
   const navigate = useNavigate();
@@ -65,12 +70,28 @@ const LandingPage = () => {
 
   return (
     <>
-      <KakaoLogin />
-      <div>
+      <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-50">
+        <div className="px-4 py-2 text-blue-700 bg-blue-100 rounded">
+          <KakaoLogin />
+        </div>
+        <br />
+        <br />
+        <br />
+        원래의 드롭다운입니다...
         <SelectBox options={OPTIONS} handleSelect={handleSelect} selected={selected} />
-      </div>
-      <div>
-        <button onClick={handleQuizApi}>입장하기</button>
+        <br />
+        <br />
+        <br />
+        이 길쭉한 것은...새로 만든 드롭다운입니다...
+        <Dropdown options={OPTIONS} />
+        <br />
+        <br />
+        <button
+          onClick={handleQuizApi}
+          className="px-4 py-2 mt-4 font-semibold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+        >
+          입장하기
+        </button>
       </div>
     </>
   );
