@@ -41,7 +41,7 @@ export const useClueStateStore = create((set) => ({
   setShowClueState: () => set((state) => ({ showClueState: !state.showClueState })),
 }));
 
-export const handleAnswerCheck = (inputValue, answer, mainCategory) => {
+export const handleAnswerCheck = (inputValue, answer, mainCategory, dispatch) => {
   const { gameResult, setGameResult } = useGameResultStore.getState();
   const answerCheckStore = useAnswerCheckStore.getState();
   const gameModalStore = useGameModalStore.getState();
@@ -59,6 +59,7 @@ export const handleAnswerCheck = (inputValue, answer, mainCategory) => {
     answerCheckStore.actions.setResultState('정답입니다');
     answerCheckStore.actions.setQuizIndex();
   } else {
+    dispatch({ type: 'RESET_INPUT' });
     gameModalStore.setBumped(false);
     answerCheckStore.actions.setResultState('오답입니다');
     gameItemStore.decreaseLifeCount();

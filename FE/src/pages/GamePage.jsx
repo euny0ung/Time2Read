@@ -28,7 +28,7 @@ const GamePage = () => {
       <div className="w-screen h-screen overflow-hidden">
         <Canvas camera={{ position: [0, 10, 0] }}>
           {/* 환경 설정 */}
-          {isPlayerMode ? <PointerLockControls enabled={!openQuizModal} /> : <OrbitControls />}
+          {isPlayerMode ? <PointerLockControls enabled={!openQuizModal || !openGameOverModal} /> : <OrbitControls />}
           <ambientLight intensity={0.5} />
           <pointLight position={[10, 10, 10]} />
           <axesHelper scale={10} />
