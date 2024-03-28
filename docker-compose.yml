@@ -1,0 +1,43 @@
+version: "3"
+services:
+  bibibig-mysql:
+    container_name: bibibig-mysql
+    build:
+      dockerfile: Dockerfile
+      context: ./back-end/database
+    image: xntm10/bibibig-mysql
+    volumes:
+      # 설정파일 저장될  위치
+      - ./back-end/database/config:/etc/mysql/conf.d
+      # DB 데이터 저장 디렉토리
+      - ./back-end/database/data:/var/lib/mysql
+    environment:
+      - MARIADB_DATABASE=${MYSQL_DATABASE}
+      - MARIADB_USER=${MYSQL_USER}
+      - MARIADB_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - "TZ=Asia/Seoul"
+    ports:
+      - "13306:3306"
+  bibibig-app:
+    container_name: bibibig-app
+    build: ./back-end
+    depends_on:
+      - bibibig-mysql
+    image: xntm10/bibibig-app
+    environment:
+      - AI_API_KEY=${AI_API_KEY}
+      - ES_HOSTNAME=${ES_HOSTNAME}
+      - KAKAO_CLIENT_ID=${KAKAO_CLIENT_ID}
+      - MYSQL_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_URL=${MYSQL_URL}
+      - MYSQL_USERNAME=${MYSQL_USER}
+    ports:
+      - "8081:8081"
+    restart: always
+  bibibig-frontend:
+    container_name: "bibibig-frontend"
+    build:
+      context: "./FE"
+      dockerfile: "Dockerfile"
+    ports:
+      - "5173:5173"
