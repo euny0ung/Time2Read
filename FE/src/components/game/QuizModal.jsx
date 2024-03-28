@@ -37,7 +37,6 @@ const QuizModal = React.memo(
         className="h-screen w-screen absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gray-500 text-white font-bold py-2 px-4 rounded hover:bg-gray-700 focus:outline-none focus:shadow-outline"
         style={{ width: '80rem', height: '45rem', overflowY: 'auto' }}
       >
-        {/* <button onClick={closeModal}>닫기</button> */}
         {quiz.map((it) => {
           const renderQuiz = (type, additionalProps = {}) => (
             <div key={it.id} className="w-1/2 h-1/3 border-2 border-black-500">
@@ -46,8 +45,8 @@ const QuizModal = React.memo(
               <div>{it.quiz.questionSummary}</div>
               {additionalProps && React.createElement(additionalProps.component, additionalProps.componentProps)}
               <div>
-                <EntireContentButton clues={it.quiz.clues[0]} />
-                {type !== '객관식' && <ClueContentButton clues={it.quiz.clues[1]} />}
+                <EntireContentButton clues={it.quiz.clues[0]} quizIndex={quizIndex} />
+                {type !== '객관식' && <ClueContentButton clues={it.quiz.clues[1]} quizIndex={quizIndex} />}
               </div>
             </div>
           );

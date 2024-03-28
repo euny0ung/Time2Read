@@ -6,11 +6,7 @@ export const useQuizStore = create((set) => ({
   setQuiz: (quizObject) => set({ quizzes: quizObject }),
 }));
 
-export const useHitsCountStore = create((set) => ({
-  hitsCount: 0,
-  setHitsCount: () => set((state) => ({ hitsCount: state.hitsCount + 1 })),
-}));
-
+// 맞은 카테고리 개수
 export const useHitsCategoryStore = create((set) => ({
   hitsCategory: { POLITICS: 0, SOCIETY: 0, ECONOMY: 0, INTERNATIONAL: 0, CULTURE: 0, SPORTS: 0 },
   setHitsCategory: (category) =>
@@ -27,6 +23,17 @@ export const useAnswerCheckStore = create((set) => ({
     setResultState: (newResult) => set({ resultState: newResult }),
     setQuizIndex: () => set((state) => ({ quizIndex: state.quizIndex + 1 })),
   },
+}));
+
+// 퀴즈의 힌트 클릭여부 관리
+export const useClueIndexStore = create((set) => ({
+  cluesClicked: Array(10).fill(false),
+  toggleClueClick: (index) =>
+    set((state) => {
+      const updatedcluesClicked = [...state.cluesClicked];
+      updatedcluesClicked[index] = !updatedcluesClicked[index];
+      return { cluesClicked: updatedcluesClicked };
+    }),
 }));
 
 export const useClueStateStore = create((set) => ({

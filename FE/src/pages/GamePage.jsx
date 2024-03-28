@@ -1,6 +1,6 @@
 import React, { Suspense, useState } from 'react';
 import AnswerCheckModal from '@components/commons/AnswerCheckModal';
-import ClueCountStateModal from '@components/commons/ClueCountStateModal';
+// import ClueCountStateModal from '@components/commons/ClueCountStateModal';
 import Maze, { Floor } from '@components/game/Maze';
 import Overlay from '@components/game/Overlay';
 import Player from '@components/game/Player';
@@ -8,7 +8,7 @@ import QuizModal from '@components/game/QuizModal.jsx';
 import { OrbitControls, PointerLockControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { Physics } from '@react-three/rapier';
-import { useAnswerCheckStore, useClueStateStore } from '@stores/game/quizStore';
+import { useAnswerCheckStore } from '@stores/game/quizStore';
 import GameOverModal from '../components/game/GameOverModal.jsx';
 import Items from '../components/game/Items.jsx';
 import Timer from '../components/game/Timer.jsx';
@@ -21,7 +21,7 @@ const GamePage = () => {
   const resultState = useAnswerCheckStore((state) => state.resultState);
   const quizIndex = useAnswerCheckStore((state) => state.quizIndex);
   const openGameOverModal = useGameModalStore((state) => state.openGameOverModal);
-  const showClueState = useClueStateStore((state) => state.showClueState);
+  // const showClueState = useClueStateStore((state) => state.showClueState);
 
   console.log('openGameOverModal : ', openGameOverModal);
   return (
@@ -59,7 +59,7 @@ const GamePage = () => {
           {isPlayerMode ? '3인칭 모드로 전환' : '1인칭 모드로 전환'}
 
         </button> */}
-        {showClueState && <ClueCountStateModal />}
+        {/* {showClueState && <ClueCountStateModal />} */}
 
         {resultState !== '' && openAnswerResult && <AnswerCheckModal />}
       </div>
