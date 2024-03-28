@@ -34,7 +34,7 @@ const AxiosInterceptor = () => {
         // } else if (res.status === 500) {
         //   console.log('문제를 불러오는데 많은 시간이 걸려요. 새로고침 후 다시 시도해주세요');
         // }
-        // return Promise.reject(error);
+        return Promise.reject(error);
       },
     );
     return () => {
