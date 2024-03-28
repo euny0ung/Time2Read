@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Card = ({ imageUrl, title, category, description }) => {
+const Card = ({ image, title, mainCategory, subCategory, summary }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
@@ -11,14 +11,14 @@ const Card = ({ imageUrl, title, category, description }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {imageUrl ? (
+      {image ? (
         <div
           className={`w-full h-full border-4 overflow-hidden rounded-lg transition-transform duration-300 ease-in-out transform ${
             isHovered ? 'scale-110' : 'scale-100'
           }`}
         >
           <img
-            src={imageUrl}
+            src={image}
             alt={title}
             className={`w-full h-full object-cover transition-transform duration-300 ease-in-out transform ${
               isHovered ? 'scale-110' : ''
@@ -40,8 +40,8 @@ const Card = ({ imageUrl, title, category, description }) => {
         } transition-opacity duration-300 ease-in-out opacity-0`}
       >
         <h2 className="mb-2 text-xl font-bold text-white md:text-2xl">{title}</h2>
-        <div className="inline-block px-3 py-1 mb-4 text-sm text-white rounded-lg bg-cadetblue">{category}</div>
-        <p className="px-4 text-sm text-center text-gray-300 md:text-base">{description}</p>
+        <div className="inline-block px-3 py-1 mb-4 text-sm text-white rounded-lg bg-cadetblue">{mainCategory}</div>
+        <p className="px-4 text-sm text-center text-gray-300 md:text-base">{summary}</p>
       </div>
     </div>
   );

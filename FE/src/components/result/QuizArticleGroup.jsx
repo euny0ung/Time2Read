@@ -1,8 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 
 import ArticleDetail from './ArticleDetail.jsx';
-import AfterScrap from '../../assets/scrap/afterScrap.png';
-import BeforeScrap from '../../assets/scrap/beforeScap.png';
+
 import CloseToggle from '../../assets/toggle/closeToggle.png';
 import OpenToggle from '../../assets/toggle/openToggle.png';
 
@@ -13,7 +12,7 @@ import Tooltip from '../commons/Tooltip.jsx';
 const QuizArticleGroup = ({ relatedArticles, num }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isToggleOn, setIsToggleOn] = useState(false);
-  const [isScraped, setIsScraped] = useState(false);
+
   const [titleMaxWidth, setTitleMaxWidth] = useState('0px'); // 각 타이틀의 maxWidth를 위한 상태
 
   const containerRef = useRef(null); // QuizArticleGroup Container의 ref
@@ -22,18 +21,12 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
   const [firstArticle] = relatedArticles; // 가장 초기의 기사
   const mostRecentArticle = relatedArticles[relatedArticles.length - 1]; // 가장 최근의 기사
 
-  const [isVisible, setIsVisible] = useState(false);
-
   const goToStep = (stepIndex) => {
     setCurrentStep(stepIndex);
   };
 
   const hadleToggle = () => {
     setIsToggleOn((prevState) => !prevState);
-  };
-
-  const handleScrap = () => {
-    setIsScraped((prevState) => !prevState);
   };
 
   const handleResize = () => {
@@ -51,10 +44,6 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
       window.removeEventListener('resize', handleResize); // 컴포넌트 언마운트 시 리스너 제거
     };
   }, [relatedArticles.length]);
-
-  useEffect(() => {
-    setIsVisible(true);
-  }, []);
 
   return (
     <>
@@ -185,13 +174,7 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
             }`}
           >
             <div className="p-5">
-              <ArticleDetail
-                article={relatedArticle}
-                handleScrap={handleScrap}
-                isScraped={isScraped}
-                AfterScrap={AfterScrap}
-                BeforeScrap={BeforeScrap}
-              />
+              <ArticleDetail article={relatedArticle} />
 
               {/* 이전/다음 버튼 */}
               <div className="flex justify-between mt-3">
