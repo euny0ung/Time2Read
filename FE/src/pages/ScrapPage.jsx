@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import ArticleStack from '../components/my/card/ArticleStack.jsx';
+import Cards from '../components/my/test/Cards.jsx';
+// import CombinedComponent from '../components/my/test/CombinedComponent.jsx';
 
 // ScrapPage 컴포넌트
 const ScrapPage = () => {
@@ -33,7 +35,7 @@ const ScrapPage = () => {
 
   return (
     <>
-      <div className="grid grid-cols-3 gap-2">
+      {/* <div className="grid grid-cols-3 gap-2">
         {[...Array(6)].map((_, i) => (
           <div
             key={i}
@@ -45,11 +47,13 @@ const ScrapPage = () => {
             className="flex items-center justify-center border-4 border-emerald-300"
             onMouseEnter={() => handleHoverChange(true, i)}
             onMouseLeave={() => handleHoverChange(false)}
-          >
-            <ArticleStack />
-          </div>
-        ))}
-      </div>
+          > */}
+      <ArticleStack />
+      {/* </div>
+        // ))}
+      </div> */}
+      <Cards />
+      {/* <CombinedComponent /> */}
     </>
   );
 };
