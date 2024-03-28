@@ -57,12 +57,12 @@ const ArticleStack = ({ onHoverChange }) => {
             }}
           >
             {/* 기사 그리드 렌더링 */}
-            {articlesData.map((article, index) => (
+            {articlesData.map((article, i) => (
               <ArticleCard
                 key={article.id}
                 article={article}
                 hoverState={hoverState}
-                gridPosition={gridPositions[index]}
+                gridPosition={gridPositions[i]}
                 cardSize={cardSize}
               />
             ))}

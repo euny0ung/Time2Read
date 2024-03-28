@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 
-import AfterScrap from '../../assets/scrap/afterScrap.png';
-import BeforeScrap from '../../assets/scrap/beforeScap.png';
+import ArticleDetail from './ArticleDetail.jsx';
+
 import CloseToggle from '../../assets/toggle/closeToggle.png';
 import OpenToggle from '../../assets/toggle/openToggle.png';
 
@@ -12,7 +12,7 @@ import Tooltip from '../commons/Tooltip.jsx';
 const QuizArticleGroup = ({ relatedArticles, num }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isToggleOn, setIsToggleOn] = useState(false);
-  const [isScraped, setIsScraped] = useState(false);
+
   const [titleMaxWidth, setTitleMaxWidth] = useState('0px'); // 각 타이틀의 maxWidth를 위한 상태
 
   const containerRef = useRef(null); // QuizArticleGroup Container의 ref
@@ -27,10 +27,6 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
 
   const hadleToggle = () => {
     setIsToggleOn((prevState) => !prevState);
-  };
-
-  const handleScrap = () => {
-    setIsScraped((prevState) => !prevState);
   };
 
   const handleResize = () => {
@@ -71,7 +67,7 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
                     <Tooltip
                       key={article.id}
                       text={article.title}
-                      image={<ImageComponent src={article.image} alt={article.imageCaption} />}
+                      image={<ImageComponent src={article.image} alt={article.imageCaption} width={150} />}
                     >
                       <div
                         key={article.id}
@@ -107,7 +103,7 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
                   <Tooltip
                     key={article.id}
                     text={article.title}
-                    image={<ImageComponent src={article.image} alt={article.imageCaption} />}
+                    image={<ImageComponent src={article.image} alt={article.imageCaption} width={150} />}
                   >
                     <div
                       key={article.id}
@@ -138,7 +134,7 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
                     <Tooltip
                       key={article.id}
                       text={article.title}
-                      image={<ImageComponent src={article.image} alt={article.imageCaption} />}
+                      image={<ImageComponent src={article.image} alt={article.imageCaption} width={150} />}
                     >
                       <div
                         key={article.id}
@@ -171,38 +167,14 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
           </div>
         </div>
         {/* ArticleDetail Container */}
-        <div className="flex flex-col items-center w-full rounded-b-lg bg-gradient-to-r from-primary-red-1 to-primary-teal-2 ">
+        <div className="flex flex-col items-center w-full rounded-b-lg bg-gradient-to-r from-primary-red-1 to-primary-teal-2">
           <div
             className={`w-full bg-white rounded-b-lg transition-opacity transition-height duration-700 overflow-hidden ${
               isToggleOn ? 'opacity-100 h-auto' : 'opacity-0 h-0'
             }`}
           >
             <div className="p-5">
-              <div>
-                <div className="flex flex-row items-center justify-between">
-                  <div className="text-xl font-bold">{relatedArticle.title}</div>
-                  <button
-                    onClick={handleScrap}
-                    onKeyPress={(e) => {
-                      if (e.key === 'Enter') {
-                        handleScrap();
-                      }
-                    }}
-                    className="focus:outline-none"
-                  >
-                    <img className="h-8" src={isScraped ? AfterScrap : BeforeScrap} alt="Scrap Button" />
-                  </button>
-                </div>
-                <div>대분류 : {relatedArticle.mainCategory}</div>
-                <div>중분류 : {relatedArticle.subCategory}</div>
-                <div>작성일 : {relatedArticle.wroteAt}</div>
-                <ImageComponent src={relatedArticle.image} alt={relatedArticle.imageCaption} width={400} />
-                <div>내용 : {relatedArticle.content}</div>
-                <div>요약 : {relatedArticle.summary}</div>
-                <div>
-                  출처 : {relatedArticle.copyRight}, {relatedArticle.url}
-                </div>
-              </div>
+              <ArticleDetail article={relatedArticle} />
 
               {/* 이전/다음 버튼 */}
               <div className="flex justify-between mt-3">

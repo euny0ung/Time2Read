@@ -36,12 +36,12 @@ const CardStack = () => {
       <ambientLight intensity={0.5} />
       <spotLight position={[10, 10, 10]} angle={0.15} penumbra={1} />
       <pointLight position={[-10, -10, -10]} />
-      {cardData.map((card, index) => (
+      {cardData.map((card, i) => (
         <Card
-          key={index}
-          position={[index * 2, 0, 0]} // 예제 위치, 실제로는 다양한 위치에 배치해야 합니다.
+          key={i}
+          position={[i * 2, 0, 0]} // 예제 위치, 실제로는 다양한 위치에 배치해야 합니다.
           color={card.color} // 카드 색상
-          onClick={() => console.log(`Card ${index} clicked`)} // 카드 클릭 이벤트
+          onClick={() => console.log(`Card ${i} clicked`)} // 카드 클릭 이벤트
         />
       ))}
     </Canvas>
