@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getYearSummary } from '../apis/resultApi.jsx';
 import ResultButton from '../components/commons/buttons/ResultButton.jsx';
+import TopButton from '../components/commons/buttons/TopButton.jsx';
 import TranslucentContainer from '../components/commons/containers/TranslucentContainer.jsx';
 import WhiteContainer from '../components/commons/containers/WhiteContainer.jsx';
 import ResultContent from '../components/commons/ResultContent.jsx';
