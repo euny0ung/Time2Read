@@ -97,17 +97,18 @@ const ResultPage = () => {
       <div className="min-h-screen bg-gradient-to-br from-primary-red-1 to-primary-teal-1" id="top">
         <div className="w-full max-w-[90%] lg:max-w-[60%] md:max-w-[75%] mx-auto ">
           <h1>결과페이지</h1>
-          <div className="relative flex flex-col items-center w-full gap-4">
+          <div className="relative flex flex-col w-full gap-4">
             {/* topbox */}
             <TranslucentContainer>
-              <div className="flex flex-col items-center justify-center w-full gap-6 md:flex-row" ref={topboxRef}>
+              <div className="flex flex-col justify-center w-full gap-6 md:flex-row" ref={topboxRef}>
                 {/* leftbox */}
                 <div
-                  className="flex flex-col items-center justify-center w-full gap-6 md:w-2/6"
+                  className="flex flex-col justify-between gap-6 md:w-2/6"
                   style={{ rightboxWidth }}
                   ref={leftboxRef}
                 >
                   {/* 맞은 개수 통계 */}
+
                   <WhiteContainer>
                     <ResultTitle title={'맞은 개수 통계'} />
                     <ResultContent>
@@ -118,7 +119,9 @@ const ResultPage = () => {
                       <div>틀린 개수 {gameResult.incorrect} 개</div>
                     </ResultContent>
                   </WhiteContainer>
+
                   {/* 타임 어택 시간 */}
+
                   <WhiteContainer>
                     <ResultTitle title={'타임 어택 시간'} />
                     <ResultContent>
