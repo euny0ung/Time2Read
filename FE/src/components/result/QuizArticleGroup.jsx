@@ -73,7 +73,7 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
                     <Tooltip
                       key={article.id}
                       text={article.title}
-                      image={<ImageComponent src={article.image} alt={article.imageCaption} />}
+                      image={<ImageComponent src={article.image} alt={article.imageCaption} width={150} />}
                     >
                       <div
                         key={article.id}
@@ -109,7 +109,7 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
                   <Tooltip
                     key={article.id}
                     text={article.title}
-                    image={<ImageComponent src={article.image} alt={article.imageCaption} />}
+                    image={<ImageComponent src={article.image} alt={article.imageCaption} width={150} />}
                   >
                     <div
                       key={article.id}
@@ -140,7 +140,7 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
                     <Tooltip
                       key={article.id}
                       text={article.title}
-                      image={<ImageComponent src={article.image} alt={article.imageCaption} />}
+                      image={<ImageComponent src={article.image} alt={article.imageCaption} width={150} />}
                     >
                       <div
                         key={article.id}
