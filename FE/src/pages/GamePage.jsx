@@ -1,6 +1,9 @@
 import React, { Suspense, useState } from 'react';
 import AnswerCheckModal from '@components/commons/AnswerCheckModal';
+<<<<<<< HEAD
 // import ClueCountStateModal from '@components/commons/ClueCountStateModal';
+=======
+>>>>>>> 0ab6b137c5953ff26e7ebb9ed60a2fa5c416417a
 import Maze, { Floor } from '@components/game/Maze';
 import Overlay from '@components/game/Overlay';
 import Player from '@components/game/Player';

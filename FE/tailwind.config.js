@@ -79,6 +79,10 @@ export default {
       backgroundSize: {
         '300%': '300% 300%',
       },
+      spacing: {
+        cardW: '14em', // 명함 너비
+        cardH: '8em', // 명함 높이
+      },
     },
   },
   plugins: [],
