@@ -41,7 +41,7 @@ public class SessionInfo {
         if (session != null) {
             return session.getId();
         }
-        return null;
+        return session.getId();
     }
 
     private static Long getMemberId(HttpServletRequest request) {
