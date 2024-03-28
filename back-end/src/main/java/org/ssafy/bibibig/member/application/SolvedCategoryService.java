@@ -21,6 +21,7 @@ public class SolvedCategoryService {
     private final SolvedCategoryRepository solvedCategoryRepository;
 
     public SolvedCategory getSolvedCategory(Long memberId){
+        System.out.println(memberId);
         MemberEntity memberEntity = memberRepository.findById(memberId)
                 .orElseThrow(() -> new CommonException(ErrorCode.USER_NOT_FOUND));
         return SolvedCategory.from(memberEntity.getSolvedCategoriesEntity());
