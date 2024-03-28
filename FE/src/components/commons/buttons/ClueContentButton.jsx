@@ -1,25 +1,21 @@
 import React, { useState } from 'react';
 import { useGameItemStore } from '@stores/game/gameStore';
-import { useClueStateStore } from '@stores/game/quizStore';
+import { useClueIndexStore } from '@stores/game/quizStore';
 
-const ClueContent = React.memo(({ clues }) => {
+const ClueContent = React.memo(({ clues, quizIndex }) => {
   const [isFirstLetter, setisFirstLetter] = useState(false);
-  const { setShowClueState } = useClueStateStore();
-  const { clueCount } = useGameItemStore();
+  const { clueCount, decreaseClueCount } = useGameItemStore();
+  const { cluesClicked, toggleClueClick } = useClueIndexStore();
 
   const handleClick = () => {
-    // onClueClick();
-    // 단서가 0개일 때 이미 사용된 단서이면 볼 수 있고, 그렇지 않으면 볼 수 없음
-    // if (clueCount === 0) {
-    //   if (clueUsed) {
-    //     setisFirstLetter(!isFirstLetter);
-    //   } else {
-    //     setShowClueState();
-    //   }
-    // }
-    // 단서가 0개가 아닐 때는 무조건 단서를 볼 수 있음
-
-    setisFirstLetter(!isFirstLetter);
+    // 단서 개수에 상관없이 이미 클릭한 경우 - 토글 가능, 상태변경X
+    if (cluesClicked[quizIndex]) setisFirstLetter(!isFirstLetter);
+    // 단서 개수가 0개가 아닌 경우 - 토글, 상태변경, 단서 감소
+    else if (clueCount !== 0) {
+      setisFirstLetter(!isFirstLetter);
+      toggleClueClick(quizIndex);
+      decreaseClueCount();
+    }
   };
 
   return (
