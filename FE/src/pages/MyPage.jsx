@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { useGameResultStore } from '@stores/game/gameStore';
 import { format } from 'date-fns';
 import { getTimeRecords, getSolved } from '../apis/myApi.jsx';
 import ResultButton from '../components/commons/buttons/ResultButton.jsx';
@@ -6,40 +7,24 @@ import TranslucentContainer from '../components/commons/containers/TranslucentCo
 import WhiteContainer from '../components/commons/containers/WhiteContainer.jsx';
 import ResultContent from '../components/commons/ResultContent.jsx';
 import ResultTitle from '../components/commons/ResultTitle.jsx';
+import { formatTime } from '../components/game/Timer.jsx';
 import Badges from '../components/my/badge/Badges.jsx';
 import Book from '../components/my/book/Book.jsx';
 import Newspaper from '../components/my/newspaper/Newspaper.jsx';
 import RadarChart from '../components/my/RadarChart.jsx';
 
-// {
-// 	"records": [
-// 		{
-// 			"timeAttactTime": str
-// 			"playDate": datetime
-// 		},
-// 		...
-// 	]
-// }
-
-// {
-//   "social": int,
-//   "politics": int,
-//   "economy": int,
-//   "international": int,
-//   "culture": int,
-//   "sports": int
-// }
-
 const MyPage = () => {
   const [timeRecords, setTimeRecords] = useState([]);
   const [solvedCount, setSolvedCount] = useState({
-    social: 10,
-    politics: 80,
-    economy: 20,
-    international: 90,
-    culture: 40,
-    sports: 60,
+    social: 0,
+    politics: 0,
+    economy: 0,
+    international: 0,
+    culture: 0,
+    sports: 0,
   });
+
+  const { gameResult } = useGameResultStore();
 
   useEffect(() => {
     getTimeRecords()
@@ -75,7 +60,7 @@ const MyPage = () => {
                   <WhiteContainer>
                     <ResultTitle title={'타임어택 기록'} />
                     <ResultContent>
-                      new! 00:00:00
+                      new! {formatTime(600 - gameResult.timeAttackTime)}
                       {timeRecords.map((record, i) => (
                         <div key={record.playDate} className="flex justify-between">
                           <div>{`기록 ${i + 1}:`}</div>

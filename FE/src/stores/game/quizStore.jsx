@@ -51,6 +51,7 @@ export const handleAnswerCheck = (inputValue, answer, mainCategory) => {
   if (inputValue === answer) {
     const prevResult = { ...gameResult };
     prevResult.correct += 1;
+    prevResult.incorrect = 10 - prevResult.correct;
     setGameResult(prevResult);
     hitsCategoryStore.setHitsCategory(mainCategory);
     gameModalStore.setBumped(false);
