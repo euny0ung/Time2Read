@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseUrl = import.meta.env.VITE_BASE_URL;
+const baseUrl = import.meta.env.VITE_BASE_API;
 
 // 선택한 연도의 키워드
 export const getYearSummary = (year) => {
@@ -24,6 +24,20 @@ export const postRelationArticles = (articleIds) => {
     .then((response) => response.data)
     .catch((error) => {
       console.error('Error requesting data:', error);
+      throw error;
+    });
+};
+
+export const postGameResult = (resultData) => {
+  const apiUrl = `${baseUrl}/my/result`;
+
+  return axios
+    .post(apiUrl, resultData)
+    .then((response) => {
+      console.log('게임 결과 Post 성공');
+    })
+    .catch((error) => {
+      console.log('Error requesting data: ', error);
       throw error;
     });
 };
