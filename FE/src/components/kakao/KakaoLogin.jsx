@@ -11,7 +11,7 @@ const KakaoLogin = () => {
   const navigate = useNavigate();
 
   const onMyPage = () => {
-    navigate('/user');
+    navigate('/mypage');
   };
 
   return (
