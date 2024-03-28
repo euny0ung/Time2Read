@@ -22,7 +22,6 @@ const GamePage = () => {
   const openGameOverModal = useGameModalStore((state) => state.openGameOverModal);
   const showClueState = useClueStateStore((state) => state.showClueState);
 
-  console.log('openGameOverModal : ', openGameOverModal);
   return (
     <>
       <div className="w-screen h-screen overflow-hidden">
@@ -44,7 +43,6 @@ const GamePage = () => {
         </Canvas>
         {/* 정보 표시 */}
         <Overlay />
-
         <Items />
         <Timer />
         {openQuizModal && <QuizModal quizIndex={quizIndex} />}
