@@ -90,9 +90,12 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
                         ScoreFunctionBuilders.randomFunction())
                 ).withMaxResults(1)
                 .build();
-        SearchHit<ArticleEntity> search = operations.search(query, ArticleEntity.class).getSearchHit(0);
-        ArticleEntity article = search.getContent();
-        return article;
+        SearchHits<ArticleEntity> search = operations.search(query, ArticleEntity.class);
+
+        if(search.getTotalHits() == 0){
+            return null;
+        }
+        return search.getSearchHit(0).getContent();
     }
 
     // 특정 기사와 관련된 기사 Top5개 뽑기
