@@ -7,8 +7,8 @@ import Cards from '../components/my/test/Cards.jsx';
 const ScrapPage = () => {
   const [hoverIndex, setHoverIndex] = useState(null);
 
-  const handleHoverChange = (hover, index) => {
-    setHoverIndex(hover ? index : null);
+  const handleHoverChange = (hover, i) => {
+    setHoverIndex(hover ? i : null);
   };
 
   // 상대적 위치에 따라 스타일 결정

@@ -99,13 +99,8 @@ const ArticleStack = () => {
           <ambientLight intensity={1} />
           <pointLight position={[0, 0, 8]} intensity={300} />
           <group onPointerOver={() => toggleHover(true)} onPointerOut={() => toggleHover(false)}>
-            {articlesData.map((article, index) => (
-              <CombinedCard
-                key={article.id}
-                data={article}
-                isHovered={hoverState}
-                gridPosition={gridPositions[index]}
-              />
+            {articlesData.map((article, i) => (
+              <CombinedCard key={article.id} data={article} isHovered={hoverState} gridPosition={gridPositions[i]} />
             ))}
           </group>
         </Canvas>

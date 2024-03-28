@@ -2,66 +2,63 @@ import React, { useState, useRef, useEffect } from 'react';
 import Card from './Card.jsx';
 import FullCard from './FullCard.jsx';
 
-const cardsData = [
+const articles = [
   {
-    title: 'The Fountain',
-    category: 'Science Fiction',
-    imageUrl: 'https://xl.movieposterdb.com/07_12/2006/414993/xl_414993_0cbd42ba.jpg',
-    description: 'Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec sed odio dui.',
+    title: '미국 “쿼드는 ‘아시아판 나토’ 아닌 역내 비공식 그룹”',
+    mainCategory: '정치',
+    subCategory: '외교',
+    image: 'https://flexible.img.hani.co.kr/flexible/normal/970/647/imgdb/original/2020/1005/20201005502131.jpg',
+    summary:
+      '불과 한달 뒤인 지난 2일 데이비드 스틸웰 동아태 차관보는 쿼드를 같은 생각을 가진 동반국들이 역내(sub-regional) 문제에 대한 협력을 심화하고 보다 긴밀히 조율된 인도·태평양 지역을 만들기 위한 비공식 그룹이라고 정의하면서 쿼드의 멤버십은 구속력 있는 의무가 아닌 공동의 이익에 결정된다고 말했다. 쿼드에 대한 미국의 견해가 온건해 것은 비건 부장관의 발언 이후 곳곳에서 쏟아진 이견 때문인 것으로 해석된다. 지난해부터 미·일 주도로 구체화되기 시작한 미국·일본·오스트레일리아·인도 4개국의 안보 협의체인 쿼드 구상이 단숨에 세계적인 관심 대상으로 떠오른 것은 지난 8월 스티븐 비건 국무부 부장관이 미국-인도 전략동반자포럼에서 인도·태평양 지역엔 북대서양조약기구(나토)나 유럽연합(EU)과 같은 다자구조가 없다.',
+    content:
+      '3일(현지시간) 국제유가는 미국의 제조업 경기를 보여주는 공장주문이 증가세로 돌아섰다는 소식에 석유 소비 증가 기대감이 확산되면서 상승했다. 값은 인도 중앙은행이 다량의 금을 매입했다는 소식에 3% 가까이 상승하며 사상 최고치를 다시 갈아치웠다. 뉴욕상업거래소(NYMEX)에서 12월 인도분 서부 텍사스산 원유(WTI)는 지난주 종가보다 1.47달러(1.89%) 오른 배럴당 79.60 달러에 거래를 마감했다. 런던 ICE 선물시장의 12월 인도분 브렌트유도 1.54달러 오른 배럴당 78.09 달러에 거래됐다. 상무부는 8월중 0.8% 감소했던 공장주문이 9월에는 0.9% 증가했다고 발표했다. 공장주문은 올해 7월까지 넉달 연속 증가세를 보였다가 8월에 주춤한 9월에 다시 증가세로 돌아섰다. 9월의 공장주문 증가율은 시장전문가들이 예상했던 0.8%을 웃도는 것이다. 상무부는 자동차와 기계류, 항공기 등의 주문이 늘면서 전반적으로 공장주문이 증가했다고 설명했다. 4일 에너지정보청(EIA)의 지난주 미국 석유 재고량 발표를 앞두고 애널리스트들은 원유는 150만 배럴 증가할 것으로 관측했고, 난방유 등으로 사용되는 정제유는 감소할 것으로 전망했다. 이날 달러화가 강보합세를 보이고 있는 와중에도 유가가 상승한 것은 금값 급등과 무관치 않다. 세계 최대 소비국인 인도는 이날 달러 급락에 대비한 조치로 국제통화기금(IMF)으로부터 200t의 금을 67억달러에 매입했다고 밝혔다. 온스당 평균 1045달러에 매입한 것이다. 이에 12월물 금값은 온스당 30.90 달러(2.9%) 급등해 온스당 1,084.90 달러에 거래를 마쳤다. 종전 최고치는 지난달 13일의 온스당 1,064.20 달러였다. 애널리스트들은 인도 정부의 매입이 달러화의 장기적 전망에 대한 불안감을 확산시키면서 유가 상품 가격에 영향을 미친 것으로 분석했다. 한편 주요 6개국 통화에 대한 달러 인덱스는 76.38을 기록해, 전날보다 가치가 0.12% 상승했다. 김현재 특파원 (뉴욕=연합뉴스)',
+    wroteAt: '2009-11-04T07:01:00',
+    id: '10648964-7421-4ac9-b874-400a05021562',
   },
   {
-    title: 'Mother!',
-    category: 'Horror',
-    imageUrl: 'https://xl.movieposterdb.com/20_06/2017/5109784/xl_5109784_051e160f.jpg',
-    description: 'Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec sed odio dui.',
-  },
-  {
-    title: 'Black Swan',
-    category: 'Psychological Thriller',
-    imageUrl: 'https://xl.movieposterdb.com/10_09/2010/947798/xl_947798_f9a08ddf.jpg',
-    description: 'Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec sed odio dui.',
-  },
-  {
-    title: 'Black 이미지가""',
-    category: 'Psychological Thriller',
-    imageUrl: '',
-    description: 'Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec sed odio dui.',
-  },
-  {
-    title: '언디파인드',
-    category: 'Psychological Thriller',
-    imageUrl: undefined,
-    description: 'Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec sed odio dui.',
-  },
-  {
-    title: '널',
-    category: 'Psychological Thriller',
-    imageUrl: null,
-    description: 'Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec sed odio dui.',
+    title: '2번째기사',
+    mainCategory: '울랄라',
+    subCategory: 'ㅋㅋ',
+    image: 'https://flexible.img.hani.co.kr/flexible/normal/900/1001/imgdb/original/2024/0105/20240105501054.jpg',
+    summary:
+      '222불과 한달 뒤인 지난 2일 데이비드 스틸웰 동아태 차관보는 쿼드를 같은 생각을 가진 동반국들이 역내(sub-regional) 문제에 대한 협력을 심화하고 보다 긴밀히 조율된 인도·태평양 지역을 만들기 위한 비공식 그룹이라고 정의하면서 쿼드의 멤버십은 구속력 있는 의무가 아닌 공동의 이익에 결정된다고 말했다. 쿼드에 대한 미국의 견해가 온건해 것은 비건 부장관의 발언 이후 곳곳에서 쏟아진 이견 때문인 것으로 해석된다. 지난해부터 미·일 주도로 구체화되기 시작한 미국·일본·오스트레일리아·인도 4개국의 안보 협의체인 쿼드 구상이 단숨에 세계적인 관심 대상으로 떠오른 것은 지난 8월 스티븐 비건 국무부 부장관이 미국-인도 전략동반자포럼에서 인도·태평양 지역엔 북대서양조약기구(나토)나 유럽연합(EU)과 같은 다자구조가 없다.',
+    content:
+      '2222222223일(현지시간) 국제유가는 미국의 제조업 경기를 보여주는 공장주문이 증가세로 돌아섰다는 소식에 석유 소비 증가 기대감이 확산되면서 상승했다. 값은 인도 중앙은행이 다량의 금을 매입했다는 소식에 3% 가까이 상승하며 사상 최고치를 다시 갈아치웠다. 뉴욕상업거래소(NYMEX)에서 12월 인도분 서부 텍사스산 원유(WTI)는 지난주 종가보다 1.47달러(1.89%) 오른 배럴당 79.60 달러에 거래를 마감했다. 런던 ICE 선물시장의 12월 인도분 브렌트유도 1.54달러 오른 배럴당 78.09 달러에 거래됐다. 상무부는 8월중 0.8% 감소했던 공장주문이 9월에는 0.9% 증가했다고 발표했다. 공장주문은 올해 7월까지 넉달 연속 증가세를 보였다가 8월에 주춤한 9월에 다시 증가세로 돌아섰다. 9월의 공장주문 증가율은 시장전문가들이 예상했던 0.8%을 웃도는 것이다. 상무부는 자동차와 기계류, 항공기 등의 주문이 늘면서 전반적으로 공장주문이 증가했다고 설명했다. 4일 에너지정보청(EIA)의 지난주 미국 석유 재고량 발표를 앞두고 애널리스트들은 원유는 150만 배럴 증가할 것으로 관측했고, 난방유 등으로 사용되는 정제유는 감소할 것으로 전망했다. 이날 달러화가 강보합세를 보이고 있는 와중에도 유가가 상승한 것은 금값 급등과 무관치 않다. 세계 최대 소비국인 인도는 이날 달러 급락에 대비한 조치로 국제통화기금(IMF)으로부터 200t의 금을 67억달러에 매입했다고 밝혔다. 온스당 평균 1045달러에 매입한 것이다. 이에 12월물 금값은 온스당 30.90 달러(2.9%) 급등해 온스당 1,084.90 달러에 거래를 마쳤다. 종전 최고치는 지난달 13일의 온스당 1,064.20 달러였다. 애널리스트들은 인도 정부의 매입이 달러화의 장기적 전망에 대한 불안감을 확산시키면서 유가 상품 가격에 영향을 미친 것으로 분석했다. 한편 주요 6개국 통화에 대한 달러 인덱스는 76.38을 기록해, 전날보다 가치가 0.12% 상승했다. 김현재 특파원 (뉴욕=연합뉴스)',
+    wroteAt: '2010-11-04T07:01:00',
+    id: '10648964-7421-4ac9-b874-400a05021562222',
   },
 ];
 
 const Cards = () => {
   const [activeIndex, setActiveIndex] = useState(null); // 현재 활성화된 카드의 인덱스
 
-  const toggleActiveIndex = (index) => {
-    setActiveIndex(activeIndex === index ? null : index);
+  const toggleActiveIndex = (i) => {
+    setActiveIndex(activeIndex === i ? null : i);
   };
 
   return (
     <div className="flex flex-wrap justify-center max-w-screen-xl mx-auto">
-      {cardsData.map((card, index) => (
-        <div key={index} onClick={() => toggleActiveIndex(index)} className="border-4 border-teal-400">
+      {articles.map((article, i) => (
+        <button
+          key={i}
+          onClick={() => toggleActiveIndex(i)}
+          onKeyPress={(e) => {
+            if (e.key === 'Enter') {
+              toggleActiveIndex(i);
+            }
+          }}
+          className="border-4 border-teal-400 focus:outline-none"
+        >
           <Card
-            imageUrl={card.imageUrl}
-            title={card.title}
-            category={card.category}
-            description={card.description}
-            isActive={index === activeIndex}
-            onClick={() => toggleActiveIndex(index)}
+            imageUrl={articles.image}
+            title={articles.title}
+            category={articles.mainCategory}
+            description={articles.summary}
+            isActive={i === activeIndex}
+            onClick={() => toggleActiveIndex(i)}
           />
-          {index === activeIndex && <FullCard card={card} />}
-        </div>
+          {i === activeIndex && <FullCard article={article} />}
+        </button>
       ))}
     </div>
   );

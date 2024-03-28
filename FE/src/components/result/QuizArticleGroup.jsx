@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 
-import { format } from 'date-fns';
+import ArticleDetail from './ArticleDetail.jsx';
 import AfterScrap from '../../assets/scrap/afterScrap.png';
 import BeforeScrap from '../../assets/scrap/beforeScap.png';
 import CloseToggle from '../../assets/toggle/closeToggle.png';
@@ -21,7 +21,8 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
   const relatedArticle = relatedArticles[currentStep];
   const [firstArticle] = relatedArticles; // 가장 초기의 기사
   const mostRecentArticle = relatedArticles[relatedArticles.length - 1]; // 가장 최근의 기사
-  const formattedDate = format(new Date(relatedArticle.wroteAt), 'yyyy/MM/dd HH:mm:ss');
+
+  const [isVisible, setIsVisible] = useState(false);
 
   const goToStep = (stepIndex) => {
     setCurrentStep(stepIndex);
@@ -50,6 +51,10 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
       window.removeEventListener('resize', handleResize); // 컴포넌트 언마운트 시 리스너 제거
     };
   }, [relatedArticles.length]);
+
+  useEffect(() => {
+    setIsVisible(true);
+  }, []);
 
   return (
     <>
@@ -173,54 +178,20 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
           </div>
         </div>
         {/* ArticleDetail Container */}
-        <div className="flex flex-col items-center w-full rounded-b-lg bg-gradient-to-r from-primary-red-1 to-primary-teal-2 ">
+        <div className="flex flex-col items-center w-full rounded-b-lg bg-gradient-to-r from-primary-red-1 to-primary-teal-2">
           <div
             className={`w-full bg-white rounded-b-lg transition-opacity transition-height duration-700 overflow-hidden ${
               isToggleOn ? 'opacity-100 h-auto' : 'opacity-0 h-0'
             }`}
           >
             <div className="p-5">
-              <div>
-                <div>
-                  <span className="inline-block px-3 py-2 mt-4 mr-2 text-sm font-semibold rounded-lg text-rose-600 bg-rose-100 tag">
-                    대분류 : {relatedArticle.mainCategory}
-                  </span>
-                  <span className="inline-block px-3 py-2 mt-4 mr-2 text-sm font-semibold rounded-lg bg-rose-100 text-rose-600 tag">
-                    중분류 : {relatedArticle.subCategory}
-                  </span>
-                </div>
-                <div className="flex flex-row items-start justify-between">
-                  <div>
-                    <div className="mt-4 text-2xl font-semibold text-gray-900 title">{relatedArticle.title}</div>
-                    <div className="mt-4 text-gray-500">
-                      <span className="mr-2">{relatedArticle.copyRight || '한겨레'}</span>
-                      <span className="mr-2">|</span>
-                      <span className="mr-2">{formattedDate}</span>
-                    </div>
-                  </div>
-                  <button
-                    onClick={handleScrap}
-                    onKeyPress={(e) => {
-                      if (e.key === 'Enter') {
-                        handleScrap();
-                      }
-                    }}
-                    className="m-4 focus:outline-none"
-                  >
-                    <img className="h-8" src={isScraped ? AfterScrap : BeforeScrap} alt="Scrap Button" />
-                  </button>
-                </div>
-
-                <div className="items-center justify-between gap-2 px-3 py-2 mt-4 font-semibold border-2 rounded-lg text-rose-600 border-rose-600 button">
-                  {relatedArticle.summary}
-                </div>
-                <div className="flex justify-center mt-4 max-h-[600px]">
-                  <ImageComponent src={relatedArticle.image} alt={relatedArticle.imageCaption} width={600} />
-                </div>
-                <div className="px-3 py-2 mt-4 leading-relaxed text-gray-600" style={{ lineHeight: '2' }}>
-                  {relatedArticle.content}
-                </div>
-              </div>
+              <ArticleDetail
+                article={relatedArticle}
+                handleScrap={handleScrap}
+                isScraped={isScraped}
+                AfterScrap={AfterScrap}
+                BeforeScrap={BeforeScrap}
+              />
 
               {/* 이전/다음 버튼 */}
               <div className="flex justify-between mt-3">
