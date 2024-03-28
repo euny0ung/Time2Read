@@ -50,7 +50,7 @@ const TopButton = () => {
       <div className="fixed z-10 right-5 bottom-5">
         <button
           id="top"
-          className="px-10 text-sm font-bold text-white bg-black border border-gray-300 rounded-full outline-none cursor-pointer py-15 hover:text-red-600"
+          className="flex items-center justify-center w-16 h-16 text-sm font-bold text-black bg-white border rounded-full shadow-2xl outline-none cursor-pointer border-primary-teal-2 hover:text-primary-teal-3"
           onClick={scrollToTop}
           type="button"
         >
