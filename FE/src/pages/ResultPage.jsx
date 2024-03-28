@@ -7,7 +7,6 @@ import TranslucentContainer from '../components/commons/containers/TranslucentCo
 import WhiteContainer from '../components/commons/containers/WhiteContainer.jsx';
 import ResultContent from '../components/commons/ResultContent.jsx';
 import ResultTitle from '../components/commons/ResultTitle.jsx';
-import TopButton from '../components/commons/TopButton.jsx';
 import { formatTime } from '../components/game/Timer.jsx';
 import Articles from '../components/result/Articles.jsx';
 import Keyword from '../components/result/Keyword.jsx';
