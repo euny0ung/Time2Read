@@ -11,9 +11,7 @@ const ArticleDetail = ({ article }) => {
 
   const formattedDate = format(new Date(article.wroteAt), 'yyyy/MM/dd HH:mm:ss');
 
-  const handleScrap = (event) => {
-    event.stopPropagation(); // 이벤트 버블링을 방지
-
+  const handleScrap = () => {
     const name = sessionStorage.getItem('name');
     if (name !== null) {
       // 로그인 했다면
@@ -27,7 +25,7 @@ const ArticleDetail = ({ article }) => {
   };
 
   return (
-    <div>
+    <div className="flex flex-col justify-center">
       {/* 대분류, 중분류 */}
       <div className="flex">
         <span className="inline-block px-3 py-2 mt-4 mr-2 text-sm font-semibold rounded-lg bg-rose-100 text-rose-600 main-category-tag">

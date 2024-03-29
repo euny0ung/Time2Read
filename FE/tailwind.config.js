@@ -3,10 +3,41 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      fontFamily: {
+        sans: [
+          'Pretendard-Regular',
+          'ui-sans-serif',
+          'system-ui',
+          '-apple-system',
+          'BlinkMacSystemFont',
+          'Segoe UI',
+          'Roboto',
+          'Helvetica Neue',
+          'Arial',
+          'Noto Sans',
+          'sans-serif',
+          'Apple Color Emoji',
+          'Segoe UI Emoji',
+          'Segoe UI Symbol',
+          'Noto Color Emoji',
+        ],
+        serif: ['ui-serif', 'Georgia', 'Cambria', 'Times New Roman', 'Times', 'serif'],
+        mono: [
+          'ui-monospace',
+          'SFMono-Regular',
+          'Menlo',
+          'Monaco',
+          'Consolas',
+          'Liberation Mono',
+          'Courier New',
+          'monospace',
+        ],
+      },
       colors: {
         primary: {
           red: {
             DEFAULT: '#FFA19F',
+            0: '#FBEDF0',
             1: '#FDB9AE',
             2: '#FE8E8C',
             3: '#FF7465',
@@ -14,12 +45,14 @@ export default {
           },
           teal: {
             DEFAULT: '#2BBAB4',
+            0: '#EEFCFB',
             1: '#D3FFEE',
             2: '#A4E3D6',
             3: '#249593',
           },
           yellow: {
             DEFAULT: '#FEFEC3',
+            0: '#FBFAEA',
             1: '#E3F1BE',
             2: '#C0CFA4',
           },
