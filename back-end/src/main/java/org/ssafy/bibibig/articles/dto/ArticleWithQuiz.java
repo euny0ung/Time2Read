@@ -26,4 +26,5 @@ public record ArticleWithQuiz(
                 quiz
         );
     }
+
 }
