@@ -31,6 +31,8 @@ services:
       - MYSQL_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_URL=${MYSQL_URL}
       - MYSQL_USERNAME=${MYSQL_USER}
+      - OPENAI_FINETUING_MODEL=${OPENAI_FINETUING_MODEL}
+      - OPENAI_KEY=${OPENAI_KEY}
     ports:
       - "8081:8081"
     command: sh -c 'if [ -e /app.jar ]; then java -jar /app.jar --spring.profiles.active=production; else echo "app.jar not found, skipping execution"; fi'
