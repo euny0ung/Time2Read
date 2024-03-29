@@ -43,7 +43,10 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
 
   return (
     <>
-      <div className="flex flex-col w-full" ref={containerRef}>
+      <div
+        className="flex flex-col w-full transition-transform duration-500 ease-in-out QuizArticleGroup hover:scale-[101%]"
+        ref={containerRef}
+      >
         {/* RelatedArticles Container */}
         <div className="flex flex-col items-center w-full gap-2 p-5 text-white rounded-t-lg bg-gradient-to-r from-primary-red to-primary-teal ">
           {/* 문제번호 */}
