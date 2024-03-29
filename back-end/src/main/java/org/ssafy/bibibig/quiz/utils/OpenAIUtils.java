@@ -24,7 +24,7 @@ import java.util.List;
 @Component
 public class OpenAIUtils {
 
-    @Value("${openai.FINETUING_MODEL}")
+    @Value("${openai.FINETUNING_MODEL}")
     private String model;
     @Value("${openai.KEY}")
     private String key;
