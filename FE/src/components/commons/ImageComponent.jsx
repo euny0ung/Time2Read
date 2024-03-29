@@ -23,7 +23,7 @@ const ImageComponent = ({ src, alt, width, height }) => {
   }
 
   return (
-    <div className="flex items-center justify-center bg-gray-200 rounded" style={boxStyles}>
+    <div className="flex items-center justify-center bg-gray-200 rounded-lg" style={boxStyles}>
       {imageError ? (
         // 이미지 로드 실패 시 회색 박스와 대체 텍스트를 표시
         <span className="text-xs text-center text-gray-500" style={{ padding: `${width / 4}px 0` }}>

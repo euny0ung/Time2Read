@@ -1,12 +1,12 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getYearSummary } from '../apis/resultApi.jsx';
+import { getYearSummary, postGameResult } from '../apis/resultApi.jsx';
 import ResultButton from '../components/commons/buttons/ResultButton.jsx';
+import TopButton from '../components/commons/buttons/TopButton.jsx';
 import TranslucentContainer from '../components/commons/containers/TranslucentContainer.jsx';
 import WhiteContainer from '../components/commons/containers/WhiteContainer.jsx';
 import ResultContent from '../components/commons/ResultContent.jsx';
 import ResultTitle from '../components/commons/ResultTitle.jsx';
-import TopButton from '../components/commons/TopButton.jsx';
 import { formatTime } from '../components/game/Timer.jsx';
 import Articles from '../components/result/Articles.jsx';
 import Keyword from '../components/result/Keyword.jsx';
@@ -16,7 +16,10 @@ import {
   useGameItemStore,
   useVisibilityStore,
   checkCollidedStore,
+  checkGameSuccessStore,
+  checkGameYearStore,
 } from '../stores/game/gameStore.jsx';
+import { useHitsCategoryStore } from '../stores/game/quizStore.jsx';
 
 const ResultPage = () => {
   const navigate = useNavigate();
@@ -32,6 +35,19 @@ const ResultPage = () => {
   const [rightboxHeight, setRightboxHeight] = useState('0px');
   const [keywordWidth, setKeywordWidth] = useState(0);
   const [keywordHeight, setKeywordHeight] = useState(0);
+  const { hitsCategory } = useHitsCategoryStore();
+  const { isSucceed, setIsSucceed } = checkGameSuccessStore();
+  const { gameYear, setGameYear } = checkGameYearStore();
+
+  // Json 형식의 파일을 만들어줘야 하는데 왜 자동저장하면 이렇게 되어버리지
+  const resultData = {
+    isSuccess: isSucceed,
+    playYear: gameYear,
+    timeAttackTime: gameResult.timeAttackTime,
+    solvedCategory: hitsCategory,
+  };
+
+  console.log('resultData: ', resultData);
 
   useEffect(() => {
     getYearSummary(2023)
@@ -42,6 +58,10 @@ const ResultPage = () => {
       .catch((error) => {
         console.error('Error requesting year summary:', error);
       });
+
+    if (gameResult.correct === 10) {
+      setIsSucceed(true);
+    }
   }, []);
 
   const resetGame = () => {
@@ -58,7 +78,14 @@ const ResultPage = () => {
   };
 
   const navigateToMyPage = () => {
-    navigate('/mypage');
+    const name = sessionStorage.getItem('name');
+
+    if (name) {
+      postGameResult(resultData);
+      navigate('/mypage');
+    } else {
+      console.log(console.log('로그인 필요'), navigate('/'));
+    }
   };
 
   // 너비 및 높이 동적 조절
