@@ -34,7 +34,7 @@ const reducer = (state, action) => {
 };
 
 // 애너그램 컴포넌트
-const AnagramQuiz = ({ answer, anagram, mainCategory }) => {
+const AnagramQuiz = ({ answer, anagram, mainCategory, id }) => {
   const anagramButtonState = anagram.map(() => false);
 
   const [anagramColor, setAnagramColor] = useState(anagramButtonState);
@@ -48,7 +48,7 @@ const AnagramQuiz = ({ answer, anagram, mainCategory }) => {
     if (state.inputAnswer.length === answer.length) {
       const result = state.inputAnswer.map((input) => input.clickValue).join('');
 
-      handleAnswerCheck(result, answer, mainCategory, () => dispatch({ type: 'RESET_INPUT' }));
+      handleAnswerCheck(result, answer, mainCategory, () => dispatch({ type: 'RESET_INPUT' }), id);
     }
   }, [state.inputAnswer]);
 

@@ -60,7 +60,7 @@ const ResultPage = () => {
   const navigateToMyPage = () => {
     const name = sessionStorage.getItem('name');
 
-    if (name) navigate('/mypage');
+    if (name !== null) navigate('/mypage');
     else {
       console.log(console.log('로그인 필요'), navigate('/'));
     }
