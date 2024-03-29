@@ -43,19 +43,21 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
 
   return (
     <>
-      <div className="flex flex-col items-start w-full" ref={containerRef}>
+      <div className="flex flex-col w-full" ref={containerRef}>
         {/* RelatedArticles Container */}
-        <div className="flex flex-col items-start w-full gap-2 p-5 text-white rounded-t-lg bg-gradient-to-r from-primary-red to-primary-teal ">
+        <div className="flex flex-col items-center w-full gap-2 p-5 text-white rounded-t-lg bg-gradient-to-r from-primary-red to-primary-teal ">
           {/* 문제번호 */}
-          <div className="text-xl font-bold">#{num}</div>
+          <div className="w-full text-2xl font-bold">#{num}</div>
           {/* 프로그래스바 전체 컨테이너 */}
-          <ProgressBar
-            relatedArticles={relatedArticles}
-            currentStep={currentStep}
-            goToStep={goToStep}
-            setIsToggleOn={setIsToggleOn}
-            titleMaxWidth={titleMaxWidth}
-          />
+          <div className="w-[80%]">
+            <ProgressBar
+              relatedArticles={relatedArticles}
+              currentStep={currentStep}
+              goToStep={goToStep}
+              setIsToggleOn={setIsToggleOn}
+              titleMaxWidth={titleMaxWidth}
+            />
+          </div>
         </div>
         {/* ArticleDetail Container */}
         <div className="flex flex-col items-center w-full rounded-b-lg bg-gradient-to-r from-primary-red-1 to-primary-teal-2">

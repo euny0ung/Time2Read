@@ -9,8 +9,6 @@ import ImageComponent from '../../commons/ImageComponent.jsx';
 const ArticleDetail = ({ article }) => {
   const [isScraped, setIsScraped] = useState(false);
 
-  const formattedDate = format(new Date(article.wroteAt), 'yyyy/MM/dd HH:mm:ss');
-
   const handleScrap = () => {
     const name = sessionStorage.getItem('name');
     if (name !== null) {
@@ -44,7 +42,7 @@ const ArticleDetail = ({ article }) => {
             <div className="mt-4 text-gray-500">
               <span className="mr-2">{article.copyRight || '한겨레'}</span>
               <span className="mr-2">|</span>
-              <span className="mr-2">{formattedDate}</span>
+              <span className="mr-2">{format(new Date(article.wroteAt), 'yyyy/MM/dd HH:mm:ss')}</span>
             </div>
           </div>
           {/* 스크랩 버튼 */}

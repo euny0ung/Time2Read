@@ -1,3 +1,4 @@
+import { format } from 'date-fns';
 import ImageComponent from '../../commons/ImageComponent.jsx';
 import Tooltip from '../../commons/Tooltip.jsx';
 
@@ -15,7 +16,7 @@ const ProgressBar = ({ relatedArticles, currentStep, goToStep, setIsToggleOn, ti
             >
               <div
                 key={article.id}
-                className={`truncate cursor-pointer ${i === currentStep ? 'text-teal-900' : 'text-white'}`}
+                className={`truncate cursor-pointer text-xl font-bold ${i === currentStep ? 'text-teal-900' : 'text-white'}`}
                 onClick={() => {
                   goToStep(i);
                   setIsToggleOn(true);
@@ -29,7 +30,7 @@ const ProgressBar = ({ relatedArticles, currentStep, goToStep, setIsToggleOn, ti
                 role="button"
                 tabIndex={0}
               >
-                {article.wroteAt.substring(0, 4)}
+                {format(new Date(article.wroteAt), 'yyyy')}
               </div>
             </Tooltip>
           );
@@ -51,7 +52,7 @@ const ProgressBar = ({ relatedArticles, currentStep, goToStep, setIsToggleOn, ti
           >
             <div
               key={article.id}
-              className={`absolute top-0.5 z-10 flex items-center justify-center w-4 h-4 transform -translate-y-1/2 rounded-full ${i < currentStep ? 'bg-teal-300' : 'bg-white'} ${i === currentStep ? 'bg-teal-800' : ''}`}
+              className={`absolute top-0.5 z-10 flex items-center justify-center w-4 h-4 transform -translate-y-1/2 rounded-full ${i < currentStep ? 'bg-teal-300' : 'bg-white'} ${i === currentStep ? 'bg-teal-700' : ''}`}
               style={{
                 left: `calc(${(i / (relatedArticles.length - 1)) * 100}% - 0.5rem)`,
               }}
@@ -82,7 +83,7 @@ const ProgressBar = ({ relatedArticles, currentStep, goToStep, setIsToggleOn, ti
             >
               <div
                 key={article.id}
-                className={`truncate cursor-pointer flex-grow flex-shrink ${i === currentStep ? 'text-teal-900' : 'text-white'}`}
+                className={`truncate cursor-pointer flex-grow flex-shrink text-lg font-bold ${i === currentStep ? 'text-teal-900' : 'text-white'}`}
                 style={{ maxWidth: titleMaxWidth }}
                 onClick={() => {
                   goToStep(i);

@@ -149,7 +149,6 @@ const ResultPage = () => {
               {/* leftbox */}
               <div className="flex flex-col justify-between gap-6 md:w-2/6" style={{ rightboxWidth }} ref={leftboxRef}>
                 {/* 맞은 개수 통계 */}
-
                 <WhiteContainer>
                   <ResultTitle title={'맞은 개수 통계'} />
                   <ResultContent>
@@ -162,18 +161,18 @@ const ResultPage = () => {
                 </WhiteContainer>
 
                 {/* 타임 어택 시간 */}
-
                 <WhiteContainer>
                   <ResultTitle title={'타임 어택 시간'} />
-                  <ResultContent>
+                  <div className="flex items-center justify-center h-[80%] text-6xl font-bold">
                     {gameResult.timeAttackTime ? (
                       <div>{formatTime(600 - gameResult.timeAttackTime)}</div>
                     ) : (
-                      <div> 00:10:00 </div>
+                      <div> 10:00 </div>
                     )}
-                  </ResultContent>
+                  </div>
                 </WhiteContainer>
               </div>
+
               {/* rightbox */}
               <div
                 className="flex justify-center w-full h-full md:w-4/6 transition-width transition-height"
