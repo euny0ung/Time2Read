@@ -1,5 +1,5 @@
 import os
-
+import pendulum
 from airflow.operators.python import PythonOperator
 from airflow import DAG
 from datetime import datetime, timedelta
@@ -175,11 +175,11 @@ def run():
         file_name = f'article_{current_time}.csv'
         upload_csv_to_s3(datetime.now(), file_name, df)
 
-
+local_tz = pendulum.timezone("Asia/Seoul")
 default_args={
     'owner':'lmw',
     'depends_on_past':False,
-    'start_date': datetime(2024, 3, 28), #DAG 시작날짜
+    'start_date': datetime(2024, 3, 28, tzinfo=local_tz), #DAG 시작날짜
     'retries': 0, # 작업 실패시 재시도 횟수
     'retry_delay': timedelta(minutes=5), #재시도 사이 대기 시간
 }
