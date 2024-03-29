@@ -15,22 +15,6 @@ import Dropdown from '../components/commons/Dropdown.jsx';
 
 const OPTIONS = Array.from({ length: 2024 - 2005 + 1 }, (v, k) => `${2024 - k}`);
 
-const SelectBox = ({ options, handleSelect, selected, defaultValue }) => (
-  <div className="relative inline-block text-left">
-    <select
-      onChange={handleSelect}
-      value={selected}
-      className="block w-full px-4 py-2 text-base font-normal text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-    >
-      {options.map((option) => (
-        <option key={option} value={option} defaultValue={defaultValue === option.defaultValue}>
-          {option}
-        </option>
-      ))}
-    </select>
-  </div>
-);
-
 const useQuizApiHandler = (selected) => {
   const navigate = useNavigate();
   const { setQuiz } = useQuizStore();
@@ -57,10 +41,6 @@ const LandingPage = () => {
   const [selected, setSelected] = useState('2024');
   const quizzes = useQuizStore((state) => state.quizzes);
 
-  const handleSelect = (e) => {
-    setSelected(e.target.value);
-  };
-
   const handleQuizApi = useQuizApiHandler(selected);
 
   // test
@@ -68,18 +48,26 @@ const LandingPage = () => {
     console.log(quizzes);
   }, [quizzes]);
 
+  // 텍스트를 분리하여 각 글자에 <span> 태그 적용
+  const title = 'Time 2 Read';
+  const animatedTitle = title.split('').map((char, index) => (
+    <span key={index} className="letter" style={{ animationDelay: `${0.1 * index}s` }}>
+      {char}
+    </span>
+  ));
+
   return (
     <>
-      <div className="flex flex-col items-center justify-center min-h-screen p-4 bg-gray-50">
+      <div
+        className="flex flex-col items-center justify-center min-h-screen p-4 bg-gradient-to-br from-primary-red-1 to-primary-teal-1"
+        id="top"
+      >
         <div className="px-4 py-2 text-blue-700 bg-blue-100 rounded">
           <KakaoLogin />
         </div>
-        <br />
-        원래의 드롭다운입니다...
-        <SelectBox options={OPTIONS} handleSelect={handleSelect} selected={selected} />
-        <br />
-        <br />
-        이 길쭉한 것은...새로 만든 드롭다운입니다...
+        <button onClick={handleQuizApi} className="main">
+          <div>{animatedTitle}</div>
+        </button>
         <Dropdown options={OPTIONS} selected={selected} setSelected={setSelected} />
         <br />
         <button

@@ -40,14 +40,14 @@ const Dropdown = ({ options, selected, setSelected }) => {
       {/* 선택한 옵션 */}
       <button
         onClick={toggleDropdown}
-        className="inline-flex justify-between w-48 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        className="inline-flex justify-between w-48 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-teal"
       >
         <span>{selected}</span>
         {/* 화살표 */}
         <svg
           className={`w-5 h-5 ml-2 -mr-1 transform transition-transform duration-300 ${isOpen ? 'rotate-180' : 'rotate-0'}`}
           viewBox="0 0 20 20"
-          fill="currentColor"
+          fill="#2BBAB4"
         >
           <path
             fillRule="evenodd"
