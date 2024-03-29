@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getYearSummary, postGameResult } from '../apis/resultApi.jsx';
-import ResultButton from '../components/commons/buttons/ResultButton.jsx';
 import TopButton from '../components/commons/buttons/TopButton.jsx';
 import TranslucentContainer from '../components/commons/containers/TranslucentContainer.jsx';
 import WhiteContainer from '../components/commons/containers/WhiteContainer.jsx';
@@ -10,6 +9,7 @@ import ResultTitle from '../components/commons/ResultTitle.jsx';
 import { formatTime } from '../components/game/Timer.jsx';
 import Articles from '../components/result/Articles.jsx';
 import Keyword from '../components/result/Keyword.jsx';
+import PageMovingButton from '../components/result/PageMovingButtons.jsx';
 import {
   useGameResultStore,
   useGameModalStore,
@@ -127,6 +127,7 @@ const ResultPage = () => {
   return (
     <>
       <TopButton />
+      <PageMovingButton navigateToLandingPage={navigateToLandingPage} navigateToMyPage={navigateToMyPage} />
       <div className="min-h-screen bg-gradient-to-br from-primary-red-1 to-primary-teal-1" id="top">
         <div className="w-full max-w-[90%] lg:max-w-[60%] md:max-w-[75%] mx-auto ">
           <h1>결과페이지</h1>
@@ -179,19 +180,6 @@ const ResultPage = () => {
                 </div>
               </div>
             </TranslucentContainer>
-            {/* buttonbox */}
-            <div className="flex flex-col items-center w-full gap-6 justify-evenly md:flex-row">
-              <button onClick={navigateToLandingPage}>
-                <ResultButton>
-                  <ResultTitle title={'다시 시계토끼 쫓아가기'} />
-                </ResultButton>
-              </button>
-              <button onClick={navigateToMyPage}>
-                <ResultButton>
-                  <ResultTitle title={'내 정보 더 자세하게 보기'} />
-                </ResultButton>
-              </button>
-            </div>
             <TranslucentContainer>
               <ResultTitle title={'과거와 연결된 기사'} />
               <Articles />
