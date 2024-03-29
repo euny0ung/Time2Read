@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 
-const Dropdown = ({ options, selected, setSelected }) => {
+const Dropdown = ({ options, selected, handleSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef(null);
   const contentRef = useRef(null);
@@ -10,7 +10,7 @@ const Dropdown = ({ options, selected, setSelected }) => {
 
   // 옵션 선택
   const handleSelectOption = (option) => {
-    setSelected(option); // 선택한 옵션을 상위 컴포넌트로 전달
+    handleSelect(option); // 선택한 옵션을 상위 컴포넌트로 전달
     setIsOpen(false); // 드롭다운 닫기
   };
 

@@ -43,9 +43,9 @@ const LandingPage = () => {
   const quizzes = useQuizStore((state) => state.quizzes);
   const setGameYear = checkGameYearStore((state) => state.setGameYear);
 
-  const handleSelect = (e) => {
-    setSelected(e.target.value);
-    setGameYear(e.target.value);
+  const handleSelect = (selectedOption) => {
+    setSelected(selectedOption);
+    setGameYear(selectedOption);
   };
 
   const handleQuizApi = useQuizApiHandler(selected);
@@ -75,7 +75,7 @@ const LandingPage = () => {
         <button onClick={handleQuizApi} className="main">
           <div>{animatedTitle}</div>
         </button>
-        <Dropdown options={OPTIONS} selected={selected} setSelected={setSelected} />
+        <Dropdown options={OPTIONS} selected={selected} handleSelect={handleSelect} />
         <br />
         <button
           onClick={handleQuizApi}
