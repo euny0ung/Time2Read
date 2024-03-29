@@ -55,7 +55,7 @@ const QuizModal = React.memo(
           if (it.quiz.quizType === 'OX_QUIZ') {
             return renderQuiz('OX퀴즈', {
               component: OxQuiz,
-              componentProps: { answer: it.quiz.answer, mainCategory: it.mainCategory },
+              componentProps: { answer: it.quiz.answer, mainCategory: it.mainCategory, id: it.id },
             });
           }
           if (it.quiz.quizType === 'MULTIPLE_CHOICE') {
@@ -65,6 +65,7 @@ const QuizModal = React.memo(
                 answer: it.quiz.answer,
                 choices: it.quiz.additionalInfo.choices,
                 mainCategory: it.mainCategory,
+                id: it.id,
               },
             });
           }
@@ -77,14 +78,14 @@ const QuizModal = React.memo(
             const anagram = FisherYatesShuffle(it.quiz.answer);
             return renderQuiz('애너그램', {
               component: AnagramQuiz,
-              componentProps: { answer: it.quiz.answer, anagram, mainCategory: it.mainCategory },
+              componentProps: { answer: it.quiz.answer, anagram, mainCategory: it.mainCategory, id: it.id },
             });
           }
           // 1이면 단답식
 
           return renderQuiz('단답식', {
             component: ShortAnswerQuiz,
-            componentProps: { answer: it.quiz.answer, mainCategory: it.mainCategory },
+            componentProps: { answer: it.quiz.answer, mainCategory: it.mainCategory, id: it.id },
           });
         })}
       </div>

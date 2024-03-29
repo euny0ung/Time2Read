@@ -16,12 +16,12 @@ const reducer = (state, action) => {
   }
 };
 
-const ChoiceQuiz = ({ answer, choices, mainCategory }) => {
+const ChoiceQuiz = ({ answer, choices, mainCategory, id }) => {
   const [state, dispatch] = useReducer(reducer, inputChoiceState);
 
   const handleChoiceSelect = (choiceIndex, choiceValue) => {
     dispatch({ type: 'SELECT_CHOICE', payload: choiceIndex });
-    handleAnswerCheck(choiceValue, answer, mainCategory, () => dispatch({ type: 'RESET_INPUT' }));
+    handleAnswerCheck(choiceValue, answer, mainCategory, () => dispatch({ type: 'RESET_INPUT' }), id);
   };
 
   return (
