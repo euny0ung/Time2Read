@@ -11,21 +11,10 @@ import KakaoLogin from '@components/kakao/KakaoLogin';
 import { useQuizStore } from '@stores/game/quizStore.jsx';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Dropdown from '../components/commons/Dropdown.jsx';
 import { checkGameYearStore } from '../stores/game/gameStore.jsx';
 
 const OPTIONS = Array.from({ length: 2024 - 2005 + 1 }, (v, k) => `${2024 - k}`);
-
-const SelectBox = ({ options, handleSelect, selected, defaultValue }) => {
-  return (
-    <select onChange={handleSelect} value={selected}>
-      {options.map((option) => (
-        <option key={option} value={option} defaultValue={defaultValue === option.defaultValue}>
-          {option}
-        </option>
-      ))}
-    </select>
-  );
-};
 
 const useQuizApiHandler = (selected) => {
   const navigate = useNavigate();
@@ -54,9 +43,9 @@ const LandingPage = () => {
   const quizzes = useQuizStore((state) => state.quizzes);
   const { gameYear, setGameYear } = checkGameYearStore();
 
-  const handleSelect = (e) => {
-    setSelected(e.target.value);
-    setGameYear(e.target.value);
+  const handleSelect = (selectedOption) => {
+    setSelected(selectedOption);
+    setGameYear(selectedOption);
   };
 
   const handleQuizApi = useQuizApiHandler(selected);
@@ -66,14 +55,34 @@ const LandingPage = () => {
     console.log(quizzes);
   }, [quizzes]);
 
+  // 텍스트를 분리하여 각 글자에 <span> 태그 적용
+  const title = 'Time 2 Read';
+  const animatedTitle = title.split('').map((char, index) => (
+    <span key={index} className="letter" style={{ animationDelay: `${0.1 * index}s` }}>
+      {char}
+    </span>
+  ));
+
   return (
     <>
-      <KakaoLogin />
-      <div>
-        <SelectBox options={OPTIONS} handleSelect={handleSelect} selected={selected} />
-      </div>
-      <div>
-        <button onClick={handleQuizApi}>입장하기</button>
+      <div
+        className="flex flex-col items-center justify-center min-h-screen p-4 bg-gradient-to-br from-primary-red-1 to-primary-teal-1"
+        id="top"
+      >
+        <div className="px-4 py-2 text-blue-700 bg-blue-100 rounded">
+          <KakaoLogin />
+        </div>
+        <button onClick={handleQuizApi} className="main">
+          <div>{animatedTitle}</div>
+        </button>
+        <Dropdown options={OPTIONS} selected={selected} handleSelect={handleSelect} />
+        <br />
+        <button
+          onClick={handleQuizApi}
+          className="px-4 py-2 mt-4 font-semibold text-white rounded bg-primary-teal hover:bg-primary-teal-3 focus:outline-none focus:ring-2 focus:ring-primary-teal-3 focus:ring-offset-2"
+        >
+          입장하기
+        </button>
       </div>
     </>
   );
