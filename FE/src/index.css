@@ -44,13 +44,13 @@
 
 /* 스크롤바 핸들 */
 .dropdown-scrollbar::-webkit-scrollbar-thumb {
-  background: #888; /* 스크롤바 핸들의 색상 */
+  background: #A4E3D6; /* 스크롤바 핸들의 색상 */
   border-radius: 4px; /* 스크롤바 핸들의 모서리 둥글기 */
 }
 
 /* 스크롤바 핸들:hover */
 .dropdown-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #555; /* 스크롤바 핸들의 색상: hover 상태 */
+  background: #2BBAB4; /* 스크롤바 핸들의 색상: hover 상태 */
 }
 
 /* 스크롤바 트랙 */
@@ -64,11 +64,11 @@
   transition: all 0.5s;
   -webkit-text-stroke: 4px #EEFCFB;
   font-variation-settings: "wght" 900, "ital" 1;
-  font-size: 11rem;
+  font-size: 8rem;
   text-align: center;
   color: transparent;
   font-family: "Meta", sans-serif;
-  text-shadow: 10px 10px 0px #2BBAB4;
+  text-shadow: 6px 6px 0px #2BBAB4;
   cursor: pointer;
 }
 

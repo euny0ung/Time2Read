@@ -72,7 +72,7 @@ const LandingPage = () => {
         <br />
         <button
           onClick={handleQuizApi}
-          className="px-4 py-2 mt-4 font-semibold text-white bg-blue-500 rounded hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+          className="px-4 py-2 mt-4 font-semibold text-white rounded bg-primary-teal hover:bg-primary-teal-3 focus:outline-none focus:ring-2 focus:ring-primary-teal-3 focus:ring-offset-2"
         >
           입장하기
         </button>

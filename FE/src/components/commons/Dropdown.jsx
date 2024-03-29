@@ -36,11 +36,11 @@ const Dropdown = ({ options, selected, setSelected }) => {
   }, [isOpen]);
 
   return (
-    <div className="relative inline-block text-left" ref={dropdownRef}>
+    <div className="relative inline-block text-left w-[30vw]" ref={dropdownRef}>
       {/* 선택한 옵션 */}
       <button
         onClick={toggleDropdown}
-        className="inline-flex justify-between w-48 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-teal"
+        className="inline-flex items-center justify-center w-full px-4 py-2 text-lg font-medium text-gray-700 bg-white border border-gray-300 shadow-sm bg-opacity-70 rounded-3xl hover:bg-gray-50 focus:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary-teal"
       >
         <span>{selected}</span>
         {/* 화살표 */}
@@ -58,14 +58,14 @@ const Dropdown = ({ options, selected, setSelected }) => {
       </button>
       {/* 선택할 수 있는 옵션들 */}
       <div
-        className={`absolute right-0 z-10 w-48 mt-2 origin-top-right transition-all duration-500 ease-in-out overflow-hidden ${isOpen ? 'max-h-60' : 'max-h-0'}`}
+        className={`absolute right-0 z-10 w-full mt-2 origin-top-right transition-all duration-500 ease-in-out overflow-hidden ${isOpen ? 'max-h-60' : 'max-h-0'}`}
         ref={contentRef}
       >
         <div className="py-1 bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg max-h-[15rem] overflow-y-auto dropdown-scrollbar">
           {options.map((option) => (
             <button
               key={option}
-              className="block w-full px-4 py-2 text-sm text-gray-700 transition-colors duration-200 hover:bg-gray-100"
+              className="block w-full px-4 py-2 text-lg text-gray-700 transition-colors duration-200 hover:bg-primary-teal-1"
               onClick={() => handleSelectOption(option)}
             >
               {option}
