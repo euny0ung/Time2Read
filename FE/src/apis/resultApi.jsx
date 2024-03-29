@@ -18,7 +18,7 @@ export const getYearSummary = (year) => {
 // 과거와 연결된 기사
 export const postRelationArticles = (articleIds) => {
   const apiUrl = `${baseUrl}/result/related`;
-
+  console.log(articleIds);
   return axios
     .post(apiUrl, { id: articleIds })
     .then((response) => {
