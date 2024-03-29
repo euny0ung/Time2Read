@@ -223,7 +223,6 @@ const MyPage = () => {
             <TranslucentContainer>
               <ResultTitle title={'스크랩한 기사'} />
               <WhiteContainer>
-                스크랩한 기사 컴포넌트를 여기에 넣자..
                 <Cards data={categoriesData} />
               </WhiteContainer>
             </TranslucentContainer>
