@@ -8,7 +8,7 @@ import WhiteContainer from '../components/commons/containers/WhiteContainer.jsx'
 import ResultContent from '../components/commons/ResultContent.jsx';
 import ResultTitle from '../components/commons/ResultTitle.jsx';
 import { formatTime } from '../components/game/Timer.jsx';
-import Articles from '../components/result/Articles.jsx';
+import Articles from '../components/result/article/Articles.jsx';
 import Keyword from '../components/result/Keyword.jsx';
 import PageMovingButton from '../components/result/PageMovingButtons.jsx';
 import {
