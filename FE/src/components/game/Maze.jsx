@@ -14,6 +14,7 @@ import {
   HeartQueen,
   Rabbit,
   Finish,
+  Start,
 } from './Asset.jsx';
 import Clues from './Clues.jsx';
 import Lifes from './Lifes.jsx';
@@ -105,6 +106,7 @@ const MazeModel = () => {
       {heartQueenVisible && <HeartQueen />}
       {rabbitVisible && <Rabbit />}
       <Finish />
+      <Start />
       <Clues cluePositions={randomCluePositions} />
       <Lifes lifePositions={randomLifePositions} />
     </>

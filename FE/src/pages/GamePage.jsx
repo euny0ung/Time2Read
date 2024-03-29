@@ -52,8 +52,9 @@ const GamePage = () => {
       <div className="w-screen h-screen overflow-hidden">
         <Canvas camera={{ position: [0, 10, 0] }}>
           {/* 환경 설정 */}
-          <PointerLockControls pointerSpeed={0.2} enabled={isPointerLockEnabled} />
-          <ambientLight intensity={0.5} />
+          <PointerLockControls pointerSpeed={0.3} enabled={isPointerLockEnabled} />
+          {/* <ambientLight intensity={0.5} /> */}
+          <ambientLight intensity={1} />
           <pointLight position={[10, 10, 10]} />
           <gridHelper args={[50, 100]} />
           {/* 물리 엔진 적용 */}
