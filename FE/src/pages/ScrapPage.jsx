@@ -10,7 +10,6 @@ const categoriesData = [
         subCategory: 'Community',
         title: 'The Power of Community Support',
         wroteAt: '2023-03-25T15:00:00',
-        image: 'https://example.com/images/community-support.jpg',
         summary: 'Exploring how community support can make a big difference in times of need.',
       },
       {
@@ -19,7 +18,23 @@ const categoriesData = [
         subCategory: 'Activism',
         title: 'Rising Trends in Social Activism',
         wroteAt: '2023-04-01T10:30:00',
-        image: 'https://example.com/images/social-activism.jpg',
+        summary: 'A look at how social activism has evolved in the digital age.',
+      },
+      {
+        id: '22',
+        mainCategory: 'Social',
+        subCategory: 'Activism',
+        title: 'Rising Trends in Social Activism',
+        wroteAt: '2023-04-01T10:30:00',
+        summary: 'A look at how social activism has evolved in the digital age.',
+      },
+      {
+        id: '23',
+        mainCategory: 'Social',
+        subCategory: 'Activism',
+        title: 'Rising Trends in Social Activism',
+        wroteAt: '2023-04-01T10:30:00',
+        image: '',
         summary: 'A look at how social activism has evolved in the digital age.',
       },
     ],
@@ -32,7 +47,7 @@ const categoriesData = [
         subCategory: 'Elections',
         title: 'The Impact of Social Media on Elections',
         wroteAt: '2023-02-20T09:20:00',
-        image: 'https://example.com/images/social-media-elections.jpg',
+        image: '',
         summary: 'Analyzing the role of social media in shaping political campaigns and voter opinions.',
       },
       {
@@ -41,7 +56,7 @@ const categoriesData = [
         subCategory: 'International Relations',
         title: 'Recent Developments in International Relations',
         wroteAt: '2023-03-15T14:45:00',
-        image: 'https://example.com/images/international-relations.jpg',
+        image: '',
         summary: 'Insights into the latest trends and challenges in international relations.',
       },
     ],
@@ -54,7 +69,7 @@ const categoriesData = [
         subCategory: 'Innovation',
         title: 'Innovations That Could Change the World',
         wroteAt: '2023-04-05T16:00:00',
-        image: 'https://example.com/images/tech-innovations.jpg',
+        image: '',
         summary: 'Exploring groundbreaking technological innovations that have the potential to impact our future.',
       },
       {
@@ -63,7 +78,7 @@ const categoriesData = [
         subCategory: 'Cybersecurity',
         title: 'The Future of Cybersecurity',
         wroteAt: '2023-03-30T11:00:00',
-        image: 'https://example.com/images/cybersecurity-future.jpg',
+        image: '',
         summary:
           'Understanding the evolving landscape of cybersecurity and what it means for personal and national security.',
       },
@@ -74,7 +89,10 @@ const categoriesData = [
 const ScrapPage = () => {
   return (
     <>
-      <Cards data={categoriesData} />
+      <div className="p-6">
+        <h1>스크랩페이지</h1>
+        <Cards data={categoriesData} />
+      </div>
     </>
   );
 };
