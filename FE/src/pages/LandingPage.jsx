@@ -12,6 +12,7 @@ import { useQuizStore } from '@stores/game/quizStore.jsx';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Dropdown from '../components/commons/Dropdown.jsx';
+import { checkGameYearStore } from '../stores/game/gameStore.jsx';
 
 const OPTIONS = Array.from({ length: 2024 - 2005 + 1 }, (v, k) => `${2024 - k}`);
 
@@ -40,6 +41,12 @@ const useQuizApiHandler = (selected) => {
 const LandingPage = () => {
   const [selected, setSelected] = useState('2024');
   const quizzes = useQuizStore((state) => state.quizzes);
+  const { gameYear, setGameYear } = checkGameYearStore();
+
+  const handleSelect = (e) => {
+    setSelected(e.target.value);
+    setGameYear(e.target.value);
+  };
 
   const handleQuizApi = useQuizApiHandler(selected);
 

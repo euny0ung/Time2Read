@@ -18,7 +18,7 @@ export const getYearSummary = (year) => {
 // 과거와 연결된 기사
 export const postRelationArticles = (articleIds) => {
   const apiUrl = `${baseUrl}/result/related`;
-
+  console.log(articleIds);
   return axios
     .post(apiUrl, { id: articleIds })
     .then((response) => {
@@ -31,6 +31,7 @@ export const postRelationArticles = (articleIds) => {
     });
 };
 
+// 게임 결과를 post하는 API
 export const postGameResult = (resultData) => {
   const apiUrl = `${baseUrl}/my/result`;
 
