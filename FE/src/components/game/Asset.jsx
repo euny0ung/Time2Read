@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useGLTF } from '@react-three/drei';
+import { useGLTF, Box } from '@react-three/drei';
 import { RigidBody } from '@react-three/rapier';
 
 export const Cat = () => {
@@ -163,22 +163,47 @@ export const Rabbit = () => {
 export const Finish = () => {
   return (
     <>
-      <RigidBody name="endPoint" mass={1000000}>
+      <RigidBody name="endPoint" type="fixed">
         <mesh position={[0.85, 1.51, 11]}>
           <boxGeometry args={[1.3, 3, 0.2]} />
           <meshStandardMaterial color={0xff0000} transparent opacity={0.5} />
         </mesh>
       </RigidBody>
-      <RigidBody name="endPoint" mass={1000000}>
+      <RigidBody name="endPoint" type="fixed">
         <mesh position={[1.6, 1.51, 10.6]}>
           <boxGeometry args={[0.1, 3, 1]} />
           <meshStandardMaterial color={0xff0000} transparent opacity={0.5} />
         </mesh>
       </RigidBody>
-      <RigidBody name="endPoint" mass={1000000}>
+      <RigidBody name="endPoint" type="fixed">
         <mesh position={[0.1, 1.51, 10.6]}>
           <boxGeometry args={[0.1, 3, 1]} />
           <meshStandardMaterial color={0xff0000} transparent opacity={0.5} />
+        </mesh>
+      </RigidBody>
+    </>
+  );
+};
+
+export const Start = () => {
+  return (
+    <>
+      <RigidBody type="fixed">
+        <mesh position={[-0.85, 1.51, -15]}>
+          <boxGeometry args={[1.3, 3, 0.2]} />
+          <meshStandardMaterial color={0xff0000} transparent opacity={0} />
+        </mesh>
+      </RigidBody>
+      <RigidBody type="fixed">
+        <mesh position={[-1.6, 1.51, -12.6]}>
+          <boxGeometry args={[0.1, 3, 5]} />
+          <meshStandardMaterial color={0xff0000} transparent opacity={0} />
+        </mesh>
+      </RigidBody>
+      <RigidBody type="fixed">
+        <mesh position={[-0.1, 1.51, -12.6]}>
+          <boxGeometry args={[0.1, 3, 5]} />
+          <meshStandardMaterial color={0xff0000} transparent opacity={0} />
         </mesh>
       </RigidBody>
     </>
