@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const Card = ({ image, title, mainCategory, subCategory, summary }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -13,7 +13,7 @@ const Card = ({ image, title, mainCategory, subCategory, summary }) => {
     >
       {image ? (
         <div
-          className={`w-full h-full border-4 overflow-hidden rounded-lg transition-transform duration-300 ease-in-out transform ${
+          className={`w-full h-full  overflow-hidden rounded-lg transition-transform duration-300 ease-in-out transform ${
             isHovered ? 'scale-110' : 'scale-100'
           }`}
         >
