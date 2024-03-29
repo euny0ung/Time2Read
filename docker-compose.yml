@@ -42,3 +42,7 @@ services:
       dockerfile: "Dockerfile"
     ports:
       - "5173:5173"
+    environment:
+      - VITE_BASE_API=${VITE_BASE_API}
+      - VITE_KAKAO_API=${VITE_KAKAO_API}
+      - VITE_KAKAO_REDIRECT_URI=${VITE_KAKAO_REDIRECT_URI}
