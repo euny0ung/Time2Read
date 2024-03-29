@@ -100,3 +100,9 @@ export const checkGameYearStore = create((set) => ({
   setGameYear: (value) => set({ gameYear: value }),
   reset: () => set({ gameYear: 2024 }),
 }));
+
+export const useResultDataStore = create((set) => ({
+  resultData: {},
+  setResultData: (data) => set({ resultData: data }),
+  reset: () => set({ resultData: {} }),
+}));
