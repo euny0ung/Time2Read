@@ -18,6 +18,7 @@ import {
   checkCollidedStore,
   checkGameSuccessStore,
   checkGameYearStore,
+  useResultDataStore,
 } from '../stores/game/gameStore.jsx';
 import { useHitsCategoryStore } from '../stores/game/quizStore.jsx';
 
@@ -37,7 +38,8 @@ const ResultPage = () => {
   const [keywordHeight, setKeywordHeight] = useState(0);
   const { hitsCategory } = useHitsCategoryStore();
   const { isSucceed, setIsSucceed } = checkGameSuccessStore();
-  const { gameYear, setGameYear } = checkGameYearStore();
+  const gameYear = checkGameYearStore((state) => state.gameYear);
+  const setResultData = useResultDataStore((state) => state.setResultData);
 
   // Json 형식의 파일을 만들어줘야 하는데 왜 자동저장하면 이렇게 되어버리지
   const resultData = {
@@ -70,6 +72,9 @@ const ResultPage = () => {
     useGameItemStore.getState().reset();
     useVisibilityStore.getState().reset();
     checkCollidedStore.getState().reset();
+    checkGameSuccessStore.getState().reset();
+    checkGameYearStore.getState().reset();
+    useResultDataStore.getState().reset();
   };
 
   const navigateToLandingPage = () => {
@@ -80,7 +85,8 @@ const ResultPage = () => {
   const navigateToMyPage = () => {
     const name = sessionStorage.getItem('name');
 
-    if (name) {
+    if (name !== null) {
+      setResultData(resultData);
       postGameResult(resultData);
       navigate('/mypage');
     } else {
