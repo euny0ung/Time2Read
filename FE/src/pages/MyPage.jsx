@@ -16,9 +16,94 @@ import ResultContent from '../components/commons/ResultContent.jsx';
 import ResultTitle from '../components/commons/ResultTitle.jsx';
 import { formatTime } from '../components/game/Timer.jsx';
 import Badges from '../components/my/badge/Badges.jsx';
-import Book from '../components/my/book/Book.jsx';
-import Newspaper from '../components/my/newspaper/Newspaper.jsx';
+import Cards from '../components/my/card/Cards.jsx';
 import RadarChart from '../components/my/RadarChart.jsx';
+
+// 테스트 데이터
+const categoriesData = [
+  {
+    social: [
+      {
+        id: '1',
+        mainCategory: 'Social',
+        subCategory: 'Community',
+        title: 'The Power of Community Support',
+        wroteAt: '2023-03-25T15:00:00',
+        summary: 'Exploring how community support can make a big difference in times of need.',
+      },
+      {
+        id: '2',
+        mainCategory: 'Social',
+        subCategory: 'Activism',
+        title: 'Rising Trends in Social Activism',
+        wroteAt: '2023-04-01T10:30:00',
+        summary: 'A look at how social activism has evolved in the digital age.',
+      },
+      {
+        id: '22',
+        mainCategory: 'Social',
+        subCategory: 'Activism',
+        title: 'Rising Trends in Social Activism',
+        wroteAt: '2023-04-01T10:30:00',
+        summary: 'A look at how social activism has evolved in the digital age.',
+      },
+      {
+        id: '23',
+        mainCategory: 'Social',
+        subCategory: 'Activism',
+        title: 'Rising Trends in Social Activism',
+        wroteAt: '2023-04-01T10:30:00',
+        image: '',
+        summary: 'A look at how social activism has evolved in the digital age.',
+      },
+    ],
+  },
+  {
+    politics: [
+      {
+        id: '3',
+        mainCategory: 'Politics',
+        subCategory: 'Elections',
+        title: 'The Impact of Social Media on Elections',
+        wroteAt: '2023-02-20T09:20:00',
+        image: '',
+        summary: 'Analyzing the role of social media in shaping political campaigns and voter opinions.',
+      },
+      {
+        id: '4',
+        mainCategory: 'Politics',
+        subCategory: 'International Relations',
+        title: 'Recent Developments in International Relations',
+        wroteAt: '2023-03-15T14:45:00',
+        image: '',
+        summary: 'Insights into the latest trends and challenges in international relations.',
+      },
+    ],
+  },
+  {
+    technology: [
+      {
+        id: '5',
+        mainCategory: 'Technology',
+        subCategory: 'Innovation',
+        title: 'Innovations That Could Change the World',
+        wroteAt: '2023-04-05T16:00:00',
+        image: '',
+        summary: 'Exploring groundbreaking technological innovations that have the potential to impact our future.',
+      },
+      {
+        id: '6',
+        mainCategory: 'Technology',
+        subCategory: 'Cybersecurity',
+        title: 'The Future of Cybersecurity',
+        wroteAt: '2023-03-30T11:00:00',
+        image: '',
+        summary:
+          'Understanding the evolving landscape of cybersecurity and what it means for personal and national security.',
+      },
+    ],
+  },
+];
 
 const MyPage = () => {
   const [timeRecords, setTimeRecords] = useState([]);
@@ -131,7 +216,10 @@ const MyPage = () => {
             {/* 스크랩한 기사 scapedArticlebox */}
             <TranslucentContainer>
               <ResultTitle title={'스크랩한 기사'} />
-              <WhiteContainer>스크랩한 기사 컴포넌트를 여기에 넣자..</WhiteContainer>
+              <WhiteContainer>
+                스크랩한 기사 컴포넌트를 여기에 넣자..
+                <Cards data={categoriesData} />
+              </WhiteContainer>
             </TranslucentContainer>
             {/* 다시 시계토끼 쫓아가기 */}
             <div className="flex justify-end w-full">
