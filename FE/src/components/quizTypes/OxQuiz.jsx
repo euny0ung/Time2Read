@@ -17,11 +17,11 @@ const reducer = (state, action) => {
 };
 
 // OX 컴포넌트
-const OxQuiz = ({ answer, mainCategory }) => {
+const OxQuiz = ({ answer, mainCategory, id }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const handleOxSelect = (oxValue) => {
-    handleAnswerCheck(oxValue, answer, mainCategory, () => dispatch({ type: 'RESET_INPUT' }));
+    handleAnswerCheck(oxValue, answer, mainCategory, () => dispatch({ type: 'RESET_INPUT' }), id);
   };
 
   return (

@@ -17,15 +17,15 @@ const reducer = (state, action) => {
 };
 
 // 객관식 문제에서 엔터 누를 시 정답 체크
-const handleEnter = (e, answer, mainCategory, dispatch) => {
+const handleEnter = (e, answer, mainCategory, dispatch, id) => {
   if (e.key === 'Enter') {
     e.preventDefault();
-    handleAnswerCheck(e.target.value, answer, mainCategory, () => dispatch({ type: 'RESET_INPUT' }));
+    handleAnswerCheck(e.target.value, answer, mainCategory, () => dispatch({ type: 'RESET_INPUT' }), id);
   }
 };
 
 // 단답식 컴포넌트
-const ShortAnswerQuiz = ({ answer, mainCategory }) => {
+const ShortAnswerQuiz = ({ answer, mainCategory, id }) => {
   const [state, dispatch] = useReducer(reducer, initialInputState);
 
   const handleChange = (e) => {
@@ -39,7 +39,7 @@ const ShortAnswerQuiz = ({ answer, mainCategory }) => {
         className="border-2 border-black-500 text-stone-950"
         value={state.selected}
         onChange={handleChange}
-        onKeyDown={(e) => handleEnter(e, answer, mainCategory, dispatch)}
+        onKeyDown={(e) => handleEnter(e, answer, mainCategory, dispatch, id)}
       />
     </div>
   );

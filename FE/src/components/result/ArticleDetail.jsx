@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { putArticleStatus } from '@apis/myApi';
 import { format } from 'date-fns';
 import AfterScrap from '../../assets/scrap/afterScrap.png';
 import BeforeScrap from '../../assets/scrap/beforeScap.png';
@@ -12,7 +13,17 @@ const ArticleDetail = ({ article }) => {
 
   const handleScrap = (event) => {
     event.stopPropagation(); // 이벤트 버블링을 방지
-    setIsScraped((prevState) => !prevState);
+
+    const name = sessionStorage.getItem('name');
+    if (name !== null) {
+      // 로그인 했다면
+      putArticleStatus(article.id, !isScraped).then(() => {
+        setIsScraped((prevState) => !prevState);
+      });
+    } else {
+      // 로그인 하지 않은 경우
+      console.log('로그인이 필요해요');
+    }
   };
 
   return (
