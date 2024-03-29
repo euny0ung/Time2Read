@@ -5,6 +5,9 @@ import {
   useGameItemStore,
   useVisibilityStore,
   checkCollidedStore,
+  checkGameSuccessStore,
+  checkGameYearStore,
+  useResultDataStore,
 } from '@stores/game/gameStore';
 import { format } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
@@ -43,6 +46,9 @@ const MyPage = () => {
     useGameItemStore.getState().reset();
     useVisibilityStore.getState().reset();
     checkCollidedStore.getState().reset();
+    checkGameSuccessStore.getState().reset();
+    checkGameYearStore.getState().reset();
+    useResultDataStore.getState().reset();
   };
   const navigateToLandingPage = () => {
     resetGame();
