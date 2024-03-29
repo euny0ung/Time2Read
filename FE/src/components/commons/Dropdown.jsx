@@ -61,10 +61,7 @@ const Dropdown = ({ options, selected, setSelected }) => {
         className={`absolute right-0 z-10 w-48 mt-2 origin-top-right transition-all duration-500 ease-in-out overflow-hidden ${isOpen ? 'max-h-60' : 'max-h-0'}`}
         ref={contentRef}
       >
-        <div
-          className="py-1 bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg dropdown-scrollbar"
-          style={{ maxHeight: '15rem', overflowY: 'auto' }}
-        >
+        <div className="py-1 bg-white border border-gray-200 divide-y divide-gray-100 rounded-md shadow-lg max-h-[15rem] overflow-y-auto dropdown-scrollbar">
           {options.map((option) => (
             <button
               key={option}
