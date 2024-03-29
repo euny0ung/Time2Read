@@ -1,4 +1,3 @@
-import os
 import pendulum
 from airflow.operators.python import PythonOperator
 from airflow import DAG
@@ -27,7 +26,7 @@ def upload_csv_to_s3(upload_date, file_name, df_item):
 
     folder_key = f"{upload_date.year}-{upload_date.month:02d}-{upload_date.day:02d}/"
     csv_buffer = StringIO()
-    df_item.to_csv(csv_buffer)
+    df_item.to_csv(csv_buffer, index=False, encoding='utf-8')
     s3.put_object(Body=csv_buffer.getvalue(),
                   Bucket='hani-news',
                   Key=folder_key + file_name
@@ -141,7 +140,6 @@ def extract_article_info(url, year, month, day):
     return news_info
 
 def run():
-    access_key, secret_key = s3_config()
     date = datetime.now() - timedelta(days=1)
     # 전역변수 선언
     article_data = []
@@ -171,8 +169,10 @@ def run():
         if not article_data: continue
         df = pd.DataFrame(article_data)
         # print(df)
-        current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        local_tz = pendulum.timezone("Asia/Seoul")
+        current_time = pendulum.now(local_tz).strftime("%Y-%m-%d_%H-%M-%S")
         file_name = f'article_{current_time}.csv'
+        print(file_name)
         upload_csv_to_s3(datetime.now(), file_name, df)
 
 local_tz = pendulum.timezone("Asia/Seoul")
