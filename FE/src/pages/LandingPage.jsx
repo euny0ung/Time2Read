@@ -75,16 +75,12 @@ const LandingPage = () => {
           <KakaoLogin />
         </div>
         <br />
-        <br />
-        <br />
         원래의 드롭다운입니다...
         <SelectBox options={OPTIONS} handleSelect={handleSelect} selected={selected} />
         <br />
         <br />
-        <br />
         이 길쭉한 것은...새로 만든 드롭다운입니다...
-        <Dropdown options={OPTIONS} />
-        <br />
+        <Dropdown options={OPTIONS} selected={selected} setSelected={setSelected} />
         <br />
         <button
           onClick={handleQuizApi}
