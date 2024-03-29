@@ -1,55 +1,80 @@
-import { useState } from 'react';
-import ArticleStack from '../components/my/card/ArticleStack.jsx';
+import Cards from '../components/my/card/Cards.jsx';
 
-// ScrapPage 컴포넌트
+// 테스트 데이터
+const categoriesData = [
+  {
+    social: [
+      {
+        id: '1',
+        mainCategory: 'Social',
+        subCategory: 'Community',
+        title: 'The Power of Community Support',
+        wroteAt: '2023-03-25T15:00:00',
+        image: 'https://example.com/images/community-support.jpg',
+        summary: 'Exploring how community support can make a big difference in times of need.',
+      },
+      {
+        id: '2',
+        mainCategory: 'Social',
+        subCategory: 'Activism',
+        title: 'Rising Trends in Social Activism',
+        wroteAt: '2023-04-01T10:30:00',
+        image: 'https://example.com/images/social-activism.jpg',
+        summary: 'A look at how social activism has evolved in the digital age.',
+      },
+    ],
+  },
+  {
+    politics: [
+      {
+        id: '3',
+        mainCategory: 'Politics',
+        subCategory: 'Elections',
+        title: 'The Impact of Social Media on Elections',
+        wroteAt: '2023-02-20T09:20:00',
+        image: 'https://example.com/images/social-media-elections.jpg',
+        summary: 'Analyzing the role of social media in shaping political campaigns and voter opinions.',
+      },
+      {
+        id: '4',
+        mainCategory: 'Politics',
+        subCategory: 'International Relations',
+        title: 'Recent Developments in International Relations',
+        wroteAt: '2023-03-15T14:45:00',
+        image: 'https://example.com/images/international-relations.jpg',
+        summary: 'Insights into the latest trends and challenges in international relations.',
+      },
+    ],
+  },
+  {
+    technology: [
+      {
+        id: '5',
+        mainCategory: 'Technology',
+        subCategory: 'Innovation',
+        title: 'Innovations That Could Change the World',
+        wroteAt: '2023-04-05T16:00:00',
+        image: 'https://example.com/images/tech-innovations.jpg',
+        summary: 'Exploring groundbreaking technological innovations that have the potential to impact our future.',
+      },
+      {
+        id: '6',
+        mainCategory: 'Technology',
+        subCategory: 'Cybersecurity',
+        title: 'The Future of Cybersecurity',
+        wroteAt: '2023-03-30T11:00:00',
+        image: 'https://example.com/images/cybersecurity-future.jpg',
+        summary:
+          'Understanding the evolving landscape of cybersecurity and what it means for personal and national security.',
+      },
+    ],
+  },
+];
+
 const ScrapPage = () => {
-  const [hoverIndex, setHoverIndex] = useState(null);
-
-  const handleHoverChange = (hover, index) => {
-    setHoverIndex(hover ? index : null);
-  };
-
-  // 상대적 위치에 따라 스타일 결정
-  const getStyle = (i) => {
-    if (i === hoverIndex) {
-      return { zIndex: 2, transform: 'scale(1)', transition: 'all 0.3s ease' }; // 활성화된 스택 확대
-    }
-    if (hoverIndex !== null) {
-      // 행과 열의 차이를 계산하여 방향 결정
-      const rowDiff = Math.floor(i / 3) - Math.floor(hoverIndex / 3);
-      const colDiff = (i % 3) - (hoverIndex % 3);
-      let transformValue = '';
-
-      if (rowDiff < 0) transformValue += 'translateY(-20%) ';
-      else if (rowDiff > 0) transformValue += 'translateY(20%) ';
-
-      if (colDiff < 0) transformValue += 'translateX(-20%)';
-      else if (colDiff > 0) transformValue += 'translateX(20%)';
-
-      return { transform: transformValue.trim(), transition: 'transform 0.3s ease' };
-    }
-    return { transition: 'transform 0.3s ease' }; // 호버 아닌 경우 원상태로
-  };
-
   return (
     <>
-      <div className="grid grid-cols-3 gap-2">
-        {[...Array(6)].map((_, i) => (
-          <div
-            key={i}
-            style={{
-              ...getStyle(i),
-              padding: 0, // 여백을 줄입니다.
-              margin: 0, // 외부 여백을 줄일 수 있습니다.
-            }}
-            className="flex items-center justify-center border-4 border-emerald-300"
-            onMouseEnter={() => handleHoverChange(true, i)}
-            onMouseLeave={() => handleHoverChange(false)}
-          >
-            <ArticleStack />
-          </div>
-        ))}
-      </div>
+      <Cards data={categoriesData} />
     </>
   );
 };

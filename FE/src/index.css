@@ -13,3 +13,18 @@
     background-position: 0% 50%;
   }
 }
+
+
+/* text drag Highlight */
+::selection {
+  background-color: #ffa19f3e;
+}
+
+/* text highlighter effect */
+.highlighter {
+  @apply bg-gradient-to-r from-yellow-200 via-yellow-400 to-yellow-600;
+  background-position: 0 calc(100% - 2px);
+  background-size: 0 14px;
+  background-repeat: no-repeat;
+  transition: background-size 0.3s;
+}
