@@ -88,3 +88,15 @@ export const checkCollidedStore = create((set) => ({
   setCollidedItem: (value) => set({ collidedItem: value }),
   reset: () => set({ collidedItem: [] }),
 }));
+
+export const checkGameSuccessStore = create((set) => ({
+  isSucceed: false,
+  setIsSucceed: (value) => set({ isSuccess: value }),
+  reset: () => set({ isSuccess: false }),
+}));
+
+export const checkGameYearStore = create((set) => ({
+  gameYear: 2024,
+  setGameYear: (value) => set({ gameYear: value }),
+  reset: () => set({ gameYear: 2024 }),
+}));

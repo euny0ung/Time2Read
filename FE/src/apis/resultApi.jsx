@@ -31,6 +31,7 @@ export const postRelationArticles = (articleIds) => {
     });
 };
 
+// 게임 결과를 post하는 API
 export const postGameResult = (resultData) => {
   const apiUrl = `${baseUrl}/my/result`;
 
