@@ -41,6 +41,7 @@ export const postGameResult = (resultData) => {
       console.log('게임 결과 Post 성공');
     })
     .catch((error) => {
+      console.log('게임결과 post 실패');
       console.log('Error requesting data: ', error);
       throw error;
     });
