@@ -34,7 +34,7 @@ services:
       - MYSQL_USERNAME=${MYSQL_USER}
       - OPENAI_FINETUING_MODEL=${OPENAI_FINETUING_MODEL}
       - OPENAI_KEY=${OPENAI_KEY}
-      - OPENAI.CHAT_URL=${OPENAI.CHAT_URL}
+      - OPENAI_CHAT_URL=${OPENAI_CHAT_URL}
     ports:
       - "8081:8081"
     command: sh -c 'if [ -e /app.jar ]; then java -jar /app.jar --spring.profiles.active=production; else echo "app.jar not found, skipping execution"; fi'
