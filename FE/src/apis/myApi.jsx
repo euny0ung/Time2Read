@@ -69,7 +69,7 @@ export const getArticleDetail = (articleId) => {
 
 // 스크랩 상태 변경
 export const putArticleStatus = (articleId, status) => {
-  const apiUrl = `${baseUrl}/scraped-article/${articleId}/${status}`;
+  const apiUrl = `${baseUrl}/scraped-articles/${articleId}/${status}`;
 
   return axios
     .get(apiUrl)
