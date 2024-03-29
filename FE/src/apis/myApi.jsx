@@ -72,7 +72,7 @@ export const putArticleStatus = (articleId, status) => {
   const apiUrl = `${baseUrl}/scraped-articles/${articleId}/${status}`;
 
   return axios
-    .get(apiUrl)
+    .put(apiUrl)
     .then((response) => response.data)
     .catch((error) => {
       console.error('Error requesting data:', error);
