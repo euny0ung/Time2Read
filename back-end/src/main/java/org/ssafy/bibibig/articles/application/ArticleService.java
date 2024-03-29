@@ -1,5 +1,6 @@
 package org.ssafy.bibibig.articles.application;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,9 +12,9 @@ import org.ssafy.bibibig.articles.dto.CategoryType;
 import org.ssafy.bibibig.articles.dto.KeywordTerms;
 import org.ssafy.bibibig.common.dto.ErrorCode;
 import org.ssafy.bibibig.common.exception.CommonException;
-import org.ssafy.bibibig.quiz.dto.KeywordQuiz;
-import org.ssafy.bibibig.quiz.dto.MultipleChoiceQuiz;
-import org.ssafy.bibibig.quiz.dto.Quiz;
+import org.ssafy.bibibig.quiz.dto.*;
+import org.ssafy.bibibig.quiz.dto.response.OXQuizQuestion;
+import org.ssafy.bibibig.quiz.utils.OpenAIUtils;
 import org.ssafy.bibibig.quiz.utils.QuizUtils;
 
 import java.util.*;
@@ -27,6 +28,7 @@ public class ArticleService {
 
     private final ArticleRepository articleRepository;
     private final QuizUtils quizUtils;
+    private final OpenAIUtils openAIUtils;
 
     public Article findById(String id) {
         return getArticleEntityOrThrowException(id);
@@ -34,6 +36,10 @@ public class ArticleService {
 
     public List<KeywordTerms> getTopKeywordsByYear(int year) {
         return articleRepository.getTopKeywordsByYear(year);
+    }
+
+    public Article getRandomArticleByYearAndCategory(int year, int size, CategoryType category){
+        return Article.from(articleRepository.getRandomArticleByYearAndCategory(year, size, category));
     }
 
     public ArticleWithQuiz getArticleWithKeywordQuiz(Article article, CategoryType category) {
@@ -48,6 +54,7 @@ public class ArticleService {
                                                                                 String answer, List<String> choice) {
         return ArticleWithQuiz.from(category, article, makeMultipleChoiceQuiz(article, answer, choice));
     }
+
 
     // 사용 안함
     public List<ArticleWithQuiz> getArticleWithQuizzes(int year) {
@@ -141,19 +148,50 @@ public class ArticleService {
         return result;
     }
 
-   /* public List<ArticleWithQuiz> getSecondArticleWithQuizzes(int year) {
-        List<ArticleWithQuiz> result = new ArrayList<>();
-        List<CategoryType> categories = secondCategory();
+    public List<ArticleWithQuiz> getQuizzesWithOX(int year){
+
+        // 카테고리 렌덤 뽑기
+        int quizCount = 4;
+
+        List<Article> articles = new ArrayList<>();
+        List<String> summaries = new ArrayList<>();
+        List<CategoryType> categories = secondCategory(quizCount);
+
+        Map<String, List<CategoryType>> grouping = categories
+                .stream()
+                .collect(Collectors.groupingBy(CategoryType::getName));
 
         for (CategoryType category : categories) {
-            List<KeywordTerms> keywords = getTopKeywordsByYearAndCategory(year, category, 1);
-            for (KeywordTerms keyword : keywords) {
-                Article article = getRandomArticleByYearAndCategoryAndKeyword(year, category, keyword.word());
-                result.add(getArticleWithQuiz(article, category));
-            }
+            int size = grouping.getOrDefault(category.getName(), List.of()).size();
+
+            if (size == 0) continue;
+
+            Article article = getRandomArticleByYearAndCategory(year, size, category);
+
+            articles.add(article);
+            summaries.add(article.summary());
+        }
+
+        System.out.println("---------------1---------------------" + summaries.size());
+//        System.out.println("summaries :" + summaries.toString());
+        List<OXQuizQuestion> quizzes = null;
+        try {
+            quizzes = openAIUtils.generateOXQuiz(summaries);
+            System.out.println("quizzes: "+ quizzes);
+
+        } catch (JsonProcessingException e) {
+            System.out.println("퀴즈 널");
+            throw new RuntimeException(e);
+        }
+        System.out.println("-----------------------------");
+
+        List<ArticleWithQuiz> result = new ArrayList<>();
+        for(int i=0;i<4;i++){
+            OXQuiz quiz = new OXQuiz(QuizType.OX, quizzes.get(i).question(),quizzes.get(i).answer(), null);
+            result.add(ArticleWithQuiz.from(categories.get(i), articles.get(i), quiz));
         }
         return result;
-    }*/
+    }
 
     private List<KeywordTerms> getTopKeywordsByYearAndCategory(int year, CategoryType categoryType) {
         return articleRepository.getTopKeywordsByYearAndCategory(year, categoryType);
@@ -256,10 +294,10 @@ public class ArticleService {
     }
 
     // 랜덤 카테고리 - 4개
-    private List<CategoryType> secondCategory() {
+    private List<CategoryType> secondCategory(int size) {
         List<CategoryType> categoryList = new ArrayList<>();
         Random random = new Random();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < size; i++) {
             int randomIdx = random.nextInt(CategoryType.values().length);
             categoryList.add(CategoryType.values()[randomIdx]);
         }
