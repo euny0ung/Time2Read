@@ -4,7 +4,12 @@ import { useFrame } from '@react-three/fiber';
 import { RigidBody, useRapier } from '@react-three/rapier';
 import { Vector3 } from 'three';
 import usePersonControls from '../../hooks/usePersonControls.jsx';
-import { useGameModalStore, useGameItemStore } from '../../stores/game/gameStore.jsx';
+import {
+  useGameModalStore,
+  useGameItemStore,
+  useVisibilityStore,
+  checkCollidedStore,
+} from '../../stores/game/gameStore.jsx';
 
 const MOVE_SPEED = 3;
 const JUMP_FORCE = 10;
@@ -20,7 +25,7 @@ const sideVector = new Vector3();
 // 미로 벽 막혔는지 테스트할 용도로 만들어놓은 빨간 큐브. 방향키로 움직일 수 있음
 const Player = () => {
   const playerRef = useRef(null);
-  const [collidedItem, setCollidedItem] = useState([]);
+  const { collidedItem, setCollidedItem } = checkCollidedStore();
   const {
     isBumped,
     openQuizModal,
@@ -31,15 +36,27 @@ const Player = () => {
     setOpenGameOverModal,
     setGameOver,
   } = useGameModalStore();
-  const { clueCount, lifeCount, setClueCount, setLifeCount } = useGameItemStore();
+  const { lifeCount, increaseLifeCount, increaseClueCount } = useGameItemStore();
   const { forward, backward, left, right, jump } = usePersonControls();
+  const {
+    setCatVisible,
+    setDoorKnobVisible,
+    setDodoBirdVisible,
+    setCaterpillarVisible,
+    setCheshireCatVisible,
+    setRoseVisible,
+    setFlamingoVisible,
+    setCardSoldierVisible,
+    setHeartQueenVisible,
+    setRabbitVisible,
+  } = useVisibilityStore();
   const rapier = useRapier();
   const assetArray = [
     'cat',
     'doorKnob',
     'dodoBird',
     'caterpillar',
-    'chesireCat',
+    'cheshireCat',
     'rose',
     'flamingo',
     'cardSoldier',
@@ -49,8 +66,22 @@ const Player = () => {
 
   const showModal = () => {
     if (isBumped && !openQuizModal) {
+      document.exitPointerLock();
       setOpenQuizModal(true);
     }
+  };
+
+  const showAsset = (name) => {
+    if (name === 'cat') setCatVisible(false);
+    if (name === 'doorKnob') setDoorKnobVisible(false);
+    if (name === 'dodoBird') setDodoBirdVisible(false);
+    if (name === 'caterpillar') setCaterpillarVisible(false);
+    if (name === 'cheshireCat') setCheshireCatVisible(false);
+    if (name === 'rose') setRoseVisible(false);
+    if (name === 'flamingo') setFlamingoVisible(false);
+    if (name === 'cardSoldier') setCardSoldierVisible(false);
+    if (name === 'heartQueen') setHeartQueenVisible(false);
+    if (name === 'rabbit') setRabbitVisible(false);
   };
 
   useEffect(() => {
@@ -76,6 +107,7 @@ const Player = () => {
 
   useFrame((state) => {
     if (!playerRef.current) return;
+    if (openQuizModal) return;
 
     // 상하좌우
     const velocity = playerRef.current.linvel();
@@ -92,7 +124,6 @@ const Player = () => {
     playerRef.current.setLinvel({ x: direction.x, y: velocity.y, z: direction.z });
 
     // 점프(플레이어의 위치에서 아래로 향하는 광선을 발사하여 그라운드 체크-> 광선이 지면과 충돌한다면? 플레이어는 점프를 할 수 있는 상태)
-    // 지금 지면이 여기에 정의되어있지 않아서 점프 안 먹는 중;; 짱나네
     const { world } = rapier;
     const ray = world.castRay(new RAPIER.Ray(playerRef.current.translation(), { x: 0, y: -1, z: 0 }));
     const grounded = ray && ray.collider && Math.abs(ray.toi) <= 1;
@@ -105,7 +136,7 @@ const Player = () => {
 
     // 카메라 위치 조정
     const { x, y, z } = playerRef.current.translation();
-    state.camera.position.set(x - 4, y + 1, z - 13);
+    state.camera.position.set(x - 1, y + 1, z - 13);
   });
 
   return (
@@ -120,23 +151,25 @@ const Player = () => {
           const target = other.rigidBodyObject;
 
           if (!collidedItem.includes(target.uuid)) {
-            setCollidedItem((prevItems) => [...prevItems, target.uuid]);
+            // setCollidedItem((prevItems) => [...prevItems, target.uuid]);
+            const updateCollision = [...collidedItem, target.uuid];
+            setCollidedItem(updateCollision);
             if (assetArray.includes(target.name)) {
               setBumped(true);
+              showAsset(target.name);
             }
             if (target.name === 'endPoint') {
               setGameOver(true);
             }
             if (target.name === 'clue') {
-              setClueCount(clueCount + 1);
-              // 충돌 이후 사라지게 하는 로직 추가 필요
+              increaseClueCount();
               if (target.parent) {
                 target.parent.remove(target);
               }
               target.remove();
             }
             if (target.name === 'life') {
-              setLifeCount(lifeCount + 1);
+              increaseLifeCount();
               if (target.parent) {
                 target.parent.remove(target);
               }
@@ -151,7 +184,7 @@ const Player = () => {
           }
         }}
       >
-        <mesh position={[-4, 0, -13]}>
+        <mesh position={[-1, 0, -13]}>
           <boxGeometry args={[0.6, 0.6, 0.6]} />
           <meshStandardMaterial color="red" />
         </mesh>

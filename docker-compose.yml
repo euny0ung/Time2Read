@@ -33,6 +33,7 @@ services:
       - MYSQL_USERNAME=${MYSQL_USER}
     ports:
       - "8081:8081"
+    command: sh -c 'if [ -e /app.jar ]; then java -jar /app.jar --spring.profiles.active=production; else echo "app.jar not found, skipping execution"; fi'
     restart: always
   bibibig-frontend:
     container_name: "bibibig-frontend"
@@ -41,3 +42,7 @@ services:
       dockerfile: "Dockerfile"
     ports:
       - "5173:5173"
+    environment:
+      - VITE_BASE_API=${VITE_BASE_API}
+      - VITE_KAKAO_API=${VITE_KAKAO_API}
+      - VITE_KAKAO_REDIRECT_URI=${VITE_KAKAO_REDIRECT_URI}
