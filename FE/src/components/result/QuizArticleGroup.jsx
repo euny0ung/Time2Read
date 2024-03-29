@@ -25,7 +25,7 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
     setCurrentStep(stepIndex);
   };
 
-  const hadleToggle = () => {
+  const handleToggle = () => {
     setIsToggleOn((prevState) => !prevState);
   };
 
@@ -196,7 +196,7 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
             </div>
           </div>
           {/* 토글 버튼 */}
-          <button className="flex flex-col items-center w-full py-3 rounded-b-lg cursor-pointer" onClick={hadleToggle}>
+          <button className="flex flex-col items-center w-full py-3 rounded-b-lg cursor-pointer" onClick={handleToggle}>
             <img className="h-4" src={isToggleOn ? CloseToggle : OpenToggle} alt="Toggle Icon" />
           </button>
         </div>

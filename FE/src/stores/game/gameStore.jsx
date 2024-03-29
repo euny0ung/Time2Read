@@ -1,23 +1,6 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 
-// -------------- 객체 템플릿 --------------
-
-// 기사 템플릿 객체
-const articleTemplate = {
-  id: '',
-  copyRight: '',
-  mainCategory: '',
-  subCategory: '',
-  time: '',
-  title: '',
-  image: '',
-  imageCaption: '',
-  content: '',
-  summary: '',
-  url: '',
-};
-
 // -------------- 상태 관리 --------------
 
 // 유저가 게임에서 도전한(정답,오답 모두 포함한) 퀴즈의 기사 아이디들 (퀴즈 푼 순서대로 배열에 저장)
