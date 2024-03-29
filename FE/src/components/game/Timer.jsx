@@ -35,7 +35,7 @@ const Timer = () => {
 
   return (
     <>
-      <div className="absolute top-2.5 left-3 bg-gray-500 text-white font-bold py-2 px-4 rounded hover:bg-gray-700 focus:outline-none focus:shadow-outline">
+      <div className="absolute top-[1.2rem] left-3 bg-gray-500 text-white font-bold py-2 px-4 rounded hover:bg-gray-700 focus:outline-none focus:shadow-outline">
         남은 시간 : {formatTime(gameResult.timeAttackTime)}
       </div>
     </>

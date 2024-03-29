@@ -25,6 +25,7 @@ const sideVector = new Vector3();
 // 미로 벽 막혔는지 테스트할 용도로 만들어놓은 빨간 큐브. 방향키로 움직일 수 있음
 const Player = () => {
   const playerRef = useRef(null);
+  const [initialCameraPositionSet, setInitialCameraPositionSet] = useState(false);
   const { collidedItem, setCollidedItem } = checkCollidedStore();
   const {
     isBumped,
@@ -137,6 +138,11 @@ const Player = () => {
     // 카메라 위치 조정
     const { x, y, z } = playerRef.current.translation();
     state.camera.position.set(x - 1, y + 1, z - 13);
+
+    if (!initialCameraPositionSet) {
+      state.camera.lookAt(-0.8, 0.2, -10);
+      setInitialCameraPositionSet(true);
+    }
   });
 
   return (

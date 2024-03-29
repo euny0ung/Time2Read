@@ -14,7 +14,9 @@ const KakaoLogin = () => {
   const resultData = useResultDataStore((state) => state.resultData);
 
   const onMyPage = () => {
-    postGameResult(resultData);
+    // 음 지금 여기서 로그인하고 바로 resultData를 post하게 되면
+    // 빈 resultData를 post하는 경우도 발생 가능
+    // postGameResult(resultData);
     navigate('/mypage');
   };
 
