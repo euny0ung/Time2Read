@@ -7,7 +7,6 @@ export default {
         primary: {
           red: {
             DEFAULT: '#FFA19F',
-            0: '#FBEDF0',
             1: '#FDB9AE',
             2: '#FE8E8C',
             3: '#FF7465',
@@ -15,14 +14,12 @@ export default {
           },
           teal: {
             DEFAULT: '#2BBAB4',
-            0: '#EEFCFB',
             1: '#D3FFEE',
             2: '#A4E3D6',
             3: '#249593',
           },
           yellow: {
             DEFAULT: '#FEFEC3',
-            0: '#FBFAEA',
             1: '#E3F1BE',
             2: '#C0CFA4',
           },
