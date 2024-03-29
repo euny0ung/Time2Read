@@ -26,6 +26,8 @@ const reducer = (state, action) => {
 
       return { ...state, inputAnswer: updatedInput };
     }
+    case 'RESET_INPUT':
+      return inputInitialState;
     default:
       return state;
   }
@@ -46,7 +48,7 @@ const AnagramQuiz = ({ answer, anagram, mainCategory }) => {
     if (state.inputAnswer.length === answer.length) {
       const result = state.inputAnswer.map((input) => input.clickValue).join('');
 
-      handleAnswerCheck(result, answer, mainCategory);
+      handleAnswerCheck(result, answer, mainCategory, () => dispatch({ type: 'RESET_INPUT' }));
     }
   }, [state.inputAnswer]);
 
