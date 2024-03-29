@@ -11,6 +11,7 @@ import KakaoLogin from '@components/kakao/KakaoLogin';
 import { useQuizStore } from '@stores/game/quizStore.jsx';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import BodyContainer from '../components/commons/containers/BodyContainer.jsx';
 import Dropdown from '../components/commons/Dropdown.jsx';
 import { checkGameYearStore } from '../stores/game/gameStore.jsx';
 
@@ -65,25 +66,24 @@ const LandingPage = () => {
 
   return (
     <>
-      <div
-        className="flex flex-col items-center justify-center min-h-screen p-4 bg-gradient-to-br from-primary-red-1 to-primary-teal-1"
-        id="top"
-      >
-        <div className="px-4 py-2 text-blue-700 bg-blue-100 rounded">
-          <KakaoLogin />
+      <BodyContainer>
+        <div className="flex flex-col items-center justify-center h-[100vh] p-4">
+          <div className="px-4 py-2 text-blue-700 bg-blue-100 rounded">
+            <KakaoLogin />
+          </div>
+          <button onClick={handleQuizApi} className="main">
+            <div>{animatedTitle}</div>
+          </button>
+          <Dropdown options={OPTIONS} selected={selected} handleSelect={handleSelect} />
+          <br />
+          <button
+            onClick={handleQuizApi}
+            className="px-4 py-2 mt-4 font-semibold text-white rounded bg-primary-teal hover:bg-primary-teal-3 focus:outline-none focus:ring-2 focus:ring-primary-teal-3 focus:ring-offset-2"
+          >
+            입장하기
+          </button>
         </div>
-        <button onClick={handleQuizApi} className="main">
-          <div>{animatedTitle}</div>
-        </button>
-        <Dropdown options={OPTIONS} selected={selected} handleSelect={handleSelect} />
-        <br />
-        <button
-          onClick={handleQuizApi}
-          className="px-4 py-2 mt-4 font-semibold text-white rounded bg-primary-teal hover:bg-primary-teal-3 focus:outline-none focus:ring-2 focus:ring-primary-teal-3 focus:ring-offset-2"
-        >
-          입장하기
-        </button>
-      </div>
+      </BodyContainer>
     </>
   );
 };
