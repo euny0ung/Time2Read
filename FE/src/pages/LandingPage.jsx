@@ -41,7 +41,7 @@ const useQuizApiHandler = (selected) => {
 const LandingPage = () => {
   const [selected, setSelected] = useState('2024');
   const quizzes = useQuizStore((state) => state.quizzes);
-  const { gameYear, setGameYear } = checkGameYearStore();
+  const setGameYear = checkGameYearStore((state) => state.setGameYear);
 
   const handleSelect = (e) => {
     setSelected(e.target.value);
