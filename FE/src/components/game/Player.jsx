@@ -25,7 +25,6 @@ const sideVector = new Vector3();
 // 미로 벽 막혔는지 테스트할 용도로 만들어놓은 빨간 큐브. 방향키로 움직일 수 있음
 const Player = () => {
   const playerRef = useRef(null);
-  // const [collidedItem, setCollidedItem] = useState([]);
   const { collidedItem, setCollidedItem } = checkCollidedStore();
   const {
     isBumped,
@@ -125,7 +124,6 @@ const Player = () => {
     playerRef.current.setLinvel({ x: direction.x, y: velocity.y, z: direction.z });
 
     // 점프(플레이어의 위치에서 아래로 향하는 광선을 발사하여 그라운드 체크-> 광선이 지면과 충돌한다면? 플레이어는 점프를 할 수 있는 상태)
-    // 지금 지면이 여기에 정의되어있지 않아서 점프 안 먹는 중;; 짱나네
     const { world } = rapier;
     const ray = world.castRay(new RAPIER.Ray(playerRef.current.translation(), { x: 0, y: -1, z: 0 }));
     const grounded = ray && ray.collider && Math.abs(ray.toi) <= 1;
@@ -138,8 +136,7 @@ const Player = () => {
 
     // 카메라 위치 조정
     const { x, y, z } = playerRef.current.translation();
-    state.camera.position.set(x - 4, y + 1, z - 13);
-    // state.camera.position.set(x + 1, y + 1, z + 15);
+    state.camera.position.set(x - 1, y + 1, z - 13);
   });
 
   return (
@@ -166,13 +163,6 @@ const Player = () => {
             }
             if (target.name === 'clue') {
               increaseClueCount();
-              // 충돌 이후 사라지게 하는 로직 추가 필요
-              // 아직 안먹은 애면?
-              // if (!usedClueList.includes(target.cid)) {
-              //   // 먹게 해야지
-              //   console.log('아직 안먹은 target의 cid: ', target.cid);
-              //   setUsedClueList([...usedClueList, target.cid]);
-              // }
               if (target.parent) {
                 target.parent.remove(target);
               }
@@ -194,8 +184,7 @@ const Player = () => {
           }
         }}
       >
-        <mesh position={[-4, 0, -13]}>
-          {/* <mesh position={[1, 0, 15]}> */}
+        <mesh position={[-1, 0, -13]}>
           <boxGeometry args={[0.6, 0.6, 0.6]} />
           <meshStandardMaterial color="red" />
         </mesh>

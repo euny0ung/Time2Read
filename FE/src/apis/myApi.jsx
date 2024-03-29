@@ -40,3 +40,42 @@ export const getBadge = () => {
       throw error;
     });
 };
+
+// 스크랩한 기사 리스트 보기
+export const getScrapArticles = () => {
+  const apiUrl = `${baseUrl}/my/scraped-articles`;
+
+  return axios
+    .get(apiUrl)
+    .then((response) => response.data)
+    .catch((error) => {
+      console.error('Error requesting data:', error);
+      throw error;
+    });
+};
+
+// 스크랩한 기사 상세보기
+export const getArticleDetail = (articleId) => {
+  const apiUrl = `${baseUrl}/scraped-article/${articleId}`;
+
+  return axios
+    .get(apiUrl)
+    .then((response) => response.data)
+    .catch((error) => {
+      console.error('Error requesting data:', error);
+      throw error;
+    });
+};
+
+// 스크랩 상태 변경
+export const putArticleStatus = (articleId, status) => {
+  const apiUrl = `${baseUrl}/scraped-article/${articleId}/${status}`;
+
+  return axios
+    .get(apiUrl)
+    .then((response) => response.data)
+    .catch((error) => {
+      console.error('Error requesting data:', error);
+      throw error;
+    });
+};

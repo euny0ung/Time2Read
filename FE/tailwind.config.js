@@ -35,7 +35,7 @@ export default {
           DEFAULT: '#212529',
         },
         white: {
-          DEFAULT: '#FFFFF5',
+          DEFAULT: '#FAFAFA', // 애플 백그라운드 컬러 참고
         },
         light: {
           text: {

@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { useGameModalStore, useGameItemStore, useGameResultStore } from './gameStore.jsx';
+import { useGameModalStore, useGameItemStore, useGameResultStore, useChallengedArticleStore } from './gameStore.jsx';
 
 export const useQuizStore = create((set) => ({
   quizzes: [],
@@ -41,12 +41,15 @@ export const useClueStateStore = create((set) => ({
   setShowClueState: () => set((state) => ({ showClueState: !state.showClueState })),
 }));
 
-export const handleAnswerCheck = (inputValue, answer, mainCategory) => {
+export const handleAnswerCheck = (inputValue, answer, mainCategory, dispatch, id) => {
   const { gameResult, setGameResult } = useGameResultStore.getState();
   const answerCheckStore = useAnswerCheckStore.getState();
   const gameModalStore = useGameModalStore.getState();
   const gameItemStore = useGameItemStore.getState();
   const hitsCategoryStore = useHitsCategoryStore.getState();
+  const { setChallengeArticlesIdList } = useChallengedArticleStore.getState();
+
+  setChallengeArticlesIdList(id);
 
   if (inputValue === answer) {
     const prevResult = { ...gameResult };
@@ -59,6 +62,7 @@ export const handleAnswerCheck = (inputValue, answer, mainCategory) => {
     answerCheckStore.actions.setResultState('정답입니다');
     answerCheckStore.actions.setQuizIndex();
   } else {
+    dispatch({ type: 'RESET_INPUT' });
     gameModalStore.setBumped(false);
     answerCheckStore.actions.setResultState('오답입니다');
     gameItemStore.decreaseLifeCount();
