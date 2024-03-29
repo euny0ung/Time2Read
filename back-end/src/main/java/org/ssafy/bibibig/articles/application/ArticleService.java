@@ -2,6 +2,7 @@ package org.ssafy.bibibig.articles.application;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.ssafy.bibibig.articles.dao.ArticleRepository;
@@ -24,6 +25,7 @@ import java.util.stream.IntStream;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
+@Slf4j
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
@@ -38,7 +40,7 @@ public class ArticleService {
         return articleRepository.getTopKeywordsByYear(year);
     }
 
-    public Article getRandomArticleByYearAndCategory(int year, int size, CategoryType category){
+    public Article getRandomArticleByYearAndCategory(int year, int size, CategoryType category) {
         return Article.from(articleRepository.getRandomArticleByYearAndCategory(year, size, category));
     }
 
@@ -51,7 +53,7 @@ public class ArticleService {
     }
 
     public ArticleWithQuiz getArticleWithMultipleChoiceQuiz(Article article, CategoryType category,
-                                                                                String answer, List<String> choice) {
+                                                            String answer, List<String> choice) {
         return ArticleWithQuiz.from(category, article, makeMultipleChoiceQuiz(article, answer, choice));
     }
 
@@ -148,7 +150,7 @@ public class ArticleService {
         return result;
     }
 
-    public List<ArticleWithQuiz> getQuizzesWithOX(int year){
+    public List<ArticleWithQuiz> getQuizzesWithOX(int year) {
 
         // 카테고리 렌덤 뽑기
         int quizCount = 4;
@@ -172,22 +174,17 @@ public class ArticleService {
             summaries.add(article.summary());
         }
 
-        System.out.println("---------------1---------------------" + summaries.size());
-//        System.out.println("summaries :" + summaries.toString());
         List<OXQuizQuestion> quizzes = null;
         try {
             quizzes = openAIUtils.generateOXQuiz(summaries);
-            System.out.println("quizzes: "+ quizzes);
 
         } catch (JsonProcessingException e) {
-            System.out.println("퀴즈 널");
-            throw new RuntimeException(e);
+            throw new CommonException(ErrorCode.INTERNAL_SERVER_ERROR, String.format("quizzes is null"));
         }
-        System.out.println("-----------------------------");
 
         List<ArticleWithQuiz> result = new ArrayList<>();
-        for(int i=0;i<4;i++){
-            OXQuiz quiz = new OXQuiz(QuizType.OX, quizzes.get(i).question(),quizzes.get(i).answer(), null);
+        for (int i = 0; i < 4; i++) {
+            OXQuiz quiz = new OXQuiz(QuizType.OX, quizzes.get(i).question(), quizzes.get(i).answer(), null);
             result.add(ArticleWithQuiz.from(categories.get(i), articles.get(i), quiz));
         }
         return result;
