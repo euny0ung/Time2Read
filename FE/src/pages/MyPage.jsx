@@ -12,6 +12,7 @@ import {
 import { format } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
 import { getTimeRecords, getSolved, getScrapArticles, getArticleDetail, putArticleStatus } from '../apis/myApi.jsx';
+import PageMovingButton from '../components/commons/buttons/PageMovingButtons.jsx';
 import ResultButton from '../components/commons/buttons/ResultButton.jsx';
 import BodyContainer from '../components/commons/containers/BodyContainer.jsx';
 import TranslucentContainer from '../components/commons/containers/TranslucentContainer.jsx';
@@ -181,6 +182,13 @@ const MyPage = () => {
 
   return (
     <>
+      <div className="fixed z-10 flex flex-col right-5 top-5">
+        <PageMovingButton
+          onClick={navigateToLandingPage}
+          buttonText="다시 시계토끼 쫓아가기"
+          buttonColor="primary-yellow-0"
+        />
+      </div>
       <BodyContainer>
         <div className="mb-2 text-xl font-bold text-white">MY PAGE</div>
         <div className="relative flex flex-col items-center w-full gap-4">
@@ -226,14 +234,6 @@ const MyPage = () => {
               <Cards data={categoriesData} />
             </WhiteContainer>
           </TranslucentContainer>
-          {/* 다시 시계토끼 쫓아가기 */}
-          <div className="flex justify-end w-full">
-            <button onClick={navigateToLandingPage}>
-              <ResultButton>
-                <ResultTitle title={'다시 시계토끼 쫓아가기'} />
-              </ResultButton>
-            </button>
-          </div>
         </div>
       </BodyContainer>
     </>

@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getYearSummary, postGameResult } from '../apis/resultApi.jsx';
+import PageMovingButton from '../components/commons/buttons/PageMovingButtons.jsx';
 import TopButton from '../components/commons/buttons/TopButton.jsx';
 import BodyContainer from '../components/commons/containers/BodyContainer.jsx';
 import TranslucentContainer from '../components/commons/containers/TranslucentContainer.jsx';
@@ -10,7 +11,6 @@ import ResultTitle from '../components/commons/ResultTitle.jsx';
 import { formatTime } from '../components/game/Timer.jsx';
 import Articles from '../components/result/article/Articles.jsx';
 import Keyword from '../components/result/Keyword.jsx';
-import PageMovingButton from '../components/result/PageMovingButtons.jsx';
 import {
   useGameResultStore,
   useGameModalStore,
@@ -128,7 +128,18 @@ const ResultPage = () => {
   return (
     <>
       <TopButton />
-      <PageMovingButton navigateToLandingPage={navigateToLandingPage} navigateToMyPage={navigateToMyPage} />
+      <div className="fixed z-10 flex flex-col gap-6 right-5 top-5">
+        <PageMovingButton
+          onClick={navigateToLandingPage}
+          buttonText="다시 시계토끼 쫓아가기"
+          buttonColor="primary-yellow-0"
+        />
+        <PageMovingButton
+          onClick={navigateToMyPage}
+          buttonText="내 정보 더 자세하게 보기"
+          buttonColor="primary-yellow"
+        />
+      </div>
       <BodyContainer>
         <div className="mb-2 text-xl font-bold text-white">GAME RESULT</div>
         <div className="relative flex flex-col w-full gap-4">
