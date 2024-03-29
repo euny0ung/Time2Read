@@ -20,6 +20,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static org.elasticsearch.index.query.QueryBuilders.moreLikeThisQuery;
 
@@ -147,6 +148,26 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
                 new KeywordTerms(s.getKey().toString(), s.getDocCount())
         ).toList();
 
+    }
+
+    @Override
+    public ArticleEntity getRandomArticleByYearAndCategory(int year, int size, CategoryType category) {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        NativeSearchQuery query = new NativeSearchQueryBuilder()
+                .withQuery(QueryBuilders.functionScoreQuery(
+                        QueryBuilders.boolQuery()
+                                .must(QueryBuilders.rangeQuery("작성시간")
+                                        .gte(LocalDateTime.of(year, 1, 1, 0, 0).format(formatter))
+                                        .lte(LocalDateTime.of(year + 1, 1, 1, 0, 0).format(formatter))
+                                )
+                                .must(QueryBuilders.matchQuery("대분류", category.getName())),
+                        ScoreFunctionBuilders.randomFunction())
+                ).withMaxResults(1)
+                .build();
+        SearchHit<ArticleEntity> search = operations.search(query, ArticleEntity.class).getSearchHit(0);
+        ArticleEntity article = search.getContent();
+        return article;
     }
 }
 
