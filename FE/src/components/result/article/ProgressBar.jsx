@@ -16,7 +16,7 @@ const ProgressBar = ({ relatedArticles, currentStep, goToStep, setIsToggleOn, ti
             >
               <div
                 key={article.id}
-                className={`truncate cursor-pointer text-xl font-bold ${i === currentStep ? 'text-teal-900' : 'text-white'}`}
+                className={`truncate cursor-pointer text-xl font-bold ${i === currentStep ? 'text-primary-indigo-4' : 'text-white'}`}
                 onClick={() => {
                   goToStep(i);
                   setIsToggleOn(true);
@@ -40,37 +40,47 @@ const ProgressBar = ({ relatedArticles, currentStep, goToStep, setIsToggleOn, ti
       <div className="relative flex justify-between h-1 m-4 bg-white">
         {/* 프로그래스바 채워진 선 */}
         <div
-          className="absolute top-0 left-0 h-full transition-all duration-700 ease-in-out bg-teal-300"
+          className="absolute top-0 left-0 h-full transition-all duration-700 ease-in-out bg-primary-indigo-3"
           style={{ width: `calc(${(currentStep / (relatedArticles.length - 1)) * 100}%)` }}
         />
         {/* 프로그래스바 원들 */}
-        {relatedArticles.map((article, i) => (
-          <Tooltip
-            key={article.id}
-            text={article.title}
-            image={<ImageComponent src={article.image} alt={article.imageCaption} width={150} />}
-          >
-            <div
+        {relatedArticles.map((article, i) => {
+          let circleColor = '#FFFFFF'; // Default color
+          if (i < currentStep) {
+            circleColor = '#8096C5'; // Filled color
+          } else if (i === currentStep) {
+            circleColor = '#603049'; // Current color
+          }
+
+          return (
+            <Tooltip
               key={article.id}
-              className={`absolute top-0.5 z-10 flex items-center justify-center w-4 h-4 transform -translate-y-1/2 rounded-full ${i < currentStep ? 'bg-teal-300' : 'bg-white'} ${i === currentStep ? 'bg-teal-700' : ''}`}
-              style={{
-                left: `calc(${(i / (relatedArticles.length - 1)) * 100}% - 0.5rem)`,
-              }}
-              onClick={() => {
-                goToStep(i);
-                setIsToggleOn(true);
-              }}
-              onKeyPress={(e) => {
-                if (e.key === 'Enter') {
+              text={article.title}
+              image={<ImageComponent src={article.image} alt={article.imageCaption} width={150} />}
+            >
+              <div
+                key={article.id}
+                className="absolute top-0.5 z-10 flex items-center justify-center transform -translate-y-1/2 w-4 h-4 rounded-full"
+                style={{
+                  left: `calc(${(i / (relatedArticles.length - 1)) * 100}% - 0.5rem)`,
+                  backgroundColor: circleColor,
+                }}
+                onClick={() => {
                   goToStep(i);
                   setIsToggleOn(true);
-                }
-              }}
-              role="button"
-              tabIndex={0}
-            />
-          </Tooltip>
-        ))}
+                }}
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter') {
+                    goToStep(i);
+                    setIsToggleOn(true);
+                  }
+                }}
+                role="button"
+                tabIndex={0}
+              />
+            </Tooltip>
+          );
+        })}
       </div>
       {/* 프로그래스바 원 아래 설명 - 타이틀 */}
       <div className="flex justify-between w-full">
@@ -83,7 +93,8 @@ const ProgressBar = ({ relatedArticles, currentStep, goToStep, setIsToggleOn, ti
             >
               <div
                 key={article.id}
-                className={`truncate cursor-pointer flex-grow flex-shrink text-lg font-bold ${i === currentStep ? 'text-teal-900' : 'text-white'}`}
+                text-primary-indigo-4
+                className={`truncate cursor-pointer flex-grow flex-shrink text-lg font-bold ${i === currentStep ? 'text-primary-indigo-4' : 'text-white'}`}
                 style={{ maxWidth: titleMaxWidth }}
                 onClick={() => {
                   goToStep(i);
