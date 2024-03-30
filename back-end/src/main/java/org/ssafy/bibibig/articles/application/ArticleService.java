@@ -89,6 +89,7 @@ public class ArticleService {
         quizzes.addAll(getFirstArticleWithKeywordQuizzes(year));
         quizzes.addAll(getFirstArticleWithMultipleChoiceQuizzes(year));
         quizzes.addAll(getQuizzesWithOX(year));
+        Collections.shuffle(quizzes);
         return quizzes;
     }
 
