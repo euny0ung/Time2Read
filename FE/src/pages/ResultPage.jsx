@@ -129,16 +129,8 @@ const ResultPage = () => {
     <>
       <TopButton />
       <div className="fixed z-10 flex flex-col gap-6 right-5 top-5">
-        <PageMovingButton
-          onClick={navigateToLandingPage}
-          buttonText="다시 시계토끼 쫓아가기"
-          buttonColor="primary-yellow-0"
-        />
-        <PageMovingButton
-          onClick={navigateToMyPage}
-          buttonText="내 정보 더 자세하게 보기"
-          buttonColor="primary-yellow"
-        />
+        <PageMovingButton onClick={navigateToLandingPage} buttonText="다시 시계토끼 쫓아가기" buttonColor="#FBFAEA" />
+        <PageMovingButton onClick={navigateToMyPage} buttonText="내 정보 더 자세하게 보기" buttonColor="#FEFEC3" />
       </div>
       <BodyContainer>
         <div className="mb-2 text-xl font-bold text-white">GAME RESULT</div>

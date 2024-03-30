@@ -183,11 +183,7 @@ const MyPage = () => {
   return (
     <>
       <div className="fixed z-10 flex flex-col right-5 top-5">
-        <PageMovingButton
-          onClick={navigateToLandingPage}
-          buttonText="다시 시계토끼 쫓아가기"
-          buttonColor="primary-yellow-0"
-        />
+        <PageMovingButton onClick={navigateToLandingPage} buttonText="다시 시계토끼 쫓아가기" buttonColor="#FBFAEA" />
       </div>
       <BodyContainer>
         <div className="mb-2 text-xl font-bold text-white">MY PAGE</div>
