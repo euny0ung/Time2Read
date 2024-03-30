@@ -12,8 +12,8 @@ const CardsByCategory = ({ category, articles }) => {
 
   return (
     <div className="my-4">
-      <h2 className="flex items-start w-full my-4 text-2xl font-bold text-center">{category}</h2>
-      <div className="flex p-2 space-x-4 overflow-x-auto">
+      <h2 className="flex items-start w-full text-2xl font-bold text-center">{category}</h2>
+      <div className="flex p-2 space-x-4 overflow-x-auto scrollbar">
         {articles.map((article) => (
           <div key={article.id} className="inline-block">
             <button
