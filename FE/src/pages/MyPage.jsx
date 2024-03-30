@@ -24,8 +24,6 @@ import Badges from '../components/my/badge/Badges.jsx';
 import Cards from '../components/my/card/Cards.jsx';
 import RadarChart from '../components/my/RadarChart.jsx';
 
-WhiteContainerHoverEffect;
-
 // 테스트 데이터
 const categoriesData = [
   {
@@ -37,6 +35,7 @@ const categoriesData = [
         title: 'The Power of Community Support',
         wroteAt: '2023-03-25T15:00:00',
         summary: 'Exploring how community support can make a big difference in times of need.',
+        image: 'https://cdn.hankyung.com/photo/202305/99.33544112.1.jpg',
       },
       {
         id: '2',
@@ -45,6 +44,7 @@ const categoriesData = [
         title: 'Rising Trends in Social Activism',
         wroteAt: '2023-04-01T10:30:00',
         summary: 'A look at how social activism has evolved in the digital age.',
+        image: 'https://dimg.donga.com/wps/NEWS/IMAGE/2022/01/28/111500268.2.jpg',
       },
       {
         id: '22',
