@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import gsap from 'gsap';
-import ArticleDetail from '../../result/ArticleDetail.jsx';
+import ArticleDetail from '../../result/article/ArticleDetail.jsx';
 
 const CardDetail = ({ article, setActiveIndex }) => {
   const cardRef = useRef(null);
