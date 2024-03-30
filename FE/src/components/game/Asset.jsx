@@ -166,19 +166,19 @@ export const Finish = () => {
       <RigidBody name="endPoint" type="fixed">
         <mesh position={[0.85, 1.51, 11]}>
           <boxGeometry args={[1.3, 3, 0.2]} />
-          <meshStandardMaterial color={0xff0000} transparent opacity={0.5} />
+          <meshStandardMaterial color={0xff0000} transparent opacity={0} />
         </mesh>
       </RigidBody>
       <RigidBody name="endPoint" type="fixed">
         <mesh position={[1.6, 1.51, 10.6]}>
           <boxGeometry args={[0.1, 3, 1]} />
-          <meshStandardMaterial color={0xff0000} transparent opacity={0.5} />
+          <meshStandardMaterial color={0xff0000} transparent opacity={0} />
         </mesh>
       </RigidBody>
       <RigidBody name="endPoint" type="fixed">
         <mesh position={[0.1, 1.51, 10.6]}>
           <boxGeometry args={[0.1, 3, 1]} />
-          <meshStandardMaterial color={0xff0000} transparent opacity={0.5} />
+          <meshStandardMaterial color={0xff0000} transparent opacity={0} />
         </mesh>
       </RigidBody>
     </>

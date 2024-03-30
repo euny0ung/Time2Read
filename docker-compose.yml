@@ -28,9 +28,13 @@ services:
       - AI_API_KEY=${AI_API_KEY}
       - ES_HOSTNAME=${ES_HOSTNAME}
       - KAKAO_CLIENT_ID=${KAKAO_CLIENT_ID}
+      - KAKAO_REDIRECT_URL=${KAKAO_REDIRECT_URL}
       - MYSQL_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_URL=${MYSQL_URL}
       - MYSQL_USERNAME=${MYSQL_USER}
+      - OPENAI_FINETUNING_MODEL=${OPENAI_FINETUNING_MODEL}
+      - OPENAI_KEY=${OPENAI_KEY}
+      - OPENAI_CHAT_URL=${OPENAI_CHAT_URL}
     ports:
       - "8081:8081"
     command: sh -c 'if [ -e /app.jar ]; then java -jar /app.jar --spring.profiles.active=production; else echo "app.jar not found, skipping execution"; fi'
