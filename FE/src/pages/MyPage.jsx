@@ -13,16 +13,18 @@ import { format } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
 import { getTimeRecords, getSolved, getScrapArticles, getArticleDetail, putArticleStatus } from '../apis/myApi.jsx';
 import PageMovingButton from '../components/commons/buttons/PageMovingButtons.jsx';
-import ResultButton from '../components/commons/buttons/ResultButton.jsx';
 import BodyContainer from '../components/commons/containers/BodyContainer.jsx';
 import TranslucentContainer from '../components/commons/containers/TranslucentContainer.jsx';
 import WhiteContainer from '../components/commons/containers/WhiteContainer.jsx';
+import WhiteContainerHoverEffect from '../components/commons/containers/WhiteContainerHoverEffect.jsx';
 import ResultContent from '../components/commons/ResultContent.jsx';
 import ResultTitle from '../components/commons/ResultTitle.jsx';
 import { formatTime } from '../components/game/Timer.jsx';
 import Badges from '../components/my/badge/Badges.jsx';
 import Cards from '../components/my/card/Cards.jsx';
 import RadarChart from '../components/my/RadarChart.jsx';
+
+WhiteContainerHoverEffect;
 
 // 테스트 데이터
 const categoriesData = [
@@ -193,7 +195,7 @@ const MyPage = () => {
             <ResultTitle title={'나의 기록'} />
             <div className="flex flex-col items-center justify-between w-full gap-6 lg:flex-row lg:justify-center">
               <div className="w-full ">
-                <WhiteContainer>
+                <WhiteContainerHoverEffect>
                   <ResultTitle title={'타임어택 기록'} />
                   <ResultContent>
                     new! {formatTime(600 - gameResult.timeAttackTime)}
@@ -205,21 +207,21 @@ const MyPage = () => {
                       </div>
                     ))}
                   </ResultContent>
-                </WhiteContainer>
+                </WhiteContainerHoverEffect>
               </div>
               <div className="w-full">
-                <WhiteContainer>
+                <WhiteContainerHoverEffect>
                   <ResultTitle title={'카테고리별 기록'} />
                   <RadarChart solvedCount={solvedCount} />
-                </WhiteContainer>
+                </WhiteContainerHoverEffect>
               </div>
               <div className="w-full">
-                <WhiteContainer>
+                <WhiteContainerHoverEffect>
                   <ResultTitle title={'획득한 뱃지'} />
                   <div className="overflow-y-auto h-[200px]">
                     <Badges />
                   </div>
-                </WhiteContainer>
+                </WhiteContainerHoverEffect>
               </div>
             </div>
           </TranslucentContainer>

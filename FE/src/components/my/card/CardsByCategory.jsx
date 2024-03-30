@@ -25,14 +25,7 @@ const CardsByCategory = ({ category, articles }) => {
               }}
               className=""
             >
-              <Card
-                image={article.image}
-                title={article.title}
-                mainCategory={article.mainCategory}
-                subCategory={article.subCategory}
-                summary={article.summary}
-                isActive={article.id === activeIndex}
-              />
+              <Card article={article} />
             </button>
             {article.id === activeIndex && <CardDetail article={article} setActiveIndex={setActiveIndex} />}
           </div>
