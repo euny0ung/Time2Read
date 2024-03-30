@@ -56,7 +56,7 @@ export const getScrapArticles = () => {
 
 // 스크랩한 기사 상세보기
 export const getArticleDetail = (articleId) => {
-  const apiUrl = `${baseUrl}/scraped-article/${articleId}`;
+  const apiUrl = `${baseUrl}/my/scraped-article/${articleId}`;
 
   return axios
     .get(apiUrl)
@@ -69,10 +69,10 @@ export const getArticleDetail = (articleId) => {
 
 // 스크랩 상태 변경
 export const putArticleStatus = (articleId, status) => {
-  const apiUrl = `${baseUrl}/scraped-article/${articleId}/${status}`;
+  const apiUrl = `${baseUrl}/my/scraped-articles/${articleId}/${status}`;
 
   return axios
-    .get(apiUrl)
+    .put(apiUrl)
     .then((response) => response.data)
     .catch((error) => {
       console.error('Error requesting data:', error);
