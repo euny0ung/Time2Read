@@ -88,12 +88,13 @@ public class ArticleService {
         List<ArticleWithQuiz> quizzes = new ArrayList<>();
         quizzes.addAll(getFirstArticleWithKeywordQuizzes(year));
         quizzes.addAll(getFirstArticleWithMultipleChoiceQuizzes(year));
+        quizzes.addAll(getQuizzesWithOX(year));
         return quizzes;
     }
 
     public List<ArticleWithQuiz> getFirstArticleWithKeywordQuizzes(int year) {
-        int quizCount = 6;
-
+//        int quizCount = 6;
+        int quizCount = 4;
         List<ArticleWithQuiz> result = new ArrayList<>();
         List<CategoryType> randomCategory = firstCategory(quizCount);
         List<CategoryType> categories = List.of(CategoryType.values());
@@ -119,7 +120,8 @@ public class ArticleService {
     }
 
     public List<ArticleWithQuiz> getFirstArticleWithMultipleChoiceQuizzes(int year) {
-        int quizCount = 4;
+//        int quizCount = 4;
+        int quizCount = 2;
 
         List<ArticleWithQuiz> result = new ArrayList<>();
         List<CategoryType> randomCategory = firstCategory(quizCount);
