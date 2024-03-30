@@ -1,0 +1,6 @@
+
+data/airflow/dags/__pycache__/
+
+*.log
+
+data/airflow/logs/scheduler/
