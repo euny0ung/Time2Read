@@ -45,8 +45,8 @@ const QuizModal = React.memo(
               <div>{it.quiz.questionSummary}</div>
               {additionalProps && React.createElement(additionalProps.component, additionalProps.componentProps)}
               <div>
-                <EntireContentButton clues={it.quiz.clues[0]} quizIndex={quizIndex} />
-                {it.quiz.clues[1] && <ClueContentButton clues={it.quiz.clues[1]} quizIndex={quizIndex} />}
+                <EntireContentButton clues={it.quiz.clues[0]} quizIndex={quizIndex} clueIndex={0} />
+                {it.quiz.clues[1] && <ClueContentButton clues={it.quiz.clues[1]} quizIndex={quizIndex} clueIndex={0} />}
               </div>
             </div>
           );

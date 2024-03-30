@@ -27,11 +27,11 @@ export const useAnswerCheckStore = create((set) => ({
 
 // 퀴즈의 힌트 클릭여부 관리
 export const useClueIndexStore = create((set) => ({
-  cluesClicked: Array(10).fill(false),
-  toggleClueClick: (index) =>
+  cluesClicked: {},
+  toggleClueClick: (quizIndex, hintIndex) =>
     set((state) => {
-      const updatedcluesClicked = [...state.cluesClicked];
-      updatedcluesClicked[index] = !updatedcluesClicked[index];
+      const key = `${quizIndex}-${hintIndex}`;
+      const updatedcluesClicked = { ...state.cluesClicked, [key]: !state.cluesClicked[key] };
       return { cluesClicked: updatedcluesClicked };
     }),
 }));
