@@ -193,7 +193,8 @@ const MyPage = () => {
           {/* 나의 기록 myRecordbox */}
           <TranslucentContainer>
             <ResultTitle title={'나의 기록'} />
-            <div className="flex flex-col items-center justify-between w-full gap-6 lg:flex-row lg:justify-center">
+            <div className="flex flex-col justify-between w-full gap-4 lg:flex-row lg:justify-center">
+              {/* 타임어택 기록 */}
               <div className="w-full ">
                 <WhiteContainerHoverEffect>
                   <ResultTitle title={'타임어택 기록'} />
@@ -209,20 +210,21 @@ const MyPage = () => {
                   </ResultContent>
                 </WhiteContainerHoverEffect>
               </div>
+              {/* 카테고리별 맞은 개수 */}
               <div className="w-full">
                 <WhiteContainerHoverEffect>
-                  <ResultTitle title={'카테고리별 기록'} />
                   <RadarChart solvedCount={solvedCount} />
                 </WhiteContainerHoverEffect>
               </div>
-              <div className="w-full">
-                <WhiteContainerHoverEffect>
-                  <ResultTitle title={'획득한 뱃지'} />
-                  <div className="overflow-y-auto h-[200px]">
-                    <Badges />
-                  </div>
-                </WhiteContainerHoverEffect>
-              </div>
+            </div>
+            {/* 획득한 뱃지 */}
+            <div className="w-full">
+              <WhiteContainerHoverEffect>
+                <ResultTitle title={'획득한 뱃지'} />
+                <div className="overflow-y-auto h-[150px]">
+                  <Badges />
+                </div>
+              </WhiteContainerHoverEffect>
             </div>
           </TranslucentContainer>
           {/* 스크랩한 기사 scapedArticlebox */}
