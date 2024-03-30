@@ -159,6 +159,7 @@ public class ArticleService {
 
         List<Article> articles = new ArrayList<>();
         List<String> summaries = new ArrayList<>();
+        List<Clue> clues = new ArrayList<>();
         List<CategoryType> categories = secondCategory(quizCount);
 
         Map<String, List<CategoryType>> grouping = categories
@@ -174,6 +175,8 @@ public class ArticleService {
 
             articles.add(article);
             summaries.add(article.summary());
+            clues.add(new Clue(ClueType.OX, article.content()));
+
         }
 
         List<OXQuizQuestion> quizzes = null;
@@ -186,7 +189,7 @@ public class ArticleService {
 
         List<ArticleWithQuiz> result = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
-            OXQuiz quiz = new OXQuiz(QuizType.OX, quizzes.get(i).question(), quizzes.get(i).answer(), null);
+            OXQuiz quiz = new OXQuiz(QuizType.OX, quizzes.get(i).question(), quizzes.get(i).answer(), Collections.singletonList(clues.get(i)));
             result.add(ArticleWithQuiz.from(categories.get(i), articles.get(i), quiz));
         }
         return result;
