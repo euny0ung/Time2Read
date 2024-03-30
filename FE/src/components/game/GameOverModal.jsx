@@ -20,7 +20,7 @@ const GameOverModal = () => {
 
   return (
     <>
-      <div className="w-[35vw] h-[50vh] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 box-border flex flex-col items-start justify-center w-full h-auto gap-4 p-6 bg-white bg-opacity-50 border-2 border-white shadow-xl rounded-2xl">
+      <div className="w-[36rem] h-2/3 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 box-border flex flex-col items-start justify-center w-full h-auto gap-4 p-6 bg-white bg-opacity-50 border-2 border-white shadow-xl rounded-2xl">
         {showSuccessOrFail()}
         {/* <GameSuccess /> */}
         <button

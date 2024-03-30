@@ -112,24 +112,3 @@
   }
   
 }
-/* game 성공 했을 때 뜨는 모달 */
-.gameSuccess {
-  display: flex;
-	align-items: center;
-	justify-content: center;
-  width: 100%;
-  height: 100%;
-}
-
-.gameSuccess svg {
-  width: 100%;
-  height: 100%;
-  fill: none;
-  stroke: white;
-  stroke-width: 4;
-}
-
-.gameSuccess svg tspan > tspan {
-  stroke-dasharray: 1500;
-  stroke-dashoffset: -1500;
-}

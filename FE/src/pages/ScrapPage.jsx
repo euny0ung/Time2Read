@@ -1,3 +1,4 @@
+import GameOverModal from '../components/game/GameOverModal.jsx';
 import Cards from '../components/my/card/Cards.jsx';
 
 // 테스트 데이터
@@ -91,7 +92,8 @@ const ScrapPage = () => {
     <>
       <div className="p-6">
         <h1>스크랩페이지</h1>
-        <Cards data={categoriesData} />
+        <GameOverModal />
+        {/* <Cards data={categoriesData} /> */}
       </div>
     </>
   );
