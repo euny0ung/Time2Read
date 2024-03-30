@@ -46,7 +46,7 @@ const QuizModal = React.memo(
               {additionalProps && React.createElement(additionalProps.component, additionalProps.componentProps)}
               <div>
                 <EntireContentButton clues={it.quiz.clues[0]} quizIndex={quizIndex} />
-                {type !== '객관식' && <ClueContentButton clues={it.quiz.clues[1]} quizIndex={quizIndex} />}
+                {it.quiz.clues[1] && <ClueContentButton clues={it.quiz.clues[1]} quizIndex={quizIndex} />}
               </div>
             </div>
           );
