@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  background-image: linear-gradient(to bottom right, #FDB9AE, #D3FFEE); /* 원하는 색상으로 변경하세요 */
+}
+
 @font-face {
   src: url("https://www.axis-praxis.org/fonts/webfonts/MetaVariableDemo-Set.woff2")
     format("woff2");
