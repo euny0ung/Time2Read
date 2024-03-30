@@ -357,4 +357,82 @@ public class ArticleService {
             return 0;
         }
     }
+
+    //for test
+    public List<ArticleWithQuiz> getArticleWithQuizForAdmin() {
+        List<ArticleWithQuiz> quizzes = new ArrayList<>();
+        List<String> idList = List.of(
+                "ef2784fd-c9dc-48db-8dfc-c6f83bd5cca9", // 키워드 - 득점왕
+                "607a45b6-1870-43e1-89e3-0fb0556df26d", // 키워드 - 카카오
+                "6938cbd8-d165-4a6f-9c76-08f2ee949ab1", // 키워드 - 윤석열 당선
+                "15c8d350-742e-4149-882f-dd93835f5f38", // 키워드 - 마스크
+                "9fadf8d3-751e-4987-a06b-22b86ad60528", // 객관식 - 이태원 참사 - 사회
+                "53ec5b5f-dc04-4b0f-97b8-2d264541b7b3", // 객관식 - 누리호 - 정치
+                "8dfc3d09-1b9b-413a-9102-00bea54278e9", // OX - 오징어게임
+                "b8be30b2-4edc-49dc-995e-188273d5cab7", // OX - 우크라이나
+                "a78ce338-a736-4c8b-987a-1db291313227", // OX -  추경
+                "48c04798-ac21-4023-96ad-12843a7406a2" // OX - 월드컵
+        );
+        // 키워드 기사 4문제 생성
+        List<ArticleWithWord> articles = List.of(
+                new ArticleWithWord(findById("ef2784fd-c9dc-48db-8dfc-c6f83bd5cca9"), "득점왕"),
+                new ArticleWithWord(findById("607a45b6-1870-43e1-89e3-0fb0556df26d"), "카카오"),
+                new ArticleWithWord(findById("6938cbd8-d165-4a6f-9c76-08f2ee949ab1"), "윤석열"),
+                new ArticleWithWord(findById("15c8d350-742e-4149-882f-dd93835f5f38"), "마스크")
+        );
+        quizzes.add(getArticleWithKeywordQuiz(articles.get(0).article, CategoryType.SPORTS, articles.get(0).word));
+        quizzes.add(getArticleWithKeywordQuiz(articles.get(1).article, CategoryType.SOCIETY, articles.get(1).word));
+        quizzes.add(getArticleWithKeywordQuiz(articles.get(2).article, CategoryType.POLITICS, articles.get(2).word));
+        quizzes.add(getArticleWithKeywordQuiz(articles.get(3).article, CategoryType.ECONOMY, articles.get(3).word));
+        // 객관식 기사 2문제 생성
+
+        List<KeywordTerms> keywordTerms1 = List.of(new KeywordTerms("이태원", 100));
+        List<KeywordTerms> keywordTerms2 = List.of(new KeywordTerms("누리호", 40));
+        List<ArticleWithMultipleChoice> tmp1 = getRandomArticleByYearAndCategoryAndKeywordForMultipleChoice(2022, 1, CategoryType.SOCIETY, keywordTerms1);
+        List<ArticleWithMultipleChoice> tmp2 = getRandomArticleByYearAndCategoryAndKeywordForMultipleChoice(2022, 1, CategoryType.POLITICS, keywordTerms2);
+        quizzes.add(getArticleWithMultipleChoiceQuiz(
+                tmp1.getFirst().article,
+                CategoryType.SOCIETY,
+                String.valueOf(keywordTerms1.getFirst().word()),
+                tmp1.getFirst().multipleChoices)
+        );
+        quizzes.add(getArticleWithMultipleChoiceQuiz(
+                tmp2.getFirst().article,
+                CategoryType.POLITICS,
+                String.valueOf(keywordTerms2.getFirst().word()),
+                tmp2.getFirst().multipleChoices)
+        );
+        // OX 문제 4문제 생성
+        List<Article> OXArticles = List.of(
+                findById("8dfc3d09-1b9b-413a-9102-00bea54278e9"),
+                findById("b8be30b2-4edc-49dc-995e-188273d5cab7"),
+                findById("a78ce338-a736-4c8b-987a-1db291313227"),
+                findById("48c04798-ac21-4023-96ad-12843a7406a2")
+                );
+        List<CategoryType> categories = List.of(CategoryType.CULTURE, CategoryType.INTERNATIONAL, CategoryType.ECONOMY, CategoryType.SPORTS);
+
+
+        List<OXQuizQuestion> oxQuiz = null;
+        try {
+            oxQuiz = openAIUtils.generateOXQuiz(
+                    OXArticles
+                            .stream()
+                            .map(Article::summary)
+                            .toList()
+            );
+
+        } catch (JsonProcessingException e) {
+            throw new CommonException(ErrorCode.INTERNAL_SERVER_ERROR, String.format("quizzes is null"));
+        }
+
+        for (int i = 0; i < 4; i++) {
+            OXQuiz quiz = new OXQuiz(QuizType.OX, oxQuiz.get(i).question(), oxQuiz.get(i).answer(), null);
+            quizzes.add(ArticleWithQuiz.from(categories.get(i), OXArticles.get(i), quiz));
+        }
+
+
+        return quizzes;
+    }
+
+
 }

@@ -4,7 +4,7 @@ services:
     container_name: bibibig-mysql
     build:
       dockerfile: Dockerfile
-      context: ./database/mysql
+      context: ./database
     image: xntm10/bibibig-mysql
     volumes:
       # 설정파일 저장될  위치
