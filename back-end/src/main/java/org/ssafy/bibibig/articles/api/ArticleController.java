@@ -1,5 +1,6 @@
 package org.ssafy.bibibig.articles.api;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -9,6 +10,7 @@ import org.ssafy.bibibig.articles.application.ArticleService;
 import org.ssafy.bibibig.articles.dto.ArticleWithQuiz;
 import org.ssafy.bibibig.articles.dto.response.GameResponse;
 import org.ssafy.bibibig.common.dto.Response;
+import org.ssafy.bibibig.member.utils.SessionInfo;
 import org.ssafy.bibibig.quiz.dto.Quiz;
 
 import java.util.List;
@@ -21,8 +23,12 @@ public class ArticleController {
     private final ArticleService articleService;
 
     @GetMapping("/{year}")
-    public Response<List<ArticleWithQuiz>> getArticleWithQuiz(@PathVariable int year) {
-        return Response.success(articleService.getArticleWithQuizzes(year));
+    public Response<List<ArticleWithQuiz>> getArticleWithQuiz(HttpServletRequest request, @PathVariable int year) {
+        Long memberId = SessionInfo.getSessionMemberId(request);
+        if(memberId == 5 && year == 2022)
+            return Response.success(articleService.getArticleWithQuizForAdmin());
+        else
+            return Response.success(articleService.getArticleWithQuizzes(year));
     }
 
     @GetMapping("/{year}/first")
@@ -34,4 +40,5 @@ public class ArticleController {
     public Response<List<ArticleWithQuiz>> getSecondArticleWithQuiz(@PathVariable int year) {
         return Response.success(articleService.getQuizzesWithOX(year));
     }
+
 }
