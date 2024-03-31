@@ -39,7 +39,7 @@ public class ArticleController {
             e.printStackTrace();
         }
 
-
+        return Response.success(articleService.getArticleWithQuizzes(year));
 
     }
 
