@@ -13,10 +13,10 @@ import { format } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
 import { getTimeRecords, getSolved, getScrapArticles, getArticleDetail, putArticleStatus } from '../apis/myApi.jsx';
 import PageMovingButton from '../components/commons/buttons/PageMovingButtons.jsx';
-import ResultButton from '../components/commons/buttons/ResultButton.jsx';
 import BodyContainer from '../components/commons/containers/BodyContainer.jsx';
 import TranslucentContainer from '../components/commons/containers/TranslucentContainer.jsx';
 import WhiteContainer from '../components/commons/containers/WhiteContainer.jsx';
+import WhiteContainerHoverEffect from '../components/commons/containers/WhiteContainerHoverEffect.jsx';
 import ResultContent from '../components/commons/ResultContent.jsx';
 import ResultTitle from '../components/commons/ResultTitle.jsx';
 import { formatTime } from '../components/game/Timer.jsx';
@@ -35,6 +35,7 @@ const categoriesData = [
         title: 'The Power of Community Support',
         wroteAt: '2023-03-25T15:00:00',
         summary: 'Exploring how community support can make a big difference in times of need.',
+        image: 'https://cdn.hankyung.com/photo/202305/99.33544112.1.jpg',
       },
       {
         id: '2',
@@ -43,6 +44,7 @@ const categoriesData = [
         title: 'Rising Trends in Social Activism',
         wroteAt: '2023-04-01T10:30:00',
         summary: 'A look at how social activism has evolved in the digital age.',
+        image: 'https://dimg.donga.com/wps/NEWS/IMAGE/2022/01/28/111500268.2.jpg',
       },
       {
         id: '22',
@@ -185,11 +187,7 @@ const MyPage = () => {
   return (
     <>
       <div className="fixed z-10 flex flex-col right-5 top-5">
-        <PageMovingButton
-          onClick={navigateToLandingPage}
-          buttonText="다시 시계토끼 쫓아가기"
-          buttonColor="primary-yellow-0"
-        />
+        <PageMovingButton onClick={navigateToLandingPage} buttonText="다시 시계토끼 쫓아가기" buttonColor="#FBFAEA" />
       </div>
       <BodyContainer>
         <div className="mb-2 text-xl font-bold text-white">MY PAGE</div>
@@ -197,9 +195,10 @@ const MyPage = () => {
           {/* 나의 기록 myRecordbox */}
           <TranslucentContainer>
             <ResultTitle title={'나의 기록'} />
-            <div className="flex flex-col items-center justify-between w-full gap-6 lg:flex-row lg:justify-center">
+            <div className="flex flex-col justify-between w-full gap-4 lg:flex-row lg:justify-center">
+              {/* 타임어택 기록 */}
               <div className="w-full ">
-                <WhiteContainer>
+                <WhiteContainerHoverEffect>
                   <ResultTitle title={'타임어택 기록'} />
                   <ResultContent>
                     new! {formatTime(600 - gameResult.timeAttackTime)}
@@ -211,22 +210,23 @@ const MyPage = () => {
                       </div>
                     ))}
                   </ResultContent>
-                </WhiteContainer>
+                </WhiteContainerHoverEffect>
               </div>
+              {/* 카테고리별 맞은 개수 */}
               <div className="w-full">
-                <WhiteContainer>
-                  <ResultTitle title={'카테고리별 기록'} />
+                <WhiteContainerHoverEffect>
                   <RadarChart solvedCount={solvedCount} />
-                </WhiteContainer>
+                </WhiteContainerHoverEffect>
               </div>
-              <div className="w-full">
-                <WhiteContainer>
-                  <ResultTitle title={'획득한 뱃지'} />
-                  <div className="overflow-y-auto h-[200px]">
-                    <Badges />
-                  </div>
-                </WhiteContainer>
-              </div>
+            </div>
+            {/* 획득한 뱃지 */}
+            <div className="w-full">
+              <WhiteContainerHoverEffect>
+                <ResultTitle title={'획득한 뱃지'} />
+                <div className="overflow-y-auto h-[150px]">
+                  <Badges />
+                </div>
+              </WhiteContainerHoverEffect>
             </div>
           </TranslucentContainer>
           {/* 스크랩한 기사 scapedArticlebox */}

@@ -38,7 +38,7 @@ const ArticleDetail = ({ article }) => {
         {/* 제목 */}
         <div className="flex flex-row items-start justify-between w-full">
           <div className="flex flex-col items-start">
-            <div className="mt-4 text-2xl font-semibold text-gray-900 title">{article.title}</div>
+            <div className="mt-4 text-3xl font-semibold text-gray-900 title">{article.title}</div>
             <div className="mt-4 text-gray-500">
               <span className="mr-2">{article.copyRight || '한겨레'}</span>
               <span className="mr-2">|</span>
@@ -59,12 +59,9 @@ const ArticleDetail = ({ article }) => {
           </button>
         </div>
         {/* 요약 */}
-        <div
-          className="px-3 py-2 mt-4 font-semibold text-left border-2 rounded-lg text-rose-600 border-rose-600 summary"
-          style={{ lineHeight: '1.6' }}
-        >
+        <div className="px-3 py-2 mt-4 text-xl font-semibold leading-6 text-left text-gray-600 rounded-lg bg-rose-200 summary">
           {article.summary}
-        </div>{' '}
+        </div>
       </div>
       {/* 이미지와 컨텐츠 */}
       <div className="flex flex-col items-center text-left">
