@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 body {
-  background-image: linear-gradient(to bottom right, #FDB9AE, #D3FFEE); /* 원하는 색상으로 변경하세요 */
+  background-image: linear-gradient(to bottom right, #FDB9AE, #D3FFEE);
+  font-family: 'SUITE-Regular';
 }
 
 @font-face {
@@ -12,6 +13,13 @@ body {
   font-family: "Meta";
   font-style: normal;
   font-weight: normal;
+}
+
+@font-face {
+  font-family: 'SUITE-Regular';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2304-2@1.0/SUITE-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
 }
 
 @keyframes hologramColor {
@@ -130,4 +138,12 @@ body {
 
 .letter-fall {
   animation: fallBounce 0.6s cubic-bezier(0.175, 0.885, 0.320, 1.275) forwards;
+}
+
+@keyframes draw {
+  
+  100% {
+    stroke-dashoffset: 0;
+  }
+  
 }

@@ -102,6 +102,7 @@ const Player = () => {
 
   useEffect(() => {
     if (lifeCount === 0) {
+      setOpenQuizModal(false);
       setGameOver(true);
     }
   }, [lifeCount]);

@@ -21,23 +21,38 @@ const ChoiceQuiz = ({ answer, choices, mainCategory, id }) => {
 
   const handleChoiceSelect = (choiceIndex, choiceValue) => {
     dispatch({ type: 'SELECT_CHOICE', payload: choiceIndex });
-    handleAnswerCheck(choiceValue, answer, mainCategory, () => dispatch({ type: 'RESET_INPUT' }), id);
+    handleAnswerCheck(choiceIndex.toString(), answer, mainCategory, () => dispatch({ type: 'RESET_INPUT' }), id);
   };
 
   return (
-    <div>
+    // <div>
+    //   {choices.map((choice, index) => (
+    //     <div key={index}>
+    //       <button
+    //         type="button"
+    //         onClick={(event) => handleChoiceSelect(index, event.target.value)}
+    //         value={index}
+    //         className={state.selectedChoiceIndex === index ? 'selected' : ''}
+    //       >
+    //         {index + 1}&ensp;
+    //         {choice}
+    //       </button>
+    //     </div>
+    //   ))}
+    // </div>
+
+    <div className='w-full h-full flex justify-evenly items-center' >
       {choices.map((choice, index) => (
-        <div key={index}>
+        <div key={index} className='mr-5 flex flex-col justify-center items-center'>
           <button
             type="button"
-            onClick={(event) => handleChoiceSelect(index, event.target.value)}
+            onClick={(event) => handleChoiceSelect(index.toString(), event.target.value)}
             value={index}
             className={state.selectedChoiceIndex === index ? 'selected' : ''}
           >
-            {index + 1}&ensp;
-            {choice}
+            <p className='text-lg'>{index + 1}&ensp;{choice}</p>
           </button>
-        </div>
+        </div>        
       ))}
     </div>
   );
