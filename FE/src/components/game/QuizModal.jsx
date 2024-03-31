@@ -75,7 +75,7 @@ const QuizModal = React.memo(
                 <WhiteContainer>
                   <div className="w-[100%] h-[10%] flex items-center justify-center">
                     <p className="text-2xl text-black">
-                      Q{index + 1}){questionText}
+                      Q{quizIndex + 1}){questionText}
                     </p>
                   </div>
                   {/* 질문 생성 */}
