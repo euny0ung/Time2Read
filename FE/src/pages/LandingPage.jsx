@@ -17,27 +17,27 @@ import { checkGameYearStore } from '../stores/game/gameStore.jsx';
 
 const OPTIONS = Array.from({ length: 2024 - 2005 + 1 }, (v, k) => `${2024 - k}`);
 
-const useQuizApiHandler = (selected) => {
-  const navigate = useNavigate();
-  const { setQuiz } = useQuizStore();
+// const useQuizApiHandler = (selected) => {
+//   const navigate = useNavigate();
+//   const { setQuiz } = useQuizStore();
 
-  // API 호출, 페이지 이동, 퀴즈 데이터 저장
-  const handleQuizApi = () => {
-    console.log('API 호출..');
-    axios
-      .get(`${import.meta.env.VITE_BASE_API}/game/${selected}/first`)
-      .then((response) => {
-        setQuiz(response.data.result);
-        console.log(response);
-        navigate('/game');
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+//   // API 호출, 페이지 이동, 퀴즈 데이터 저장
+//   const handleQuizApi = () => {
+//     console.log('API 호출..');
+//     axios
+//       .get(`${import.meta.env.VITE_BASE_API}/game/${selected}/first`)
+//       .then((response) => {
+//         setQuiz(response.data.result);
+//         console.log(response);
+//         navigate('/game');
+//       })
+//       .catch((error) => {
+//         console.log(error);
+//       });
+//   };
 
-  return handleQuizApi;
-};
+//   return handleQuizApi;
+// };
 
 const useTestQuizApiHandler = (selected) => {
   const navigate = useNavigate();
@@ -71,7 +71,8 @@ const LandingPage = () => {
     setGameYear(selectedOption);
   };
 
-  const handleQuizApi = useQuizApiHandler(selected);
+  // const handleQuizApi = useQuizApiHandler(selected);
+  const handleQuizApi = useTestQuizApiHandler(selected);
 
   // test
   useEffect(() => {
