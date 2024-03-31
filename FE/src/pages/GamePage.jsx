@@ -4,7 +4,7 @@ import Maze, { Floor } from '@components/game/Maze';
 import Overlay from '@components/game/Overlay';
 import Player from '@components/game/Player';
 import QuizModal from '@components/game/QuizModal.jsx';
-import { PointerLockControls } from '@react-three/drei';
+import { PointerLockControls, OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { Physics } from '@react-three/rapier';
 import { useAnswerCheckStore } from '@stores/game/quizStore';
@@ -26,33 +26,13 @@ const GamePage = () => {
     setIsPointerLockEnabled(!openQuizModal);
   }, [openQuizModal]);
 
-  // useEffect(() => {
-  //   const handlePointerLockChange = () => {
-  //     setIsPointerLockEnabled(document.pointerLockElement !== null);
-  //   };
-
-  //   document.addEventListener('pointerlockchange', handlePointerLockChange);
-
-  //   return () => {
-  //     document.removeEventListener('pointerlockchange', handlePointerLockChange);
-  //   };
-  // }, []);
-
-  // useEffect(() => {
-  //   // 상태 변경 여부 확인
-  //   if (document.pointerLockElement !== null && !openQuizModal) {
-  //     setIsPointerLockEnabled(true);
-  //   } else if (document.pointerLockElement === null && openQuizModal) {
-  //     setIsPointerLockEnabled(false);
-  //   }
-  // }, [openQuizModal]);
-
   return (
     <>
       <div className="w-screen h-screen overflow-hidden">
         <Canvas camera={{ position: [0, 10, 0] }}>
           {/* 환경 설정 */}
           <PointerLockControls pointerSpeed={0.3} enabled={isPointerLockEnabled} />
+          {/* {isPlayerMode ? <PointerLockControls enabled={!openQuizModal} /> : <OrbitControls />} */}
           {/* <ambientLight intensity={0.5} /> */}
           <ambientLight intensity={1} />
           <pointLight position={[10, 10, 10]} />
@@ -67,11 +47,18 @@ const GamePage = () => {
           </Physics>
         </Canvas>
         {/* 정보 표시 */}
-        <Overlay />
+        {/* <Overlay /> */}
         <Items />
         <Timer />
         {openQuizModal && <QuizModal quizIndex={quizIndex} />}
         {openGameOverModal && <GameOverModal />}
+        {/* <button
+          className="absolute top-2.5 left-2.5 bg-gray-500 text-white font-bold py-2 px-4 rounded hover:bg-gray-700 focus:outline-none focus:shadow-outline"
+          onClick={() => setIsPlayerMode(!isPlayerMode)}
+        >
+          {isPlayerMode ? '3인칭 모드로 전환' : '1인칭 모드로 전환'}
+        </button> */}
+
         {resultState !== '' && openAnswerResult && <AnswerCheckModal />}
       </div>
     </>
