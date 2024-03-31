@@ -11,6 +11,7 @@ import ResultTitle from '../components/commons/ResultTitle.jsx';
 import { formatTime } from '../components/game/Timer.jsx';
 import Articles from '../components/result/article/Articles.jsx';
 import Keyword from '../components/result/Keyword.jsx';
+import TimeLoader from '../components/result/timeattack/TimeLoader.jsx';
 import {
   useGameResultStore,
   useGameModalStore,
@@ -157,11 +158,15 @@ const ResultPage = () => {
                   <ResultTitle title={'타임 어택 시간'} />
                   <div className="flex items-center justify-center h-[80%] text-6xl font-bold">
                     {gameResult.timeAttackTime ? (
-                      <div>{formatTime(600 - gameResult.timeAttackTime)}</div>
+                      <>
+                        <TimeLoader targetNumber={formatTime(600 - gameResult.timeAttackTime)} />
+                      </>
                     ) : (
-                      <div> 10:00 </div>
+                      <div> 00:00 </div>
                     )}
                   </div>
+                  {/* <div> 시간 증가하는 거 테스트 </div>
+                  <TimeLoader targetNumber={'03:24'} /> */}
                 </WhiteContainerHoverEffect>
               </div>
 
