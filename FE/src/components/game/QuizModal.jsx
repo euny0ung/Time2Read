@@ -128,22 +128,6 @@ const QuizModal = React.memo(
               </div>
             </div>
           );
-          if (it.quiz.quizType === 'OX') {
-            return renderQuiz('OX퀴즈', {
-              component: OxQuiz,
-              componentProps: { answer: it.quiz.answer, mainCategory: it.mainCategory },
-            });
-          }
-          if (it.quiz.quizType === 'MULTIPLE_CHOICE') {
-            return renderQuiz('객관식', {
-              component: ChoiceQuiz,
-              componentProps: {
-                answer: it.quiz.answer,
-                choices: it.quiz.additionalInfo.choices,
-                mainCategory: it.mainCategory,
-              },
-            });
-          }
 
           // O, X
           if (it.quiz.quizType === 'OX') {
@@ -152,6 +136,7 @@ const QuizModal = React.memo(
               componentProps: { answer: it.quiz.answer, mainCategory: it.mainCategory, id: it.id },
             });
           }
+          // 객관식
           if (it.quiz.quizType === 'MULTIPLE_CHOICE') {
             return renderQuiz('객관식', {
               component: ChoiceQuiz,
