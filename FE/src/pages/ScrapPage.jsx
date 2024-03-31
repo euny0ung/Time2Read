@@ -12,6 +12,8 @@ const categoriesData = [
         title: 'The Power of Community Support',
         wroteAt: '2023-03-25T15:00:00',
         summary: 'Exploring how community support can make a big difference in times of need.',
+        image:
+          'https://png.pngtree.com/thumb_back/fh260/background/20230609/pngtree-three-puppies-with-their-mouths-open-are-posing-for-a-photo-image_2902292.jpg',
       },
       {
         id: '2',
@@ -35,7 +37,7 @@ const categoriesData = [
         subCategory: 'Activism',
         title: 'Rising Trends in Social Activism',
         wroteAt: '2023-04-01T10:30:00',
-        image: '',
+        image: 'https://dimg.donga.com/wps/NEWS/IMAGE/2022/01/28/111500268.2.jpg',
         summary: 'A look at how social activism has evolved in the digital age.',
       },
     ],

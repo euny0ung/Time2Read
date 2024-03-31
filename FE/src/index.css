@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  background-image: linear-gradient(to bottom right, #FDB9AE, #D3FFEE); /* 원하는 색상으로 변경하세요 */
+}
+
 @font-face {
   src: url("https://www.axis-praxis.org/fonts/webfonts/MetaVariableDemo-Set.woff2")
     format("woff2");
@@ -38,6 +42,29 @@
 }
 
 /* 스크롤바 전체 컨테이너 */
+.scrollbar::-webkit-scrollbar {
+  width: 8px; /* 스크롤바의 너비 */
+}
+
+/* 스크롤바 핸들 */
+.scrollbar::-webkit-scrollbar-thumb {
+  background: #FDB9AE; /* 스크롤바 핸들의 색상 */
+  border-radius: 4px; /* 스크롤바 핸들의 모서리 둥글기 */
+}
+
+/* 스크롤바 핸들:hover */
+.scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #FF7465; /* 스크롤바 핸들의 색상: hover 상태 */
+}
+
+/* 스크롤바 트랙 */
+.scrollbar::-webkit-scrollbar-track {
+  background: #f1f1f1; /* 스크롤바 트랙의 색상 */
+  border-radius: 4px; /* 스크롤바 트랙의 모서리 둥글기 */
+}
+
+
+/* 드롭박스 스크롤바 전체 컨테이너 */
 .dropdown-scrollbar::-webkit-scrollbar {
   width: 8px; /* 스크롤바의 너비 */
 }
