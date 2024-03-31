@@ -383,20 +383,31 @@ public class ArticleService {
         quizzes.add(getArticleWithKeywordQuiz(articles.get(3).article, CategoryType.ECONOMY, articles.get(3).word));
         // 객관식 기사 2문제 생성
 
-        List<KeywordTerms> keywordTerms1 = List.of(new KeywordTerms("이태원", 100));
-        List<KeywordTerms> keywordTerms2 = List.of(new KeywordTerms("누리호", 40));
+        List<KeywordTerms> keywordTerms1 = List.of(
+                new KeywordTerms("이태원", 105),
+                new KeywordTerms("참사", 33),
+                new KeywordTerms("해링턴", 48),
+                new KeywordTerms("압사", 52),
+                new KeywordTerms("홍대", 75));
+        List<KeywordTerms> keywordTerms2 = List.of(
+                new KeywordTerms("나로호", 23),
+                new KeywordTerms("너울", 64),
+                new KeywordTerms("누리호", 47),
+                new KeywordTerms("이순신호", 30),
+                new KeywordTerms("미사일", 56)
+                );
         List<ArticleWithMultipleChoice> tmp1 = getRandomArticleByYearAndCategoryAndKeywordForMultipleChoice(2022, 1, CategoryType.SOCIETY, keywordTerms1);
         List<ArticleWithMultipleChoice> tmp2 = getRandomArticleByYearAndCategoryAndKeywordForMultipleChoice(2022, 1, CategoryType.POLITICS, keywordTerms2);
         quizzes.add(getArticleWithMultipleChoiceQuiz(
                 tmp1.getFirst().article,
                 CategoryType.SOCIETY,
-                String.valueOf(keywordTerms1.getFirst().word()),
+                String.valueOf(0),
                 tmp1.getFirst().multipleChoices)
         );
         quizzes.add(getArticleWithMultipleChoiceQuiz(
                 tmp2.getFirst().article,
                 CategoryType.POLITICS,
-                String.valueOf(keywordTerms2.getFirst().word()),
+                String.valueOf(2),
                 tmp2.getFirst().multipleChoices)
         );
         // OX 문제 4문제 생성
