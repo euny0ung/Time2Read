@@ -5,12 +5,13 @@ import PageMovingButton from '../components/commons/buttons/PageMovingButtons.js
 import TopButton from '../components/commons/buttons/TopButton.jsx';
 import BodyContainer from '../components/commons/containers/BodyContainer.jsx';
 import TranslucentContainer from '../components/commons/containers/TranslucentContainer.jsx';
-import WhiteContainer from '../components/commons/containers/WhiteContainer.jsx';
+import WhiteContainerHoverEffect from '../components/commons/containers/WhiteContainerHoverEffect.jsx';
 import ResultContent from '../components/commons/ResultContent.jsx';
 import ResultTitle from '../components/commons/ResultTitle.jsx';
 import { formatTime } from '../components/game/Timer.jsx';
 import Articles from '../components/result/article/Articles.jsx';
 import Keyword from '../components/result/Keyword.jsx';
+import TimeLoader from '../components/result/timeattack/TimeLoader.jsx';
 import {
   useGameResultStore,
   useGameModalStore,
@@ -129,16 +130,8 @@ const ResultPage = () => {
     <>
       <TopButton />
       <div className="fixed z-10 flex flex-col gap-6 right-5 top-5">
-        <PageMovingButton
-          onClick={navigateToLandingPage}
-          buttonText="다시 시계토끼 쫓아가기"
-          buttonColor="primary-yellow-0"
-        />
-        <PageMovingButton
-          onClick={navigateToMyPage}
-          buttonText="내 정보 더 자세하게 보기"
-          buttonColor="primary-yellow"
-        />
+        <PageMovingButton onClick={navigateToLandingPage} buttonText="다시 시계토끼 쫓아가기" buttonColor="#FBFAEA" />
+        <PageMovingButton onClick={navigateToMyPage} buttonText="내 정보 더 자세하게 보기" buttonColor="#FEFEC3" />
       </div>
       <BodyContainer>
         <div className="mb-2 text-xl font-bold text-white">GAME RESULT</div>
@@ -149,7 +142,7 @@ const ResultPage = () => {
               {/* leftbox */}
               <div className="flex flex-col justify-between gap-6 md:w-2/6" style={{ rightboxWidth }} ref={leftboxRef}>
                 {/* 맞은 개수 통계 */}
-                <WhiteContainer>
+                <WhiteContainerHoverEffect>
                   <ResultTitle title={'맞은 개수 통계'} />
                   <ResultContent>
                     <div className="flex items-center w-full justify-evenly">
@@ -158,19 +151,23 @@ const ResultPage = () => {
                     <div>맞은 개수 {gameResult.correct} 개</div>
                     <div>틀린 개수 {gameResult.incorrect} 개</div>
                   </ResultContent>
-                </WhiteContainer>
+                </WhiteContainerHoverEffect>
 
                 {/* 타임 어택 시간 */}
-                <WhiteContainer>
+                <WhiteContainerHoverEffect>
                   <ResultTitle title={'타임 어택 시간'} />
                   <div className="flex items-center justify-center h-[80%] text-6xl font-bold">
                     {gameResult.timeAttackTime ? (
-                      <div>{formatTime(600 - gameResult.timeAttackTime)}</div>
+                      <>
+                        <TimeLoader targetNumber={formatTime(600 - gameResult.timeAttackTime)} />
+                      </>
                     ) : (
-                      <div> 10:00 </div>
+                      <div> 00:00 </div>
                     )}
                   </div>
-                </WhiteContainer>
+                  {/* <div> 시간 증가하는 거 테스트 </div>
+                  <TimeLoader targetNumber={'03:24'} /> */}
+                </WhiteContainerHoverEffect>
               </div>
 
               {/* rightbox */}
@@ -179,10 +176,10 @@ const ResultPage = () => {
                 style={{ rightboxWidth, rightboxHeight }}
                 ref={rightboxRef}
               >
-                <WhiteContainer>
+                <WhiteContainerHoverEffect>
                   <ResultTitle title={'키워드'} />
                   <Keyword data={keywordData} width={keywordWidth} height={keywordHeight} />
-                </WhiteContainer>
+                </WhiteContainerHoverEffect>
               </div>
             </div>
           </TranslucentContainer>

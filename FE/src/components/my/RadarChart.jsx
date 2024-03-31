@@ -12,52 +12,64 @@ const RadarChart = ({ solvedCount }) => {
   //     sports: 0,
   //   };
 
+  const categoryMapping = {
+    social: '사회',
+    politics: '정치',
+    economy: '경제',
+    international: '국제',
+    culture: '문화',
+    sports: '스포츠',
+  };
+
   // solvedCount 객체에서 카테고리 이름과 데이터 추출
-  const countCategories = Object.keys(solvedCount);
+  const countCategories = Object.keys(solvedCount).map((category) => categoryMapping[category]);
   const countData = Object.values(solvedCount);
 
   const series = [
     {
-      name: 'Solved Count',
+      name: '카테고리별 맞은 개수',
       data: countData,
     },
   ];
-
   const options = {
     chart: {
-      height: 300,
-      type: 'radar',
+      width: 'auto',
+      height: 'suto',
     },
     xaxis: {
       categories: countCategories,
       labels: {
         style: {
           colors: ['#212529', '#212529', '#212529', '#212529', '#212529', '#212529'], // x 축 레이블의 색상을 변경
-          fontSize: '16px',
+          fontSize: '14px',
+          fontFamily: undefined,
+          fontWeight: 600,
         },
+        offsetX: 0,
+        offsetY: 0,
       },
     },
     yaxis: {
       tickAmount: 5,
       labels: {
         style: {
-          fontSize: '14px',
+          fontSize: '12px',
+          fontWeight: 600,
         },
-      },
-      axisBorder: {
-        color: '#249593',
         offsetX: 0,
-        offsetY: 0,
-      },
-      axisTicks: {
-        color: '#249593',
-        width: 6,
-        offsetX: 0,
-        offsetY: 0,
+        offsetY: 5,
       },
     },
     title: {
-      text: 'Solved Count',
+      text: '카테고리별 맞은 개수',
+      align: 'left',
+      margin: 0,
+      style: {
+        fontSize: '20px',
+        fontWeight: 'bold',
+        fontFamily: undefined,
+        color: '',
+      },
     },
     fill: {
       opacity: 0.5,
@@ -77,7 +89,7 @@ const RadarChart = ({ solvedCount }) => {
     },
     stroke: {
       show: true,
-      width: 3,
+      width: 0,
       colors: ['#A4E3D6'],
     },
     markers: {
@@ -109,11 +121,26 @@ const RadarChart = ({ solvedCount }) => {
         },
       },
     },
+    plotOptions: {
+      radar: {
+        size: 100, // 레이더 차트 크기
+        offsetX: -2, // 레이더 차트 왼쪽 여백
+        offsetY: 25, // 레이더 차트 오른쪽 여백
+        polygons: {
+          strokeColors: '#bdbdbd',
+          strokeWidth: 1,
+          connectorColors: '#bdbdbd',
+          fill: {
+            colors: undefined,
+          },
+        },
+      },
+    },
   };
 
   return (
     <div>
-      <ApexCharts options={options} series={series} type="radar" height={350} />
+      <ApexCharts options={options} series={series} type="radar" height={300} />
     </div>
   );
 };

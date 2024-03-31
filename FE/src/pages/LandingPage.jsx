@@ -39,6 +39,28 @@ const useQuizApiHandler = (selected) => {
   return handleQuizApi;
 };
 
+const useTestQuizApiHandler = (selected) => {
+  const navigate = useNavigate();
+  const { setQuiz } = useQuizStore();
+
+  // API 호출, 페이지 이동, 퀴즈 데이터 저장
+  const handleQuizApi = () => {
+    console.log('API 호출..');
+    axios
+      .get(`${import.meta.env.VITE_BASE_API}/game/${selected}`)
+      .then((response) => {
+        setQuiz(response.data.result);
+        console.log(response);
+        navigate('/game');
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  return handleQuizApi;
+};
+
 const LandingPage = () => {
   const [selected, setSelected] = useState('2024');
   const quizzes = useQuizStore((state) => state.quizzes);
@@ -83,6 +105,19 @@ const LandingPage = () => {
             입장하기
           </button>
         </div>
+        <button onClick={handleQuizApi} className="main">
+          <div>{animatedTitle}</div>
+        </button>
+        <Dropdown options={OPTIONS} selected={selected} handleSelect={handleSelect} />
+        <br />
+        <button
+          onClick={handleQuizApi}
+          className="px-4 py-2 mt-4 font-semibold text-white rounded bg-primary-teal hover:bg-primary-teal-3 focus:outline-none focus:ring-2 focus:ring-primary-teal-3 focus:ring-offset-2"
+        >
+          입장하기
+        </button>
+
+        <button onClick={useTestQuizApiHandler}>테스트</button>
       </BodyContainer>
     </>
   );
