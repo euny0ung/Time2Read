@@ -24,23 +24,20 @@ import java.util.List;
 public class ArticleController {
 
     private final ArticleService articleService;
-
     @GetMapping("/{year}")
     public Response<List<ArticleWithQuiz>> getArticleWithQuiz(HttpServletRequest request, @PathVariable int year) {
         try {
             log.info("request : {}", request);
             Long memberId = SessionInfo.getSessionMemberId(request);
             log.info("member Id : {}", memberId);
-            if(memberId == 5 && year == 2022)
+            if(memberId <= 5 && year == 2022)
                 return Response.success(articleService.getArticleWithQuizForAdmin());
             else
                 return Response.success(articleService.getArticleWithQuizzes(year));
         } catch (CommonException e) {
             e.printStackTrace();
         }
-
         return Response.success(articleService.getArticleWithQuizzes(year));
-
     }
 
     @GetMapping("/{year}/first")

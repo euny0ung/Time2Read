@@ -386,31 +386,34 @@ public class ArticleService {
         quizzes.add(getArticleWithKeywordQuiz(articles.get(3).article, CategoryType.ECONOMY, articles.get(3).word));
         // 객관식 기사 2문제 생성
 
-        List<KeywordTerms> keywordTerms1 = List.of(
-                new KeywordTerms("이태원", 105),
-                new KeywordTerms("참사", 33),
-                new KeywordTerms("해링턴", 48),
-                new KeywordTerms("압사", 52),
-                new KeywordTerms("홍대", 75));
-        List<KeywordTerms> keywordTerms2 = List.of(
-                new KeywordTerms("나로호", 23),
-                new KeywordTerms("너울", 64),
-                new KeywordTerms("누리호", 47),
-                new KeywordTerms("이순신호", 30),
-                new KeywordTerms("미사일", 56)
-                );
+        List<KeywordTerms> keywordTerms1 = List.of(new KeywordTerms("이태원", 105));
+        List<KeywordTerms> keywordTerms2 = List.of(new KeywordTerms("누리호", 47));
         List<ArticleWithMultipleChoice> tmp1 = getRandomArticleByYearAndCategoryAndKeywordForMultipleChoice(2022, 1, CategoryType.SOCIETY, keywordTerms1);
+//        int tmp1Order = 0;
+//        for(int i = 0; i < tmp1.size(); i++) {
+//            if(tmp1.get(i).wordLocation) {
+//                tmp1Order = i;
+//                break;
+//            }
+//        }
         List<ArticleWithMultipleChoice> tmp2 = getRandomArticleByYearAndCategoryAndKeywordForMultipleChoice(2022, 1, CategoryType.POLITICS, keywordTerms2);
+//        int tmp2Order = 0;
+//        for(int i = 0; i < tmp2.size(); i++) {
+//            if(tmp2.get(i).equals("누리호")) {
+//                tmp2Order = i;
+//                break;
+//            }
+//        }
         quizzes.add(getArticleWithMultipleChoiceQuiz(
                 tmp1.getFirst().article,
                 CategoryType.SOCIETY,
-                String.valueOf(0),
+                String.valueOf(tmp1.getFirst().wordLocation),
                 tmp1.getFirst().multipleChoices)
         );
         quizzes.add(getArticleWithMultipleChoiceQuiz(
                 tmp2.getFirst().article,
                 CategoryType.POLITICS,
-                String.valueOf(2),
+                String.valueOf(tmp2.getFirst().wordLocation),
                 tmp2.getFirst().multipleChoices)
         );
         // OX 문제 4문제 생성
