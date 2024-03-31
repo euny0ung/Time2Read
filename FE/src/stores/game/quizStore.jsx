@@ -1,14 +1,16 @@
 import { create } from 'zustand';
-import { useGameModalStore } from './gameStore.jsx';
+import { useGameModalStore, useGameItemStore, useGameResultStore, useChallengedArticleStore } from './gameStore.jsx';
 
 export const useQuizStore = create((set) => ({
   quizzes: [],
   setQuiz: (quizObject) => set({ quizzes: quizObject }),
 }));
 
-export const useHitsCountStore = create((set) => ({
-  hitsCount: 0,
-  setHitsCount: () => set((state) => ({ hitsCount: state.hitsCount + 1 })),
+// 맞은 카테고리 개수
+export const useHitsCategoryStore = create((set) => ({
+  hitsCategory: { POLITICS: 0, SOCIETY: 0, ECONOMY: 0, INTERNATIONAL: 0, CULTURE: 0, SPORTS: 0 },
+  setHitsCategory: (category) =>
+    set((state) => ({ hitsCategory: { ...state.hitsCategory, [category]: state.hitsCategory[category] + 1 } })),
 }));
 
 export const useAnswerCheckStore = create((set) => ({
@@ -23,20 +25,47 @@ export const useAnswerCheckStore = create((set) => ({
   },
 }));
 
-export const handleAnswerCheck = (inputValue, answer) => {
-  const hitsCountStore = useHitsCountStore.getState();
+// 퀴즈의 힌트 클릭여부 관리
+export const useClueIndexStore = create((set) => ({
+  cluesClicked: Array(10).fill(false),
+  toggleClueClick: (index) =>
+    set((state) => {
+      const updatedcluesClicked = [...state.cluesClicked];
+      updatedcluesClicked[index] = !updatedcluesClicked[index];
+      return { cluesClicked: updatedcluesClicked };
+    }),
+}));
+
+export const useClueStateStore = create((set) => ({
+  showClueState: false,
+  setShowClueState: () => set((state) => ({ showClueState: !state.showClueState })),
+}));
+
+export const handleAnswerCheck = (inputValue, answer, mainCategory, dispatch, id) => {
+  const { gameResult, setGameResult } = useGameResultStore.getState();
   const answerCheckStore = useAnswerCheckStore.getState();
   const gameModalStore = useGameModalStore.getState();
+  const gameItemStore = useGameItemStore.getState();
+  const hitsCategoryStore = useHitsCategoryStore.getState();
+  const { setChallengeArticlesIdList } = useChallengedArticleStore.getState();
+
+  setChallengeArticlesIdList(id);
 
   if (inputValue === answer) {
-    hitsCountStore.setHitsCount();
+    const prevResult = { ...gameResult };
+    prevResult.correct += 1;
+    prevResult.incorrect = 10 - prevResult.correct;
+    setGameResult(prevResult);
+    hitsCategoryStore.setHitsCategory(mainCategory);
     gameModalStore.setBumped(false);
     gameModalStore.setOpenQuizModal(false);
     answerCheckStore.actions.setResultState('정답입니다');
     answerCheckStore.actions.setQuizIndex();
   } else {
+    dispatch({ type: 'RESET_INPUT' });
     gameModalStore.setBumped(false);
     answerCheckStore.actions.setResultState('오답입니다');
+    gameItemStore.decreaseLifeCount();
   }
   answerCheckStore.actions.setOpenAnswerResult();
 };

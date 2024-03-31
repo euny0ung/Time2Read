@@ -1,7 +1,7 @@
 const ResultTitle = ({ title }) => {
   return (
     <>
-      <div className="flex items-center text-lg font-bold text-center text-gray-700 font-inter">{title}</div>
+      <div className="flex items-center text-xl font-bold text-center font-inter">{title}</div>
     </>
   );
 };

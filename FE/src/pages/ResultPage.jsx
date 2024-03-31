@@ -1,17 +1,33 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getYearSummary } from '../apis/resultApi.jsx';
-import ResultButton from '../components/commons/buttons/ResultButton.jsx';
+import { getYearSummary, postGameResult } from '../apis/resultApi.jsx';
+import PageMovingButton from '../components/commons/buttons/PageMovingButtons.jsx';
+import TopButton from '../components/commons/buttons/TopButton.jsx';
+import BodyContainer from '../components/commons/containers/BodyContainer.jsx';
 import TranslucentContainer from '../components/commons/containers/TranslucentContainer.jsx';
-import WhiteContainer from '../components/commons/containers/WhiteContainer.jsx';
+import WhiteContainerHoverEffect from '../components/commons/containers/WhiteContainerHoverEffect.jsx';
 import ResultContent from '../components/commons/ResultContent.jsx';
 import ResultTitle from '../components/commons/ResultTitle.jsx';
-import Articles from '../components/result/Articles.jsx';
+import { formatTime } from '../components/game/Timer.jsx';
+import Articles from '../components/result/article/Articles.jsx';
 import Keyword from '../components/result/Keyword.jsx';
-import { useGameResultStore } from '../stores/game/gameStore.jsx';
+import TimeLoader from '../components/result/timeattack/TimeLoader.jsx';
+import {
+  useGameResultStore,
+  useGameModalStore,
+  useGameItemStore,
+  useVisibilityStore,
+  checkCollidedStore,
+  checkGameSuccessStore,
+  checkGameYearStore,
+  useResultDataStore,
+} from '../stores/game/gameStore.jsx';
+import { useHitsCategoryStore } from '../stores/game/quizStore.jsx';
 
 const ResultPage = () => {
   const navigate = useNavigate();
+
+  console.log('resultPAge 입장');
 
   const { gameResult } = useGameResultStore(); // 게임 결과 : 정답 수, 오답 수, 타임 어택 시간
   const [keywordData, setKeywordData] = useState([]);
@@ -22,6 +38,20 @@ const ResultPage = () => {
   const [rightboxHeight, setRightboxHeight] = useState('0px');
   const [keywordWidth, setKeywordWidth] = useState(0);
   const [keywordHeight, setKeywordHeight] = useState(0);
+  const { hitsCategory } = useHitsCategoryStore();
+  const { isSucceed, setIsSucceed } = checkGameSuccessStore();
+  const gameYear = checkGameYearStore((state) => state.gameYear);
+  const setResultData = useResultDataStore((state) => state.setResultData);
+
+  // Json 형식의 파일을 만들어줘야 하는데 왜 자동저장하면 이렇게 되어버리지
+  const resultData = {
+    isSuccess: isSucceed,
+    playYear: gameYear,
+    timeAttackTime: gameResult.timeAttackTime,
+    solvedCategory: hitsCategory,
+  };
+
+  console.log('resultData: ', resultData);
 
   useEffect(() => {
     getYearSummary(2023)
@@ -32,14 +62,38 @@ const ResultPage = () => {
       .catch((error) => {
         console.error('Error requesting year summary:', error);
       });
+
+    if (gameResult.correct === 10) {
+      setIsSucceed(true);
+    }
   }, []);
 
+  const resetGame = () => {
+    useGameModalStore.getState().reset();
+    useGameResultStore.getState().reset();
+    useGameItemStore.getState().reset();
+    useVisibilityStore.getState().reset();
+    checkCollidedStore.getState().reset();
+    checkGameSuccessStore.getState().reset();
+    checkGameYearStore.getState().reset();
+    useResultDataStore.getState().reset();
+  };
+
   const navigateToLandingPage = () => {
+    resetGame();
     navigate('/');
   };
 
   const navigateToMyPage = () => {
-    navigate('/user');
+    const name = sessionStorage.getItem('name');
+
+    if (name !== null) {
+      setResultData(resultData);
+      postGameResult(resultData);
+      navigate('/mypage');
+    } else {
+      console.log(console.log('로그인 필요'), navigate('/'));
+    }
   };
 
   // 너비 및 높이 동적 조절
@@ -47,25 +101,18 @@ const ResultPage = () => {
     requestAnimationFrame(() => {
       if (topboxRef.current && leftboxRef.current && rightboxRef.current) {
         const newWidth = topboxRef.current.offsetWidth / 2; // topbox 너비에 따라 leftbox와 rightbox 너비 조절
-        // let maxHeight = 0;
-        // if (leftboxRef.current.offsetHeight < rightboxRef.current.offsetHeight) {
         let maxHeight = Math.max(leftboxRef.current.offsetHeight, rightboxRef.current.offsetHeight); // leftbox와 rightbox 높이 비교 후 더 큰 값으로 설정
-        // }
 
-        if (newWidth !== rightboxWidth) {
-          setRightboxWidth(`${newWidth}px`);
-          setKeywordWidth(newWidth);
-        }
+        setRightboxWidth(`${newWidth}px`);
+        setKeywordWidth(newWidth);
 
         // 창 너비에 따른 높이 조절 로직. 768px 이하일 때 (tailwind에서 md 기준이 768px임) maxHeight가 작아지도록
         if (window.innerWidth < 768) {
           maxHeight /= 2;
         }
 
-        if (maxHeight !== rightboxHeight) {
-          setRightboxHeight(`${maxHeight}px`); // 더 큰 높이로 rightboxHeight 업데이트
-          setKeywordHeight(maxHeight * 0.7); // Keyword 컴포넌트의 높이도 maxHeight로 설정
-        }
+        setRightboxHeight(`${maxHeight}px`);
+        setKeywordHeight(maxHeight * 0.7);
       }
     });
   };
@@ -81,75 +128,67 @@ const ResultPage = () => {
 
   return (
     <>
-      <div className="bg-gradient-to-br from-purple-200 to-blue-200">
-        <div className="w-full max-w-[90%] lg:max-w-[60%] md:max-w-[75%] mx-auto ">
-          <h1>결과페이지</h1>
-          <div className="relative flex flex-col items-center w-full gap-4 border-4 border-red-500 ">
-            {/* topbox */}
-            <TranslucentContainer>
-              <div
-                className="flex flex-col items-center w-full gap-6 border-4 border-blue-500 md:flex-row"
-                ref={topboxRef}
-              >
-                {/* leftbox */}
-                <div
-                  className="flex flex-col items-center justify-center w-full gap-6 md:w-2/6"
-                  style={{ rightboxWidth }}
-                  ref={leftboxRef}
-                >
-                  {/* 맞은 개수 통계 */}
-                  <WhiteContainer>
-                    <ResultTitle title={'맞은 개수 통계'} />
-                    <ResultContent>
-                      <div className="flex items-center w-full justify-evenly">
-                        총 문제 수 {gameResult.correct + gameResult.incorrect} 개
-                      </div>
-                      <div>맞은 개수 {gameResult.correct} 개</div>
-                      <div>틀린 개수 {gameResult.incorrect} 개</div>
-                    </ResultContent>
-                  </WhiteContainer>
-                  {/* 타임 어택 시간 */}
-                  <WhiteContainer>
-                    <ResultTitle title={'타임 어택 시간'} />
-                    <ResultContent>
-                      {gameResult.timeAttackTime ? <div>{gameResult.timeAttackTime}</div> : <div> 00:00:00 </div>}
-                    </ResultContent>
-                  </WhiteContainer>
-                </div>
-                {/* rightbox */}
-                <div
-                  className="flex justify-center w-full h-full md:w-4/6"
-                  style={{ rightboxWidth, rightboxHeight }}
-                  ref={rightboxRef}
-                >
-                  <WhiteContainer>
-                    <ResultTitle title={'키워드'} />
-                    <Keyword data={keywordData} width={keywordWidth} height={keywordHeight} />
-                  </WhiteContainer>
-                </div>
-              </div>
-            </TranslucentContainer>
-            {/* buttonbox */}
-            <div className="flex flex-col items-center w-full gap-6 justify-evenly md:flex-row">
-              <button onClick={navigateToLandingPage}>
-                <ResultButton>
-                  <ResultTitle title={'다시 시계토끼 쫓아가기'} />
-                </ResultButton>
-              </button>
-              <button onClick={navigateToMyPage}>
-                <ResultButton>
-                  <ResultTitle title={'내 정보 더 자세하게 보기'} />
-                </ResultButton>
-              </button>
-            </div>
-            {/* relatednewsbox */}
-            <TranslucentContainer>
-              <ResultTitle title={'과거와 연결된 기사'} />
-              <Articles />
-            </TranslucentContainer>
-          </div>
-        </div>
+      <TopButton />
+      <div className="fixed z-10 flex flex-col gap-6 right-5 top-5">
+        <PageMovingButton onClick={navigateToLandingPage} buttonText="다시 시계토끼 쫓아가기" buttonColor="#FBFAEA" />
+        <PageMovingButton onClick={navigateToMyPage} buttonText="내 정보 더 자세하게 보기" buttonColor="#FEFEC3" />
       </div>
+      <BodyContainer>
+        <div className="mb-2 text-xl font-bold text-white">GAME RESULT</div>
+        <div className="relative flex flex-col w-full gap-4">
+          {/* topbox */}
+          <TranslucentContainer>
+            <div className="flex flex-col justify-center w-full gap-6 md:flex-row" ref={topboxRef}>
+              {/* leftbox */}
+              <div className="flex flex-col justify-between gap-6 md:w-2/6" style={{ rightboxWidth }} ref={leftboxRef}>
+                {/* 맞은 개수 통계 */}
+                <WhiteContainerHoverEffect>
+                  <ResultTitle title={'맞은 개수 통계'} />
+                  <ResultContent>
+                    <div className="flex items-center w-full justify-evenly">
+                      총 문제 수 {gameResult.correct + gameResult.incorrect} 개
+                    </div>
+                    <div>맞은 개수 {gameResult.correct} 개</div>
+                    <div>틀린 개수 {gameResult.incorrect} 개</div>
+                  </ResultContent>
+                </WhiteContainerHoverEffect>
+
+                {/* 타임 어택 시간 */}
+                <WhiteContainerHoverEffect>
+                  <ResultTitle title={'타임 어택 시간'} />
+                  <div className="flex items-center justify-center h-[80%] text-6xl font-bold">
+                    {gameResult.timeAttackTime ? (
+                      <>
+                        <TimeLoader targetNumber={formatTime(600 - gameResult.timeAttackTime)} />
+                      </>
+                    ) : (
+                      <div> 00:00 </div>
+                    )}
+                  </div>
+                  {/* <div> 시간 증가하는 거 테스트 </div>
+                  <TimeLoader targetNumber={'03:24'} /> */}
+                </WhiteContainerHoverEffect>
+              </div>
+
+              {/* rightbox */}
+              <div
+                className="flex justify-center w-full h-full md:w-4/6 transition-width transition-height"
+                style={{ rightboxWidth, rightboxHeight }}
+                ref={rightboxRef}
+              >
+                <WhiteContainerHoverEffect>
+                  <ResultTitle title={'키워드'} />
+                  <Keyword data={keywordData} width={keywordWidth} height={keywordHeight} />
+                </WhiteContainerHoverEffect>
+              </div>
+            </div>
+          </TranslucentContainer>
+          <TranslucentContainer>
+            <ResultTitle title={'과거와 연결된 기사'} />
+            <Articles />
+          </TranslucentContainer>
+        </div>
+      </BodyContainer>
     </>
   );
 };

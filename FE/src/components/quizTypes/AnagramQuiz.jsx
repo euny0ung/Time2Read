@@ -26,13 +26,15 @@ const reducer = (state, action) => {
 
       return { ...state, inputAnswer: updatedInput };
     }
+    case 'RESET_INPUT':
+      return inputInitialState;
     default:
       return state;
   }
 };
 
 // 애너그램 컴포넌트
-const AnagramQuiz = ({ answer, anagram }) => {
+const AnagramQuiz = ({ answer, anagram, mainCategory, id }) => {
   const anagramButtonState = anagram.map(() => false);
 
   const [anagramColor, setAnagramColor] = useState(anagramButtonState);
@@ -46,7 +48,7 @@ const AnagramQuiz = ({ answer, anagram }) => {
     if (state.inputAnswer.length === answer.length) {
       const result = state.inputAnswer.map((input) => input.clickValue).join('');
 
-      handleAnswerCheck(result, answer);
+      handleAnswerCheck(result, answer, mainCategory, () => dispatch({ type: 'RESET_INPUT' }), id);
     }
   }, [state.inputAnswer]);
 
@@ -69,13 +71,13 @@ const AnagramQuiz = ({ answer, anagram }) => {
             onClick={(event) => handleAnagramAnswer(event, char, index)}
             className={anagramColor[index] ? 'bg-yellow-300' : 'bg-inherit'}
           >
-            {char}
+            <p className='text-2xl'>{char}</p>
           </button>
         ))}
       </div>
       <div>
         {state.inputAnswer.map((input) => (
-          <span key={input.index}>{input.clickValue}</span>
+          <p key={input.index} className='text-2xl'>{input.clickValue}</p>
         ))}
       </div>
     </div>
