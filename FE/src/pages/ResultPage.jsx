@@ -22,7 +22,13 @@ import {
   checkGameYearStore,
   useResultDataStore,
 } from '../stores/game/gameStore.jsx';
-import { useHitsCategoryStore } from '../stores/game/quizStore.jsx';
+import {
+  useQuizStore,
+  useHitsCategoryStore,
+  useAnswerCheckStore,
+  useClueIndexStore,
+  useClueStateStore,
+} from '../stores/game/quizStore.jsx';
 
 const ResultPage = () => {
   const navigate = useNavigate();
@@ -77,6 +83,11 @@ const ResultPage = () => {
     checkGameSuccessStore.getState().reset();
     checkGameYearStore.getState().reset();
     useResultDataStore.getState().reset();
+    useQuizStore.getState().reset();
+    useHitsCategoryStore.getState().reset();
+    useAnswerCheckStore.getState().reset();
+    useClueIndexStore.getState().reset();
+    useClueStateStore.getState().reset();
   };
 
   const navigateToLandingPage = () => {

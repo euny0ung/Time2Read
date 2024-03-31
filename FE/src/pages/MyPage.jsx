@@ -9,6 +9,13 @@ import {
   checkGameYearStore,
   useResultDataStore,
 } from '@stores/game/gameStore';
+import {
+  useQuizStore,
+  useHitsCategoryStore,
+  useAnswerCheckStore,
+  useClueIndexStore,
+  useClueStateStore,
+} from '@stores/game/quizStore.jsx';
 import { format } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
 import { getTimeRecords, getSolved, getScrapArticles, getArticleDetail, putArticleStatus } from '../apis/myApi.jsx';
@@ -138,7 +145,13 @@ const MyPage = () => {
     checkGameSuccessStore.getState().reset();
     checkGameYearStore.getState().reset();
     useResultDataStore.getState().reset();
+    useQuizStore.getState().reset();
+    useHitsCategoryStore.getState().reset();
+    useAnswerCheckStore.getState().reset();
+    useClueIndexStore.getState().reset();
+    useClueStateStore.getState().reset();
   };
+
   const navigateToLandingPage = () => {
     resetGame();
     navigate('/');
