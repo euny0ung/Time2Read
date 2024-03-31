@@ -41,7 +41,7 @@ public class SocialController {
         HttpSession session = request.getSession(true);
         String sessionId = session.getId(); // 세션에 고유한 ID 설정
         session.setAttribute("sessionId", sessionId);
-        session.setAttribute("id", member.getId());
+        session.setAttribute("memberId", member.getId());
         session.setMaxInactiveInterval(36000);
     }
 }
