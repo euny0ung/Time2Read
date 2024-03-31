@@ -71,7 +71,7 @@ const AnagramQuiz = ({ answer, anagram, mainCategory, id }) => {
             onClick={(event) => handleAnagramAnswer(event, char, index)}
             className={anagramColor[index] ? 'bg-yellow-300' : 'bg-inherit'}
           >
-            <p key={input.index} className='text-2xl'>{char}</p>
+            <p className='text-2xl'>{char}</p>
           </button>
         ))}
       </div>

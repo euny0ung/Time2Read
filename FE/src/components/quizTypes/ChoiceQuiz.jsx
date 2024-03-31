@@ -21,7 +21,7 @@ const ChoiceQuiz = ({ answer, choices, mainCategory, id }) => {
 
   const handleChoiceSelect = (choiceIndex, choiceValue) => {
     dispatch({ type: 'SELECT_CHOICE', payload: choiceIndex });
-    handleAnswerCheck(choiceValue, answer, mainCategory, () => dispatch({ type: 'RESET_INPUT' }), id);
+    handleAnswerCheck(choiceIndex.toString(), answer, mainCategory, () => dispatch({ type: 'RESET_INPUT' }), id);
   };
 
   return (
