@@ -1,8 +1,6 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 
-// -------------- 상태 관리 --------------
-
 // 유저가 게임에서 도전한(정답,오답 모두 포함한) 퀴즈의 기사 아이디들 (퀴즈 푼 순서대로 배열에 저장)
 export const useChallengedArticleStore = create(
   devtools((set) => ({
