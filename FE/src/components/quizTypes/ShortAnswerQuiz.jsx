@@ -33,10 +33,10 @@ const ShortAnswerQuiz = ({ answer, mainCategory, id }) => {
   };
 
   return (
-    <div>
+    <div className='w-[100%] h-[100%] flex justify-center items-center'>
       <input
-        placeholder="정답을 입력하세요"
-        className="border-2 border-black-500 text-stone-950"
+        placeholder="정답 입력 후 엔터를 누르세요."
+        className="w-full h-10 px-4 py-2 rounded-md border-blue-500 focus:outline-none border focus:border-red-500"
         value={state.selected}
         onChange={handleChange}
         onKeyDown={(e) => handleEnter(e, answer, mainCategory, dispatch, id)}
