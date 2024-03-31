@@ -36,7 +36,7 @@ const QuizModal = React.memo(
     console.log('퀴즈퀴즈', quiz);
     return (
       <div className="w-[85%] h-[80%] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 gap-4 p-6 bg-white bg-opacity-50 border-2 border-white shadow-xl rounded-2xl flex flex-col items-start justify-center">
-        {quiz.map((it, index) => {
+        {quiz.map((it) => {
           let questionText = '';
           let questionHeight = 60;
           let answerHeight = 30;
