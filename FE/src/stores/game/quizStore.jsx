@@ -51,6 +51,8 @@ export const handleAnswerCheck = (inputValue, answer, mainCategory, dispatch, id
 
   setChallengeArticlesIdList(id);
 
+  console.log(inputValue, answer);
+
   if (inputValue === answer) {
     const prevResult = { ...gameResult };
     prevResult.correct += 1;

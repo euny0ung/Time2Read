@@ -46,13 +46,13 @@ const QuizModal = React.memo(
               {additionalProps && React.createElement(additionalProps.component, additionalProps.componentProps)}
               <div>
                 <EntireContentButton clues={it.quiz.clues[0]} quizIndex={quizIndex} clueIndex={0} />
-                {it.quiz.clues[1] && <ClueContentButton clues={it.quiz.clues[1]} quizIndex={quizIndex} clueIndex={0} />}
+                {it.quiz.clues[1] && <ClueContentButton clues={it.quiz.clues[1]} quizIndex={quizIndex} clueIndex={1} />}
               </div>
             </div>
           );
 
           // O, X
-          if (it.quiz.quizType === 'OX_QUIZ') {
+          if (it.quiz.quizType === 'OX') {
             return renderQuiz('OX퀴즈', {
               component: OxQuiz,
               componentProps: { answer: it.quiz.answer, mainCategory: it.mainCategory, id: it.id },
