@@ -14,6 +14,7 @@ import { useNavigate } from 'react-router-dom';
 import BodyContainer from '../components/commons/containers/BodyContainer.jsx';
 import Dropdown from '../components/commons/Dropdown.jsx';
 import { checkGameYearStore } from '../stores/game/gameStore.jsx';
+import usePreLoginPathStore from '../stores/ui/loginStore.jsx';
 
 const OPTIONS = Array.from({ length: 2024 - 2005 + 1 }, (v, k) => `${2024 - k}`);
 

@@ -30,6 +30,8 @@ import {
   useClueIndexStore,
   useClueStateStore,
 } from '../stores/game/quizStore.jsx';
+import usePreLoginPathStore from '../stores/ui/loginStore.jsx';
+import { useScrollPositionStore } from '../stores/ui/scrollStore.jsx';
 
 const ResultPage = () => {
   const navigate = useNavigate();
@@ -38,7 +40,7 @@ const ResultPage = () => {
 
   const { gameResult } = useGameResultStore(); // 게임 결과 : 정답 수, 오답 수, 타임 어택 시간
   const [keywordData, setKeywordData] = useState([]);
-  const topboxRef = useRef(null); // topbox의 ref
+  const topboxRef = useRef(null);
   const leftboxRef = useRef(null);
   const rightboxRef = useRef(null);
   const [rightboxWidth, setRightboxWidth] = useState('0px');
@@ -49,7 +51,7 @@ const ResultPage = () => {
   const { isSucceed, setIsSucceed } = checkGameSuccessStore();
   const gameYear = checkGameYearStore((state) => state.gameYear);
   const setResultData = useResultDataStore((state) => state.setResultData);
-  const [openLoginInducementModal, setOpenLoginInducementModal] = useState(false); // 로그인 유도 모달
+  const [openLoginInducementModal, setOpenLoginInducementModal] = useState(false);
 
   // Json 형식의 파일을 만들어줘야 하는데 왜 자동저장하면 이렇게 되어버리지
   const resultData = {
@@ -60,17 +62,6 @@ const ResultPage = () => {
   };
 
   console.log('resultData: ', resultData);
-
-  useEffect(() => {
-    getYearSummary(2023)
-      .then((data) => {
-        setKeywordData(data.result);
-        console.log('Year Summary Data:', data.result);
-      })
-      .catch((error) => {
-        console.error('Error requesting year summary:', error);
-      });
-  }, []);
 
   const resetGame = () => {
     useGameModalStore.getState().reset();
@@ -94,17 +85,21 @@ const ResultPage = () => {
   };
 
   const navigateToMyPage = () => {
-    const name = sessionStorage.getItem('name');
+    const email = sessionStorage.getItem('email');
 
-    if (name !== null) {
-      // 유저가 로그인 되어 있을 때
+    if (email !== null) {
+      // 로그인 되어 있을 때
       setResultData(resultData);
       postGameResult(resultData);
       navigate('/mypage');
     } else {
       // 로그인 되어 있지 않을 때
-      setOpenLoginInducementModal(true);
-      // console.log(console.log('로그인 필요'), navigate('/'));
+      setOpenLoginInducementModal(true); // 로그인 유도 모달 표시
+      usePreLoginPathStore.getState().setPreLoginPath(window.location.pathname); // 현재 경로 저장
+      useScrollPositionStore.getState().setScrollPosition(window.scrollY); // 스크롤 위치 저장
+
+      console.log('로그인이 필요해요');
+      console.log('현재페이지 경로', window.location.pathname);
     }
   };
 
@@ -130,11 +125,26 @@ const ResultPage = () => {
   };
 
   useEffect(() => {
+    // 페이지 로딩 시 초기 데이터 로딩
+    getYearSummary(2023)
+      .then((data) => {
+        setKeywordData(data.result);
+        console.log('Year Summary Data:', data.result);
+      })
+      .catch((error) => {
+        console.error('Error requesting year summary:', error);
+      });
+
+    // 페이지 로딩 시 스크롤 위치 복원
+    const savedPosition = useScrollPositionStore.getState().scrollPosition;
+    if (savedPosition) window.scrollTo(0, savedPosition);
+
+    // 리사이즈 이벤트 리스너 등록 및 제거
     handleResize();
-    window.addEventListener('resize', handleResize); // 리사이즈 이벤트 리스너 등록
+    window.addEventListener('resize', handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize); // 컴포넌트 언마운트 시 리스너 제거
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
@@ -143,8 +153,8 @@ const ResultPage = () => {
       <TopButton />
       <div className="fixed z-10 flex flex-col gap-6 right-5 top-5">
         <PageMovingButton onClick={navigateToLandingPage} buttonText="다시 시계토끼 쫓아가기" buttonColor="#FBFAEA" />
-        {openLoginInducementModal && <InducementModal onClose={() => setOpenLoginInducementModal(false)} />}
         <PageMovingButton onClick={navigateToMyPage} buttonText="내 정보 더 자세하게 보기" buttonColor="#FEFEC3" />
+        {openLoginInducementModal && <InducementModal onClose={() => setOpenLoginInducementModal(false)} />}
       </div>
       <BodyContainer>
         <div className="mb-2 text-xl font-bold text-white">GAME RESULT</div>
