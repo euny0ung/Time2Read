@@ -109,7 +109,7 @@ const QuizModal = React.memo(
                       width: '100%',
                       height: `${quizTypeConfig.questionHeight}%`,
                       overflowY: 'scroll',
-                      maxHeight: '50%',
+                      maxHeight: '60%',
                     }}
                   >
                     <p className="none-scroll-bar text-xl text-black">{quizObj.questionSummary}</p>
