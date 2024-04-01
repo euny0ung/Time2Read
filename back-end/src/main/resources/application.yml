@@ -84,7 +84,7 @@ spring:
       on-profile: prod
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
-    url: jdbc:mariadb://j10b307.p.ssafy.io:13306/time_to_read
+    url: ${MYSQL_URL}
     username: ${MYSQL_USER}
     password: ${MYSQL_ROOT_PASSWORD}
   jpa:
@@ -95,4 +95,3 @@ spring:
       hibernate:
         format_sql: true
         use_sql_comments: true
-        dialect: org.hibernate.dialect.MySQLDialect
