@@ -190,7 +190,7 @@ const Player = () => {
       >
         <mesh position={[-1, 0, -13]}>
           <boxGeometry args={[0.6, 0.6, 0.6]} />
-          <meshStandardMaterial color="red" />
+          <meshStandardMaterial color="red" transparent opacity={0} />
         </mesh>
       </RigidBody>
     </>
