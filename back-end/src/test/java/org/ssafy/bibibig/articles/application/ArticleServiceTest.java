@@ -170,14 +170,14 @@ class ArticleServiceTest {
     void givenCategory_whenCategoryCount_thenReturnSize() {
         //given
         List<CategoryType> categoryList = List.of(CategoryType.ECONOMY, CategoryType.ECONOMY, CategoryType.CULTURE, CategoryType.POLITICS, CategoryType.ECONOMY);
-        List<CategoryType> categories= List.of(CategoryType.values());
+        List<CategoryType> categories = List.of(CategoryType.values());
         assertAll(
                 () -> assertThat(Collections.frequency(categoryList, CategoryType.ECONOMY)).isEqualTo(3),
                 () -> assertThat(Collections.frequency(categoryList, CategoryType.CULTURE)).isEqualTo(1),
                 () -> assertThat(Collections.frequency(categoryList, CategoryType.POLITICS)).isEqualTo(1),
                 () -> assertThat(Collections.frequency(categoryList, CategoryType.INTERNATIONAL)).isEqualTo(0)
         );
-        for(CategoryType category : categories) {
+        for (CategoryType category : categories) {
             int size = Collections.frequency(categoryList, category);
         }
     }

@@ -7,9 +7,12 @@ import org.ssafy.bibibig.articles.application.ArticleService;
 import org.ssafy.bibibig.articles.domain.ArticleEntity;
 import org.ssafy.bibibig.articles.dto.Article;
 import org.ssafy.bibibig.articles.dto.KeywordTerms;
+import org.ssafy.bibibig.member.dao.MemberRepository;
 import org.ssafy.bibibig.result.dao.ElasticsearchRelatedArticleRepository;
 import org.ssafy.bibibig.result.dto.RelatedArticle;
+import org.ssafy.bibibig.member.dto.request.GameResultRequest;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -19,6 +22,7 @@ public class ResultService {
 
     private final ArticleService articleService;
     private final ElasticsearchRelatedArticleRepository relatedArticleRepository;
+    private final MemberRepository memberRepository;
 
     public List<RelatedArticle> getRelatedArticlesFromPast(List<String> id) {
         return id
@@ -42,9 +46,16 @@ public class ResultService {
                 article.wroteAt().getYear() + 1,
                 2030);
 
-        return relatedArticles.stream()
-                .map(Article::from)
-                .toList();
+        return getArticles(article, relatedArticles);
     }
 
+    private static List<Article> getArticles(Article article, List<ArticleEntity> relatedArticles) {
+        List<Article> list = new ArrayList<>();
+        list.add(article); // 첫 번째 위치에 과거(원본) 추가
+
+        for (ArticleEntity entity : relatedArticles) {
+            list.add(Article.from(entity));
+        }
+        return list;
+    }
 }

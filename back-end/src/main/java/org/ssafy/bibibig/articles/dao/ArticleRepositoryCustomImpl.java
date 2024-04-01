@@ -26,14 +26,12 @@ import static org.elasticsearch.index.query.QueryBuilders.moreLikeThisQuery;
 @Repository
 @RequiredArgsConstructor
 public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
-
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private final ElasticsearchOperations operations;
 
-
-    //해당 년도에서 많이 사용된 키워드 찾기
+    //해당년도에서 많이 사용된 키워드Top50 찾기
     @Override
     public List<KeywordTerms> getTopKeywordsByYear(int year) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         NativeSearchQuery query = new NativeSearchQueryBuilder()
                 .withQuery(QueryBuilders.boolQuery()
                         .must(QueryBuilders.rangeQuery("작성시간")
@@ -51,10 +49,9 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
         ).toList();
     }
 
-    //해당 년도의 대분류에서 많이 사용된 키워드 찾기
+    //해당년도의 대분류에서 많이 사용된 키워드 찾기
     @Override
     public List<KeywordTerms> getTopKeywordsByYearAndCategory(int year, CategoryType category) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         NativeSearchQuery query = new NativeSearchQueryBuilder()
                 .withQuery(QueryBuilders.boolQuery()
                         .must(QueryBuilders.matchQuery("대분류", category.getName()))
@@ -76,22 +73,25 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
     // 랜덤 기사 추출하기
     @Override
     public ArticleEntity getRandomArticleByYearAndCategoryAndKeyword(int year, CategoryType category, String keyword) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         NativeSearchQuery query = new NativeSearchQueryBuilder()
                 .withQuery(QueryBuilders.functionScoreQuery(
                         QueryBuilders.boolQuery()
-                                .must(QueryBuilders.matchQuery("대분류", category.getName()))
-                                .must(QueryBuilders.matchQuery("키워드", keyword))
                                 .must(QueryBuilders.rangeQuery("작성시간")
                                         .gte(LocalDateTime.of(year, 1, 1, 0, 0).format(formatter))
                                         .lte(LocalDateTime.of(year + 1, 1, 1, 0, 0).format(formatter))
-                                ),
+                                )
+                                .must(QueryBuilders.matchQuery("대분류", category.getName()))
+                                .must(QueryBuilders.matchQuery("키워드", keyword))
+                                .must(QueryBuilders.matchQuery("요약", keyword)),
                         ScoreFunctionBuilders.randomFunction())
                 ).withMaxResults(1)
                 .build();
-        SearchHit<ArticleEntity> search = operations.search(query, ArticleEntity.class).getSearchHit(0);
-        ArticleEntity article = search.getContent();
-        return article;
+        SearchHits<ArticleEntity> search = operations.search(query, ArticleEntity.class);
+
+        if(search.getTotalHits() == 0){
+            return null;
+        }
+        return search.getSearchHit(0).getContent();
     }
 
     // 특정 기사와 관련된 기사 Top5개 뽑기
@@ -108,7 +108,6 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
                                 .maxQueryTerms(12)
                 )
                 .build();
-        //then
         SearchHits<?> searchHits = operations.search(query, ArticleEntity.class);
         List<ArticleEntity> result = searchHits.getSearchHits().stream()
                 .limit(5)
@@ -116,9 +115,48 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
                 .filter(ArticleEntity.class::isInstance)
                 .map(ArticleEntity.class::cast)
                 .toList();
-
         return result;
     }
+
+    @Override
+    public List<KeywordTerms> getMultipleChoice(int year, CategoryType category, String keyword, int count) {
+        NativeSearchQuery query = new NativeSearchQueryBuilder()
+                .withQuery(
+                        QueryBuilders.boolQuery()
+                                .must(QueryBuilders.rangeQuery("작성시간")
+                                        .gte(LocalDateTime.of(year, 1, 1, 0, 0).format(formatter))
+                                        .lte(LocalDateTime.of(year + 1, 1, 1, 0, 0).format(formatter))
+                                )
+                                .must(QueryBuilders.matchQuery("대분류", category.getName()))
+                                .mustNot(QueryBuilders.matchQuery("키워드", keyword))
+                ).withMaxResults(0)
+                .addAggregation(AggregationBuilders.terms("keyword_terms").field("키워드").size(count))
+                .build();
+
+        SearchHits<?> searchHits = operations.search(query, ArticleEntity.class);
+        ParsedStringTerms pst = Objects.requireNonNull(searchHits.getAggregations()).get("keyword_terms");
+
+        return pst.getBuckets().stream().map(s ->
+                new KeywordTerms(s.getKey().toString(), s.getDocCount())
+        ).toList();
+    }
+
+    @Override
+    public ArticleEntity getRandomArticleByYearAndCategory(int year, CategoryType category) {
+        NativeSearchQuery query = new NativeSearchQueryBuilder()
+                .withQuery(QueryBuilders.functionScoreQuery(
+                        QueryBuilders.boolQuery()
+                                .must(QueryBuilders.rangeQuery("작성시간")
+                                        .gte(LocalDateTime.of(year, 1, 1, 0, 0).format(formatter))
+                                        .lte(LocalDateTime.of(year + 1, 1, 1, 0, 0).format(formatter))
+                                )
+                                .must(QueryBuilders.matchQuery("대분류", category.getName())),
+                        ScoreFunctionBuilders.randomFunction())
+                ).withMaxResults(1)
+                .build();
+        SearchHit<ArticleEntity> search = operations.search(query, ArticleEntity.class).getSearchHit(0);
+        ArticleEntity article = search.getContent();
+        return article;
+    }
+
 }
-
-

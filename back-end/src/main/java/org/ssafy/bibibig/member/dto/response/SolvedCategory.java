@@ -4,19 +4,17 @@ import org.ssafy.bibibig.member.domain.SolvedCategoriesEntity;
 
 import java.time.LocalDateTime;
 
-public record SolvedCategory (
+public record SolvedCategory(
         Long id,
-        Long politic,
-        Long economy,
-        Long society,
-        Long culture,
-        Long sports,
-        Long international,
+        int politic,
+        int economy,
+        int society,
+        int culture,
+        int sports,
+        int international,
         LocalDateTime createdAt
-){
-    public static SolvedCategory from(
-            SolvedCategoriesEntity entity
-    ){
+) {
+    public static SolvedCategory from(SolvedCategoriesEntity entity) {
         return new SolvedCategory(
                 entity.getId(),
                 entity.getPolitic(),
@@ -26,6 +24,26 @@ public record SolvedCategory (
                 entity.getSports(),
                 entity.getInternational(),
                 entity.getCreatedAt()
+        );
+    }
+
+    public SolvedCategoriesEntity toEntitiySumCount(
+            int politicCnt,
+            int economyCnt,
+            int societyCnt,
+            int cultureCnt,
+            int sportsCnt,
+            int internationalCnt
+    ) {
+        return SolvedCategoriesEntity.of(
+                id,
+                politic + politicCnt,
+                economy + economyCnt,
+                society + societyCnt,
+                culture + cultureCnt,
+                sports + sportsCnt,
+                international + internationalCnt,
+                createdAt
         );
     }
 }

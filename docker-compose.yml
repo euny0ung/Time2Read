@@ -4,13 +4,13 @@ services:
     container_name: bibibig-mysql
     build:
       dockerfile: Dockerfile
-      context: ./back-end/mysql
+      context: ./back-end/database
     image: xntm10/bibibig-mysql
     volumes:
       # 설정파일 저장될  위치
-      - ./database/config:/etc/mysql/conf.d
+      - ./back-end/database/config:/etc/mysql/conf.d
       # DB 데이터 저장 디렉토리
-      - /home/ubuntu/database/data:/var/lib/mysql
+      - ./back-end/database/data:/var/lib/mysql
     environment:
       - MARIADB_DATABASE=${MYSQL_DATABASE}
       - MARIADB_USER=${MYSQL_USER}
@@ -25,12 +25,29 @@ services:
       - bibibig-mysql
     image: xntm10/bibibig-app
     environment:
+      - SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE}
       - AI_API_KEY=${AI_API_KEY}
       - ES_HOSTNAME=${ES_HOSTNAME}
       - KAKAO_CLIENT_ID=${KAKAO_CLIENT_ID}
-      - MYSQL_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - KAKAO_REDIRECT_URL=${KAKAO_REDIRECT_URL}
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_URL=${MYSQL_URL}
-      - MYSQL_USERNAME=${MYSQL_USER}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - OPENAI_FINETUNING_MODEL=${OPENAI_FINETUNING_MODEL}
+      - OPENAI_KEY=${OPENAI_KEY}
+      - OPENAI_CHAT_URL=${OPENAI_CHAT_URL}
     ports:
       - "8081:8081"
     restart: always
+  bibibig-frontend:
+    container_name: "bibibig-frontend"
+    build:
+      context: "./FE"
+      dockerfile: "Dockerfile"
+    ports:
+      - "5173:5173"
+    environment:
+      - VITE_BASE_API=${VITE_BASE_API}
+      - VITE_KAKAO_API=${VITE_KAKAO_API}
+      - VITE_KAKAO_REDIRECT_URI=${VITE_KAKAO_REDIRECT_URI}

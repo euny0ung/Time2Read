@@ -11,13 +11,13 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="time_attacks")
+@Table(name = "time_attacks")
 public class TimeAttacksEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name="time_attack_time")
-    private String timeAttackTime;
+    @Column(name = "time_attack_time")
+    private int timeAttackTime;
     @Column(name = "created_at")
     private LocalDateTime createdAt;
     @ManyToOne
@@ -29,6 +29,8 @@ public class TimeAttacksEntity {
         createdAt = LocalDateTime.now();
     }
 
-
+    public static TimeAttacksEntity of(Long id, int timeAttackTime, LocalDateTime createdAt, MemberEntity member) {
+        return new TimeAttacksEntity(id, timeAttackTime, createdAt, member);
+    }
 
 }

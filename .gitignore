@@ -1,0 +1,19 @@
+### Frontend ###
+FE/node_modules
+FE/.env
+
+### Backend  ###
+back-end/.idea
+back-end/.gradle/**
+back-end/build/**
+back-end/database/data
+back-end/.env
+
+### Data ###
+data/airflow/dags
+data/airflow/logs
+
+*.log
+
+
+
