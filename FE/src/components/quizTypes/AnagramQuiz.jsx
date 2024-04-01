@@ -63,8 +63,8 @@ const AnagramQuiz = ({ answer, anagram, mainCategory, id }) => {
   };
 
   return (
-    <div className="border-2 border-gray-500 content-between">
-      <div className="border-2 border-gray-300">
+    <div className="content-between">
+      <div>
         {anagram.map((char, index) => (
           <button
             key={index}
@@ -75,7 +75,7 @@ const AnagramQuiz = ({ answer, anagram, mainCategory, id }) => {
           </button>
         ))}
       </div>
-      <div className="border-2 border-gray-300 h-10 px-4 py-2 rounded-md">
+      <div className="border-2 border-gray-300 h-10 px-4 py-2 rounded-md content-center">
         {state.inputAnswer.map((input) => (
           <span key={input.index} className="text-2xl p-3 m-2">
             {input.clickValue}
