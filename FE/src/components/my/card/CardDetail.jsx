@@ -32,7 +32,7 @@ const CardDetail = ({ article, setActiveIndex }) => {
       <div ref={contentRef} className="flex items-center justify-center w-full h-full rounded-lg">
         <div
           ref={cardRef}
-          className="flex justify-center p-8 mx-auto bg-white rounded-lg shadow-lg max-w-[80vw] max-h-[90vh] overflow-y-auto"
+          className="flex justify-center p-8 mx-auto bg-white rounded-lg shadow-lg max-w-[60vw] max-h-[80vh] overflow-y-auto"
           onClick={handleContentClick}
         >
           <div className="">

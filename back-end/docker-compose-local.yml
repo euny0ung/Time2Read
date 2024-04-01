@@ -17,4 +17,4 @@ services:
       - MARIADB_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - "TZ=Asia/Seoul"
     ports:
-      - "13306:3306"
+      - "3306:3306"

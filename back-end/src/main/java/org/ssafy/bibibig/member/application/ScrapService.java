@@ -3,7 +3,6 @@ package org.ssafy.bibibig.member.application;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.ssafy.bibibig.articles.application.ArticleService;
-import org.ssafy.bibibig.articles.dao.ArticleRepository;
 import org.ssafy.bibibig.articles.domain.ArticleEntity;
 import org.ssafy.bibibig.articles.dto.Article;
 import org.ssafy.bibibig.common.dto.ErrorCode;
@@ -13,7 +12,6 @@ import org.ssafy.bibibig.member.dao.MemberRepository;
 import org.ssafy.bibibig.member.dao.ScrapedArticesRepository;
 import org.ssafy.bibibig.member.domain.ScrapedArticleEntity;
 import org.ssafy.bibibig.member.dto.ScrapedArticles;
-import org.ssafy.bibibig.member.dto.response.ScrapedArticleResponse;
 import org.ssafy.bibibig.member.dto.response.ScrapedArticlesByMainCateResponse;
 
 import java.util.List;

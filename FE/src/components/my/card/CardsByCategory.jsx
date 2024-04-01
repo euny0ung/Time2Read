@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState } from 'react';
 import Card from './Card.jsx';
 import CardDetail from './CardDetail.jsx';
 
@@ -11,9 +11,14 @@ const CardsByCategory = ({ category, articles }) => {
   };
 
   return (
-    <div className="my-4">
-      <h2 className="flex items-start w-full my-4 text-2xl font-bold text-center">{category}</h2>
-      <div className="flex p-2 space-x-4 overflow-x-auto">
+    <div className="mb-8">
+      <h2
+        className="flex items-start w-full pb-2 text-2xl font-bold text-center border-b-2"
+        style={{ textTransform: 'uppercase' }}
+      >
+        {category}
+      </h2>
+      <div className="flex space-x-4 overflow-x-auto scrollbar">
         {articles.map((article) => (
           <div key={article.id} className="inline-block">
             <button
@@ -25,14 +30,7 @@ const CardsByCategory = ({ category, articles }) => {
               }}
               className=""
             >
-              <Card
-                image={article.image}
-                title={article.title}
-                mainCategory={article.mainCategory}
-                subCategory={article.subCategory}
-                summary={article.summary}
-                isActive={article.id === activeIndex}
-              />
+              <Card article={article} />
             </button>
             {article.id === activeIndex && <CardDetail article={article} setActiveIndex={setActiveIndex} />}
           </div>

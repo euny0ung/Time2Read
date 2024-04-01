@@ -17,8 +17,8 @@ public class AppConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:5173", "https://bibibig.ddnsking.com","http://j10b307.p.ssafy.io")
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS","PATCH")
+                .allowedOrigins("http://localhost:5173", "https://bibibig.ddnsking.com", "http://j10b307.p.ssafy.io")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD", "OPTIONS", "PATCH")
                 .exposedHeaders("Custom-Header")
                 .allowCredentials(true)
                 .maxAge(3600);

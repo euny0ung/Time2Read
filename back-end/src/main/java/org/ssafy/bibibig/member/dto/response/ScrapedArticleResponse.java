@@ -15,15 +15,15 @@ public record ScrapedArticleResponse(
 
 ) {
 
-    public static ScrapedArticleResponse from(Article article){
+    public static ScrapedArticleResponse from(Article article) {
         return new ScrapedArticleResponse(
-            article.id(),
-            article.mainCategory(),
-            article.subCategory(),
-            article.title(),
-            article.wroteAt(),
-            article.image(),
-            article.summary()
+                article.id(),
+                article.mainCategory(),
+                article.subCategory(),
+                article.title(),
+                article.wroteAt(),
+                article.image(),
+                article.summary()
         );
     }
 }
