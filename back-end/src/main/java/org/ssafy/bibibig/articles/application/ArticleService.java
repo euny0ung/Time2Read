@@ -85,7 +85,7 @@ public class ArticleService {
         List<ArticleWithQuiz> quizzes = new ArrayList<>();
         quizzes.addAll(getFirstArticleWithKeywordQuizzes(year));
         quizzes.addAll(getFirstArticleWithMultipleChoiceQuizzes(year));
-        quizzes.addAll(getQuizzesWithOX(year));
+        // quizzes.addAll(getQuizzesWithOX(year));
         Collections.shuffle(quizzes);
         return quizzes;
     }
@@ -169,14 +169,18 @@ public class ArticleService {
             summaries.add(article.summary());
 
             clues.add(new Clue(ClueType.OX, article.content()));
+            log.info("This is article about ox -- start \n {}",article);
+
         }
 
         List<OXQuizQuestion> quizzes = null;
         try {
             quizzes = openAIUtils.generateOXQuiz(summaries);
         } catch (JsonProcessingException e) {
+            log.error("This is 'get article error' {}",e);
             throw new CommonException(ErrorCode.INTERNAL_SERVER_ERROR, "quizzes is null");
         }
+        log.info("This is article about ox \n {}",quizzes);
 
         List<ArticleWithQuiz> result = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
@@ -313,6 +317,7 @@ public class ArticleService {
         );
 
         // OX 문제 4문제 생성
+        /*
         List<Article> OXArticles = List.of(
                 getArticleEntityOrThrowException("8dfc3d09-1b9b-413a-9102-00bea54278e9"), // OX - 오징어게임
                 getArticleEntityOrThrowException("b8be30b2-4edc-49dc-995e-188273d5cab7"), // OX - 우크라이나
@@ -335,6 +340,7 @@ public class ArticleService {
             OXQuiz quiz = new OXQuiz(QuizType.OX, oxQuiz.get(i).question(), oxQuiz.get(i).answer(), null);
             quizzes.add(ArticleWithQuiz.from(categories.get(i), OXArticles.get(i), quiz));
         }
+         */
         return quizzes;
     }
 

@@ -14,24 +14,16 @@ const ProgressBar = ({ relatedArticles, currentStep, goToStep, setIsToggleOn, ti
               text={article.title}
               image={<ImageComponent src={article.image} alt={article.imageCaption} width={150} />}
             >
-              <div
+              <button
                 key={article.id}
                 className={`truncate cursor-pointer text-xl font-bold ${i === currentStep ? 'text-primary-indigo-4' : 'text-white'}`}
                 onClick={() => {
                   goToStep(i);
                   setIsToggleOn(true);
                 }}
-                onKeyPress={(e) => {
-                  if (e.key === 'Enter') {
-                    goToStep(i);
-                    setIsToggleOn(true);
-                  }
-                }}
-                role="button"
-                tabIndex={0}
               >
                 {format(new Date(article.wroteAt), 'yyyy')}
-              </div>
+              </button>
             </Tooltip>
           );
         })}
@@ -58,7 +50,7 @@ const ProgressBar = ({ relatedArticles, currentStep, goToStep, setIsToggleOn, ti
               text={article.title}
               image={<ImageComponent src={article.image} alt={article.imageCaption} width={150} />}
             >
-              <div
+              <button
                 key={article.id}
                 className="absolute top-0.5 z-10 flex items-center justify-center transform -translate-y-1/2 w-4 h-4 rounded-full"
                 style={{
@@ -69,14 +61,6 @@ const ProgressBar = ({ relatedArticles, currentStep, goToStep, setIsToggleOn, ti
                   goToStep(i);
                   setIsToggleOn(true);
                 }}
-                onKeyPress={(e) => {
-                  if (e.key === 'Enter') {
-                    goToStep(i);
-                    setIsToggleOn(true);
-                  }
-                }}
-                role="button"
-                tabIndex={0}
               />
             </Tooltip>
           );
@@ -91,7 +75,7 @@ const ProgressBar = ({ relatedArticles, currentStep, goToStep, setIsToggleOn, ti
               text={article.title}
               image={<ImageComponent src={article.image} alt={article.imageCaption} width={150} />}
             >
-              <div
+              <button
                 key={article.id}
                 text-primary-indigo-4
                 className={`truncate cursor-pointer flex-grow flex-shrink text-lg font-bold ${i === currentStep ? 'text-primary-indigo-4' : 'text-white'}`}
@@ -100,17 +84,9 @@ const ProgressBar = ({ relatedArticles, currentStep, goToStep, setIsToggleOn, ti
                   goToStep(i);
                   setIsToggleOn(true);
                 }}
-                onKeyPress={(e) => {
-                  if (e.key === 'Enter') {
-                    goToStep(i);
-                    setIsToggleOn(true);
-                  }
-                }}
-                role="button"
-                tabIndex={0}
               >
                 {article.title}
-              </div>
+              </button>
             </Tooltip>
           );
         })}

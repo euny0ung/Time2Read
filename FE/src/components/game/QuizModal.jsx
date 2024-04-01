@@ -26,6 +26,7 @@ const FisherYatesShuffle = (answer) => {
   return array;
 };
 
+// 기존 배열과 다를 때까지 랜덤 돌림
 const shuffleUntilDifferent = (original) => {
   let shuffled;
   do {
@@ -33,6 +34,37 @@ const shuffleUntilDifferent = (original) => {
   } while (shuffled.join('') === original);
 
   return shuffled;
+};
+
+const quizTypeConfigs = {
+  SHORT_ANSWER: {
+    questionText: '빈칸에 들어갈 단어는 무엇일까?',
+    questionHeight: 60,
+    answerHeight: 30,
+    hintOneHeight: 85,
+    hintTwoHeight: 13,
+  },
+  MULTIPLE_CHOICE: {
+    questionText: ' 빈칸에 들어갈 알맞은 단어를 선택해봐!',
+    questionHeight: 50,
+    answerHeight: 40,
+    hintOneHeight: 100,
+    hintTwoHeight: 0,
+  },
+  OX: {
+    questionText: ' O일까? X일까?',
+    questionHeight: 25,
+    answerHeight: 65,
+    hintOneHeight: 100,
+    hintTwoHeight: 0,
+  },
+  ANAGRAM: {
+    questionText: ' 빈칸에 들어갈 단어의 순서를 선택해봐!',
+    questionHeight: 70,
+    answerHeight: 20,
+    hintOneHeight: 80,
+    hintTwoHeight: 18,
+  },
 };
 
 const QuizModal = React.memo(
@@ -46,37 +78,20 @@ const QuizModal = React.memo(
     return (
       <div className="w-[85%] h-[80%] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 gap-4 p-6 bg-white bg-opacity-50 border-2 border-white shadow-xl rounded-2xl flex flex-col items-start justify-center">
         {quiz.map((it) => {
-          let questionText = '';
-          let questionHeight = 60;
-          let answerHeight = 30;
-          let hintOneHeight = 100;
-          let hintTwoHeight = 0;
+          const quizObj = it.quiz;
+          let { quizType } = quizObj;
 
-          if (it.quiz.quizType === 'KEYWORD') {
-            questionText = ' 빈칸에 들어갈 단어는 무엇일까?';
-            questionHeight = 60;
-            answerHeight = 30;
-            hintOneHeight = 85;
-            hintTwoHeight = 13;
-          } else if (it.quiz.quizType === 'MULTIPLE_CHOICE') {
-            questionText = ' 빈칸에 들어갈 알맞은 단어를 선택해봐!';
-            questionHeight = 50;
-            answerHeight = 40;
-            hintOneHeight = 100;
-            hintTwoHeight = 0;
-          } else if (it.quiz.quizType === 'OX') {
-            questionText = ' O일까? X일까?';
-            questionHeight = 25;
-            answerHeight = 65;
-            hintOneHeight = 100;
-            hintTwoHeight = 0;
-          } else {
-            questionText = ' 빈칸에 들어갈 단어의 순서를 선택해봐!';
-            questionHeight = 70;
-            answerHeight = 20;
-            hintOneHeight = 100;
-            hintTwoHeight = 0;
+          console.log('퀴즈 타입', quizType);
+          console.log('두번째 힌트', quizObj.clues[1]);
+
+          //  퀴즈 타입이 KEYWORD인 경우 애너그램과 단답형으로 나누기
+          if (quizType === 'KEYWORD') {
+            const randNum = Math.floor(Math.random() * 2);
+            quizType = randNum === 0 && quizObj.answer.length > 1 ? 'ANAGRAM' : 'SHORT_ANSWER';
           }
+
+          const quizTypeConfig = quizTypeConfigs[quizType];
+          console.log('quizTypeConfig', quizTypeConfig);
 
           const renderQuiz = (type, additionalProps = {}) => (
             <div className="w-[100%] h-[100%] flex items-center justify-center">
@@ -84,16 +99,27 @@ const QuizModal = React.memo(
                 <WhiteContainer>
                   <div className="w-[100%] h-[10%] flex items-center justify-center">
                     <p className="text-2xl text-black">
-                      Q{quizIndex + 1}){questionText}
+                      Q{quizIndex + 1}){quizTypeConfig.questionText}
                     </p>
                   </div>
                   {/* 질문 생성 */}
-                  <div className="m-3" style={{ width: '100%', height: `${questionHeight}%`, overflowY: 'scroll' }}>
-                    <p className="none-scroll-bar text-xl text-black">{it.quiz.questionSummary}</p>
+                  <div
+                    className="m-3"
+                    style={{
+                      width: '100%',
+                      height: `${quizTypeConfig.questionHeight}%`,
+                      overflowY: 'scroll',
+                      maxHeight: '60%',
+                    }}
+                  >
+                    <p className="none-scroll-bar text-xl text-black">{quizObj.questionSummary}</p>
                   </div>
 
                   {/* 정답 입력 생성 */}
-                  <div className="flex justify-center " style={{ width: '100%', height: `${answerHeight}%` }}>
+                  <div
+                    className="flex justify-center "
+                    style={{ width: '100%', height: `${quizTypeConfig.answerHeight}%` }}
+                  >
                     {additionalProps && React.createElement(additionalProps.component, additionalProps.componentProps)}
                   </div>
                 </WhiteContainer>
@@ -102,30 +128,37 @@ const QuizModal = React.memo(
               {/* 힌트 생성 */}
               <div className="w-[35%] h-[100%] m-2 flex flex-col items-end justify-between">
                 <div
-                  className="flex items-center justify-center overflow-y-scroll"
-                  style={{ width: '100%', height: `${hintOneHeight}%` }}
+                  className="flex items-center justify-center"
+                  style={{ width: '100%', height: `${quizTypeConfig.hintOneHeight}%` }}
                 >
                   <WhiteContainer>
                     <div className="w-full h-full">
-                      <EntireContentButton
-                        title={it.title}
-                        clues={it.quiz.clues[0]}
-                        quizIndex={quizIndex}
-                        clueIndex={0}
-                      />
+                      {type === 'OX' ? (
+                        <div className=" w-full h-full overflow-y-scroll">
+                          <p className="text-xl m-1">{it.title}</p>
+                          <p className="text-lg m-1">{quizObj.clues[0].description}</p>
+                        </div>
+                      ) : (
+                        <EntireContentButton
+                          title={it.title}
+                          clues={quizObj.clues[0]}
+                          quizIndex={quizIndex}
+                          clueIndex={0}
+                        />
+                      )}
                     </div>
                   </WhiteContainer>
                 </div>
 
-                {hintTwoHeight !== 0 && (
+                {quizTypeConfig.hintTwoHeight !== 0 && (
                   <div
                     className="flex items-center justify-center"
-                    style={{ width: '100%', height: `${hintTwoHeight}%` }}
+                    style={{ width: '100%', height: `${quizTypeConfig.hintTwoHeight}%` }}
                   >
                     <WhiteContainer>
                       <div>
-                        {it.quiz.clues[1] && (
-                          <ClueContentButton clues={it.quiz.clues[1]} quizIndex={quizIndex} clueIndex={1} />
+                        {quizObj.clues[1] && (
+                          <ClueContentButton clues={quizObj.clues[1]} quizIndex={quizIndex} clueIndex={1} />
                         )}
                       </div>
                     </WhiteContainer>
@@ -136,42 +169,39 @@ const QuizModal = React.memo(
           );
 
           // O, X
-          if (it.quiz.quizType === 'OX') {
-            return renderQuiz('OX퀴즈', {
+          if (quizType === 'OX') {
+            return renderQuiz('OX', {
               component: OxQuiz,
-              componentProps: { answer: it.quiz.answer, mainCategory: it.mainCategory, id: it.id },
+              componentProps: { answer: quizObj.answer, mainCategory: it.mainCategory, id: it.id },
             });
           }
           // 객관식
-          if (it.quiz.quizType === 'MULTIPLE_CHOICE') {
+          if (quizType === 'MULTIPLE_CHOICE') {
             return renderQuiz('객관식', {
               component: ChoiceQuiz,
               componentProps: {
-                answer: it.quiz.answer,
-                choices: it.quiz.additionalInfo.choices,
+                answer: quizObj.answer,
+                choices: quizObj.additionalInfo.choices,
                 mainCategory: it.mainCategory,
                 id: it.id,
               },
             });
           }
 
-          // 랜덤 함수 돌리기 (0,1)
-          const randNum = Math.floor(Math.random() * 2);
-
-          // 0이면 애너그램
-          if (randNum === 0 && it.quiz.answer.length > 1) {
-            const anagram = shuffleUntilDifferent(it.quiz.answer);
+          // 애너그램
+          if (quizType === 'ANAGRAM') {
+            const anagram = shuffleUntilDifferent(quizObj.answer);
 
             return renderQuiz('애너그램', {
               component: AnagramQuiz,
-              componentProps: { answer: it.quiz.answer, anagram, mainCategory: it.mainCategory, id: it.id },
+              componentProps: { answer: quizObj.answer, anagram, mainCategory: it.mainCategory, id: it.id },
             });
           }
-          // 1이면 단답식
 
+          // 단답식
           return renderQuiz('단답식', {
             component: ShortAnswerQuiz,
-            componentProps: { answer: it.quiz.answer, mainCategory: it.mainCategory, id: it.id },
+            componentProps: { answer: quizObj.answer, mainCategory: it.mainCategory, id: it.id },
           });
         })}
       </div>
