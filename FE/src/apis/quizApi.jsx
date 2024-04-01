@@ -1,7 +1,7 @@
+import { useEffect } from 'react';
 import { checkGameYearStore } from '@stores/game/gameStore';
 import { useQuizStore } from '@stores/game/quizStore.jsx';
 import axios from 'axios';
-import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 export const useQuizApiHandler = (selected) => {
@@ -39,7 +39,6 @@ export const useSecondQuizApi = () => {
         .then((response) => {
           const updatedQuizzes = [...quizzes, ...response.data.result];
           setQuiz(updatedQuizzes);
-          console.log(response);
         })
         .catch((error) => {
           console.log(error);

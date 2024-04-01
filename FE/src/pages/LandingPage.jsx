@@ -7,7 +7,7 @@
 //     [V] 로그인시 로그인 버튼이 ‘마이 페이지’ 버튼으로 변경됨
 
 import { useEffect, useState } from 'react';
-import { useQuizApiHandler, useTestQuizApiHandler } from '@apis/gameApi';
+import { useQuizApiHandler, useTestQuizApiHandler } from '@apis/quizApi';
 import KakaoLogin from '@components/kakao/KakaoLogin';
 import { useQuizStore } from '@stores/game/quizStore.jsx';
 import BodyContainer from '../components/commons/containers/BodyContainer.jsx';
