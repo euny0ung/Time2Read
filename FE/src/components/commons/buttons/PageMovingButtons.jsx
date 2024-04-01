@@ -5,7 +5,7 @@ const PageMovingButton = ({ onClick, buttonText, buttonColor }) => {
 
   return (
     <button
-      className="flex items-center font-bold justify-center px-6 py-3 text-gray-900 rounded-full shadow-xl hover:bg-opacity-80 hover:text-gray-600 focus:bg-opacity-80 transition-transform duration-300 ease-in-out hover:scale-[102%]"
+      className="flex items-center font-bold justify-center px-6 py-3 text-gray-900 rounded-full shadow-xl hover:opacity-80 hover:text-gray-600 focus:opacity-80 transition-transform duration-300 ease-in-out hover:scale-[102%]"
       onClick={onClick}
       style={buttonStyle}
     >
