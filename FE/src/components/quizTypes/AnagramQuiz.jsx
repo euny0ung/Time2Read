@@ -63,21 +63,21 @@ const AnagramQuiz = ({ answer, anagram, mainCategory, id }) => {
   };
 
   return (
-    <div>
+    <div className="content-between">
       <div>
         {anagram.map((char, index) => (
           <button
             key={index}
             onClick={(event) => handleAnagramAnswer(event, char, index)}
-            className={anagramColor[index] ? 'bg-yellow-300' : 'bg-inherit'}
+            className={`${anagramColor[index] ? 'bg-gray-300' : 'bg-ox'} p-3 m-2 shadow-xl hover:scale-110 transition-transform ease-in-out duration-200 rounded`}
           >
             <p className="text-2xl">{char}</p>
           </button>
         ))}
       </div>
-      <div>
+      <div className="border-2 border-gray-300 h-10 px-4 py-2 rounded-md content-center">
         {state.inputAnswer.map((input) => (
-          <span key={input.index} className="text-2xl">
+          <span key={input.index} className="text-2xl p-3">
             {input.clickValue}
           </span>
         ))}

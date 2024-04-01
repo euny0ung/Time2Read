@@ -26,6 +26,15 @@ const FisherYatesShuffle = (answer) => {
   return array;
 };
 
+const shuffleUntilDifferent = (original) => {
+  let shuffled;
+  do {
+    shuffled = FisherYatesShuffle(original);
+  } while (shuffled.join('') === original);
+
+  return shuffled;
+};
+
 const QuizModal = React.memo(
   ({ quizIndex }) => {
     if (quizIndex > 10) return null;
@@ -84,10 +93,7 @@ const QuizModal = React.memo(
                   </div>
 
                   {/* 정답 입력 생성 */}
-                  <div
-                    className="flex justify-center items-center"
-                    style={{ width: '100%', height: `${answerHeight}%` }}
-                  >
+                  <div className="flex justify-center " style={{ width: '100%', height: `${answerHeight}%` }}>
                     {additionalProps && React.createElement(additionalProps.component, additionalProps.componentProps)}
                   </div>
                 </WhiteContainer>
@@ -154,7 +160,8 @@ const QuizModal = React.memo(
 
           // 0이면 애너그램
           if (randNum === 0 && it.quiz.answer.length > 1) {
-            const anagram = FisherYatesShuffle(it.quiz.answer);
+            const anagram = shuffleUntilDifferent(it.quiz.answer);
+
             return renderQuiz('애너그램', {
               component: AnagramQuiz,
               componentProps: { answer: it.quiz.answer, anagram, mainCategory: it.mainCategory, id: it.id },
