@@ -32,55 +32,56 @@ export const useHitsCategoryStore = create(
 
 export const useAnswerCheckStore = create(
   devtools(
-    persist(
-      (set) => ({
-        openAnswerResult: false,
-        resultState: '',
-        quizIndex: 0,
-        actions: {
-          setOpenAnswerResult: () => set((state) => ({ openAnswerResult: !state.openAnswerResult })),
-          // setResultState: () => set((result) => ({ resultState: result })), 이렇게 하면 안됨. 객체를 받음
-          setResultState: (newResult) => set({ resultState: newResult }),
-          setQuizIndex: () => set((state) => ({ quizIndex: state.quizIndex + 1 })),
-        },
-        reset: () => set({ openAnswerResult: false, resultState: '', quizIndex: 0 }),
-      }),
-      { name: 'open-answer-result', storage: createJSONStorage(() => sessionStorage) },
-    ),
+    // persist(
+    (set) => ({
+      openAnswerResult: false,
+      resultState: '',
+      quizIndex: 0,
+      actions: {
+        setOpenAnswerResult: () => set((state) => ({ openAnswerResult: !state.openAnswerResult })),
+        // setResultState: () => set((result) => ({ resultState: result })), 이렇게 하면 안됨. 객체를 받음
+        setResultState: (newResult) => set({ resultState: newResult }),
+        setQuizIndex: () => set((state) => ({ quizIndex: state.quizIndex + 1 })),
+      },
+      reset: () => set({ openAnswerResult: false, resultState: '', quizIndex: 0 }),
+    }),
+    { name: 'open-answer-result', storage: createJSONStorage(() => sessionStorage) },
+    // ),
   ),
 );
 
 // 퀴즈의 힌트 클릭여부 관리
 export const useClueIndexStore = create(
   devtools(
-    persist(
-      (set) => ({
-        cluesClicked: Array(10).fill(false),
-        toggleClueClick: (index) =>
-          set((state) => {
-            const updatedcluesClicked = [...state.cluesClicked];
-            updatedcluesClicked[index] = !updatedcluesClicked[index];
-            return { cluesClicked: updatedcluesClicked };
-          }),
-        reset: () => set({ cluesClicked: Array(10).fill(false) }),
-      }),
-      { name: 'clue-index', storage: createJSONStorage(() => sessionStorage) },
-    ),
+    // persist(
+    (set) => ({
+      cluesClicked: {},
+      toggleClueClick: (quizIndex, hintIndex) =>
+        set((state) => {
+          const key = `${quizIndex}-${hintIndex}`;
+          const updatedcluesClicked = { ...state.cluesClicked, [key]: !state.cluesClicked[key] };
+          return { cluesClicked: updatedcluesClicked };
+        }),
+      reset: () => set({ cluesClicked: {} }),
+    }),
+    { name: 'clue-state', storage: createJSONStorage(() => sessionStorage) },
+    // ),
   ),
 );
 
 export const useClueStateStore = create(
   devtools(
-    persist(
-      (set) => ({
-        showClueState: false,
-        setShowClueState: () => set((state) => ({ showClueState: !state.showClueState })),
-        reset: () => set({ showClueState: false }),
-      }),
-      { name: 'clue-state', storage: createJSONStorage(() => sessionStorage) },
-    ),
+    // persist(
+    (set) => ({
+      showClueState: false,
+      setShowClueState: () => set((state) => ({ showClueState: !state.showClueState })),
+      reset: () => set({ showClueState: false }),
+    }),
+    { name: 'clue-state', storage: createJSONStorage(() => sessionStorage) },
+    // ),
   ),
 );
+
 export const handleAnswerCheck = (inputValue, answer, mainCategory, dispatch, id) => {
   const { gameResult, setGameResult } = useGameResultStore.getState();
   const answerCheckStore = useAnswerCheckStore.getState();
@@ -90,6 +91,8 @@ export const handleAnswerCheck = (inputValue, answer, mainCategory, dispatch, id
   const { setChallengeArticlesIdList } = useChallengedArticleStore.getState();
 
   setChallengeArticlesIdList(id);
+
+  console.log(inputValue, answer);
 
   if (inputValue === answer) {
     const prevResult = { ...gameResult };

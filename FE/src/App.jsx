@@ -4,6 +4,7 @@ import LandingPage from '@pages/LandingPage';
 import MyPage from '@pages/MyPage';
 import ResultPage from '@pages/ResultPage';
 import ScrapPage from '@pages/ScrapPage';
+
 import { Routes, Route } from 'react-router-dom';
 
 const App = () => {

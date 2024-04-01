@@ -167,7 +167,7 @@ const ResultPage = () => {
                 {/* 타임 어택 시간 */}
                 <WhiteContainerHoverEffect>
                   <ResultTitle title={'타임 어택 시간'} />
-                  <div className="flex items-center justify-center h-[80%] text-6xl font-bold">
+                  <div className="flex items-center justify-center h-[80%] text-5xl md:text-4xl lg:text-5xl font-bold">
                     {gameResult.timeAttackTime ? (
                       <>
                         <TimeLoader targetNumber={formatTime(600 - gameResult.timeAttackTime)} />
