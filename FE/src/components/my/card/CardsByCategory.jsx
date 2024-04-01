@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import Card from './Card.jsx';
-import CardDetail from './CardDetail.jsx';
+import CardDetailModal from './CardDetailModal.jsx';
 
 const CardsByCategory = ({ category, articles }) => {
   const [activeIndex, setActiveIndex] = useState(null); // 현재 활성화된 카드의 인덱스
 
-  // 토글 및 모달 열고 닫기
-  const toggleActiveIndex = (i) => {
+  // 모달 열고 닫기
+  const openActiveIndex = (i) => {
     setActiveIndex(activeIndex === i ? null : i);
   };
 
@@ -21,10 +21,10 @@ const CardsByCategory = ({ category, articles }) => {
       <div className="flex space-x-4 overflow-x-auto scrollbar">
         {articles.map((article) => (
           <div key={article.id} className="inline-block">
-            <button onClick={() => toggleActiveIndex(article.id)}>
+            <button onClick={() => openActiveIndex(article.id)}>
               <Card article={article} />
             </button>
-            {article.id === activeIndex && <CardDetail article={article} onClose={() => setActiveIndex(null)} />}
+            {article.id === activeIndex && <CardDetailModal article={article} onClose={() => setActiveIndex(null)} />}
           </div>
         ))}
       </div>

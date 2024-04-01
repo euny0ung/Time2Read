@@ -46,15 +46,7 @@ const ArticleDetail = ({ article }) => {
             </div>
           </div>
           {/* 스크랩 버튼 */}
-          <button
-            onClick={(e) => handleScrap(e)}
-            onKeyPress={(e) => {
-              if (e.key === 'Enter') {
-                handleScrap(e);
-              }
-            }}
-            className="m-4 focus:outline-none"
-          >
+          <button onClick={(e) => handleScrap(e)} className="m-4 focus:outline-none">
             <img className="h-8" src={isScraped ? AfterScrap : BeforeScrap} alt="Scrap Button" />
           </button>
         </div>
