@@ -36,7 +36,7 @@ const QuizModal = React.memo(
     console.log('퀴즈퀴즈', quiz);
     return (
       <div className="w-[85%] h-[80%] absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 gap-4 p-6 bg-white bg-opacity-50 border-2 border-white shadow-xl rounded-2xl flex flex-col items-start justify-center">
-        {quiz.map((it, index) => {
+        {quiz.map((it) => {
           let questionText = '';
           let questionHeight = 60;
           let answerHeight = 30;
@@ -128,22 +128,6 @@ const QuizModal = React.memo(
               </div>
             </div>
           );
-          if (it.quiz.quizType === 'OX') {
-            return renderQuiz('OX퀴즈', {
-              component: OxQuiz,
-              componentProps: { answer: it.quiz.answer, mainCategory: it.mainCategory },
-            });
-          }
-          if (it.quiz.quizType === 'MULTIPLE_CHOICE') {
-            return renderQuiz('객관식', {
-              component: ChoiceQuiz,
-              componentProps: {
-                answer: it.quiz.answer,
-                choices: it.quiz.additionalInfo.choices,
-                mainCategory: it.mainCategory,
-              },
-            });
-          }
 
           // O, X
           if (it.quiz.quizType === 'OX') {
@@ -152,6 +136,7 @@ const QuizModal = React.memo(
               componentProps: { answer: it.quiz.answer, mainCategory: it.mainCategory, id: it.id },
             });
           }
+          // 객관식
           if (it.quiz.quizType === 'MULTIPLE_CHOICE') {
             return renderQuiz('객관식', {
               component: ChoiceQuiz,

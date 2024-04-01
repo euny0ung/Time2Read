@@ -1,18 +1,21 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { checkGameSuccessStore } from '../../stores/game/gameStore.jsx';
+import { checkGameSuccessStore, useGameResultStore } from '../../stores/game/gameStore.jsx';
 import GameFail from '../commons/GameFail.jsx';
 import GameSuccess from '../commons/GameSuccess.jsx';
 
 const GameOverModal = () => {
-  const isSucceed = checkGameSuccessStore((state) => state.isSucceed);
+  const { isSucceed } = checkGameSuccessStore();
   const navigate = useNavigate();
 
   const moveToResult = () => {
     navigate('/result');
   };
 
+  console.log('isSucceed : ', isSucceed);
+
   const showSuccessOrFail = () => {
-    if (isSucceed === true) {
+    if (isSucceed) {
       return <GameSuccess />;
     }
     return <GameFail />;

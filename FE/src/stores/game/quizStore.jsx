@@ -1,6 +1,12 @@
 import { create } from 'zustand';
 import { devtools, persist, createJSONStorage } from 'zustand/middleware';
-import { useGameModalStore, useGameItemStore, useGameResultStore, useChallengedArticleStore } from './gameStore.jsx';
+import {
+  useGameModalStore,
+  useGameItemStore,
+  useGameResultStore,
+  useChallengedArticleStore,
+  checkGameSuccessStore,
+} from './gameStore.jsx';
 
 export const useQuizStore = create(
   devtools(
@@ -89,16 +95,18 @@ export const handleAnswerCheck = (inputValue, answer, mainCategory, dispatch, id
   const gameItemStore = useGameItemStore.getState();
   const hitsCategoryStore = useHitsCategoryStore.getState();
   const { setChallengeArticlesIdList } = useChallengedArticleStore.getState();
+  const { setIsSucceed } = checkGameSuccessStore.getState();
 
   setChallengeArticlesIdList(id);
-
-  console.log(inputValue, answer);
 
   if (inputValue === answer) {
     const prevResult = { ...gameResult };
     prevResult.correct += 1;
     prevResult.incorrect = 10 - prevResult.correct;
     setGameResult(prevResult);
+    if (prevResult.correct === 10) {
+      setIsSucceed(true);
+    }
     hitsCategoryStore.setHitsCategory(mainCategory);
     gameModalStore.setBumped(false);
     gameModalStore.setOpenQuizModal(false);

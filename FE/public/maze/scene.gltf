@@ -57,7 +57,10 @@
 				},
 				"metallicFactor":0,
 				"roughnessFactor":0.9
-			}
+			},
+			"normalTexture": {
+            "index": 2
+        	}			
 		},
 		{
 			"doubleSided":true,
@@ -112,18 +115,54 @@
 		{
 			"sampler":0,
 			"source":1
+		},
+		{
+			"sampler":0,
+			"source":2
+		},
+		{
+			"sampler":0,
+			"source":3
+		},
+		{
+			"sampler":0,
+			"source":4
+		},
+		{
+			"sampler":0,
+			"source":5
 		}
 	],
 	"images":[
 		{
 			"mimeType":"image/jpeg",
 			"name":"ground_baseColor",
-			"uri":"textures/walls_baseColor.jpeg"
+			"uri":"textures/ground/Stylized_Stone_Floor_005_basecolor.jpeg"
 		},
 		{
 			"mimeType":"image/jpeg",
 			"name":"walls_baseColor",
 			"uri":"textures/walls_baseColor.jpeg"
+		},
+		{
+			"mimeType":"image/jpeg",
+			"name":"normalMap",
+			"uri":"textures/ground/Stylized_Stone_Floor_005_normal.jpeg"
+		},
+		{
+			"mimeType":"image/jpeg",
+			"name":"displaceMap",
+			"uri":"textures/ground/Stylized_Stone_Floor_005_height.png"
+		},
+		{
+			"mimeType":"image/jpeg",
+			"name":"roughnessMap",
+			"uri":"textures/ground/Stylized_Stone_Floor_005_roughness.jpg"
+		},
+		{
+			"mimeType":"image/jpeg",
+			"name":"aoMap",
+			"uri":"textures/ground/Stylized_Stone_Floor_005_ambientOcclusion.jpg"
 		}
 	],
 	"accessors":[

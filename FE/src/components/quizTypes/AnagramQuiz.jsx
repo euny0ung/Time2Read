@@ -71,13 +71,21 @@ const AnagramQuiz = ({ answer, anagram, mainCategory, id }) => {
             onClick={(event) => handleAnagramAnswer(event, char, index)}
             className={anagramColor[index] ? 'bg-yellow-300' : 'bg-inherit'}
           >
-            <p className='text-2xl'>{char}</p>
+            <p className="text-2xl">{char}</p>
           </button>
         ))}
       </div>
       <div>
         {state.inputAnswer.map((input) => (
-          <p key={input.index} className='text-2xl'>{input.clickValue}</p>
+<<<<<<< 05b8f19466cf871ecefdeccecdf4c2fa3c38453e
+          <p key={input.index} className="text-2xl">
+            {input.clickValue}
+          </p>
+=======
+          <span key={input.index} className="text-2xl">
+            {input.clickValue}
+          </span>
+>>>>>>> 429a9ae5366d42d05bb7f84da7220b79997d3afa
         ))}
       </div>
     </div>

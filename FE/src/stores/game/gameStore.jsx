@@ -130,6 +130,7 @@ export const checkGameSuccessStore = create(
   devtools(
     persist(
       (set) => ({
+        // isSucceed가 true면 탈출 성공, false면 탈출 실패
         isSucceed: false,
         setIsSucceed: (value) => set({ isSuccess: value }),
         reset: () => set({ isSuccess: false }),

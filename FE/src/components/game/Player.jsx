@@ -156,9 +156,7 @@ const Player = () => {
         name="player"
         onCollisionEnter={({ other }) => {
           const target = other.rigidBodyObject;
-
           if (!collidedItem.includes(target.uuid)) {
-            // setCollidedItem((prevItems) => [...prevItems, target.uuid]);
             const updateCollision = [...collidedItem, target.uuid];
             setCollidedItem(updateCollision);
             if (assetArray.includes(target.name)) {
