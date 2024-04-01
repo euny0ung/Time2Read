@@ -165,6 +165,7 @@ const Player = () => {
             } else if (target.name === 'endPoint') {
               setGameOver(true);
             } else if (target.name === 'clue') {
+              console.log('clue와 충돌');
               increaseClueCount();
               if (target.parent) {
                 target.parent.remove(target);
@@ -172,7 +173,7 @@ const Player = () => {
               target.remove();
             } else if (target.name === 'life') {
               console.log('cookie와 충돌');
-              // increaseLifeCount();
+              increaseLifeCount();
               if (target.parent) {
                 target.parent.remove(target);
               }
@@ -185,7 +186,6 @@ const Player = () => {
           if (assetArray.includes(target.name)) {
             setBumped(false);
           }
-          if (target.name === 'life') increaseLifeCount();
         }}
       >
         <mesh position={[-1, 0, -13]}>
