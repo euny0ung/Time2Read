@@ -169,14 +169,18 @@ public class ArticleService {
             summaries.add(article.summary());
 
             clues.add(new Clue(ClueType.OX, article.content()));
+            log.info("This is article about ox -- start \n {}",article);
+
         }
 
         List<OXQuizQuestion> quizzes = null;
         try {
             quizzes = openAIUtils.generateOXQuiz(summaries);
         } catch (JsonProcessingException e) {
+            log.error("This is 'get article error' {}",e);
             throw new CommonException(ErrorCode.INTERNAL_SERVER_ERROR, "quizzes is null");
         }
+        log.info("This is article about ox \n {}",quizzes);
 
         List<ArticleWithQuiz> result = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
