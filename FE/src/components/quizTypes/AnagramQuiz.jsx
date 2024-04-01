@@ -77,9 +77,15 @@ const AnagramQuiz = ({ answer, anagram, mainCategory, id }) => {
       </div>
       <div>
         {state.inputAnswer.map((input) => (
+<<<<<<< 05b8f19466cf871ecefdeccecdf4c2fa3c38453e
+          <p key={input.index} className="text-2xl">
+            {input.clickValue}
+          </p>
+=======
           <span key={input.index} className="text-2xl">
             {input.clickValue}
           </span>
+>>>>>>> 429a9ae5366d42d05bb7f84da7220b79997d3afa
         ))}
       </div>
     </div>
