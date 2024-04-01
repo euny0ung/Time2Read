@@ -25,34 +25,20 @@ const ChoiceQuiz = ({ answer, choices, mainCategory, id }) => {
   };
 
   return (
-    // <div>
-    //   {choices.map((choice, index) => (
-    //     <div key={index}>
-    //       <button
-    //         type="button"
-    //         onClick={(event) => handleChoiceSelect(index, event.target.value)}
-    //         value={index}
-    //         className={state.selectedChoiceIndex === index ? 'selected' : ''}
-    //       >
-    //         {index + 1}&ensp;
-    //         {choice}
-    //       </button>
-    //     </div>
-    //   ))}
-    // </div>
-
-    <div className='w-full h-full flex justify-evenly items-center' >
+    <div className="w-full h-full flex justify-evenly items-center">
       {choices.map((choice, index) => (
-        <div key={index} className='mr-5 flex flex-col justify-center items-center'>
+        <div key={index} className="mr-5 flex flex-col justify-center items-center">
           <button
             type="button"
             onClick={(event) => handleChoiceSelect(index.toString(), event.target.value)}
             value={index}
             className={state.selectedChoiceIndex === index ? 'selected' : ''}
           >
-            <p className='text-lg'>{index + 1}&ensp;{choice}</p>
+            <p className="text-lg">
+              {index + 1}&ensp;{choice}
+            </p>
           </button>
-        </div>        
+        </div>
       ))}
     </div>
   );
