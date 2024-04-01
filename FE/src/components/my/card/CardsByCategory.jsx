@@ -1,6 +1,17 @@
 import { useState } from 'react';
 import Card from './Card.jsx';
-import CardDetailModal from './CardDetailModal.jsx';
+import BaseModal from '../../commons/modals/BaseModal.jsx';
+import ArticleDetail from '../../result/article/ArticleDetail.jsx';
+
+const CardDetailModal = ({ article, onClose }) => {
+  return (
+    <>
+      <BaseModal onClose={onClose} animationType="slide">
+        <ArticleDetail article={article} />
+      </BaseModal>
+    </>
+  );
+};
 
 const CardsByCategory = ({ category, articles }) => {
   const [activeIndex, setActiveIndex] = useState(null); // 현재 활성화된 카드의 인덱스
