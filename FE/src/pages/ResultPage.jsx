@@ -60,7 +60,7 @@ const ResultPage = () => {
   console.log('resultData: ', resultData);
 
   useEffect(() => {
-    getYearSummary(2023)
+    getYearSummary(gameYear)
       .then((data) => {
         setKeywordData(data.result);
         console.log('Year Summary Data:', data.result);

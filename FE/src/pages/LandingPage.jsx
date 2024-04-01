@@ -7,59 +7,14 @@
 //     [V] 로그인시 로그인 버튼이 ‘마이 페이지’ 버튼으로 변경됨
 
 import { useEffect, useState } from 'react';
+import { useQuizApiHandler, useTestQuizApiHandler } from '@apis/gameApi';
 import KakaoLogin from '@components/kakao/KakaoLogin';
 import { useQuizStore } from '@stores/game/quizStore.jsx';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 import BodyContainer from '../components/commons/containers/BodyContainer.jsx';
 import Dropdown from '../components/commons/Dropdown.jsx';
 import { checkGameYearStore } from '../stores/game/gameStore.jsx';
 
 const OPTIONS = Array.from({ length: 2024 - 2005 + 1 }, (v, k) => `${2024 - k}`);
-
-const useQuizApiHandler = (selected) => {
-  const navigate = useNavigate();
-  const { setQuiz } = useQuizStore();
-
-  // API 호출, 페이지 이동, 퀴즈 데이터 저장
-  const handleQuizApi = () => {
-    console.log('API 호출..');
-    axios
-      .get(`${import.meta.env.VITE_BASE_API}/game/${selected}/first`)
-      .then((response) => {
-        setQuiz(response.data.result);
-        console.log(response);
-        navigate('/game');
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  return handleQuizApi;
-};
-
-const useTestQuizApiHandler = (selected) => {
-  const navigate = useNavigate();
-  const { setQuiz } = useQuizStore();
-
-  const handleTestQuizApi = () => {
-    console.log('API 호출..');
-    axios
-      // .get(`${import.meta.env.VITE_BASE_API}/game/${selected}/first`)
-      .get(`${import.meta.env.VITE_BASE_API}/game/${selected}`)
-      .then((response) => {
-        setQuiz(response.data.result);
-        console.log(response);
-        navigate('/game');
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
-  return handleTestQuizApi;
-};
 
 const LandingPage = () => {
   const [selected, setSelected] = useState('2024');
