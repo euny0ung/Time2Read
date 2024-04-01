@@ -30,10 +30,9 @@ public class SocialController {
     private Response<?> checkAuthentication(@RequestBody Map<String, String> requestBody, HttpServletRequest request) {
         String token = requestBody.get("token");
         Member member = kakaoService.requestAccount(token);
-
         member = socialService.checkLogin(member);
         generateSession(member, request);
-        LoginResponse loginResponse = LoginResponse.of(member.getName());
+        LoginResponse loginResponse = LoginResponse.of(member.getEmail());
         return Response.success(loginResponse);
     }
 
