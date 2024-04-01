@@ -62,10 +62,6 @@ const ResultPage = () => {
       .catch((error) => {
         console.error('Error requesting year summary:', error);
       });
-
-    if (gameResult.correct === 10) {
-      setIsSucceed(true);
-    }
   }, []);
 
   const resetGame = () => {

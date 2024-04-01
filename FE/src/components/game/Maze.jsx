@@ -130,10 +130,10 @@ const MazeModel = () => {
       {cardSoldierVisible && <CardSoldier />}
       {heartQueenVisible && <HeartQueen />}
       {rabbitVisible && <Rabbit />}
+      <Lifes lifePositions={randomLifePositions} />
+      <Clues cluePositions={randomCluePositions} />
       <Finish />
       <Start />
-      <Clues cluePositions={randomCluePositions} />
-      <Lifes lifePositions={randomLifePositions} />
     </>
   );
 };
