@@ -41,3 +41,5 @@ out/
 ./database/data/
 
 .env
+
+./logfile_IS_UNDEFINED

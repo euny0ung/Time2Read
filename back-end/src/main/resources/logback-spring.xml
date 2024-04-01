@@ -1,0 +1,39 @@
+<configuration>
+    <properties>
+        <property name="logfile" value="logs/${sys:logfile:-default.log}" />
+    </properties>
+    <!-- Appenders -->
+    <appender name="root-console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%green(%d{yyyy-MM-dd HH:mm:ss.SSS}) %magenta([%thread]) %highlight(%5level) %cyan(%logger) - %yellow(%msg%n)</pattern>
+        </encoder>
+    </appender>
+<!--    <appender name="root-file" class="ch.qos.logback.core.FileAppender">-->
+<!--        <file>${logfile}/root.log</file>-->
+<!--        <encoder>-->
+<!--            <charset>UTF-8</charset>-->
+<!--            <pattern>%green(%d{yyyy-MM-dd HH:mm:ss.SSS}) %magenta([%thread]) %highlight(%5level) %cyan(%logger) - %yellow(%msg%n)</pattern>-->
+<!--        </encoder>-->
+<!--    </appender>-->
+
+
+    <appender name="ox-article-quiz" class="ch.qos.logback.core.FileAppender">
+        <file>${logfile}/ox-article.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>%green(%d{yyyy-MM-dd HH:mm:ss.SSS}) %yellow(%msg)%n</pattern>
+        </encoder>
+    </appender>
+
+
+    <!-- Loggers -->
+    <logger name="org.ssafy.bibibig.articles.application.ArticleService" level="INFO" additivity="false">
+        <appender-ref ref="ox-article-quiz" />
+    </logger>
+
+    <!-- Root Logger -->
+    <root level="INFO">
+        <appender-ref ref="root-console" />
+<!--        <appender-ref ref="root-file" /> -->
+    </root>
+</configuration>
