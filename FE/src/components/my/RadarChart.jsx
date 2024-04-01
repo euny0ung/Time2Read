@@ -34,7 +34,9 @@ const RadarChart = ({ solvedCount }) => {
   const options = {
     chart: {
       width: 'auto',
-      height: 'suto',
+      height: 'auto',
+      offsetX: -20,
+      offsetY: -10,
     },
     xaxis: {
       categories: countCategories,
@@ -42,7 +44,7 @@ const RadarChart = ({ solvedCount }) => {
         style: {
           colors: ['#212529', '#212529', '#212529', '#212529', '#212529', '#212529'], // x 축 레이블의 색상을 변경
           fontSize: '14px',
-          fontFamily: undefined,
+          fontFamily: 'SUITE-Regular',
           fontWeight: 600,
         },
         offsetX: 0,
@@ -67,7 +69,7 @@ const RadarChart = ({ solvedCount }) => {
       style: {
         fontSize: '20px',
         fontWeight: 'bold',
-        fontFamily: undefined,
+        fontFamily: 'SUITE-Regular',
         color: '',
       },
     },
@@ -124,8 +126,8 @@ const RadarChart = ({ solvedCount }) => {
     plotOptions: {
       radar: {
         size: 100, // 레이더 차트 크기
-        offsetX: -2, // 레이더 차트 왼쪽 여백
-        offsetY: 25, // 레이더 차트 오른쪽 여백
+        offsetX: 30, // 레이더 차트 왼쪽 여백
+        offsetY: 30, // 레이더 차트 위쪽 여백
         polygons: {
           strokeColors: '#bdbdbd',
           strokeWidth: 1,
