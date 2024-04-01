@@ -12,7 +12,7 @@ import lombok.ToString;
 public class LoginResponse {
     private String name;
 
-    public static LoginResponse of(String name){
+    public static LoginResponse of(String name) {
         return new LoginResponse(name);
     }
 }
