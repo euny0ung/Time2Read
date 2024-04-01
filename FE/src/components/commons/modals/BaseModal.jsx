@@ -39,7 +39,7 @@ const BaseModal = ({ children, onClose, animationType = 'scale' }) => {
     <>
       {/* 모달 오버레이 */}
       <button
-        className="fixed top-0 left-0 z-50 w-full h-full bg-gray-800 bg-opacity-75 backdrop-blur-sm"
+        className="fixed top-0 left-0 z-50 w-full h-full bg-gray-600 bg-opacity-20 backdrop-blur-sm"
         onClick={onClose}
       >
         {/* 모달 컨테이너 */}
