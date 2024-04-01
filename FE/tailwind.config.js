@@ -50,7 +50,7 @@ export default {
             2: '#A4E3D6',
             3: '#249593',
             4: '#2E531D',
-            5: '#808000'
+            5: '#808000',
           },
           yellow: {
             DEFAULT: '#FEFEC3',
@@ -73,7 +73,7 @@ export default {
           DEFAULT: '#FAFAFA', // 애플 백그라운드 컬러 참고
         },
         gray: {
-          DEFAULT: '#d9d9d9'
+          DEFAULT: '#d9d9d9',
         },
         light: {
           text: {
@@ -96,7 +96,7 @@ export default {
           1: '#FFA50055',
           2: '#084dff',
           3: '#084dff55',
-        }
+        },
       },
       backgroundImage: {
         holographic: 'linear-gradient(45deg, #ff4e50, #12c2e9, #ff49db,#FFA07A, #FFEF96)',
