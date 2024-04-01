@@ -156,26 +156,23 @@ const Player = () => {
         name="player"
         onCollisionEnter={({ other }) => {
           const target = other.rigidBodyObject;
-
           if (!collidedItem.includes(target.uuid)) {
-            // setCollidedItem((prevItems) => [...prevItems, target.uuid]);
             const updateCollision = [...collidedItem, target.uuid];
             setCollidedItem(updateCollision);
             if (assetArray.includes(target.name)) {
               setBumped(true);
               showAsset(target.name);
-            }
-            if (target.name === 'endPoint') {
+            } else if (target.name === 'endPoint') {
               setGameOver(true);
-            }
-            if (target.name === 'clue') {
+            } else if (target.name === 'clue') {
+              console.log('clue와 충돌');
               increaseClueCount();
               if (target.parent) {
                 target.parent.remove(target);
               }
               target.remove();
-            }
-            if (target.name === 'life') {
+            } else if (target.name === 'life') {
+              console.log('cookie와 충돌');
               increaseLifeCount();
               if (target.parent) {
                 target.parent.remove(target);

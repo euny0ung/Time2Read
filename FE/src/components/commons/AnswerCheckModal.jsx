@@ -33,8 +33,11 @@ const AnswerCheckModal = () => {
 
   return (
     <>
-      <div className="fixed inset-0  bg-opacity-50 flex justify-center content-start p-4">
-        <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md h-32" style={{ opacity }}>
+      <div className="fixed inset-0 bg-opacity-50 flex justify-center p-4">
+        <div
+          className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md h-32 flex justify-center items-center text-2xl"
+          style={{ opacity }}
+        >
           {resultState}
         </div>
       </div>
