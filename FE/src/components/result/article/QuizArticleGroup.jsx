@@ -44,7 +44,7 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
   return (
     <>
       <div
-        className="flex flex-col w-full transition-transform duration-500 ease-in-out QuizArticleGroup hover:scale-[101%]"
+        className={`flex flex-col w-full transition-transform duration-500 ease-in-out QuizArticleGroup ${isToggleOn ? '' : 'hover:scale-[101%]'}`}
         ref={containerRef}
       >
         {/* RelatedArticles Container */}
