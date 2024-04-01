@@ -21,6 +21,7 @@ import {
   checkGameSuccessStore,
   checkGameYearStore,
   useResultDataStore,
+  useChallengedArticleStore,
 } from '../stores/game/gameStore.jsx';
 import {
   useQuizStore,
@@ -84,6 +85,7 @@ const ResultPage = () => {
     useAnswerCheckStore.getState().reset();
     useClueIndexStore.getState().reset();
     useClueStateStore.getState().reset();
+    useChallengedArticleStore.getState().reset();
   };
 
   const navigateToLandingPage = () => {
