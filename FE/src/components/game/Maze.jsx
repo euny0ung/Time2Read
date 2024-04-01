@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { RigidBody, CuboidCollider } from '@react-three/rapier';
-import { text } from 'd3';
 import { RepeatWrapping, TextureLoader, SRGBColorSpace } from 'three';
 import {
   Cat,
@@ -44,42 +43,6 @@ const MazeModel = () => {
     heartQueenVisible,
     rabbitVisible,
   } = useVisibilityStore();
-  const cluePositions = [
-    [-9.3, 0.3, -7.5],
-    [4.2, 0.3, -7.5],
-    [1, 0.3, -1],
-    [6.2, 0.3, -3],
-    [-2.7, 0.3, 2],
-    [-4.6, 0.3, 1],
-    [-7.5, 0.3, 2.6],
-    [-9, 0.3, 9],
-    [9.3, 0.3, 9.3],
-    [6, 0.3, 7.8],
-  ];
-  const lifePositions = [
-    [-6.5, 0.2, -9],
-    [-6, 0.2, 3],
-    [-4, 0.2, 6],
-    [-1.3, 0.2, 1],
-    [9, 0.2, 2.8],
-    [3, 0.2, 8],
-  ];
-  const [randomCluePositions, setRandomCluePositions] = useState([]);
-  const [randomLifePositions, setrandomLifePositions] = useState([]);
-  // cluePosition에 10가지 좌표를 넣어놓고 랜덤을 돌려서 5개를 뽑은 다음에 해당 5개를 map을 이용해서 rendering하는 것
-
-  // 처음 한번만 실행
-  useEffect(() => {
-    // 배열을 복제하여 무작위로 섞음
-    const shuffledCluePositions = [...cluePositions].sort(() => Math.random() - 0.5);
-    const shuffledLifePositions = [...lifePositions].sort(() => Math.random() - 0.5);
-    // 첫 번째부터 다섯 번째까지의 위치를 선택
-    const selectedCluePositions = shuffledCluePositions.slice(0, 5);
-    const selectedLifePositions = shuffledLifePositions.slice(0, 3);
-
-    setRandomCluePositions(selectedCluePositions);
-    setrandomLifePositions(selectedLifePositions);
-  }, []);
 
   useEffect(() => {
     textures.repeat.set(8, 8);
@@ -130,8 +93,8 @@ const MazeModel = () => {
       {cardSoldierVisible && <CardSoldier />}
       {heartQueenVisible && <HeartQueen />}
       {rabbitVisible && <Rabbit />}
-      <Lifes lifePositions={randomLifePositions} />
-      <Clues cluePositions={randomCluePositions} />
+      <Clues />
+      <Lifes />
       <Finish />
       <Start />
     </>
@@ -140,7 +103,8 @@ const MazeModel = () => {
 
 export const Floor = () => {
   return (
-    <RigidBody type="static">
+    // <RigidBody type="static">
+    <RigidBody type="fixed">
       <CuboidCollider args={[100, 0, 100]}>
         <mesh position={[0, 0, 0]} receiveShadow>
           <boxGeometry args={[100, 0, 100]} />
