@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { RigidBody, CuboidCollider } from '@react-three/rapier';
-import { text } from 'd3';
 import { RepeatWrapping, TextureLoader, SRGBColorSpace } from 'three';
 import {
   Cat,
@@ -57,12 +56,12 @@ const MazeModel = () => {
     [6, 0.3, 7.8],
   ];
   const lifePositions = [
-    [-6.5, 0.2, -9],
-    [-6, 0.2, 3],
-    [-4, 0.2, 6],
-    [-1.3, 0.2, 1],
-    [9, 0.2, 2.8],
-    [3, 0.2, 8],
+    [-6.5, 0.3, -9],
+    [-6, 0.3, 3],
+    [-4, 0.3, 6],
+    [-1.3, 0.3, 1],
+    [9, 0.3, 2.8],
+    [3, 0.3, 8],
   ];
   const [randomCluePositions, setRandomCluePositions] = useState([]);
   const [randomLifePositions, setrandomLifePositions] = useState([]);
@@ -140,7 +139,8 @@ const MazeModel = () => {
 
 export const Floor = () => {
   return (
-    <RigidBody type="static">
+    // <RigidBody type="static">
+    <RigidBody type="fixed">
       <CuboidCollider args={[100, 0, 100]}>
         <mesh position={[0, 0, 0]} receiveShadow>
           <boxGeometry args={[100, 0, 100]} />

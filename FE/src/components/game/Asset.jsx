@@ -1,5 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { useGLTF, Box } from '@react-three/drei';
+import React, { useEffect } from 'react';
+import { useGLTF } from '@react-three/drei';
 import { RigidBody } from '@react-three/rapier';
 
 export const Cat = () => {
@@ -87,7 +87,7 @@ export const Rose = () => {
   const rose = useGLTF('rose/scene.gltf');
   return (
     <RigidBody name="rose">
-      <primitive object={rose.scene} scale={0.03} position={[4.5, 0, 0.7]} />
+      <primitive object={rose.scene} scale={0.03} position={[4.5, 0.5, 0.7]} />
     </RigidBody>
   );
 };

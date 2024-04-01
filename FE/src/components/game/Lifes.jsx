@@ -1,18 +1,16 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 import { RigidBody } from '@react-three/rapier';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 const Lifes = (lifePositions) => {
   const [lifeList, setLifeList] = useState([]);
-  const gltfRef = useRef(null);
   const loader = new GLTFLoader();
 
   useEffect(() => {
     loader.load('cookie/scene.gltf', (gltf) => {
-      gltfRef.current = gltf;
       const newLifeList = lifePositions.lifePositions.map((position, index) => {
-        const instance = gltf.scene.clone();
-        return <Life instance={instance} position={position} key={index} />;
+        const lifeInstance = gltf.scene.clone();
+        return <Life instance={lifeInstance} position={position} key={index} />;
       });
       setLifeList(newLifeList);
     });

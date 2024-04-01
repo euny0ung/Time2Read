@@ -162,19 +162,17 @@ const Player = () => {
             if (assetArray.includes(target.name)) {
               setBumped(true);
               showAsset(target.name);
-            }
-            if (target.name === 'endPoint') {
+            } else if (target.name === 'endPoint') {
               setGameOver(true);
-            }
-            if (target.name === 'clue') {
+            } else if (target.name === 'clue') {
               increaseClueCount();
               if (target.parent) {
                 target.parent.remove(target);
               }
               target.remove();
-            }
-            if (target.name === 'life') {
-              increaseLifeCount();
+            } else if (target.name === 'life') {
+              console.log('cookie와 충돌');
+              // increaseLifeCount();
               if (target.parent) {
                 target.parent.remove(target);
               }
@@ -187,6 +185,7 @@ const Player = () => {
           if (assetArray.includes(target.name)) {
             setBumped(false);
           }
+          if (target.name === 'life') increaseLifeCount();
         }}
       >
         <mesh position={[-1, 0, -13]}>
