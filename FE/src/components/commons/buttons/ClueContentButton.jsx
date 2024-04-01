@@ -19,9 +19,9 @@ const ClueContent = React.memo(({ clues, quizIndex, clueIndex }) => {
   };
 
   return (
-    <div>
+    <div className='w-full h-full'>
       <button onClick={handleClick} disabled={clueCount === 0 && !cluesClicked[`${quizIndex}-${clueIndex}`]}>
-        {isFirstLetter ? '두번째 힌트 닫기' : '두번째 힌트 보기'}
+        {isFirstLetter ? '초성 힌트 닫기' : '초성 힌트 보기'}
       </button>
       {isFirstLetter && <div>{clues.description}</div>}
     </div>

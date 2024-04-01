@@ -62,8 +62,8 @@ const quizTypeConfigs = {
     questionText: ' 빈칸에 들어갈 단어의 순서를 선택해봐!',
     questionHeight: 70,
     answerHeight: 20,
-    hintOneHeight: 85,
-    hintTwoHeight: 13,
+    hintOneHeight: 80,
+    hintTwoHeight: 18,
   },
 };
 
