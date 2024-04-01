@@ -22,7 +22,7 @@ const EntireContentButton = React.memo(({ title, clues, quizIndex, clueIndex }) 
     <div className="w-full h-full overflow-y-scroll">
       {/* 단서 개수가 0인데 클릭하지 않은 경우 - 버튼 비활성화, 상태변경X */}
       <button onClick={handleClick} disabled={clueCount === 0 && !cluesClicked[`${quizIndex}-${clueIndex}`]}>
-        {isEntireContent ? '첫번째 힌트 닫기' : '첫번째 힌트 보기'}
+        {isEntireContent ? '본문 힌트 닫기' : '본문 힌트 보기'}
       </button>
       {isEntireContent && (
         <div>
