@@ -22,7 +22,13 @@ import {
   checkGameYearStore,
   useResultDataStore,
 } from '../stores/game/gameStore.jsx';
-import { useHitsCategoryStore } from '../stores/game/quizStore.jsx';
+import {
+  useQuizStore,
+  useHitsCategoryStore,
+  useAnswerCheckStore,
+  useClueIndexStore,
+  useClueStateStore,
+} from '../stores/game/quizStore.jsx';
 
 const ResultPage = () => {
   const navigate = useNavigate();
@@ -73,6 +79,11 @@ const ResultPage = () => {
     checkGameSuccessStore.getState().reset();
     checkGameYearStore.getState().reset();
     useResultDataStore.getState().reset();
+    useQuizStore.getState().reset();
+    useHitsCategoryStore.getState().reset();
+    useAnswerCheckStore.getState().reset();
+    useClueIndexStore.getState().reset();
+    useClueStateStore.getState().reset();
   };
 
   const navigateToLandingPage = () => {
@@ -152,7 +163,7 @@ const ResultPage = () => {
                 {/* 타임 어택 시간 */}
                 <WhiteContainerHoverEffect>
                   <ResultTitle title={'타임 어택 시간'} />
-                  <div className="flex items-center justify-center h-[80%] text-6xl font-bold">
+                  <div className="flex items-center justify-center h-[80%] text-5xl md:text-4xl lg:text-5xl font-bold">
                     {gameResult.timeAttackTime ? (
                       <>
                         <TimeLoader targetNumber={formatTime(600 - gameResult.timeAttackTime)} />
