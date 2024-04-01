@@ -33,7 +33,7 @@ const ShortAnswerQuiz = ({ answer, mainCategory, id }) => {
   };
 
   return (
-    <div className='w-[100%] h-[100%] flex justify-center items-center'>
+    <div className="w-[100%] h-[100%] flex justify-center items-center">
       <input
         placeholder="정답 입력 후 엔터를 누르세요."
         className="w-full h-10 px-4 py-2 rounded-md border-blue-500 focus:outline-none border focus:border-red-500"
