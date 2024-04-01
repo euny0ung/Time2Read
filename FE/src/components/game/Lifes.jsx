@@ -3,6 +3,7 @@ import { RigidBody } from '@react-three/rapier';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
 const Lifes = () => {
+  console.log('Lifes 컴포넌트 입장');
   const [lifeList, setLifeList] = useState([]);
   const loader = new GLTFLoader();
   const lifePositions = [
