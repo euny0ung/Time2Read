@@ -22,7 +22,6 @@ import java.util.List;
 public class ArticleController {
 
     private final ArticleService articleService;
-
     @GetMapping("/{year}")
     public Response<List<ArticleWithQuiz>> getArticleWithQuiz(HttpServletRequest request, @PathVariable int year) {
         try {
@@ -33,9 +32,7 @@ public class ArticleController {
                 return Response.success(articleService.getArticleWithQuizzes(year));
         } catch (CommonException e) {
         }
-
         return Response.success(articleService.getArticleWithQuizzes(year));
-
     }
 
     //TODO: first, second에 관리자 테스트 퀴즈 목업 추가
