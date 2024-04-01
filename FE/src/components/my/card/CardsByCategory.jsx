@@ -3,6 +3,7 @@ import Card from './Card.jsx';
 import BaseModal from '../../commons/modals/BaseModal.jsx';
 import ArticleDetail from '../../result/article/ArticleDetail.jsx';
 
+// 기사 디테일 모달
 const CardDetailModal = ({ article, onClose }) => {
   return (
     <>
@@ -13,6 +14,7 @@ const CardDetailModal = ({ article, onClose }) => {
   );
 };
 
+// 특정 카테고리만 보여주는 컴포넌트
 const CardsByCategory = ({ category, articles }) => {
   const [activeIndex, setActiveIndex] = useState(null); // 현재 활성화된 카드의 인덱스
 
