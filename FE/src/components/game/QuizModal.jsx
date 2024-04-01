@@ -81,9 +81,6 @@ const QuizModal = React.memo(
           const quizObj = it.quiz;
           let { quizType } = quizObj;
 
-          console.log('퀴즈 타입', quizType);
-          console.log('두번째 힌트', quizObj.clues[1]);
-
           //  퀴즈 타입이 KEYWORD인 경우 애너그램과 단답형으로 나누기
           if (quizType === 'KEYWORD') {
             const randNum = Math.floor(Math.random() * 2);
@@ -91,7 +88,6 @@ const QuizModal = React.memo(
           }
 
           const quizTypeConfig = quizTypeConfigs[quizType];
-          console.log('quizTypeConfig', quizTypeConfig);
 
           const renderQuiz = (type, additionalProps = {}) => (
             <div className="w-[100%] h-[100%] flex items-center justify-center">
