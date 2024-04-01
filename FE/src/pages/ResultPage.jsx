@@ -6,6 +6,7 @@ import TopButton from '../components/commons/buttons/TopButton.jsx';
 import BodyContainer from '../components/commons/containers/BodyContainer.jsx';
 import TranslucentContainer from '../components/commons/containers/TranslucentContainer.jsx';
 import WhiteContainerHoverEffect from '../components/commons/containers/WhiteContainerHoverEffect.jsx';
+import InducementModal from '../components/commons/modals/InducementModal.jsx';
 import ResultContent from '../components/commons/ResultContent.jsx';
 import ResultTitle from '../components/commons/ResultTitle.jsx';
 import { formatTime } from '../components/game/Timer.jsx';
@@ -48,6 +49,7 @@ const ResultPage = () => {
   const { isSucceed, setIsSucceed } = checkGameSuccessStore();
   const gameYear = checkGameYearStore((state) => state.gameYear);
   const setResultData = useResultDataStore((state) => state.setResultData);
+  const [openLoginInducementModal, setOpenLoginInducementModal] = useState(false); // 로그인 유도 모달
 
   // Json 형식의 파일을 만들어줘야 하는데 왜 자동저장하면 이렇게 되어버리지
   const resultData = {
@@ -95,11 +97,14 @@ const ResultPage = () => {
     const name = sessionStorage.getItem('name');
 
     if (name !== null) {
+      // 유저가 로그인 되어 있을 때
       setResultData(resultData);
       postGameResult(resultData);
       navigate('/mypage');
     } else {
-      console.log(console.log('로그인 필요'), navigate('/'));
+      // 로그인 되어 있지 않을 때
+      setOpenLoginInducementModal(true);
+      // console.log(console.log('로그인 필요'), navigate('/'));
     }
   };
 
@@ -138,6 +143,7 @@ const ResultPage = () => {
       <TopButton />
       <div className="fixed z-10 flex flex-col gap-6 right-5 top-5">
         <PageMovingButton onClick={navigateToLandingPage} buttonText="다시 시계토끼 쫓아가기" buttonColor="#FBFAEA" />
+        {openLoginInducementModal && <InducementModal onClose={() => setOpenLoginInducementModal(false)} />}
         <PageMovingButton onClick={navigateToMyPage} buttonText="내 정보 더 자세하게 보기" buttonColor="#FEFEC3" />
       </div>
       <BodyContainer>

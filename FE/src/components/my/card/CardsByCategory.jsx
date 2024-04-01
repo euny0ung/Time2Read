@@ -21,18 +21,10 @@ const CardsByCategory = ({ category, articles }) => {
       <div className="flex space-x-4 overflow-x-auto scrollbar">
         {articles.map((article) => (
           <div key={article.id} className="inline-block">
-            <button
-              onClick={() => toggleActiveIndex(article.id)}
-              onKeyPress={(e) => {
-                if (e.key === 'Enter') {
-                  toggleActiveIndex(article.id);
-                }
-              }}
-              className=""
-            >
+            <button onClick={() => toggleActiveIndex(article.id)}>
               <Card article={article} />
             </button>
-            {article.id === activeIndex && <CardDetail article={article} setActiveIndex={setActiveIndex} />}
+            {article.id === activeIndex && <CardDetail article={article} onClose={() => setActiveIndex(null)} />}
           </div>
         ))}
       </div>

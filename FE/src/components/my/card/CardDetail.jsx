@@ -1,8 +1,8 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
 import ArticleDetail from '../../result/article/ArticleDetail.jsx';
 
-const CardDetail = ({ article, setActiveIndex }) => {
+const CardDetail = ({ article, onClose }) => {
   const cardRef = useRef(null);
   const contentRef = useRef(null);
 
@@ -24,23 +24,21 @@ const CardDetail = ({ article, setActiveIndex }) => {
   };
 
   return (
-    <div
-      className="fixed top-0 left-0 z-50 w-full h-full bg-gray-800 bg-opacity-75"
-      onClick={() => setActiveIndex(null)}
-    >
-      {/* 내용 요소 */}
-      <div ref={contentRef} className="flex items-center justify-center w-full h-full rounded-lg">
-        <div
-          ref={cardRef}
-          className="flex justify-center p-8 mx-auto bg-white rounded-lg shadow-lg max-w-[60vw] max-h-[80vh] overflow-y-auto"
-          onClick={handleContentClick}
-        >
-          <div className="">
+    <>
+      {/* 모달 오버레이 */}
+      <button className="fixed top-0 left-0 z-50 w-full h-full bg-gray-800 bg-opacity-75" onClick={onClose}>
+        {/* 내용 요소 */}
+        <div ref={contentRef} className="flex items-center justify-center w-full h-full rounded-lg">
+          <button
+            ref={cardRef}
+            className="flex justify-center p-8 mx-auto bg-white rounded-lg shadow-lg w-[60vw] max-h-[80vh] overflow-y-auto scrollbar"
+            onClick={handleContentClick}
+          >
             <ArticleDetail article={article} />
-          </div>
+          </button>
         </div>
-      </div>
-    </div>
+      </button>
+    </>
   );
 };
 
