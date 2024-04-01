@@ -1,0 +1,96 @@
+spring:
+  profiles:
+    active: local #default
+    group:
+      local:
+        - common
+      prod:
+        - common
+
+---
+spring:
+  config:
+    activate:
+      on-profile: common
+  application:
+    name: bibibig
+  data:
+    elasticsearch:
+      repositories:
+        enabled: true
+  elasticsearch:
+    url: ${ES_HOSTNAME}
+logging:
+  level:
+    org:
+      springframework:
+        data:
+          elasticsearch:
+            client:
+              WIRE: TRACE
+server:
+  port: 8081
+  servlet:
+    context-path: /api
+    encoding:
+      force-response: true
+    session:
+      timeout: 36000  #10시간
+springdoc:
+  swagger-ui:
+    path: /bibibig/swagger-ui.html
+
+oauth: # Kakao Social Login
+  KAKAO_CLIENT_ID: ${KAKAO_CLIENT_ID}
+  KAKAO_AUTHORIZE_URL: https://kauth.kakao.com/oauth/authorize
+  KAKAO_REDIRECT_URL: ${KAKAO_REDIRECT_URL}
+  KAKAO_TOKEN_REQUEST_URL: https://kauth.kakao.com/oauth/token
+  KAKAO_USER_INFO_REQUEST_URL: https://kapi.kakao.com/v2/user/me
+  KAKAO_SECURE_RESOURCE: false
+
+quiz: #AI API DATA
+  word-define:
+    key: ${AI_API_KEY}
+
+openai: #Open AI
+  FINETUNING_MODEL: ${OPENAI_FINETUNING_MODEL}
+  KEY: ${OPENAI_KEY}
+  CHAT_URL: ${OPENAI_CHAT_URL}
+
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://localhost:3306/time_to_read
+    username: ${MYSQL_USER}
+    password: ${MYSQL_ROOT_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: ${MYSQL_URL}
+    username: ${MYSQL_USER}
+    password: ${MYSQL_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        use_sql_comments: true
