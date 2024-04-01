@@ -8,6 +8,7 @@ import {
   checkGameSuccessStore,
   checkGameYearStore,
   useResultDataStore,
+  useChallengedArticleStore,
 } from '@stores/game/gameStore';
 import {
   useQuizStore,
@@ -62,6 +63,7 @@ const MyPage = () => {
     useAnswerCheckStore.getState().reset();
     useClueIndexStore.getState().reset();
     useClueStateStore.getState().reset();
+    useChallengedArticleStore.getState().reset();
   };
 
   const navigateToLandingPage = () => {
