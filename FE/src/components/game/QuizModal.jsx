@@ -93,10 +93,7 @@ const QuizModal = React.memo(
                   </div>
 
                   {/* 정답 입력 생성 */}
-                  <div
-                    className="flex justify-center items-center"
-                    style={{ width: '100%', height: `${answerHeight}%` }}
-                  >
+                  <div className="flex justify-center " style={{ width: '100%', height: `${answerHeight}%` }}>
                     {additionalProps && React.createElement(additionalProps.component, additionalProps.componentProps)}
                   </div>
                 </WhiteContainer>
