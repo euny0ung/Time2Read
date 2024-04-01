@@ -12,13 +12,13 @@ public class SolvedRecordsEntity {
     private Long id;
     @Column(name = "play_year")
     private int playYear;
-    @Column(name="main_category")
+    @Column(name = "main_category")
     private String mainCategory;
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
     @ManyToOne
-    @JoinColumn(name="member_id")
+    @JoinColumn(name = "member_id")
     private MemberEntity member;
 
     @PrePersist

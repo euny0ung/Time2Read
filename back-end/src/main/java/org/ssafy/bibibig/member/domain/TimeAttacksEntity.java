@@ -11,12 +11,12 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name="time_attacks")
+@Table(name = "time_attacks")
 public class TimeAttacksEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name="time_attack_time")
+    @Column(name = "time_attack_time")
     private int timeAttackTime;
     @Column(name = "created_at")
     private LocalDateTime createdAt;
@@ -29,7 +29,7 @@ public class TimeAttacksEntity {
         createdAt = LocalDateTime.now();
     }
 
-    public static TimeAttacksEntity of(Long id, int timeAttackTime, LocalDateTime createdAt, MemberEntity member){
+    public static TimeAttacksEntity of(Long id, int timeAttackTime, LocalDateTime createdAt, MemberEntity member) {
         return new TimeAttacksEntity(id, timeAttackTime, createdAt, member);
     }
 

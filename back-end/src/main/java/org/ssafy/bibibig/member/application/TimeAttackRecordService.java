@@ -21,21 +21,22 @@ public class TimeAttackRecordService {
 
     private final TimeAttackRecordRepository timeAttackRecordRepository;
     private final MemberRepository memberRepository;
-    public List<TimeAttackResponse> getRecords(Long memberId){
+
+    public List<TimeAttackResponse> getRecords(Long memberId) {
         List<TimeAttacksEntity> timeAttacksEntities = timeAttackRecordRepository.findByMemberIdOrderByTimeAttackTime(memberId);
         List<TimeAttackResponse> records = new ArrayList<>();
-        for(TimeAttacksEntity row : timeAttacksEntities){
+        for (TimeAttacksEntity row : timeAttacksEntities) {
             TimeAttack timeAttack = TimeAttack.from(row);
-            records.add(TimeAttackResponse.of(timeAttack.getTimeAttackTime() ,timeAttack.getCreatedAt()));
+            records.add(TimeAttackResponse.of(timeAttack.getTimeAttackTime(), timeAttack.getCreatedAt()));
         }
         return records;
     }
 
     @Transactional
-    public void saveRecord(Long memberId, int time){
-        memberRepository.findById(memberId).ifPresentOrElse((memberEntity)->{
+    public void saveRecord(Long memberId, int time) {
+        memberRepository.findById(memberId).ifPresentOrElse((memberEntity) -> {
             timeAttackRecordRepository.save(TimeAttack.of(time, null, Member.from(memberEntity)).toEntity());
-        },()->{
+        }, () -> {
             throw new CommonException(ErrorCode.USER_NOT_FOUND);
         });
 

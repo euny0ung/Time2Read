@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.ToString;
 import org.ssafy.bibibig.member.domain.MemberEntity;
 import org.ssafy.bibibig.member.domain.SolvedCategoriesEntity;
+
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
@@ -17,23 +18,25 @@ public class Member {
     private LocalDateTime createdAt;
     private SolvedCategoriesEntity solvedCategoriesEntity;
 
-    public Member(Long id, String name, String email){
+    public Member(Long id, String name, String email) {
         this.id = id;
-        this.name=name;
-        this.email=email;
-    }
-    public static Member of(Long id, String name, String email){
-        return new Member(id, name, email);
-    }
-    public static Member of(Long id, String name, String email,LocalDateTime createdAt, SolvedCategoriesEntity solvedCategoriesEntity){
-        return new Member(id, name, email,createdAt, solvedCategoriesEntity);
+        this.name = name;
+        this.email = email;
     }
 
-    public MemberEntity toEntity(SolvedCategoriesEntity solvedCategoriesEntity){
+    public static Member of(Long id, String name, String email) {
+        return new Member(id, name, email);
+    }
+
+    public static Member of(Long id, String name, String email, LocalDateTime createdAt, SolvedCategoriesEntity solvedCategoriesEntity) {
+        return new Member(id, name, email, createdAt, solvedCategoriesEntity);
+    }
+
+    public MemberEntity toEntity(SolvedCategoriesEntity solvedCategoriesEntity) {
         return MemberEntity.of(id, name, email, createdAt, solvedCategoriesEntity);
     }
 
-    public static Member from(MemberEntity entity){
+    public static Member from(MemberEntity entity) {
         return Member.of(
                 entity.getId(),
                 entity.getName(),
