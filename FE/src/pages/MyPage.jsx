@@ -91,8 +91,8 @@ const MyPage = () => {
     // 스크랩한 기사 리스트 보기
     getScrapArticles()
       .then((data) => {
-        setScrapedArticle(data.result);
-        console.log('Scraped Articles', data.result);
+        setScrapedArticle(data);
+        console.log('Scraped Articles', data);
       })
       .catch((error) => {
         console.error('Error requesting badge:', error);
