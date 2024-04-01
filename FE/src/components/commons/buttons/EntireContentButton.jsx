@@ -26,9 +26,8 @@ const EntireContentButton = React.memo(({ title, clues, quizIndex, clueIndex }) 
       </button>
       {isEntireContent && (
         <div>
-          <p className="text-xl">{title}</p>
-          <br />
-          <p className="text-lg">{clues.description}</p>
+          <p className="text-xl m-1">{title}</p>
+          <p className="text-lg m-1">{clues.description}</p>
         </div>
       )}
     </div>
