@@ -215,13 +215,14 @@ const MyPage = () => {
                   <ResultTitle title={'타임어택 기록'} />
                   <ResultContent>
                     new! {formatTime(600 - gameResult.timeAttackTime)}
-                    {timeRecords.map((record, i) => (
-                      <div key={record.playDate} className="flex justify-between">
-                        <div>{`기록 ${i + 1}:`}</div>
-                        <div>{record.timeAttackTime}</div>
-                        <div>{format(new Date(record.playDate), 'yyyy-MM-dd HH:mm')}</div>
-                      </div>
-                    ))}
+                    {timeRecords &&
+                      timeRecords.map((record, i) => (
+                        <div key={record.playDate} className="flex justify-between">
+                          <div>{`기록 ${i + 1}:`}</div>
+                          <div>{record.timeAttackTime}</div>
+                          <div>{format(new Date(record.playDate), 'yyyy-MM-dd HH:mm')}</div>
+                        </div>
+                      ))}
                   </ResultContent>
                 </WhiteContainerHoverEffect>
               </div>
