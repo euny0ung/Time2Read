@@ -43,6 +43,7 @@ const MazeModel = () => {
     heartQueenVisible,
     rabbitVisible,
   } = useVisibilityStore();
+  const [cluesLoaded, setCluesLoaded] = useState(false);
 
   useEffect(() => {
     textures.repeat.set(8, 8);
@@ -93,8 +94,10 @@ const MazeModel = () => {
       {cardSoldierVisible && <CardSoldier />}
       {heartQueenVisible && <HeartQueen />}
       {rabbitVisible && <Rabbit />}
-      <Clues />
+      {/* <Lifes onCluesLoaded={() => setCluesLoaded(true)} /> */}
+      {/* {cluesLoaded && <Clues />} */}
       <Lifes />
+      <Clues />
       <Finish />
       <Start />
     </>
