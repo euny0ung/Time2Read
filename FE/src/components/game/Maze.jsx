@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { RigidBody, CuboidCollider } from '@react-three/rapier';
+import { text } from 'd3';
 import { RepeatWrapping, TextureLoader, SRGBColorSpace } from 'three';
 import {
   Cat,
@@ -24,7 +25,13 @@ const MazeModel = () => {
   const { scene } = useGLTF('maze/scene.gltf');
   const textureLoader = new TextureLoader();
   const textures = textureLoader.load('maze/textures/grass-seamless-texture-tileable.jpg');
+  const wallsBaseColor = textureLoader.load('maze/textures/ground/Stylized_Stone_Floor_005_basecolor.jpg');
+  // const wallsHeightColor = textureLoader.load('maze/texture/ground/Stylized_Stone_Floor_005_height.png');
+  // const wallsNormalColor = textureLoader.load('maze/texture/ground/Stylized_Stone_Floor_005_normal.jpg');
+  // const wallsRoughColor = textureLoader.load('maze/textures/ground/Stylized_Stone_Floor_005_roughness.jpg');
+  const wallsAmbientColor = textureLoader.load('maze/textures/ground/Stylized_Stone_Floor_005_ambientOcclusion.jpg');
   textures.colorSpace = SRGBColorSpace;
+  wallsAmbientColor.colorSpace = SRGBColorSpace;
   const {
     catVisible,
     doorKnobVisible,
@@ -79,16 +86,34 @@ const MazeModel = () => {
     textures.wrapS = RepeatWrapping; // 텍스처가 가로 방향으로 반복되도록 설정합니다.
     textures.wrapT = RepeatWrapping; // 텍스처가 세로 방향으로 반복되도록 설정합니다.
 
+    wallsBaseColor.repeat.set(8, 8);
+    wallsBaseColor.wrapS = RepeatWrapping;
+    wallsBaseColor.wrapT = RepeatWrapping;
+
+    wallsAmbientColor.repeat.set(8, 8);
+    wallsAmbientColor.wrapS = RepeatWrapping;
+    wallsAmbientColor.wrapT = RepeatWrapping;
+
     scene.traverse((child) => {
       if (child.isMesh && child.material) {
-        if (child.material.name === 'walls' || child.material.name === 'ground') {
+        if (child.material.name === 'walls') {
           const { material } = child;
           material.map = textures;
+          material.needsUpdate = true;
+        } else if (child.material.name === 'ground') {
+          const { material } = child;
+          material.map = wallsBaseColor;
+
+          // material.normalMap = wallsNormalColor;
+          // material.displaceMap = wallsHeightColor;
+          // material.specularMap = wallsRoughColor;
+          material.aoMap = wallsAmbientColor;
+
           material.needsUpdate = true;
         }
       }
     });
-  }, [scene, textures]);
+  }, [scene, textures, wallsBaseColor]);
 
   return (
     <>
