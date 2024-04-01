@@ -22,9 +22,8 @@ const Badges = () => {
     <>
       <div>
         <div className="">
-          {badges.map((badge) => (
-            <BadgeComponent key={badge.year} year={badge.year} successCount={badge.count} />
-          ))}
+          {badges &&
+            badges.map((badge) => <BadgeComponent key={badge.year} year={badge.year} successCount={badge.count} />)}
         </div>
       </div>
     </>
