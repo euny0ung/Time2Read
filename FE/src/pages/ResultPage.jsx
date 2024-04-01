@@ -95,11 +95,8 @@ const ResultPage = () => {
     } else {
       // 로그인 되어 있지 않을 때
       setOpenLoginInducementModal(true); // 로그인 유도 모달 표시
-      usePreLoginPathStore.getState().setPreLoginPath(window.location.pathname); // 현재 경로 저장
-      useScrollPositionStore.getState().setScrollPosition(window.scrollY); // 스크롤 위치 저장
-
-      console.log('로그인이 필요해요');
-      console.log('현재페이지 경로', window.location.pathname);
+      usePreLoginPathStore.getState().setPreLoginPath('/mypage'); // 마이페이지로 경로 저장
+      // useScrollPositionStore.getState().setScrollPosition(window.scrollY); // 스크롤 위치 저장
     }
   };
 
