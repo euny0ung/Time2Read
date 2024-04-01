@@ -17,7 +17,7 @@ public interface ArticleRepositoryCustom {
 
     List<KeywordTerms> getMultipleChoice(int year, CategoryType category, String keyword, int count);
 
-    ArticleEntity getRandomArticleByYearAndCategory(int year, int size, CategoryType category);
+    ArticleEntity getRandomArticleByYearAndCategory(int year, CategoryType category);
 }
 
 

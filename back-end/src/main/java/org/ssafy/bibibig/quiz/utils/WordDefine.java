@@ -2,10 +2,9 @@ package org.ssafy.bibibig.quiz.utils;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.*;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-
-import org.springframework.http.*;
 import org.ssafy.bibibig.quiz.dto.response.WordDefineResponse;
 
 import java.util.HashMap;

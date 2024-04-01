@@ -2,7 +2,9 @@ package org.ssafy.bibibig.quiz.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
 
+@Getter
 public class Article {
     private final String question;
     private final boolean answer;
@@ -15,11 +17,4 @@ public class Article {
         this.answer = answer;
     }
 
-    public String getQuestion() {
-        return question;
-    }
-
-    public boolean isAnswer() {
-        return answer;
-    }
 }

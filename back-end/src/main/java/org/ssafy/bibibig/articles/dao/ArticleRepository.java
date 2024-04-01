@@ -8,6 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface ArticleRepository extends ElasticsearchRepository<ArticleEntity, String>, ArticleRepositoryCustom {
-    Optional<ArticleEntity> findByHaniId(String haniId);
     Optional<ArticleEntity> findById(String id);
 }

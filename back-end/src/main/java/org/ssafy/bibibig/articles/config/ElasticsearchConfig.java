@@ -13,6 +13,7 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
 public class ElasticsearchConfig extends AbstractElasticsearchConfiguration {
     @Value("${spring.elasticsearch.url}")
     private String es_url;
+
     @Override
     public RestHighLevelClient elasticsearchClient() {
         ClientConfiguration clientConfiguration = ClientConfiguration.builder()
@@ -20,4 +21,5 @@ public class ElasticsearchConfig extends AbstractElasticsearchConfiguration {
                 .build();
         return RestClients.create(clientConfiguration).rest();
     }
+
 }
