@@ -28,7 +28,7 @@ class ArticleControllerTest {
     @ParameterizedTest
     @MethodSource("provideYears")
     @DisplayName("게임 시작")
-    void getScrapedArticle(int year) throws Exception {
+    void gameStart(int year) throws Exception {
         // given
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
                 .get(String.format("/v1/game/%d/first", year))
@@ -40,6 +40,23 @@ class ArticleControllerTest {
         // then
         perform.andExpect(status().isOk())
                 .andExpect(jsonPath("$.result", hasSize(6)));
+    }
+
+    @ParameterizedTest
+    @MethodSource("provideYears")
+    @DisplayName("ox 퀴즈")
+    void getOx(int year) throws Exception {
+        // given
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .get(String.format("/v1/game/%d/second", year))
+                .contentType(MediaType.APPLICATION_JSON);
+
+        // when
+        ResultActions perform = mockMvc.perform(request);
+
+        // then
+        perform.andExpect(status().isOk())
+                .andExpect(jsonPath("$.result", hasSize(4)));
     }
 
     private static Stream<Integer> provideYears() {
