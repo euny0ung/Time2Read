@@ -8,6 +8,7 @@ import {
   checkGameSuccessStore,
   checkGameYearStore,
   useResultDataStore,
+  useChallengedArticleStore,
 } from '@stores/game/gameStore';
 import {
   useQuizStore,
@@ -62,6 +63,7 @@ const MyPage = () => {
     useAnswerCheckStore.getState().reset();
     useClueIndexStore.getState().reset();
     useClueStateStore.getState().reset();
+    useChallengedArticleStore.getState().reset();
   };
 
   const navigateToLandingPage = () => {
@@ -91,7 +93,7 @@ const MyPage = () => {
     // 스크랩한 기사 리스트 보기
     getScrapArticles()
       .then((data) => {
-        setScrapedArticle(data);
+        // setScrapedArticle(data);
         console.log('Scraped Articles', data);
       })
       .catch((error) => {

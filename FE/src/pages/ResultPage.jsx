@@ -125,7 +125,7 @@ const ResultPage = () => {
 
   useEffect(() => {
     // 페이지 로딩 시 초기 데이터 로딩
-    getYearSummary(2023)
+    getYearSummary(gameYear)
       .then((data) => {
         setKeywordData(data.result);
         console.log('Year Summary Data:', data.result);

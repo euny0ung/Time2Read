@@ -77,7 +77,6 @@ const ProgressBar = ({ relatedArticles, currentStep, goToStep, setIsToggleOn, ti
             >
               <button
                 key={article.id}
-                text-primary-indigo-4
                 className={`truncate cursor-pointer flex-grow flex-shrink text-lg font-bold ${i === currentStep ? 'text-primary-indigo-4' : 'text-white'}`}
                 style={{ maxWidth: titleMaxWidth }}
                 onClick={() => {
