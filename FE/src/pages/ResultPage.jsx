@@ -64,17 +64,6 @@ const ResultPage = () => {
 
   console.log('resultData: ', resultData);
 
-  useEffect(() => {
-    getYearSummary(gameYear)
-      .then((data) => {
-        setKeywordData(data.result);
-        console.log('Year Summary Data:', data.result);
-      })
-      .catch((error) => {
-        console.error('Error requesting year summary:', error);
-      });
-  }, []);
-
   const resetGame = () => {
     useGameModalStore.getState().reset();
     useGameResultStore.getState().reset();
@@ -136,7 +125,7 @@ const ResultPage = () => {
 
   useEffect(() => {
     // 페이지 로딩 시 초기 데이터 로딩
-    getYearSummary(2023)
+    getYearSummary(gameYear)
       .then((data) => {
         setKeywordData(data.result);
         console.log('Year Summary Data:', data.result);
