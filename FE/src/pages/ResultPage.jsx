@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { usePreLoginStateStore } from './stores/preLoginStore.jsx';
+import { useScrapStore } from './stores/scrapStore.jsx';
 import { getYearSummary, postGameResult } from '../apis/resultApi.jsx';
 import PageMovingButton from '../components/commons/buttons/PageMovingButtons.jsx';
 import TopButton from '../components/commons/buttons/TopButton.jsx';
@@ -32,7 +34,6 @@ import {
   useClueStateStore,
 } from '../stores/game/quizStore.jsx';
 import usePreLoginPathStore from '../stores/ui/preLoginStore.jsx';
-import { useScrollPositionStore } from '../stores/ui/scrollStore.jsx';
 
 const ResultPage = () => {
   const navigate = useNavigate();
@@ -41,6 +42,7 @@ const ResultPage = () => {
 
   const { gameResult } = useGameResultStore(); // 게임 결과 : 정답 수, 오답 수, 타임 어택 시간
   const [keywordData, setKeywordData] = useState([]);
+
   const topboxRef = useRef(null);
   const leftboxRef = useRef(null);
   const rightboxRef = useRef(null);
@@ -48,8 +50,12 @@ const ResultPage = () => {
   const [rightboxHeight, setRightboxHeight] = useState('0px');
   const [keywordWidth, setKeywordWidth] = useState(0);
   const [keywordHeight, setKeywordHeight] = useState(0);
+
   const { hitsCategory } = useHitsCategoryStore();
   const { isSucceed, setIsSucceed } = checkGameSuccessStore();
+  const { scrollPosition, openedQuiz } = usePreLoginStateStore();
+  const { scrapStatus } = useScrapStore();
+
   const gameYear = checkGameYearStore((state) => state.gameYear);
   const setResultData = useResultDataStore((state) => state.setResultData);
   const [openLoginInducementModal, setOpenLoginInducementModal] = useState(false);
@@ -135,8 +141,18 @@ const ResultPage = () => {
       });
 
     // 페이지 로딩 시 스크롤 위치 복원
-    const savedPosition = useScrollPositionStore.getState().scrollPosition;
-    if (savedPosition) window.scrollTo(0, savedPosition);
+    if (scrollPosition) {
+      window.scrollTo(0, scrollPosition);
+    }
+
+    // 저장된 스크롤 위치와 열린 퀴즈 정보가 있으면, 해당 상태를 UI에 반영하는 로직을 여기에 추가
+    if (openedQuiz) {
+      // 예: 특정 퀴즈 섹션을 열거나 특정 기사를 강조 표시
+      console.log(`Quiz Number: ${openedQuiz.quizNumber}, Article Index: ${openedQuiz.articleIndex}`);
+    }
+
+    // 저장된 스크롤 위치, 퀴즈 상태 등을 초기화하고 싶다면 여기서 초기화 작업을 수행
+    // usePreLoginStateStore.getState().reset();
 
     // 리사이즈 이벤트 리스너 등록 및 제거
     handleResize();
