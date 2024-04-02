@@ -55,11 +55,7 @@ export const getScrapArticles = () => {
   return axios
     .get(apiUrl)
     .then((response) => {
-<<<<<<< HEAD
-      console.log('myApi 스크랩 리스트', response.data.result.data);
-=======
       console.log('스크랩한 기사 리스트 response', response);
->>>>>>> 58514cb45661905cabc2460141d0fbaf70fb9bda
       return response.data.result.data;
     })
     .catch((error) => {
