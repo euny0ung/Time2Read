@@ -33,7 +33,7 @@ import Cards from '../components/my/card/Cards.jsx';
 import RadarChart from '../components/my/RadarChart.jsx';
 
 const MyPage = () => {
-  const [timeRecords, setTimeRecords] = useState([]);
+  const [timeresult, setTimeresult] = useState([]);
   const [solvedCount, setSolvedCount] = useState({
     social: 0,
     politics: 0,
@@ -74,8 +74,8 @@ const MyPage = () => {
   useEffect(() => {
     getTimeRecords()
       .then((data) => {
-        setTimeRecords(data.records);
-        console.log('TimeRecords Data:', data.records);
+        setTimeresult(data);
+        console.log('Timeresult Data:', data);
       })
       .catch((error) => {
         console.error('Error requesting badge:', error);
@@ -83,8 +83,8 @@ const MyPage = () => {
 
     getSolved()
       .then((data) => {
-        setSolvedCount(data.result);
-        console.log('SolvedCount Data:', data.result);
+        setSolvedCount(data);
+        console.log('SolvedCount Data:', data);
       })
       .catch((error) => {
         console.error('Error requesting badge:', error);
@@ -93,10 +93,8 @@ const MyPage = () => {
     // 스크랩한 기사 리스트 보기
     getScrapArticles()
       .then((data) => {
-        // setScrapedArticle(data.result.data);
-        console.log('data', data);
-        console.log('data.result', data.result);
-        console.log('Scraped Articles', data.result.data);
+        setScrapedArticle(data);
+        console.log('Scraped Articles', data);
       })
       .catch((error) => {
         console.error('Error requesting badge:', error);
@@ -131,8 +129,8 @@ const MyPage = () => {
                   <ResultTitle title={'타임어택 기록'} />
                   <ResultContent>
                     new! {formatTime(600 - gameResult.timeAttackTime)}
-                    {timeRecords &&
-                      timeRecords.map((record, i) => (
+                    {timeresult &&
+                      timeresult.map((record, i) => (
                         <div key={record.playDate} className="flex justify-between">
                           <div>{`기록 ${i + 1}:`}</div>
                           <div>{record.timeAttackTime}</div>
