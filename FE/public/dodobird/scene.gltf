@@ -1296,10 +1296,10 @@
   ],
   "images": [
     {
-      "uri": "textures/Material.001_baseColor.png"
+      "uri": "textures/Material.001_baseColor.webp"
     },
     {
-      "uri": "textures/Material.001_metallicRoughness.png"
+      "uri": "textures/Material.001_metallicRoughness.webp"
     }
   ],
   "materials": [

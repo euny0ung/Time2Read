@@ -551,17 +551,17 @@
       "uri": "textures/head.png"
     },
     {
-      "mimeType": "image/png",
+      "mimeType": "image/webp",
       "name": "body",
       "uri": "textures/body.webp"
     },
     {
-      "mimeType": "image/png",
+      "mimeType": "image/webp",
       "name": "legs",
       "uri": "textures/legs.webp"
     },
     {
-      "mimeType": "image/png",
+      "mimeType": "image/webp",
       "name": "shoes",
       "uri": "textures/shoes.webp"
     },
@@ -596,7 +596,7 @@
       "uri": "textures/spear%20stick.png"
     },
     {
-      "mimeType": "image/png",
+      "mimeType": "image/webp",
       "name": "spear",
       "uri": "textures/spear.webp"
     },
@@ -606,17 +606,17 @@
       "uri": "textures/face.png"
     },
     {
-      "mimeType": "image/png",
+      "mimeType": "image/webp",
       "name": "diamond",
       "uri": "textures/diamond.webp"
     },
     {
-      "mimeType": "image/png",
+      "mimeType": "image/webp",
       "name": "eyes",
       "uri": "textures/eyes.webp"
     },
     {
-      "mimeType": "image/png",
+      "mimeType": "image/webp",
       "name": "mouth",
       "uri": "textures/mouth.webp"
     }
