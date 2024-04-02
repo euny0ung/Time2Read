@@ -8,7 +8,7 @@ export const getTimeRecords = () => {
 
   return axios
     .get(apiUrl)
-    .then((response) => response.data)
+    .then((response) => response.result)
     .catch((error) => {
       console.error('Error requesting data:', error);
       throw error;
@@ -21,7 +21,7 @@ export const getSolved = () => {
 
   return axios
     .get(apiUrl)
-    .then((response) => response.data)
+    .then((response) => response.result)
     .catch((error) => {
       console.error('Error requesting data:', error);
       throw error;
@@ -34,7 +34,7 @@ export const getBadge = () => {
 
   return axios
     .get(apiUrl)
-    .then((response) => response.data)
+    .then((response) => response.result)
     .catch((error) => {
       console.error('Error requesting data:', error);
       throw error;
@@ -47,7 +47,7 @@ export const getScrapArticles = () => {
 
   return axios
     .get(apiUrl)
-    .then((response) => response.data)
+    .then((response) => response.result)
     .catch((error) => {
       console.error('Error requesting data:', error);
       throw error;
@@ -60,7 +60,7 @@ export const getArticleDetail = (articleId) => {
 
   return axios
     .get(apiUrl)
-    .then((response) => response.data)
+    .then((response) => response.result)
     .catch((error) => {
       console.error('Error requesting data:', error);
       throw error;
@@ -73,7 +73,7 @@ export const putArticleStatus = (articleId, status) => {
 
   return axios
     .put(apiUrl)
-    .then((response) => response.data)
+    .then((response) => response.result)
     .catch((error) => {
       console.error('Error requesting data:', error);
       throw error;
