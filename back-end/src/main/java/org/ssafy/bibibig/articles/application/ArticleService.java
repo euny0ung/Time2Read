@@ -103,7 +103,7 @@ public class ArticleService {
 
     public List<ArticleWithQuiz> getOxQuiz(int year) {
         int oxCount = 4;
-        return getQuizzesWithOXv2(year, oxCount);
+        return getQuizzesWithOX(year, oxCount);
     }
 
     public List<ArticleWithQuiz> getFirstArticleWithKeywordQuizzes(int year, int quizCount) {
@@ -159,7 +159,7 @@ public class ArticleService {
         return result;
     }
 
-    public List<ArticleWithQuiz> getQuizzesWithOXv2(int year, int quizCount) {
+    public List<ArticleWithQuiz> getQuizzesWithOX(int year, int quizCount) {
         List<Article> articles = new ArrayList<>();
         List<String> summaries = new ArrayList<>();
         List<Clue> clues = new ArrayList<>();
@@ -187,47 +187,6 @@ public class ArticleService {
                 log.info("This is article about ox -- start \n {}", randomArticles);
                 clues.add(new Clue(ClueType.OX, randomArticle.article.content()));
             }
-        }
-
-        List<OXQuizQuestion> quizzes = null;
-        try {
-            quizzes = openAIUtils.generateOXQuiz(summaries);
-        } catch (JsonProcessingException e) {
-            log.error("This is 'get article error' {}", e);
-            throw new CommonException(ErrorCode.INTERNAL_SERVER_ERROR, "quizzes is null");
-        }
-        log.info("This is article about ox \n {}", quizzes);
-
-        List<ArticleWithQuiz> result = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
-            OXQuiz quiz = new OXQuiz(QuizType.OX, quizzes.get(i).question(), quizzes.get(i).answer(), Collections.singletonList(clues.get(i)));
-            result.add(ArticleWithQuiz.from(categories.get(i), articles.get(i), quiz));
-        }
-
-        return result;
-    }
-
-    public List<ArticleWithQuiz> getQuizzesWithOX(int year) {
-        int quizCount = 4;
-        List<Article> articles = new ArrayList<>();
-        List<String> summaries = new ArrayList<>();
-        List<Clue> clues = new ArrayList<>();
-        List<CategoryType> categories = randomCategory(quizCount);
-
-        Map<String, List<CategoryType>> grouping = categories
-                .stream()
-                .collect(Collectors.groupingBy(CategoryType::getName));
-
-        for (CategoryType category : CategoryType.values()) {
-            int size = grouping.getOrDefault(category.getName(), List.of()).size(); // 정치 -> 4
-            if (size == 0) continue;
-
-            Article article = getRandomArticleByYearAndCategory(year, category);
-            articles.add(article);
-            summaries.add(article.summary());
-
-            clues.add(new Clue(ClueType.OX, article.content()));
-            log.info("This is article about ox -- start \n {}", article);
         }
 
         List<OXQuizQuestion> quizzes = null;
