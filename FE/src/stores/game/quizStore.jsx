@@ -16,7 +16,7 @@ export const useQuizStore = create(
         setQuiz: (quizObject) => set({ quizzes: quizObject }),
         reset: () => set({ quizzes: [] }),
       }),
-      { name: 'quiz', storage: createJSONStorage(() => sessionStorage) },
+      { name: 'useQuizStore', storage: createJSONStorage(() => sessionStorage) },
     ),
   ),
 );
@@ -31,7 +31,7 @@ export const useHitsCategoryStore = create(
           set((state) => ({ hitsCategory: { ...state.hitsCategory, [category]: state.hitsCategory[category] + 1 } })),
         reset: () => set({ POLITICS: 0, SOCIETY: 0, ECONOMY: 0, INTERNATIONAL: 0, CULTURE: 0, SPORTS: 0 }),
       }),
-      { name: 'hits-category', storage: createJSONStorage(() => sessionStorage) },
+      { name: 'useHitsCategoryStore', storage: createJSONStorage(() => sessionStorage) },
     ),
   ),
 );
@@ -51,7 +51,7 @@ export const useAnswerCheckStore = create(
       },
       reset: () => set({ openAnswerResult: false, resultState: '', quizIndex: 0 }),
     }),
-    { name: 'open-answer-result', storage: createJSONStorage(() => sessionStorage) },
+    // { name: 'useAnswerCheckStore', storage: createJSONStorage(() => sessionStorage) },
     // ),
   ),
 );
@@ -70,7 +70,7 @@ export const useClueIndexStore = create(
         }),
       reset: () => set({ cluesClicked: {} }),
     }),
-    { name: 'clue-state', storage: createJSONStorage(() => sessionStorage) },
+    // { name: 'useClueIndexStore', storage: createJSONStorage(() => sessionStorage) },
     // ),
   ),
 );
@@ -83,7 +83,7 @@ export const useClueStateStore = create(
       setShowClueState: () => set((state) => ({ showClueState: !state.showClueState })),
       reset: () => set({ showClueState: false }),
     }),
-    { name: 'clue-state', storage: createJSONStorage(() => sessionStorage) },
+    // { name: 'useClueStateStore', storage: createJSONStorage(() => sessionStorage) },
     // ),
   ),
 );
