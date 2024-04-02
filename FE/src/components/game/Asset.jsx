@@ -51,7 +51,7 @@ export const DodoBird = () => {
   }, []); // 한 번만 실행
   return (
     <RigidBody name="dodoBird">
-      <primitive object={dodoBird.scene} scale={0.12} position={[-8.9, 1, -6]} />
+      <primitive object={dodoBird.scene} scale={0.15} position={[-8.9, 0.8, -6]} />
     </RigidBody>
   );
 };
@@ -138,7 +138,7 @@ export const HeartQueen = () => {
   }, []);
   return (
     <RigidBody name="heartQueen">
-      <primitive object={heartQueen.scene} scale={0.2} position={[3, 1.03, 6]} />
+      <primitive object={heartQueen.scene} scale={0.2} position={[3, 1.01, 6]} />
     </RigidBody>
   );
 };
@@ -185,25 +185,25 @@ export const Finish = () => {
   );
 };
 
-export const Start = () => {
+export const Start = ({ textures }) => {
   return (
     <>
       <RigidBody type="fixed">
         <mesh position={[-0.85, 1.51, -15]}>
           <boxGeometry args={[1.3, 3, 0.2]} />
-          <meshStandardMaterial color={0xff0000} transparent opacity={0} />
+          <meshStandardMaterial map={textures} />
         </mesh>
       </RigidBody>
       <RigidBody type="fixed">
         <mesh position={[-1.6, 1.51, -12.6]}>
           <boxGeometry args={[0.1, 3, 5]} />
-          <meshStandardMaterial color={0xff0000} transparent opacity={0} />
+          <meshStandardMaterial map={textures} />
         </mesh>
       </RigidBody>
       <RigidBody type="fixed">
         <mesh position={[-0.1, 1.51, -12.6]}>
           <boxGeometry args={[0.1, 3, 5]} />
-          <meshStandardMaterial color={0xff0000} transparent opacity={0} />
+          <meshStandardMaterial map={textures} />
         </mesh>
       </RigidBody>
     </>
