@@ -37,10 +37,11 @@ public class SessionInfo {
 
     private static String getSessionIdFromServer(HttpServletRequest request) {
         HttpSession session = request.getSession(false);
-        if (session != null) {
+        try{
             return session.getId();
+        }catch (NullPointerException e){
+            throw new CommonException(ErrorCode.INVALID_PERMISSION);
         }
-        return session.getId();
     }
 
     private static Long getMemberId(HttpServletRequest request) {
