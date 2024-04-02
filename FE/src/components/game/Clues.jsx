@@ -13,7 +13,7 @@ const Clues = (cluePositions) => {
   loader.setDRACOLoader(dracoLoader); // GLTFLoader에 DRACOLoader 설정
 
   useEffect(() => {
-    loader.load('clue/scene.gltf', (gltf) => {
+    loader.load('clue/scene.glb', (gltf) => {
       gltfRef.current = gltf;
       const newClueList = cluePositions.cluePositions.map((position, index) => {
         const instance = gltf.scene.clone();
