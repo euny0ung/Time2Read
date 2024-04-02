@@ -1,7 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { usePreLoginStateStore } from './stores/preLoginStore.jsx';
-import { useScrapStore } from './stores/scrapStore.jsx';
 import { getYearSummary, postGameResult } from '../apis/resultApi.jsx';
 import PageMovingButton from '../components/commons/buttons/PageMovingButtons.jsx';
 import TopButton from '../components/commons/buttons/TopButton.jsx';
@@ -33,7 +31,8 @@ import {
   useClueIndexStore,
   useClueStateStore,
 } from '../stores/game/quizStore.jsx';
-import { usePreLoginPathStore } from '../stores/ui/preLoginStore.jsx';
+import { usePreLoginPathStore, usePreLoginStateStore } from '../stores/ui/preLoginStore.jsx';
+import useScrapStore from '../stores/ui/scrapStore.jsx';
 import { useScrollPositionStore } from '../stores/ui/scrollStore.jsx';
 
 const ResultPage = () => {
@@ -146,14 +145,10 @@ const ResultPage = () => {
       window.scrollTo(0, scrollPosition);
     }
 
-    // 저장된 스크롤 위치와 열린 퀴즈 정보가 있으면, 해당 상태를 UI에 반영하는 로직을 여기에 추가
+    // 페이지 로딩 시 열린 퀴즈 상태 복원
     if (openedQuiz) {
-      // 예: 특정 퀴즈 섹션을 열거나 특정 기사를 강조 표시
       console.log(`Quiz Number: ${openedQuiz.quizNumber}, Article Index: ${openedQuiz.articleIndex}`);
     }
-
-    // 저장된 스크롤 위치, 퀴즈 상태 등을 초기화하고 싶다면 여기서 초기화 작업을 수행
-    // usePreLoginStateStore.getState().reset();
 
     // 리사이즈 이벤트 리스너 등록 및 제거
     handleResize();
