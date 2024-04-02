@@ -27,7 +27,9 @@ const LandingPage = () => {
   };
 
   const handleQuizApi = useQuizApiHandler(selected);
-  const handleTestQuizApi = useTestQuizApiHandler(selected);
+  const handleTestQuizApi = () => {
+    useTestQuizApiHandler(selected);
+  };
   // test
   useEffect(() => {
     console.log(quizzes);
