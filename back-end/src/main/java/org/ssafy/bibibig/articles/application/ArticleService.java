@@ -184,7 +184,7 @@ public class ArticleService {
                 articles.add(randomArticle.article);
                 summaries.add(randomArticle.article.summary());
 
-                log.info("This is article about ox -- start \n {}", randomArticles);
+                log.info("This is article about ox -- start \n {}", randomArticle);
                 clues.add(new Clue(ClueType.OX, randomArticle.article.content()));
             }
         }
