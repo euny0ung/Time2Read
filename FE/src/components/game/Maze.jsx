@@ -23,7 +23,7 @@ import { useVisibilityStore } from '../../stores/game/gameStore.jsx';
 const MazeModel = () => {
   const { scene } = useGLTF('maze/scene.gltf');
   const textureLoader = new TextureLoader();
-  const textures = textureLoader.load('maze/textures/grass-seamless-texture-tileable.jpg');
+  const textures = textureLoader.load('maze/textures/grass-seamless-texture-tileable.webp');
   const wallsBaseColor = textureLoader.load('maze/textures/ground/Stylized_Stone_Floor_005_basecolor.jpg');
   // const wallsHeightColor = textureLoader.load('maze/texture/ground/Stylized_Stone_Floor_005_height.png');
   // const wallsNormalColor = textureLoader.load('maze/texture/ground/Stylized_Stone_Floor_005_normal.jpg');
@@ -122,7 +122,7 @@ const MazeModel = () => {
       <Finish />
       <Clues cluePositions={randomCluePositions} />
       <Lifes lifePositions={randomLifePositions} />
-      <Start />
+      <Start textures={textures} />
     </>
   );
 };
