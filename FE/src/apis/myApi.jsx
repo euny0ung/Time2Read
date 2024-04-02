@@ -8,7 +8,10 @@ export const getTimeRecords = () => {
 
   return axios
     .get(apiUrl)
-    .then((response) => response.data.result)
+    .then((response) => {
+      console.log(response);
+      return response.data.result;
+    })
     .catch((error) => {
       console.error('Error requesting data:', error);
       throw error;
@@ -35,7 +38,10 @@ export const getBadge = () => {
 
   return axios
     .get(apiUrl)
-    .then((response) => response.data.result)
+    .then((response) => {
+      console.log(response);
+      return response.data.result;
+    })
     .catch((error) => {
       console.error('Error requesting data:', error);
       throw error;
