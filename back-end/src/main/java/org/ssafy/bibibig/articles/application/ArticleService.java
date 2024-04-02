@@ -370,19 +370,14 @@ public class ArticleService {
                 getArticleEntityOrThrowException("48c04798-ac21-4023-96ad-12843a7406a2") // OX - 월드컵
         );
         List<CategoryType> categories = List.of(CategoryType.CULTURE, CategoryType.INTERNATIONAL, CategoryType.ECONOMY, CategoryType.SPORTS);
-        List<OXQuizQuestion> oxQuiz = null;
-        try {
-            oxQuiz = openAIUtils.generateOXQuiz(
-                    OXArticles
-                            .stream()
-                            .map(Article::summary)
-                            .toList()
-            );
-        } catch (JsonProcessingException e) {
-            throw new CommonException(ErrorCode.INTERNAL_SERVER_ERROR, "quizzes is null");
-        }
+        List<OXQuizQuestion> oxQuiz = new ArrayList<>();
+        oxQuiz.add(new OXQuizQuestion("강새벽을 연기한 정호연은 드라마 부문 남우조연상 후보에 올랐다.", "false"));
+        oxQuiz.add(new OXQuizQuestion("미군은 우크라이나에 주로 대전차 미사일 등의 무기를 제공하고 있다.", "true"));
+        oxQuiz.add(new OXQuizQuestion("홍남기 부총리는 추경 편성 후 국회 확정을 기다리며 집행을 지연시킬 예정이다.", "false"));
+        oxQuiz.add(new OXQuizQuestion("카타르는 아시안컵을 2회 개최한 적이 있다.", "true"));
+
         for (int i = 0; i < 4; i++) {
-            OXQuiz quiz = new OXQuiz(QuizType.OX, oxQuiz.get(i).question(), oxQuiz.get(i).answer(), null);
+            OXQuiz quiz = new OXQuiz(QuizType.OX, oxQuiz.get(i).question(), oxQuiz.get(i).answer(), Collections.singletonList(new Clue(ClueType.OX, OXArticles.get(i).content())));
             quizzes.add(ArticleWithQuiz.from(categories.get(i), OXArticles.get(i), quiz));
         }
         return quizzes;
