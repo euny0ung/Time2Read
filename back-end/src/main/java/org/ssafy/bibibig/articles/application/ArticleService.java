@@ -54,18 +54,16 @@ public class ArticleService {
         return ArticleWithQuiz.from(category, article, makeMultipleChoiceQuiz(article, answer, choice));
     }
 
-
     // 사용 안함
     public List<ArticleWithQuiz> getArticleWithQuizzes(int year) {
         List<ArticleWithQuiz> result = new ArrayList<>();
         List<CategoryType> randomCategory = randomCategory(10);
-        List<CategoryType> categories = List.of(CategoryType.values());
 
         Map<String, List<CategoryType>> grouping = randomCategory
                 .stream()
                 .collect(Collectors.groupingBy(CategoryType::getName));
 
-        for (CategoryType category : categories) { // 카테고리 별로
+        for (CategoryType category : CategoryType.values()) { // 카테고리 별로
             int size = grouping.getOrDefault(category.getName(), List.of()).size();
 
             if (size == 0) continue;
@@ -82,26 +80,41 @@ public class ArticleService {
     }
 
     public List<ArticleWithQuiz> getQuizzes(int year) {
+        int keywordCount = 4;
+        int multiChoiceCount = 2;
+
         List<ArticleWithQuiz> quizzes = new ArrayList<>();
-        quizzes.addAll(getFirstArticleWithKeywordQuizzes(year));
-        quizzes.addAll(getFirstArticleWithMultipleChoiceQuizzes(year));
-        // quizzes.addAll(getQuizzesWithOX(year));
+        quizzes.addAll(getFirstArticleWithKeywordQuizzes(year, keywordCount));
+        quizzes.addAll(getFirstArticleWithMultipleChoiceQuizzes(year, multiChoiceCount));
         Collections.shuffle(quizzes);
         return quizzes;
     }
 
-    public List<ArticleWithQuiz> getFirstArticleWithKeywordQuizzes(int year) {
-//        int quizCount = 6;
-        int quizCount = 4;
+    public List<ArticleWithQuiz> getQuizzesBecauseGetOxFail(int year) {
+        int keywordCount = 2;
+        int multiChoiceCount = 2;
+
+        List<ArticleWithQuiz> quizzes = new ArrayList<>();
+        quizzes.addAll(getFirstArticleWithKeywordQuizzes(year, keywordCount));
+        quizzes.addAll(getFirstArticleWithMultipleChoiceQuizzes(year, multiChoiceCount));
+        Collections.shuffle(quizzes);
+        return quizzes;
+    }
+
+    public List<ArticleWithQuiz> getOxQuiz(int year) {
+        int oxCount = 4;
+        return getQuizzesWithOX(year, oxCount);
+    }
+
+    public List<ArticleWithQuiz> getFirstArticleWithKeywordQuizzes(int year, int quizCount) {
         List<ArticleWithQuiz> result = new ArrayList<>();
         List<CategoryType> randomCategory = randomCategory(quizCount);
-        List<CategoryType> categories = List.of(CategoryType.values());
 
         Map<String, List<CategoryType>> grouping = randomCategory
                 .stream()
                 .collect(Collectors.groupingBy(CategoryType::getName));
 
-        for (CategoryType category : categories) { // 카테고리 별로
+        for (CategoryType category : CategoryType.values()) { // 카테고리 별로
             int size = grouping.getOrDefault(category.getName(), List.of()).size();
 
             if (size == 0) continue;
@@ -117,18 +130,15 @@ public class ArticleService {
         return result;
     }
 
-    public List<ArticleWithQuiz> getFirstArticleWithMultipleChoiceQuizzes(int year) {
-        int quizCount = 2;
-
+    public List<ArticleWithQuiz> getFirstArticleWithMultipleChoiceQuizzes(int year, int quizCount) {
         List<ArticleWithQuiz> result = new ArrayList<>();
         List<CategoryType> randomCategory = randomCategory(quizCount);
-        List<CategoryType> categories = List.of(CategoryType.values());
 
         Map<String, List<CategoryType>> grouping = randomCategory
                 .stream()
                 .collect(Collectors.groupingBy(CategoryType::getName));
 
-        for (CategoryType category : categories) { // 카테고리 별로
+        for (CategoryType category : CategoryType.values()) { // 카테고리 별로
             int size = grouping.getOrDefault(category.getName(), List.of()).size();
 
             if (size == 0) continue;
@@ -149,8 +159,7 @@ public class ArticleService {
         return result;
     }
 
-    public List<ArticleWithQuiz> getQuizzesWithOX(int year) {
-        int quizCount = 4;
+    public List<ArticleWithQuiz> getQuizzesWithOX(int year, int quizCount) {
         List<Article> articles = new ArrayList<>();
         List<String> summaries = new ArrayList<>();
         List<Clue> clues = new ArrayList<>();
@@ -160,27 +169,34 @@ public class ArticleService {
                 .stream()
                 .collect(Collectors.groupingBy(CategoryType::getName));
 
-        for (CategoryType category : categories) {
+        for (CategoryType category : CategoryType.values()) {
             int size = grouping.getOrDefault(category.getName(), List.of()).size();
             if (size == 0) continue;
 
-            Article article = getRandomArticleByYearAndCategory(year, category);
-            articles.add(article);
-            summaries.add(article.summary());
+            // 연도 대표 키워드 추출
+            List<KeywordTerms> keywords = getTopKeywordsByYear(year);
 
-            clues.add(new Clue(ClueType.OX, article.content()));
-            log.info("This is article about ox -- start \n {}",article);
+            // 2. 랜덤 기사
+            List<ArticleWithWord> randomArticles =
+                    getRandomArticleByYearAndCategoryAndKeyword(year, size, category, keywords);
 
+            for (ArticleWithWord randomArticle : randomArticles) {
+                articles.add(randomArticle.article);
+                summaries.add(randomArticle.article.summary());
+
+                log.info("This is article about ox -- start \n {}", randomArticles);
+                clues.add(new Clue(ClueType.OX, randomArticle.article.content()));
+            }
         }
 
         List<OXQuizQuestion> quizzes = null;
         try {
             quizzes = openAIUtils.generateOXQuiz(summaries);
         } catch (JsonProcessingException e) {
-            log.error("This is 'get article error' {}",e);
+            log.error("This is 'get article error' {}", e);
             throw new CommonException(ErrorCode.INTERNAL_SERVER_ERROR, "quizzes is null");
         }
-        log.info("This is article about ox \n {}",quizzes);
+        log.info("This is article about ox \n {}", quizzes);
 
         List<ArticleWithQuiz> result = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
@@ -341,6 +357,34 @@ public class ArticleService {
             quizzes.add(ArticleWithQuiz.from(categories.get(i), OXArticles.get(i), quiz));
         }
          */
+        return quizzes;
+    }
+
+    public List<ArticleWithQuiz> getOxQuizForAdmin(int year) {
+        List<ArticleWithQuiz> quizzes = new ArrayList<>();
+        // OX 문제 4문제 생성
+        List<Article> OXArticles = List.of(
+                getArticleEntityOrThrowException("8dfc3d09-1b9b-413a-9102-00bea54278e9"), // OX - 오징어게임
+                getArticleEntityOrThrowException("b8be30b2-4edc-49dc-995e-188273d5cab7"), // OX - 우크라이나
+                getArticleEntityOrThrowException("a78ce338-a736-4c8b-987a-1db291313227"), // OX -  추경
+                getArticleEntityOrThrowException("48c04798-ac21-4023-96ad-12843a7406a2") // OX - 월드컵
+        );
+        List<CategoryType> categories = List.of(CategoryType.CULTURE, CategoryType.INTERNATIONAL, CategoryType.ECONOMY, CategoryType.SPORTS);
+        List<OXQuizQuestion> oxQuiz = null;
+        try {
+            oxQuiz = openAIUtils.generateOXQuiz(
+                    OXArticles
+                            .stream()
+                            .map(Article::summary)
+                            .toList()
+            );
+        } catch (JsonProcessingException e) {
+            throw new CommonException(ErrorCode.INTERNAL_SERVER_ERROR, "quizzes is null");
+        }
+        for (int i = 0; i < 4; i++) {
+            OXQuiz quiz = new OXQuiz(QuizType.OX, oxQuiz.get(i).question(), oxQuiz.get(i).answer(), null);
+            quizzes.add(ArticleWithQuiz.from(categories.get(i), OXArticles.get(i), quiz));
+        }
         return quizzes;
     }
 
