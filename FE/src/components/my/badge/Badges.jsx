@@ -10,8 +10,8 @@ const Badges = () => {
   useEffect(() => {
     getBadge()
       .then((data) => {
-        setbadges(data.result);
-        console.log('Badge Data:', data.result);
+        setbadges(data);
+        console.log('Badge Data:', data);
       })
       .catch((error) => {
         console.error('Error requesting badge:', error);
