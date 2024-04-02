@@ -24,6 +24,7 @@ public class ArticleController {
     private final ArticleService articleService;
     @GetMapping("/{year}")
     public Response<List<ArticleWithQuiz>> getArticleWithQuiz(HttpServletRequest request, @PathVariable int year) {
+        long current = System.currentTimeMillis();
         try {
             Long memberId = SessionInfo.getSessionMemberId(request);
             if (memberId <= 6 && year == 2022)
@@ -32,13 +33,27 @@ public class ArticleController {
                 return Response.success(articleService.getArticleWithQuizzes(year));
         } catch (CommonException e) {
         }
+
+        System.out.println("year : " + year + " -> " + (System.currentTimeMillis() - current));
         return Response.success(articleService.getArticleWithQuizzes(year));
     }
 
     //TODO: first, second에 관리자 테스트 퀴즈 목업 추가
     @GetMapping("/{year}/first")
-    public Response<List<ArticleWithQuiz>> getFirstArticleWithQuiz(@PathVariable int year) {
-        return Response.success(articleService.getQuizzes(year));
+    public Response<List<ArticleWithQuiz>> getFirstArticleWithQuiz(HttpServletRequest request, @PathVariable int year) {
+        long current = System.currentTimeMillis();
+        try {
+            Long memberId = SessionInfo.getSessionMemberId(request);
+            if (memberId <= 6 && year == 2022)
+                return Response.success(articleService.getArticleWithQuizForAdmin());
+            else
+                return Response.success(articleService.getQuizzes(year));
+        } catch (CommonException e) {
+        }
+
+        List<ArticleWithQuiz> quizzes = articleService.getQuizzes(year);
+        System.out.println("year : " + year + " -> " + (System.currentTimeMillis() - current));
+        return Response.success(quizzes);
     }
 
     @GetMapping("/{year}/second")
