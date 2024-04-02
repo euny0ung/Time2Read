@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { putArticleStatus } from '@apis/myApi';
 import { format } from 'date-fns';
 import AfterScrap from '../../../assets/scrap/afterScrap.png';
@@ -33,7 +33,6 @@ const ArticleDetail = ({ quizNumber, currentStep, article }) => {
       // 로그인 되어 있지 않을 때
       setPreLoginPath(window.location.pathname); // 현재 경로 저장
       setScrollPosition(window.scrollY); // 현재 스크롤 위치 저장
-
       setOpenedQuiz({
         // 현재 토글이 열려있는 문제와 기사 정보 저장
         quizNumber, // 현재 문제 번호
@@ -43,6 +42,10 @@ const ArticleDetail = ({ quizNumber, currentStep, article }) => {
       setOpenLoginInducementModal(true); // 로그인 유도 모달 표시
     }
   };
+
+  useEffect(() => {
+    console.log('Scrap status in component:', scrapStatus);
+  }, [scrapStatus]);
 
   return (
     <>

@@ -80,7 +80,12 @@ const QuizArticleGroup = ({ quizNumber, relatedArticles }) => {
             }`}
           >
             <div className="p-5">
-              <ArticleDetail quizNumber={quizNumber} currentStep={currentStep} article={relatedArticle} />
+              <ArticleDetail
+                key={relatedArticle.id}
+                quizNumber={quizNumber}
+                currentStep={currentStep}
+                article={relatedArticle}
+              />
 
               {/* 이전/다음 버튼 */}
               <div className="flex justify-between mt-3">
