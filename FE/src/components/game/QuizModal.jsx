@@ -77,6 +77,7 @@ const QuizModal = React.memo(
     const { quizzes } = useQuizStore();
 
     const quiz = quizzes.filter((_, index) => index === quizIndex);
+    console.log('모든 퀴즈들', quizzes);
 
     console.log('퀴즈퀴즈', quiz);
     return (
