@@ -28,7 +28,7 @@ export const LifeView = (lifeCount) => {
   );
 };
 
-const Items = () => {
+const ItemsOverlay = () => {
   const { clueCount, lifeCount } = useGameItemStore();
   return (
     <>
@@ -38,4 +38,4 @@ const Items = () => {
   );
 };
 
-export default Items;
+export default ItemsOverlay;
