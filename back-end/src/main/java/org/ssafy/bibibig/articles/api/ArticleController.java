@@ -22,9 +22,9 @@ import java.util.List;
 public class ArticleController {
 
     private final ArticleService articleService;
+
     @GetMapping("/{year}")
     public Response<List<ArticleWithQuiz>> getArticleWithQuiz(HttpServletRequest request, @PathVariable int year) {
-        long current = System.currentTimeMillis();
         try {
             Long memberId = SessionInfo.getSessionMemberId(request);
             if (memberId <= 6 && year == 2022)
@@ -33,8 +33,6 @@ public class ArticleController {
                 return Response.success(articleService.getArticleWithQuizzes(year));
         } catch (CommonException e) {
         }
-
-        System.out.println("year : " + year + " -> " + (System.currentTimeMillis() - current));
         return Response.success(articleService.getArticleWithQuizzes(year));
     }
 
@@ -44,21 +42,31 @@ public class ArticleController {
         long current = System.currentTimeMillis();
         try {
             Long memberId = SessionInfo.getSessionMemberId(request);
-            if (memberId <= 6 && year == 2022)
+            if (memberId <= 6 && year == 2022) {
                 return Response.success(articleService.getArticleWithQuizForAdmin());
-            else
-                return Response.success(articleService.getQuizzes(year));
+            }
+
+            log.info("키워드, 객관식 퀴즈 요청 처리 속도. year : {} -> {}", year, (System.currentTimeMillis() - current));
+            return Response.success(articleService.getQuizzes(year));
         } catch (CommonException e) {
         }
-
-        List<ArticleWithQuiz> quizzes = articleService.getQuizzes(year);
-        System.out.println("year : " + year + " -> " + (System.currentTimeMillis() - current));
-        return Response.success(quizzes);
+        return Response.success(articleService.getQuizzes(year));
     }
 
     @GetMapping("/{year}/second")
-    public Response<List<ArticleWithQuiz>> getSecondArticleWithQuiz(@PathVariable int year) {
-        return Response.success(articleService.getQuizzesWithOX(year));
-    }
+    public Response<List<ArticleWithQuiz>> getSecondArticleWithQuiz(HttpServletRequest request, @PathVariable int year) {
+        long current = System.currentTimeMillis();
+        try {
+            Long memberId = SessionInfo.getSessionMemberId(request);
+            if (memberId <= 6 && year == 2022) {
+                return Response.success(articleService.getOxQuizForAdmin(year));
+            }
 
+            log.info("ox 퀴즈 요청 처리 속도. year : {} -> {}", year, (System.currentTimeMillis() - current));
+            return Response.success(articleService.getOxQuiz(year));
+        } catch (CommonException e) {
+            log.info("ox 퀴즈 호출 실패로 키워드, 객관식 퀴즈 요청 처리 속도. year : {} -> {}", year, (System.currentTimeMillis() - current));
+            return Response.success(articleService.getQuizzesBecauseGetOxFail(year));
+        }
+    }
 }
