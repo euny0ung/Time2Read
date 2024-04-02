@@ -9,11 +9,11 @@ const Clues = (cluePositions) => {
   const loader = new GLTFLoader();
 
   const dracoLoader = new DRACOLoader(); // DRACOLoader 인스턴스 생성
-  dracoLoader.setDecoderPath('./js/libs/draco/'); // DRACO 디코더 파일들의 경로를 설정
+  dracoLoader.setDecoderPath('/draco/gltf/'); // DRACO 디코더 파일들의 경로를 설정
   loader.setDRACOLoader(dracoLoader); // GLTFLoader에 DRACOLoader 설정
 
   useEffect(() => {
-    loader.load('clue/scene.glb', (gltf) => {
+    loader.load('clue/scene.gltf', (gltf) => {
       gltfRef.current = gltf;
       const newClueList = cluePositions.cluePositions.map((position, index) => {
         const instance = gltf.scene.clone();
