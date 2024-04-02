@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
-import usePreLoginPathStore from '../../stores/ui/loginStore.jsx';
+import usePreLoginPathStore from '../../stores/ui/preLoginStore.jsx';
 
 const KakaoRedirect = () => {
   const navigate = useNavigate();

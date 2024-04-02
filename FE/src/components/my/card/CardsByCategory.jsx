@@ -8,7 +8,9 @@ const CardDetailModal = ({ article, onClose }) => {
   return (
     <>
       <BaseModal onClose={onClose} animationType="slide">
-        <ArticleDetail article={article} />
+        <div className="max-h-[80vh] max-w-[40vw]">
+          <ArticleDetail article={article} />
+        </div>
       </BaseModal>
     </>
   );
@@ -31,7 +33,7 @@ const CardsByCategory = ({ category, articles }) => {
       >
         {category}
       </h2>
-      <div className="flex space-x-4 overflow-x-auto scrollbar">
+      <div className="flex space-x-4 overflow-x-auto red-scrollbar">
         {articles.map((article) => (
           <div key={article.id} className="inline-block">
             <button onClick={() => openActiveIndex(article.id)}>
