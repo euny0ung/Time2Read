@@ -31,9 +31,6 @@ const ArticleDetail = ({ article }) => {
       usePreLoginPathStore.getState().setPreLoginPath(window.location.pathname); // 현재 경로 저장
 
       // 스크롤 위치 저장 해야함~~~ 스크랩하고자 하는 기사의 ID와 위치 정보를 전역 상태에 저장
-
-      console.log('로그인이 필요해요');
-      console.log('현재페이지 경로', window.location.pathname);
     }
   };
 
@@ -82,7 +79,7 @@ const ArticleDetail = ({ article }) => {
             <ImageComponent src={article.image} alt={article.imageCaption} width={600} />
           </div>
           {/* 컨텐츠 */}
-          <div className="px-3 py-2 mt-4 font-light text-left text-gray-600" style={{ lineHeight: '2' }}>
+          <div className="px-3 py-2 font-light text-left text-gray-600" style={{ lineHeight: '2' }}>
             {article.content}
           </div>
         </div>
