@@ -74,8 +74,8 @@ const MyPage = () => {
   useEffect(() => {
     getTimeRecords()
       .then((data) => {
-        setTimeresult(data.result);
-        console.log('TimeRecords Data:', data.result);
+        setTimeresult(data);
+        console.log('TimeRecords Data:', data);
       })
       .catch((error) => {
         console.error('Error requesting badge:', error);
@@ -93,8 +93,8 @@ const MyPage = () => {
     // 스크랩한 기사 리스트 보기
     getScrapArticles()
       .then((data) => {
-        setScrapedArticle(data.result.data);
-        console.log('Scraped Articles', data.result.data);
+        setScrapedArticle(data);
+        console.log('Scraped Articles', data);
       })
       .catch((error) => {
         console.error('Error requesting badge:', error);
