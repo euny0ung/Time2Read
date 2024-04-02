@@ -7,6 +7,7 @@ import AnagramQuiz from '@components/quizTypes/AnagramQuiz.jsx';
 import ChoiceQuiz from '@components/quizTypes/ChoiceQuiz.jsx';
 import OxQuiz from '@components/quizTypes/OxQuiz.jsx';
 import ShortAnswerQuiz from '@components/quizTypes/ShortAnswerQuiz.jsx';
+import { checkGameYearStore } from '@stores/game/gameStore.jsx';
 import { useQuizStore } from '@stores/game/quizStore';
 import WhiteContainer from '../commons/containers/WhiteContainer.jsx';
 
@@ -67,7 +68,11 @@ const quizTypeConfigs = {
 const QuizModal = React.memo(
   ({ quizIndex }) => {
     if (quizIndex > 10) return null;
-    if (quizIndex === 0) useSecondQuizApi();
+    if (quizIndex === 0) {
+      const { gameYear } = checkGameYearStore();
+      const handleSecondQuizApi = useSecondQuizApi(gameYear);
+      handleSecondQuizApi();
+    }
 
     const { quizzes } = useQuizStore();
 
