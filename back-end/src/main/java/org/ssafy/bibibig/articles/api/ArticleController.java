@@ -26,7 +26,7 @@ public class ArticleController {
     public Response<List<ArticleWithQuiz>> getArticleWithQuiz(HttpServletRequest request, @PathVariable int year) {
         try {
             Long memberId = SessionInfo.getSessionMemberId(request);
-            if (memberId <= 5 && year == 2022)
+            if (memberId <= 6 && year == 2022)
                 return Response.success(articleService.getArticleWithQuizForAdmin());
             else
                 return Response.success(articleService.getArticleWithQuizzes(year));
