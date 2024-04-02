@@ -19,7 +19,6 @@ const Clues = (cluePositions) => {
         const instance = gltf.scene.clone();
         return <Clue instance={instance} position={position} key={index} />;
       });
-      console.log('newClueList: ', newClueList);
       setClueList(newClueList);
     });
   }, [cluePositions]);
