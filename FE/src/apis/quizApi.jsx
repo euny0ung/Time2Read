@@ -18,7 +18,10 @@ export const useQuizApiHandler = (selected) => {
         navigate('/game');
       })
       .catch((error) => {
-        if (error.response.status === 500) handleQuizApi();
+        if (error.response.status === 500) {
+          console.log('500에러로 인한 재호출');
+          handleQuizApi();
+        }
       });
   };
 
@@ -40,7 +43,10 @@ export const useSecondQuizApi = (selected) => {
             setQuiz(updatedQuizzes);
           })
           .catch((error) => {
-            if (error.response.status === 500) handleSecondQuizApi();
+            if (error.response.status === 500) {
+              console.log('500에러로 인한 재호출');
+              handleSecondQuizApi();
+            }
           });
       }
     }, [quizzes, setQuiz]);
@@ -64,7 +70,10 @@ export const useTestQuizApiHandler = (selected) => {
         navigate('/game');
       })
       .catch((error) => {
-        if (error.response.status === 500) handleTestQuizApi();
+        if (error.response.status === 500) {
+          console.log('500에러로 인한 재호출');
+          handleTestQuizApi();
+        }
       });
   };
 
