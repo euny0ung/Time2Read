@@ -6,14 +6,17 @@ import ProgressBar from './ProgressBar.jsx';
 import CloseToggle from '../../../assets/toggle/closeToggle.png';
 import OpenToggle from '../../../assets/toggle/openToggle.png';
 
+import { usePreLoginStateStore } from '../../../stores/ui/preLoginStore.jsx';
+
 // 특정 문제에 대한 관련 기사 그룹을 렌더링
-const QuizArticleGroup = ({ relatedArticles, num }) => {
+const QuizArticleGroup = ({ quizNumber, relatedArticles }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isToggleOn, setIsToggleOn] = useState(false);
 
   const [titleMaxWidth, setTitleMaxWidth] = useState('0px'); // 각 타이틀의 maxWidth를 위한 상태
-
   const containerRef = useRef(null); // QuizArticleGroup Container의 ref
+
+  const { setScrollPosition, setOpenedQuiz } = usePreLoginStateStore();
 
   const relatedArticle = relatedArticles[currentStep];
 
@@ -21,8 +24,15 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
     setCurrentStep(stepIndex);
   };
 
-  const handleToggle = () => {
-    setIsToggleOn((prevState) => !prevState);
+  // 퀴즈 토글 상태를 변경하는 함수
+  const handleQuizToggle = () => {
+    setIsToggleOn(!isToggleOn);
+
+    // 토글이 열릴 때 로그인 전 상태 저장
+    if (!isToggleOn) {
+      setScrollPosition(window.scrollY);
+      setOpenedQuiz({ quizNumber, articleIndex: currentStep });
+    }
   };
 
   const handleResize = () => {
@@ -50,7 +60,7 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
         {/* RelatedArticles Container */}
         <div className="flex flex-col items-center w-full gap-2 p-5 text-white rounded-t-lg bg-gradient-to-r from-primary-red to-primary-teal ">
           {/* 문제번호 */}
-          <div className="w-full text-2xl font-bold">#{num}</div>
+          <div className="w-full text-2xl font-bold">#{quizNumber}</div>
           {/* 프로그래스바 전체 컨테이너 */}
           <div className="w-[80%]">
             <ProgressBar
@@ -70,7 +80,7 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
             }`}
           >
             <div className="p-5">
-              <ArticleDetail article={relatedArticle} />
+              <ArticleDetail quizNumber={quizNumber} currentStep={currentStep} article={relatedArticle} />
 
               {/* 이전/다음 버튼 */}
               <div className="flex justify-between mt-3">
@@ -92,7 +102,10 @@ const QuizArticleGroup = ({ relatedArticles, num }) => {
             </div>
           </div>
           {/* 토글 버튼 */}
-          <button className="flex flex-col items-center w-full py-3 rounded-b-lg cursor-pointer" onClick={handleToggle}>
+          <button
+            className="flex flex-col items-center w-full py-3 rounded-b-lg cursor-pointer"
+            onClick={handleQuizToggle}
+          >
             <img className="h-4" src={isToggleOn ? CloseToggle : OpenToggle} alt="Toggle Icon" />
           </button>
         </div>

@@ -3,13 +3,17 @@ import { putArticleStatus } from '@apis/myApi';
 import { format } from 'date-fns';
 import AfterScrap from '../../../assets/scrap/afterScrap.png';
 import BeforeScrap from '../../../assets/scrap/beforeScap.png';
-import usePreLoginPathStore from '../../../stores/ui/loginStore.jsx';
+import { usePreLoginPathStore, usePreLoginStateStore } from '../../../stores/ui/preLoginStore.jsx';
+import useScrapStore from '../../../stores/ui/scrapStore.jsx';
 import ImageComponent from '../../commons/ImageComponent.jsx';
 import InducementModal from '../../commons/modals/InducementModal.jsx';
 
 // 상세 기사 컴포넌트
-const ArticleDetail = ({ article }) => {
-  const [isScraped, setIsScraped] = useState(false);
+const ArticleDetail = ({ quizNumber, currentStep, article }) => {
+  const { scrapStatus, toggleScrap } = useScrapStore();
+  const isScraped = scrapStatus[article.id] || false; // 기사의 스크랩 상태를 조회
+  const { setScrollPosition, setOpenedQuiz } = usePreLoginStateStore();
+  const { setPreLoginPath } = usePreLoginPathStore();
   const [openLoginInducementModal, setOpenLoginInducementModal] = useState(false);
 
   const handleScrap = () => {
@@ -18,8 +22,8 @@ const ArticleDetail = ({ article }) => {
       // 로그인 되어 있을 때: 스크랩 상태 변경 API 호출
       putArticleStatus(article.id, !isScraped)
         .then(() => {
-          // API 호출 성공: 스크랩 상태 업데이트
-          setIsScraped(!isScraped);
+          // API 호출 성공: 스크랩 상태 토글
+          toggleScrap(article.id);
         })
         .catch((error) => {
           // API 호출 실패: 에러 처리
@@ -27,10 +31,16 @@ const ArticleDetail = ({ article }) => {
         });
     } else {
       // 로그인 되어 있지 않을 때
-      setOpenLoginInducementModal(true); // 로그인 유도 모달 표시
-      usePreLoginPathStore.getState().setPreLoginPath(window.location.pathname); // 현재 경로 저장
+      setPreLoginPath(window.location.pathname); // 현재 경로 저장
+      setScrollPosition(window.scrollY); // 현재 스크롤 위치 저장
 
-      // 스크롤 위치 저장 해야함~~~ 스크랩하고자 하는 기사의 ID와 위치 정보를 전역 상태에 저장
+      setOpenedQuiz({
+        // 현재 토글이 열려있는 문제와 기사 정보 저장
+        quizNumber, // 현재 문제 번호
+        articleIndex: currentStep, // 현재 기사 인덱스
+      });
+
+      setOpenLoginInducementModal(true); // 로그인 유도 모달 표시
     }
   };
 
