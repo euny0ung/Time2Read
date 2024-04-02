@@ -32,28 +32,25 @@ public class ArticleService {
     private final QuizUtils quizUtils;
     private final OpenAIUtils openAIUtils;
 
+    // Id로 기사 조회
     public Article findById(String id) {
         return getArticleEntityOrThrowException(id);
     }
 
+    // 해당년도의 키워드 50개 조회
     public List<KeywordTerms> getTopKeywordsByYear(int year) {
         return articleRepository.getTopKeywordsByYear(year);
     }
 
-    public Article getRandomArticleByYearAndCategory(int year, int size, CategoryType category) {
-        return Article.from(articleRepository.getRandomArticleByYearAndCategory(year, size, category));
-    }
-
-    public ArticleWithQuiz getArticleWithKeywordQuiz(Article article, CategoryType category) {
-        return ArticleWithQuiz.from(category, article, makeKeywordQuiz(article));
+    public Article getRandomArticleByYearAndCategory(int year, CategoryType category) {
+        return Article.from(articleRepository.getRandomArticleByYearAndCategory(year, category));
     }
 
     public ArticleWithQuiz getArticleWithKeywordQuiz(Article article, CategoryType category, String keyword) {
         return ArticleWithQuiz.from(category, article, makeKeywordQuiz(article, keyword));
     }
 
-    public ArticleWithQuiz getArticleWithMultipleChoiceQuiz(Article article, CategoryType category,
-                                                            String answer, List<String> choice) {
+    public ArticleWithQuiz getArticleWithMultipleChoiceQuiz(Article article, CategoryType category, String answer, List<String> choice) {
         return ArticleWithQuiz.from(category, article, makeMultipleChoiceQuiz(article, answer, choice));
     }
 
@@ -61,7 +58,7 @@ public class ArticleService {
     // 사용 안함
     public List<ArticleWithQuiz> getArticleWithQuizzes(int year) {
         List<ArticleWithQuiz> result = new ArrayList<>();
-        List<CategoryType> randomCategory = randomCategory();
+        List<CategoryType> randomCategory = randomCategory(10);
         List<CategoryType> categories = List.of(CategoryType.values());
 
         Map<String, List<CategoryType>> grouping = randomCategory
@@ -88,14 +85,16 @@ public class ArticleService {
         List<ArticleWithQuiz> quizzes = new ArrayList<>();
         quizzes.addAll(getFirstArticleWithKeywordQuizzes(year));
         quizzes.addAll(getFirstArticleWithMultipleChoiceQuizzes(year));
+        // quizzes.addAll(getQuizzesWithOX(year));
+        Collections.shuffle(quizzes);
         return quizzes;
     }
 
     public List<ArticleWithQuiz> getFirstArticleWithKeywordQuizzes(int year) {
-        int quizCount = 6;
-
+//        int quizCount = 6;
+        int quizCount = 4;
         List<ArticleWithQuiz> result = new ArrayList<>();
-        List<CategoryType> randomCategory = firstCategory(quizCount);
+        List<CategoryType> randomCategory = randomCategory(quizCount);
         List<CategoryType> categories = List.of(CategoryType.values());
 
         Map<String, List<CategoryType>> grouping = randomCategory
@@ -119,10 +118,10 @@ public class ArticleService {
     }
 
     public List<ArticleWithQuiz> getFirstArticleWithMultipleChoiceQuizzes(int year) {
-        int quizCount = 4;
+        int quizCount = 2;
 
         List<ArticleWithQuiz> result = new ArrayList<>();
-        List<CategoryType> randomCategory = firstCategory(quizCount);
+        List<CategoryType> randomCategory = randomCategory(quizCount);
         List<CategoryType> categories = List.of(CategoryType.values());
 
         Map<String, List<CategoryType>> grouping = randomCategory
@@ -151,13 +150,11 @@ public class ArticleService {
     }
 
     public List<ArticleWithQuiz> getQuizzesWithOX(int year) {
-
-        // 카테고리 렌덤 뽑기
         int quizCount = 4;
-
         List<Article> articles = new ArrayList<>();
         List<String> summaries = new ArrayList<>();
-        List<CategoryType> categories = secondCategory(quizCount);
+        List<Clue> clues = new ArrayList<>();
+        List<CategoryType> categories = randomCategory(quizCount);
 
         Map<String, List<CategoryType>> grouping = categories
                 .stream()
@@ -165,26 +162,29 @@ public class ArticleService {
 
         for (CategoryType category : categories) {
             int size = grouping.getOrDefault(category.getName(), List.of()).size();
-
             if (size == 0) continue;
 
-            Article article = getRandomArticleByYearAndCategory(year, size, category);
-
+            Article article = getRandomArticleByYearAndCategory(year, category);
             articles.add(article);
             summaries.add(article.summary());
+
+            clues.add(new Clue(ClueType.OX, article.content()));
+            log.info("This is article about ox -- start \n {}",article);
+
         }
 
         List<OXQuizQuestion> quizzes = null;
         try {
             quizzes = openAIUtils.generateOXQuiz(summaries);
-
         } catch (JsonProcessingException e) {
-            throw new CommonException(ErrorCode.INTERNAL_SERVER_ERROR, String.format("quizzes is null"));
+            log.error("This is 'get article error' {}",e);
+            throw new CommonException(ErrorCode.INTERNAL_SERVER_ERROR, "quizzes is null");
         }
+        log.info("This is article about ox \n {}",quizzes);
 
         List<ArticleWithQuiz> result = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
-            OXQuiz quiz = new OXQuiz(QuizType.OX, quizzes.get(i).question(), quizzes.get(i).answer(), null);
+            OXQuiz quiz = new OXQuiz(QuizType.OX, quizzes.get(i).question(), quizzes.get(i).answer(), Collections.singletonList(clues.get(i)));
             result.add(ArticleWithQuiz.from(categories.get(i), articles.get(i), quiz));
         }
         return result;
@@ -198,6 +198,7 @@ public class ArticleService {
         return articleRepository.getRelatedArticlesTop5(id).stream().map(Article::from).toList();
     }
 
+    // [객관식]랜덤 키워드 리스트를 생성하고 정답을 넣어 섞기
     public List<String> getMultipleChoice(int year, CategoryType category, String keyword, int count) {
         List<KeywordTerms> multipleChoice = articleRepository.getMultipleChoice(year, category, keyword, count);
 
@@ -219,7 +220,6 @@ public class ArticleService {
                 ArticleEntity entity = articleRepository.getRandomArticleByYearAndCategoryAndKeyword(
                         year, category, keywords.get(randomNumber).word()
                 );
-
                 if (entity == null) continue;
 
                 result.add(new ArticleWithWord(Article.from(entity), keywords.get(randomNumber).word()));
@@ -229,6 +229,7 @@ public class ArticleService {
         return result;
     }
 
+
     private List<ArticleWithMultipleChoice> getRandomArticleByYearAndCategoryAndKeywordForMultipleChoice(int year,
                                                                                                          int size,
                                                                                                          CategoryType category,
@@ -237,18 +238,17 @@ public class ArticleService {
         for (int i = 0; i < size; i++) {
             List<Integer> randoms = getRandomNumbers(keywords.size());
             for (int randomNumber : randoms) {
-                String collect = keywords.get(randomNumber).word();
+                String answer = keywords.get(randomNumber).word();
 
                 ArticleEntity entity = articleRepository.getRandomArticleByYearAndCategoryAndKeyword(
-                        year, category, collect
+                        year, category, answer
                 );
 
                 if (entity == null) continue; // 조회가 되지 않으면 다른 키워드 선택
-
                 result.add(new ArticleWithMultipleChoice(
                         Article.from(entity),
-                        collect,
-                        getMultipleChoice(year, category, collect, 4))
+                        answer,
+                        getMultipleChoice(year, category, answer, 4))
                 );
                 break;
             }
@@ -264,23 +264,8 @@ public class ArticleService {
         return numbers;
     }
 
-    //TODO - 사회 기사 추가되면 카테고리 리스트 수정할 것
-    //랜덤카테고리 - 10개
-    private List<CategoryType> randomCategory() {
-        return List.of(CategoryType.POLITICS, CategoryType.ECONOMY, CategoryType.CULTURE, CategoryType.INTERNATIONAL, CategoryType.SPORTS, CategoryType.INTERNATIONAL, CategoryType.POLITICS, CategoryType.ECONOMY, CategoryType.CULTURE, CategoryType.INTERNATIONAL, CategoryType.SPORTS, CategoryType.INTERNATIONAL);
-
-//        List<CategoryType> categoryList = new ArrayList<>(List.of(CategoryType.values()));
-//        Random random = new Random();
-//        for (int i = 0; i < 4; i++) {
-//            int randomIdx = random.nextInt(CategoryType.values().length);
-//            categoryList.add(CategoryType.values()[randomIdx]);
-//        }
-//        return categoryList;
-    }
-
-    // 카테고리 - 6개
-    private List<CategoryType> firstCategory(int size) {
-        // return List.of(CategoryType.POLITICS, CategoryType.ECONOMY, CategoryType.CULTURE, CategoryType.INTERNATIONAL, CategoryType.SPORTS, CategoryType.INTERNATIONAL);
+    // 랜덤 카테고리 생성
+    private List<CategoryType> randomCategory(int size) {
         List<CategoryType> categoryList = new ArrayList<>();
         Random random = new Random();
         for (int i = 0; i < size; i++) {
@@ -288,22 +273,6 @@ public class ArticleService {
             categoryList.add(CategoryType.values()[randomIdx]);
         }
         return categoryList;
-    }
-
-    // 랜덤 카테고리 - 4개
-    private List<CategoryType> secondCategory(int size) {
-        List<CategoryType> categoryList = new ArrayList<>();
-        Random random = new Random();
-        for (int i = 0; i < size; i++) {
-            int randomIdx = random.nextInt(CategoryType.values().length);
-            categoryList.add(CategoryType.values()[randomIdx]);
-        }
-        return categoryList;
-    }
-
-
-    private Quiz makeKeywordQuiz(Article article) {
-        return quizUtils.makeKeywordQuiz(article);
     }
 
     private KeywordQuiz makeKeywordQuiz(Article article, String keyword) {
@@ -312,6 +281,67 @@ public class ArticleService {
 
     private MultipleChoiceQuiz makeMultipleChoiceQuiz(Article article, String answer, List<String> choice) {
         return quizUtils.makeMultipleChoiceQuiz(article, answer, choice);
+    }
+
+    //for test
+    public List<ArticleWithQuiz> getArticleWithQuizForAdmin() {
+        List<ArticleWithQuiz> quizzes = new ArrayList<>();
+
+        // 키워드 기사 4문제 생성
+        List<ArticleWithWord> articles = List.of(
+                new ArticleWithWord(getArticleEntityOrThrowException("ef2784fd-c9dc-48db-8dfc-c6f83bd5cca9"), "득점왕"), // 키워드 - 득점왕
+                new ArticleWithWord(getArticleEntityOrThrowException("607a45b6-1870-43e1-89e3-0fb0556df26d"), "카카오"), // 키워드 - 카카오
+                new ArticleWithWord(getArticleEntityOrThrowException("6938cbd8-d165-4a6f-9c76-08f2ee949ab1"), "윤석열"), // 키워드 - 윤석열 당선
+                new ArticleWithWord(getArticleEntityOrThrowException("15c8d350-742e-4149-882f-dd93835f5f38"), "마스크") // 키워드 - 마스크
+        );
+        quizzes.add(getArticleWithKeywordQuiz(articles.get(0).article, CategoryType.SPORTS, articles.get(0).word));
+        quizzes.add(getArticleWithKeywordQuiz(articles.get(1).article, CategoryType.SOCIETY, articles.get(1).word));
+        quizzes.add(getArticleWithKeywordQuiz(articles.get(2).article, CategoryType.POLITICS, articles.get(2).word));
+        quizzes.add(getArticleWithKeywordQuiz(articles.get(3).article, CategoryType.ECONOMY, articles.get(3).word));
+
+        // 객관식 기사 2문제 생성
+        ArticleWithMultipleChoice q1 = new ArticleWithMultipleChoice(getArticleEntityOrThrowException("9fadf8d3-751e-4987-a06b-22b86ad60528"), "이태원", getMultipleChoice(2022, CategoryType.SOCIETY, "이태원", 4)); // 객관식 - 이태원 참사 - 사회
+        ArticleWithMultipleChoice q2 = new ArticleWithMultipleChoice(getArticleEntityOrThrowException("53ec5b5f-dc04-4b0f-97b8-2d264541b7b3"), "누리호", getMultipleChoice(2022, CategoryType.POLITICS, "누리호", 4)); // 객관식 - 누리호 - 정치
+
+        quizzes.add(getArticleWithMultipleChoiceQuiz(
+                q1.article,
+                CategoryType.SOCIETY,
+                String.valueOf(q1.wordLocation),
+                q1.multipleChoices)
+        );
+        quizzes.add(getArticleWithMultipleChoiceQuiz(
+                q2.article,
+                CategoryType.POLITICS,
+                String.valueOf(q2.wordLocation),
+                q2.multipleChoices)
+        );
+
+        // OX 문제 4문제 생성
+        /*
+        List<Article> OXArticles = List.of(
+                getArticleEntityOrThrowException("8dfc3d09-1b9b-413a-9102-00bea54278e9"), // OX - 오징어게임
+                getArticleEntityOrThrowException("b8be30b2-4edc-49dc-995e-188273d5cab7"), // OX - 우크라이나
+                getArticleEntityOrThrowException("a78ce338-a736-4c8b-987a-1db291313227"), // OX -  추경
+                getArticleEntityOrThrowException("48c04798-ac21-4023-96ad-12843a7406a2") // OX - 월드컵
+        );
+        List<CategoryType> categories = List.of(CategoryType.CULTURE, CategoryType.INTERNATIONAL, CategoryType.ECONOMY, CategoryType.SPORTS);
+        List<OXQuizQuestion> oxQuiz = null;
+        try {
+            oxQuiz = openAIUtils.generateOXQuiz(
+                    OXArticles
+                            .stream()
+                            .map(Article::summary)
+                            .toList()
+            );
+        } catch (JsonProcessingException e) {
+            throw new CommonException(ErrorCode.INTERNAL_SERVER_ERROR, "quizzes is null");
+        }
+        for (int i = 0; i < 4; i++) {
+            OXQuiz quiz = new OXQuiz(QuizType.OX, oxQuiz.get(i).question(), oxQuiz.get(i).answer(), null);
+            quizzes.add(ArticleWithQuiz.from(categories.get(i), OXArticles.get(i), quiz));
+        }
+         */
+        return quizzes;
     }
 
     private Article getArticleEntityOrThrowException(String id) {
@@ -351,4 +381,5 @@ public class ArticleService {
             return 0;
         }
     }
+
 }

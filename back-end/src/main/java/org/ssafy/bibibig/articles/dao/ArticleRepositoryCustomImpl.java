@@ -20,21 +20,18 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 import static org.elasticsearch.index.query.QueryBuilders.moreLikeThisQuery;
 
 @Repository
 @RequiredArgsConstructor
 public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
-
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private final ElasticsearchOperations operations;
 
-
-    //해당 년도에서 많이 사용된 키워드 찾기
+    //해당년도에서 많이 사용된 키워드Top50 찾기
     @Override
     public List<KeywordTerms> getTopKeywordsByYear(int year) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         NativeSearchQuery query = new NativeSearchQueryBuilder()
                 .withQuery(QueryBuilders.boolQuery()
                         .must(QueryBuilders.rangeQuery("작성시간")
@@ -52,10 +49,9 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
         ).toList();
     }
 
-    //해당 년도의 대분류에서 많이 사용된 키워드 찾기
+    //해당년도의 대분류에서 많이 사용된 키워드 찾기
     @Override
     public List<KeywordTerms> getTopKeywordsByYearAndCategory(int year, CategoryType category) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         NativeSearchQuery query = new NativeSearchQueryBuilder()
                 .withQuery(QueryBuilders.boolQuery()
                         .must(QueryBuilders.matchQuery("대분류", category.getName()))
@@ -77,7 +73,6 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
     // 랜덤 기사 추출하기
     @Override
     public ArticleEntity getRandomArticleByYearAndCategoryAndKeyword(int year, CategoryType category, String keyword) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         NativeSearchQuery query = new NativeSearchQueryBuilder()
                 .withQuery(QueryBuilders.functionScoreQuery(
                         QueryBuilders.boolQuery()
@@ -113,7 +108,6 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
                                 .maxQueryTerms(12)
                 )
                 .build();
-        //then
         SearchHits<?> searchHits = operations.search(query, ArticleEntity.class);
         List<ArticleEntity> result = searchHits.getSearchHits().stream()
                 .limit(5)
@@ -121,13 +115,11 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
                 .filter(ArticleEntity.class::isInstance)
                 .map(ArticleEntity.class::cast)
                 .toList();
-
         return result;
     }
 
     @Override
     public List<KeywordTerms> getMultipleChoice(int year, CategoryType category, String keyword, int count) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         NativeSearchQuery query = new NativeSearchQueryBuilder()
                 .withQuery(
                         QueryBuilders.boolQuery()
@@ -147,13 +139,10 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
         return pst.getBuckets().stream().map(s ->
                 new KeywordTerms(s.getKey().toString(), s.getDocCount())
         ).toList();
-
     }
 
     @Override
-    public ArticleEntity getRandomArticleByYearAndCategory(int year, int size, CategoryType category) {
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    public ArticleEntity getRandomArticleByYearAndCategory(int year, CategoryType category) {
         NativeSearchQuery query = new NativeSearchQueryBuilder()
                 .withQuery(QueryBuilders.functionScoreQuery(
                         QueryBuilders.boolQuery()
@@ -169,6 +158,5 @@ public class ArticleRepositoryCustomImpl implements ArticleRepositoryCustom {
         ArticleEntity article = search.getContent();
         return article;
     }
+
 }
-
-

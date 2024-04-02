@@ -39,7 +39,7 @@ class ArticleControllerTest {
 
         // then
         perform.andExpect(status().isOk())
-                .andExpect(jsonPath("$.result", hasSize(10)));
+                .andExpect(jsonPath("$.result", hasSize(6)));
     }
 
     private static Stream<Integer> provideYears() {

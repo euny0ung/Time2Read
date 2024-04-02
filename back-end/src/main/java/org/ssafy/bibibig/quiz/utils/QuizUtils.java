@@ -14,7 +14,6 @@ import java.util.regex.Pattern;
 public class QuizUtils {
 
     private final WordDefine wordDefineRequest;
-    private final WiseNerKeywords wiseNerKeywords;
 
     // 키워드 리스트 받아서 정의 찾기
     public Quiz makeKeywordQuiz(Article article) {
@@ -60,22 +59,6 @@ public class QuizUtils {
         // 자체 키워드 사용 버전
         List<String> keywords = article.keywords().stream().filter(this::determineKeyword).toList();
 
-        // NER 사용 버전
-        /*List<String>keywords = Objects.requireNonNull(
-                        wiseNerKeywords.findNerWords(article.content()))
-                .stream()
-                .map(WiseNerKeywords.NameEntity::getText)
-                .toList();*/
-
-        // 자체 키워드 + NER 사용 버전
-        /*List<String> keywords = article.keywords().stream().filter(this::determineKeyword).toList();
-        if (keywords.isEmpty()) {
-            keywords = Objects.requireNonNull(
-                            wiseNerKeywords.findNerWords(article.content()))
-                    .stream()
-                    .map(WiseNerKeywords.NameEntity::getText)
-                    .toList();
-        }*/
         for (String keyword : keywords) {
             try {
                 String description = wordDefineRequest.getWordDefine(keyword);
@@ -103,7 +86,6 @@ public class QuizUtils {
         return pattern.matcher(content).replaceAll("______");
     }
 
-    //TODO: 불용어 있으면 제거하기
     //1. 숫자가 포함되어 있을 경우 숫자 키워드는 제거
     private boolean determineKeyword(String keyword) {
         Pattern pattern = Pattern.compile("\\d");

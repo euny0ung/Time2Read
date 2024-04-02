@@ -4,7 +4,7 @@ import org.ssafy.bibibig.member.domain.SolvedCategoriesEntity;
 
 import java.time.LocalDateTime;
 
-public record SolvedCategory (
+public record SolvedCategory(
         Long id,
         int politic,
         int economy,
@@ -13,10 +13,8 @@ public record SolvedCategory (
         int sports,
         int international,
         LocalDateTime createdAt
-){
-    public static SolvedCategory from(
-            SolvedCategoriesEntity entity
-    ){
+) {
+    public static SolvedCategory from(SolvedCategoriesEntity entity) {
         return new SolvedCategory(
                 entity.getId(),
                 entity.getPolitic(),
@@ -28,6 +26,7 @@ public record SolvedCategory (
                 entity.getCreatedAt()
         );
     }
+
     public SolvedCategoriesEntity toEntitiySumCount(
             int politicCnt,
             int economyCnt,
@@ -35,7 +34,7 @@ public record SolvedCategory (
             int cultureCnt,
             int sportsCnt,
             int internationalCnt
-    ){
+    ) {
         return SolvedCategoriesEntity.of(
                 id,
                 politic + politicCnt,
