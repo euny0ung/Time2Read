@@ -3,7 +3,7 @@ import axios from 'axios';
 const baseUrl = import.meta.env.VITE_BASE_API_v2;
 
 // 은영 : 1 /혜진 :3 / 수혁 : 4
-//kakao로그인 되면 id값 응답으로 주니까 id값을 받아서 사용해도 됨
+// kakao로그인 되면 id값 응답으로 주니까 id값을 받아서 사용해도 됨
 const id = 1;
 
 // 타임어택 기록들
@@ -38,7 +38,7 @@ export const getBadge = () => {
 
   return axios
     .get(apiUrl)
-    .then((response) =>{response.data.result})
+    .then((response) => response.data.result)
     .catch((error) => {
       console.error('Error requesting data:', error);
       throw error;
