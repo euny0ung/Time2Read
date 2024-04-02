@@ -11,8 +11,8 @@ import lombok.ToString;
 @NoArgsConstructor
 public class LoginResponse {
     private String email;
-
-    public static LoginResponse of(String email) {
-        return new LoginResponse(email);
+    private Long memberId;
+    public static LoginResponse of(String email, Long memberId) {
+        return new LoginResponse(email, memberId);
     }
 }

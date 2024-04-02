@@ -32,7 +32,7 @@ public class SocialController {
         Member member = kakaoService.requestAccount(token);
         member = socialService.checkLogin(member);
         generateSession(member, request);
-        LoginResponse loginResponse = LoginResponse.of(member.getEmail());
+        LoginResponse loginResponse = LoginResponse.of(member.getEmail(), member.getId());
         return Response.success(loginResponse);
     }
 
