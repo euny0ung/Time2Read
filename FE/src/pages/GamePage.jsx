@@ -9,7 +9,7 @@ import { Canvas } from '@react-three/fiber';
 import { Physics } from '@react-three/rapier';
 import { useAnswerCheckStore } from '@stores/game/quizStore';
 import GameOverModal from '../components/game/GameOverModal.jsx';
-import Items from '../components/game/Items.jsx';
+import ItemsOverlay from '../components/game/ItemsOverlay.jsx';
 import Timer from '../components/game/Timer.jsx';
 import { useGameModalStore } from '../stores/game/gameStore.jsx';
 
@@ -50,7 +50,7 @@ const GamePage = () => {
         </Canvas>
         {/* 정보 표시 */}
         {/* <Overlay /> */}
-        <Items />
+        <ItemsOverlay />
         <Timer />
         {openQuizModal && <QuizModal quizIndex={quizIndex} />}
         {openGameOverModal && <GameOverModal />}
