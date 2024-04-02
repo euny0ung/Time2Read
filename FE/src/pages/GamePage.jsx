@@ -7,11 +7,12 @@ import QuizModal from '@components/game/QuizModal.jsx';
 import { PointerLockControls, OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { Physics } from '@react-three/rapier';
+import { useGameModalStore } from '@stores/game/gameStore.jsx';
 import { useAnswerCheckStore } from '@stores/game/quizStore';
 import GameOverModal from '../components/game/GameOverModal.jsx';
 import ItemsOverlay from '../components/game/ItemsOverlay.jsx';
+import StartModal from '../components/game/StartModal.jsx';
 import Timer from '../components/game/Timer.jsx';
-import { useGameModalStore } from '../stores/game/gameStore.jsx';
 
 const GamePage = () => {
   const [isPlayerMode, setIsPlayerMode] = useState(true); // 1인칭, 3인칭 모드 전환. 테스트할 때 편하라고 만듦
@@ -21,6 +22,7 @@ const GamePage = () => {
   const quizIndex = useAnswerCheckStore((state) => state.quizIndex);
   const openGameOverModal = useGameModalStore((state) => state.openGameOverModal);
   const [isPointerLockEnabled, setIsPointerLockEnabled] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
     setIsPointerLockEnabled(!openQuizModal);
@@ -29,6 +31,13 @@ const GamePage = () => {
   useEffect(() => {
     setIsPointerLockEnabled(!openGameOverModal);
   }, [openGameOverModal]);
+
+  // 들어오자마자 openModal을 true로 하여 StartModal을 활성화시킨다.
+  useEffect(() => {
+    setOpenModal(true);
+  }, []);
+
+  console.log('openModal : ', openModal);
 
   return (
     <>
@@ -52,6 +61,7 @@ const GamePage = () => {
         {/* <Overlay /> */}
         <ItemsOverlay />
         <Timer />
+        {openModal && <StartModal openModa={openModal} setOpenModal={setOpenModal} />}
         {openQuizModal && <QuizModal quizIndex={quizIndex} />}
         {openGameOverModal && <GameOverModal />}
 
