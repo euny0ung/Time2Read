@@ -39,7 +39,7 @@ export const getBadge = () => {
   return axios
     .get(apiUrl)
     .then((response) => {
-      console.log(response);
+      console.log('내가 푼 연도 뱃지 response', response);
       return response.data.result;
     })
     .catch((error) => {
@@ -54,7 +54,10 @@ export const getScrapArticles = () => {
 
   return axios
     .get(apiUrl)
-    .then((response) => response.data.result.data)
+    .then((response) => {
+      console.log('스크랩한 기사 리스트 response', response);
+      return response.data.result.data;
+    })
     .catch((error) => {
       console.error('Error requesting data:', error);
       throw error;
