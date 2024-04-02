@@ -27,8 +27,9 @@
 
 
     <!-- Loggers -->
-    <logger name="org.ssafy.bibibig.articles.application.ArticleService" level="INFO" additivity="false">
-        <appender-ref ref="ox-article-quiz" />
+<!--    <logger name="org.ssafy.bibibig.articles.application.ArticleService" level="INFO" additivity="false">-->
+    <logger name="org.ssafy.bibibig.articles.application.ArticleService" level="INFO">
+    <appender-ref ref="ox-article-quiz" />
     </logger>
 
     <!-- Root Logger -->
