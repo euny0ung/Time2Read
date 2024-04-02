@@ -1,17 +1,14 @@
 /* eslint-disable indent */
 import React, { useState, useEffect, useCallback } from 'react';
+import { useSecondQuizApi } from '@apis/quizApi';
 import ClueContentButton from '@components/commons/buttons/ClueContentButton';
 import EntireContentButton from '@components/commons/buttons/EntireContentButton';
 import AnagramQuiz from '@components/quizTypes/AnagramQuiz.jsx';
 import ChoiceQuiz from '@components/quizTypes/ChoiceQuiz.jsx';
 import OxQuiz from '@components/quizTypes/OxQuiz.jsx';
 import ShortAnswerQuiz from '@components/quizTypes/ShortAnswerQuiz.jsx';
-import { useGameItemStore } from '@stores/game/gameStore';
 import { useQuizStore } from '@stores/game/quizStore';
-
 import WhiteContainer from '../commons/containers/WhiteContainer.jsx';
-
-// 정답을 체크하고 맞으면 정답 결과 개수를 하나 더 해주고 퀴즈 모달창이 닫힘
 
 // 퀴즈 유형이 객관식인 경우, 랜덤 숫자를 생성하여 애너그램과 객관식으로 나눔. 편향 때문에 random 함수 대신 피셔-예이츠 셔플 알고리즘 사용
 const FisherYatesShuffle = (answer) => {
@@ -70,8 +67,10 @@ const quizTypeConfigs = {
 const QuizModal = React.memo(
   ({ quizIndex }) => {
     if (quizIndex > 10) return null;
+    if (quizIndex === 0) useSecondQuizApi();
 
     const { quizzes } = useQuizStore();
+
     const quiz = quizzes.filter((_, index) => index === quizIndex);
 
     console.log('퀴즈퀴즈', quiz);
@@ -81,9 +80,6 @@ const QuizModal = React.memo(
           const quizObj = it.quiz;
           let { quizType } = quizObj;
 
-          console.log('퀴즈 타입', quizType);
-          console.log('두번째 힌트', quizObj.clues[1]);
-
           //  퀴즈 타입이 KEYWORD인 경우 애너그램과 단답형으로 나누기
           if (quizType === 'KEYWORD') {
             const randNum = Math.floor(Math.random() * 2);
@@ -91,7 +87,6 @@ const QuizModal = React.memo(
           }
 
           const quizTypeConfig = quizTypeConfigs[quizType];
-          console.log('quizTypeConfig', quizTypeConfig);
 
           const renderQuiz = (type, additionalProps = {}) => (
             <div className="w-[100%] h-[100%] flex items-center justify-center">
