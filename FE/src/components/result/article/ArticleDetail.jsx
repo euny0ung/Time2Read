@@ -64,18 +64,21 @@ const ArticleDetail = ({ article }) => {
             </div>
             {/* 스크랩 버튼 */}
             <button onClick={handleScrap} className="m-4 focus:outline-none">
-              <img className="h-8" src={isScraped ? AfterScrap : BeforeScrap} alt="Scrap Button" />
+              <img className="object-contain h-10" src={isScraped ? AfterScrap : BeforeScrap} alt="Scrap Button" />
             </button>
           </div>
           {/* 요약 */}
-          <div className="px-3 py-2 mt-4 text-xl font-semibold leading-6 text-left text-gray-600 rounded-lg bg-rose-200 summary">
+          <div
+            className="px-3 py-2 mt-4 text-xl font-semibold leading-6 text-left text-gray-800 rounded-lg bg-rose-100 summary"
+            style={{ lineHeight: '1.6' }}
+          >
             {article.summary}
           </div>
         </div>
         {/* 이미지와 컨텐츠 */}
-        <div className="flex flex-col items-center text-left">
+        <div className="flex flex-col mt-4 items-center text-left max-h-[90vh] overflow-y-auto gray-scrollbar">
           {/* 이미지 */}
-          <div className="mt-4 max-h-[600px]">
+          <div className="max-h-[600px]">
             <ImageComponent src={article.image} alt={article.imageCaption} width={600} />
           </div>
           {/* 컨텐츠 */}

@@ -2,6 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --scrollbar-width: 8px;
+  --scrollbar-radius: 4px;
+  --scrollbar-track-color: #f1f1f17d;
+
+  /* red 스크롤바 색상 */
+  --red-scrollbar-thumb-color: #FDB9AE;
+  --red-scrollbar-thumb-hover-color: #FF7465;
+
+  /* gray 스크롤바 색상 */
+  --gray-scrollbar-thumb-color: #c0c0c0;
+  --gray-scrollbar-thumb-hover-color: #c0c0c0;
+
+  /* teal 스크롤바 색상 */
+  --teal-scrollbar-thumb-color: #A4E3D6;
+  --teal-scrollbar-thumb-hover-color: #2BBAB4;
+}
+
 body {
   background-image: linear-gradient(to bottom right, #FDB9AE, #D3FFEE);
   font-family: 'SUITE-Regular';
@@ -49,50 +67,70 @@ body {
   transition: background-size 0.3s;
 }
 
-/* 스크롤바 전체 컨테이너 */
-.scrollbar::-webkit-scrollbar {
-  width: 8px; /* 스크롤바의 너비 */
-}
 
-/* 스크롤바 핸들 */
-.scrollbar::-webkit-scrollbar-thumb {
-  background: #FDB9AE; /* 스크롤바 핸들의 색상 */
-  border-radius: 4px; /* 스크롤바 핸들의 모서리 둥글기 */
-}
-
-/* 스크롤바 핸들:hover */
-.scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #FF7465; /* 스크롤바 핸들의 색상: hover 상태 */
-}
-
-/* 스크롤바 트랙 */
-.scrollbar::-webkit-scrollbar-track {
-  background: #f1f1f1; /* 스크롤바 트랙의 색상 */
-  border-radius: 4px; /* 스크롤바 트랙의 모서리 둥글기 */
-}
-
-
-/* 드롭박스 스크롤바 전체 컨테이너 */
+/* 스크롤 바 */
+.scrollbar::-webkit-scrollbar,
+.gray-scrollbar::-webkit-scrollbar,
 .dropdown-scrollbar::-webkit-scrollbar {
-  width: 8px; /* 스크롤바의 너비 */
+  width: var(--scrollbar-width);
 }
 
-/* 스크롤바 핸들 */
+.scrollbar::-webkit-scrollbar-thumb,
+.gray-scrollbar::-webkit-scrollbar-thumb,
 .dropdown-scrollbar::-webkit-scrollbar-thumb {
-  background: #A4E3D6; /* 스크롤바 핸들의 색상 */
-  border-radius: 4px; /* 스크롤바 핸들의 모서리 둥글기 */
+  border-radius: var(--scrollbar-radius);
 }
 
-/* 스크롤바 핸들:hover */
-.dropdown-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #2BBAB4; /* 스크롤바 핸들의 색상: hover 상태 */
+.red-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb-color);
 }
 
-/* 스크롤바 트랙 */
+.red-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover-color);
+}
+
+.gray-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--gray-scrollbar-thumb-color);
+}
+
+.gray-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--gray-scrollbar-thumb-hover-color);
+}
+
+.teal-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--dropdown-scrollbar-thumb-color);
+}
+
+.teal-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--dropdown-scrollbar-thumb-hover-color);
+}
+
+.scrollbar::-webkit-scrollbar-track,
+.gray-scrollbar::-webkit-scrollbar-track,
 .dropdown-scrollbar::-webkit-scrollbar-track {
-  background: #f1f1f1; /* 스크롤바 트랙의 색상 */
-  border-radius: 4px; /* 스크롤바 트랙의 모서리 둥글기 */
+  background: var(--scrollbar-track-color);
+  border-radius: var(--scrollbar-radius);
 }
+
+/* 모든 스크롤바에 회색 스크롤바 스타일 적용 */
+::-webkit-scrollbar {
+  width: var(--scrollbar-width); /* 스크롤바의 너비 */
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gray-scrollbar-thumb-color); /* 스크롤바 핸들의 색상 */
+  border-radius: var(--scrollbar-radius); /* 스크롤바 핸들의 모서리 둥글기 */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gray-scrollbar-thumb-hover-color); /* 스크롤바 핸들의 색상: hover 상태 */
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track-color); /* 스크롤바 트랙의 색상 */
+  border-radius: var(--scrollbar-radius); /* 스크롤바 트랙의 모서리 둥글기 */
+}
+
 
 /* 랜딩 페이지 타이틀 */
 .main {

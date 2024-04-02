@@ -31,7 +31,7 @@ const CardsByCategory = ({ category, articles }) => {
       >
         {category}
       </h2>
-      <div className="flex space-x-4 overflow-x-auto scrollbar">
+      <div className="flex space-x-4 overflow-x-auto red-scrollbar">
         {articles.map((article) => (
           <div key={article.id} className="inline-block">
             <button onClick={() => openActiveIndex(article.id)}>
