@@ -10,7 +10,7 @@ export const useScrollPositionStore = create(
         setScrollPosition: (position) => set({ scrollPosition: position }),
         reset: () => set({ scrollPosition: 0 }),
       }),
-      { name: 'scroll-position', storage: createJSONStorage(() => sessionStorage) },
+      { name: 'useScrollPositionStore', storage: createJSONStorage(() => sessionStorage) },
     ),
   ),
 );

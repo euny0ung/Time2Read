@@ -11,7 +11,7 @@ const usePreLoginPathStore = create(
         setPreLoginPath: (path) => set({ preLoginPath: path }),
         resetPreLoginPath: () => set({ preLoginPath: '/' }),
       }),
-      { name: 'pre-login-path', storage: createJSONStorage(() => sessionStorage) },
+      { name: 'usePreLoginPathStore', storage: createJSONStorage(() => sessionStorage) },
     ),
   ),
 );
