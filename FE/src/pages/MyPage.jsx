@@ -93,7 +93,7 @@ const MyPage = () => {
     // 스크랩한 기사 리스트 보기
     getScrapArticles()
       .then((data) => {
-        setScrapedArticle(data);
+        // setScrapedArticle(data);
         console.log('Scraped Articles', data);
       })
       .catch((error) => {
