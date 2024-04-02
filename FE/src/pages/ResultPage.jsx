@@ -33,7 +33,8 @@ import {
   useClueIndexStore,
   useClueStateStore,
 } from '../stores/game/quizStore.jsx';
-import usePreLoginPathStore from '../stores/ui/preLoginStore.jsx';
+import { usePreLoginPathStore } from '../stores/ui/preLoginStore.jsx';
+import { useScrollPositionStore } from '../stores/ui/scrollStore.jsx';
 
 const ResultPage = () => {
   const navigate = useNavigate();

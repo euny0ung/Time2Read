@@ -59,7 +59,6 @@ export const getScrapArticles = () => {
       return response.data.result.data;
     })
     .catch((error) => {
-      console.error('Error requesting data:', error);
       throw error;
     });
 };
