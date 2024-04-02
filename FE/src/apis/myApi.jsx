@@ -54,7 +54,10 @@ export const getScrapArticles = () => {
 
   return axios
     .get(apiUrl)
-    .then((response) => response.data.result.data)
+    .then((response) => {
+      console.log('myApi 스크랩 리스트', response.data.result.data);
+      return response.data.result.data;
+    })
     .catch((error) => {
       console.error('Error requesting data:', error);
       throw error;
