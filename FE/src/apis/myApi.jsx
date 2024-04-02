@@ -22,6 +22,7 @@ export const getSolved = () => {
   return axios
     .get(apiUrl)
     .then((response) => response.data.result)
+
     .catch((error) => {
       console.error('Error requesting data:', error);
       throw error;
