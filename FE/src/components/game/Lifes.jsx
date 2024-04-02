@@ -8,7 +8,7 @@ const Lifes = (lifePositions) => {
   const loader = new GLTFLoader();
 
   useEffect(() => {
-    loader.load('life/scene.gltf', (gltf) => {
+    loader.load('life/scene.glb', (gltf) => {
       gltfRef.current = gltf;
       const newLifeList = lifePositions.lifePositions.map((position, index) => {
         const instance = gltf.scene.clone();
