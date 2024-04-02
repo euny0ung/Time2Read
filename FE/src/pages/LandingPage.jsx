@@ -13,6 +13,7 @@ import { useQuizStore } from '@stores/game/quizStore.jsx';
 import BodyContainer from '../components/commons/containers/BodyContainer.jsx';
 import Dropdown from '../components/commons/Dropdown.jsx';
 import { checkGameYearStore } from '../stores/game/gameStore.jsx';
+import usePreLoginPathStore from '../stores/ui/loginStore.jsx';
 
 const OPTIONS = Array.from({ length: 2024 - 2005 + 1 }, (v, k) => `${2024 - k}`);
 
@@ -46,9 +47,7 @@ const LandingPage = () => {
     <>
       <BodyContainer>
         <div className="flex flex-col items-center justify-center h-[100vh] p-4">
-          <div className="px-4 py-2 text-blue-700 bg-blue-100 rounded">
-            <KakaoLogin />
-          </div>
+          <KakaoLogin />
           <button onClick={handleQuizApi} className="main">
             <div>{animatedTitle}</div>
           </button>
@@ -56,7 +55,7 @@ const LandingPage = () => {
           <br />
           <button
             onClick={handleQuizApi}
-            className="px-4 py-2 mt-4 font-semibold text-white rounded bg-primary-teal hover:bg-primary-teal-3 focus:outline-none focus:ring-2 focus:ring-primary-teal-3 focus:ring-offset-2"
+            className="px-4 py-2 mt-4 shadow font-semibold text-white rounded bg-primary-teal hover:opacity-70 hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-primary-teal-3 focus:ring-offset-2 transition-transform duration-200 ease-in-out hover:scale-[102%]"
           >
             입장하기
           </button>

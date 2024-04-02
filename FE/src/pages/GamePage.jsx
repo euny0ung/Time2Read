@@ -26,14 +26,16 @@ const GamePage = () => {
     setIsPointerLockEnabled(!openQuizModal);
   }, [openQuizModal]);
 
+  useEffect(() => {
+    setIsPointerLockEnabled(!openGameOverModal);
+  }, [openGameOverModal]);
+
   return (
     <>
       <div className="w-screen h-screen overflow-hidden">
         <Canvas camera={{ position: [0, 10, 0] }}>
           {/* 환경 설정 */}
-          <PointerLockControls pointerSpeed={0.3} enabled={isPointerLockEnabled} />
-          {/* {isPlayerMode ? <PointerLockControls enabled={!openQuizModal} /> : <OrbitControls />} */}
-          {/* <ambientLight intensity={0.5} /> */}
+          {isPointerLockEnabled && <PointerLockControls pointerSpeed={0.3} enabled={!openQuizModal} />}
           <ambientLight intensity={1} />
           <pointLight position={[10, 10, 10]} />
           <gridHelper args={[50, 100]} />
@@ -52,12 +54,6 @@ const GamePage = () => {
         <Timer />
         {openQuizModal && <QuizModal quizIndex={quizIndex} />}
         {openGameOverModal && <GameOverModal />}
-        {/* <button
-          className="absolute top-2.5 left-2.5 bg-gray-500 text-white font-bold py-2 px-4 rounded hover:bg-gray-700 focus:outline-none focus:shadow-outline"
-          onClick={() => setIsPlayerMode(!isPlayerMode)}
-        >
-          {isPlayerMode ? '3인칭 모드로 전환' : '1인칭 모드로 전환'}
-        </button> */}
 
         {resultState !== '' && openAnswerResult && <AnswerCheckModal />}
       </div>
