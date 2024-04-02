@@ -74,7 +74,7 @@ const MyPage = () => {
   useEffect(() => {
     getTimeRecords()
       .then((data) => {
-        setTimeRecords(data.result);
+        setTimeresult(data.result);
         console.log('TimeRecords Data:', data.result);
       })
       .catch((error) => {
