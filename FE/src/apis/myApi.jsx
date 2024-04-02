@@ -54,7 +54,7 @@ export const getScrapArticles = () => {
 
   return axios
     .get(apiUrl)
-    .then((response) => response.data.result)
+    .then((response) => response.data.result.data)
     .catch((error) => {
       console.error('Error requesting data:', error);
       throw error;
