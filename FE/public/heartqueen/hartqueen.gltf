@@ -804,27 +804,27 @@
 	],
 	"images":[
 		{
-			"mimeType":"image/png",
+			"mimeType":"image/webp",
 			"name":"head",
-			"uri":"textures/head.png"
+			"uri":"textures/head.webp"
 		},
 		{
-			"mimeType":"image/png",
+			"mimeType":"image/webp",
 			"name":"shoes",
-			"uri":"textures/shoes.png"
+			"uri":"textures/shoes.webp"
 		},
 		{
-			"mimeType":"image/png",
+			"mimeType":"image/webp",
 			"name":"legs",
-			"uri":"textures/legs.png"
+			"uri":"textures/legs.webp"
 		},
 		{
-			"mimeType":"image/png",
+			"mimeType":"image/webp",
 			"name":"hair",
-			"uri":"textures/hair.png"
+			"uri":"textures/hair.webp"
 		},
 		{
-			"mimeType":"image/png",
+			"mimeType":"image/webp",
 			"name":"hart 1",
 			"uri":"textures/hart%201.png"
 		},
@@ -854,14 +854,14 @@
 			"uri":"textures/hart%20.png"
 		},
 		{
-			"mimeType":"image/png",
+			"mimeType":"image/webp",
 			"name":"eyes",
-			"uri":"textures/eyes.png"
+			"uri":"textures/eyes.webp"
 		},
 		{
-			"mimeType":"image/png",
+			"mimeType":"image/webp",
 			"name":"mouth",
-			"uri":"textures/mouth.png"
+			"uri":"textures/mouth.webp"
 		}
 	],
 	"accessors":[
