@@ -1,7 +1,7 @@
 <configuration>
-    <properties>
-        <property name="logfile" value="logs/${sys:logfile:-default.log}" />
-    </properties>
+<!--    <properties>-->
+<!--        <property name="logfile" value="logs/${sys:logfile:-default.log}" />-->
+<!--    </properties>-->
     <!-- Appenders -->
     <appender name="root-console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
@@ -18,7 +18,7 @@
 
 
     <appender name="ox-article-quiz" class="ch.qos.logback.core.FileAppender">
-        <file>${logfile}/ox-article.log</file>
+        <file>logs/ox-article.log</file>
         <append>true</append>
         <encoder>
             <pattern>%green(%d{yyyy-MM-dd HH:mm:ss.SSS}) %yellow(%msg)%n</pattern>
