@@ -43,7 +43,37 @@ const MazeModel = () => {
     heartQueenVisible,
     rabbitVisible,
   } = useVisibilityStore();
-  const [cluesLoaded, setCluesLoaded] = useState(false);
+  const [randomCluePositions, setRandomCluePositions] = useState([]);
+  const [randomLifePositions, setRandomLifePositions] = useState([]);
+  const cluePositions = [
+    [-9.3, 0.3, -7.5],
+    [4.2, 0.3, -7.5],
+    [1, 0.3, -1],
+    [6.2, 0.3, -3],
+    [-2.7, 0.3, 2],
+    [-4.6, 0.3, 1],
+    [-7.5, 0.3, 2.6],
+    [-9, 0.3, 9],
+    [9.3, 0.3, 9.3],
+    [6, 0.3, 7.8],
+  ];
+  const lifePositions = [
+    [-6.5, 0.2, -9],
+    [-6, 0.2, 3],
+    [-4, 0.2, 6],
+    [-1.3, 0.2, 1],
+    [9, 0.2, 2.8],
+    [3, 0.2, 8],
+  ];
+
+  useEffect(() => {
+    const shuffledCluePositions = [...cluePositions].sort(() => Math.random() - 0.5);
+    const shuffledLifePositions = [...lifePositions].sort(() => Math.random() - 0.5);
+    const selectedCluePositions = shuffledCluePositions.slice(0, 5);
+    const selectedLifePositions = shuffledLifePositions.slice(0, 3);
+    setRandomCluePositions(selectedCluePositions);
+    setRandomLifePositions(selectedLifePositions);
+  }, []);
 
   useEffect(() => {
     textures.repeat.set(8, 8);
@@ -67,12 +97,7 @@ const MazeModel = () => {
         } else if (child.material.name === 'ground') {
           const { material } = child;
           material.map = wallsBaseColor;
-
-          // material.normalMap = wallsNormalColor;
-          // material.displaceMap = wallsHeightColor;
-          // material.specularMap = wallsRoughColor;
           material.aoMap = wallsAmbientColor;
-
           material.needsUpdate = true;
         }
       }
@@ -94,11 +119,9 @@ const MazeModel = () => {
       {cardSoldierVisible && <CardSoldier />}
       {heartQueenVisible && <HeartQueen />}
       {rabbitVisible && <Rabbit />}
-      {/* <Lifes onCluesLoaded={() => setCluesLoaded(true)} /> */}
-      {/* {cluesLoaded && <Clues />} */}
-      <Lifes />
-      <Clues />
       <Finish />
+      <Clues cluePositions={randomCluePositions} />
+      <Lifes lifePositions={randomLifePositions} />
       <Start />
     </>
   );
@@ -106,7 +129,6 @@ const MazeModel = () => {
 
 export const Floor = () => {
   return (
-    // <RigidBody type="static">
     <RigidBody type="fixed">
       <CuboidCollider args={[100, 0, 100]}>
         <mesh position={[0, 0, 0]} receiveShadow>
