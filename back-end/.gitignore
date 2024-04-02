@@ -42,4 +42,4 @@ out/
 
 .env
 
-./logfile_IS_UNDEFINED
+./logs/
