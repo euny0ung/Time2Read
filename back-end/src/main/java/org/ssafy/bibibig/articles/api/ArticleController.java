@@ -61,10 +61,14 @@ public class ArticleController {
             if (memberId <= 6 && year == 2022) {
                 return Response.success(articleService.getOxQuizForAdmin(year));
             }
+        } catch (CommonException e) {}
 
+        try {
             log.info("ox 퀴즈 요청 처리 속도. year : {} -> {}", year, (System.currentTimeMillis() - current));
-            return Response.success(articleService.getOxQuiz(year));
-        } catch (CommonException e) {
+            List<ArticleWithQuiz> oxQuiz = articleService.getOxQuiz(year);
+            return Response.success(oxQuiz);
+        }
+        catch (CommonException | NullPointerException e){
             log.info("ox 퀴즈 호출 실패로 키워드, 객관식 퀴즈 요청 처리 속도. year : {} -> {}", year, (System.currentTimeMillis() - current));
             return Response.success(articleService.getQuizzesBecauseGetOxFail(year));
         }
