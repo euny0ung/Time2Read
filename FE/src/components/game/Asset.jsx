@@ -3,7 +3,7 @@ import { useGLTF } from '@react-three/drei';
 import { RigidBody } from '@react-three/rapier';
 
 export const Cat = () => {
-  const cat = useGLTF('cat/scene.gltf');
+  const cat = useGLTF('cat/scene.glb');
   const rotateCat = () => {
     if (cat.scene) {
       cat.scene.rotation.y = Math.PI; // y축을 기준으로 180도 회전
@@ -22,7 +22,7 @@ export const Cat = () => {
 };
 
 export const DoorKnob = () => {
-  const doorKnob = useGLTF('doorknob/scene.gltf');
+  const doorKnob = useGLTF('doorknob/scene.glb');
   const rotatedoorKnob = () => {
     if (doorKnob.scene) {
       doorKnob.scene.rotation.x = Math.PI / 2; // y축을 기준으로 180도 회전
@@ -40,7 +40,7 @@ export const DoorKnob = () => {
 };
 
 export const DodoBird = () => {
-  const dodoBird = useGLTF('dodobird/scene.gltf');
+  const dodoBird = useGLTF('dodobird/scene.glb');
   const rotateDodoBird = () => {
     if (dodoBird.scene) {
       dodoBird.scene.rotation.y = Math.PI / 2;
@@ -57,7 +57,7 @@ export const DodoBird = () => {
 };
 
 export const Caterpillar = () => {
-  const caterpillar = useGLTF('caterpillar/scene.gltf');
+  const caterpillar = useGLTF('caterpillar/scene.glb');
   return (
     <RigidBody name="caterpillar">
       <primitive object={caterpillar.scene} scale={25} position={[-7.5, 1, -2.1]} />
@@ -66,7 +66,7 @@ export const Caterpillar = () => {
 };
 
 export const CheshireCat = () => {
-  const cheshireCat = useGLTF('cheshirecat/scene.gltf');
+  const cheshireCat = useGLTF('cheshirecat/scene.glb');
   const rotateCheshireCat = () => {
     if (cheshireCat.scene) {
       cheshireCat.scene.rotation.y = Math.PI;
@@ -84,7 +84,7 @@ export const CheshireCat = () => {
 };
 
 export const Rose = () => {
-  const rose = useGLTF('rose/scene.gltf');
+  const rose = useGLTF('rose/scene.glb');
   return (
     <RigidBody name="rose">
       <primitive object={rose.scene} scale={0.03} position={[4.5, 0.5, 0.7]} />
@@ -93,7 +93,7 @@ export const Rose = () => {
 };
 
 export const Flamingo = () => {
-  const flamingo = useGLTF('flamingo/scene.gltf');
+  const flamingo = useGLTF('flamingo/scene.glb');
   const rotateFlamingo = () => {
     if (flamingo.scene) {
       flamingo.scene.rotation.y = Math.PI;
@@ -110,7 +110,7 @@ export const Flamingo = () => {
 };
 
 export const CardSoldier = () => {
-  const cardsoldier = useGLTF('cardsoldier/cardsoldier.gltf');
+  const cardsoldier = useGLTF('cardsoldier/cardsoldier.glb');
   const rotateCardSoldier = () => {
     if (cardsoldier.scene) {
       cardsoldier.scene.rotation.y = (Math.PI / 2) * -1;
@@ -127,7 +127,7 @@ export const CardSoldier = () => {
 };
 
 export const HeartQueen = () => {
-  const heartQueen = useGLTF('heartqueen/hartqueen.gltf');
+  const heartQueen = useGLTF('heartqueen/heartqueen.glb');
   const rotateHeartQueen = () => {
     if (heartQueen.scene) {
       heartQueen.scene.rotation.y = Math.PI / 2;
@@ -144,7 +144,7 @@ export const HeartQueen = () => {
 };
 
 export const Rabbit = () => {
-  const rabbit = useGLTF('rabbit/rabbit.gltf');
+  const rabbit = useGLTF('rabbit/rabbit.glb');
   const rotateRabbit = () => {
     if (rabbit.scene) {
       rabbit.scene.rotation.y = Math.PI;
