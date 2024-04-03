@@ -5,7 +5,7 @@ import BaseModal from '../../commons/modals/BaseModal.jsx';
 import ArticleDetail from '../../result/article/ArticleDetail.jsx';
 
 // 기사 디테일 모달
-const CardDetailModal = ({ article, onClose, isScraped }) => {
+const CardDetailModal = ({ article, onClose }) => {
   return (
     <>
       <BaseModal onClose={onClose} animationType="slide">
@@ -20,18 +20,18 @@ const CardDetailModal = ({ article, onClose, isScraped }) => {
 // 특정 카테고리만 보여주는 컴포넌트
 const CardsByCategory = ({ category, articles }) => {
   const [activeIndex, setActiveIndex] = useState(null); // 현재 활성화된 카드의 인덱스
-  const { scrapStatus } = useScrapStore();
+  // const { scrapStatus } = useScrapStore();
   const [updatedArticles, setUpdatedArticles] = useState(articles);
 
-  useEffect(() => {
-    const updated = articles.map((article) => ({
-      ...article,
-      isScraped: !scrapStatus[article.id] && true,
-    }));
-    setUpdatedArticles(updated);
+  // useEffect(() => {
+  //   const updated = articles.map((article) => ({
+  //     ...article,
+  //     isScraped: !scrapStatus[article.id] && true,
+  //   }));
+  //   setUpdatedArticles(updated);
 
-    console.log('카드바이카테고리 updated article', updated);
-  }, [scrapStatus, articles]);
+  //   console.log('카드바이카테고리 updated article', updated);
+  // }, [scrapStatus, articles]);
 
   // 모달 열고 닫기
   const openActiveIndex = (i) => {
@@ -52,9 +52,7 @@ const CardsByCategory = ({ category, articles }) => {
             <button onClick={() => openActiveIndex(article.id)}>
               <Card article={article} />
             </button>
-            {article.id === activeIndex && (
-              <CardDetailModal article={article} onClose={() => setActiveIndex(null)} isScraped={article.isScraped} />
-            )}
+            {article.id === activeIndex && <CardDetailModal article={article} onClose={() => setActiveIndex(null)} />}
           </div>
         ))}
       </div>
