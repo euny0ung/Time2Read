@@ -60,7 +60,7 @@ const GamePage = () => {
         {/* 정보 표시 */}
         {/* <Overlay /> */}
         <ItemsOverlay />
-        <Timer />
+        <Timer openModal={openModal} />
         {openModal && <StartModal onClose={() => setOpenModal(false)} />}
         {openQuizModal && <QuizModal quizIndex={quizIndex} />}
         {openGameOverModal && <GameOverModal />}
