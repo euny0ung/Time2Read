@@ -13,6 +13,7 @@ import GameOverModal from '../components/game/GameOverModal.jsx';
 import ItemsOverlay from '../components/game/ItemsOverlay.jsx';
 import StartModal from '../components/game/StartModal.jsx';
 import Timer from '../components/game/Timer.jsx';
+import AudioButton from '@component/commons/buttons/AudioButton';
 
 const GamePage = () => {
   const [isPlayerMode, setIsPlayerMode] = useState(true); // 1인칭, 3인칭 모드 전환. 테스트할 때 편하라고 만듦
@@ -64,6 +65,7 @@ const GamePage = () => {
         {openModal && <StartModal openModa={openModal} setOpenModal={setOpenModal} />}
         {openQuizModal && <QuizModal quizIndex={quizIndex} />}
         {openGameOverModal && <GameOverModal />}
+        <AudioButton />
 
         {resultState !== '' && openAnswerResult && <AnswerCheckModal />}
       </div>
