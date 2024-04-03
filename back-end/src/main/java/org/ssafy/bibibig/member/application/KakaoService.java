@@ -1,5 +1,6 @@
 package org.ssafy.bibibig.member.application;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,7 @@ import org.ssafy.bibibig.member.dto.response.TokenResponse;
 import org.ssafy.bibibig.member.dto.response.UserResponse;
 
 @Service
+@RequiredArgsConstructor
 public class KakaoService {
 
     @Value("${oauth.KAKAO_CLIENT_ID}")
@@ -27,10 +29,9 @@ public class KakaoService {
     String USER_INFO_REQUEST_URL;
     @Value("${oauth.KAKAO_SECURE_RESOURCE}")
     String SECURE_RESOURCE;
+    private final RestTemplate restTemplate;
 
-    public TokenResponse requestToken(String code){
-        RestTemplate restTemplate = new RestTemplate();
-
+    public TokenResponse requestToken(String code) {
         MultiValueMap<String, String> body = new LinkedMultiValueMap<>();
 
         body.add("grant_type", "authorization_code");
@@ -39,7 +40,6 @@ public class KakaoService {
         body.add("code", code);
 
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(body, header());
-
         ResponseEntity<TokenResponse> responseEntity = restTemplate.exchange(
                 TOKEN_REQUEST_URL,
                 HttpMethod.POST,
@@ -49,9 +49,7 @@ public class KakaoService {
         return responseEntity.getBody();
     }
 
-    public Member requestAccount(String token){
-        RestTemplate restTemplate = new RestTemplate();
-
+    public Member requestAccount(String token) {
         HttpHeaders headers = header();
         headers.setBearerAuth(token);
 
@@ -60,7 +58,6 @@ public class KakaoService {
         body.add("property_keys", "[\"kakao_account.name\", \"kakao_account.email\"]");
 
         HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(body, headers);
-
         ResponseEntity<UserResponse> responseEntity = restTemplate.exchange(
                 USER_INFO_REQUEST_URL,
                 HttpMethod.GET,
@@ -68,14 +65,14 @@ public class KakaoService {
                 UserResponse.class
         );
         UserResponse userResponse = responseEntity.getBody();
-        if(userResponse==null){
+        if (userResponse == null) {
             throw new CommonException(ErrorCode.INVALID_TOKEN);
         }
 
-        return Member.of(null,userResponse.getKakaoAccount().getName(), userResponse.getKakaoAccount().getEmail());
+        return Member.of(null, userResponse.getKakaoAccount().getName(), userResponse.getKakaoAccount().getEmail());
     }
 
-    private HttpHeaders header(){
+    private HttpHeaders header() {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_FORM_URLENCODED);
         return headers;
