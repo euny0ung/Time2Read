@@ -140,24 +140,27 @@ const MyPage = () => {
               <div className="w-full ">
                 <WhiteContainerHoverEffect>
                   <ResultTitle title={'타임어택 기록'} />
-                  <ResultContent>
+                  <div className="px-6 py-2 text-lg font-medium text-center">
                     <div className="w-full px-4 py-2 mb-2 font-bold border border-gray-200 rounded-full bg-gradient-to-r from-primary-yellow to-primary-teal-1">
                       <span className="text-teal-600">NEW!</span> {formatTime(600 - gameResult.timeAttackTime)}
                     </div>
                     {timeresult &&
-                      timeresult.slice(0, 5).map((record, i) => (
-                        <div
-                          key={record.playDate}
-                          className="flex items-center justify-between w-full px-4 mb-1 space-x-4"
-                        >
-                          <div className="w-1/5 font-bold">{`기록 ${i + 1}:`}</div>
-                          <div className="w-2/5 font-bold">{formatTime(600 - record.timeAttackTime)}</div>
-                          <div className="w-3/5 text-xs text-gray-500">
-                            {format(new Date(record.playDate), 'yyyy-MM-dd HH:mm')}
+                      timeresult
+                        .slice(0, 5)
+                        .reverse()
+                        .map((record, i) => (
+                          <div
+                            key={record.playDate}
+                            className="flex items-center justify-between w-full px-4 mb-1 space-x-4"
+                          >
+                            <div className="w-1/6 font-bold text-gray-500">{`${5 - i}`}</div>
+                            <div className="w-2/6 font-bold">{formatTime(600 - record.timeAttackTime)}</div>
+                            <div className="w-3/6 text-xs text-gray-500">
+                              {format(new Date(record.playDate), 'yyyy-MM-dd HH:mm')}
+                            </div>
                           </div>
-                        </div>
-                      ))}
-                  </ResultContent>
+                        ))}
+                  </div>
                 </WhiteContainerHoverEffect>
               </div>
               {/* 카테고리별 맞은 개수 */}
