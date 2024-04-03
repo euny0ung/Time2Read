@@ -5,7 +5,6 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.ssafy.bibibig.member.dto.Member;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,7 +13,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="member")
+@Table(name = "member")
 public class MemberEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,7 +54,8 @@ public class MemberEntity {
     protected void onCreate() {
         createdAt = LocalDateTime.now();
     }
-    public static MemberEntity of(Long id, String name, String email, LocalDateTime createdAt, SolvedCategoriesEntity solvedCategoriesEntity){
+
+    public static MemberEntity of(Long id, String name, String email, LocalDateTime createdAt, SolvedCategoriesEntity solvedCategoriesEntity) {
         return new MemberEntity(id, name, email, createdAt, solvedCategoriesEntity);
     }
 }

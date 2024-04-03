@@ -59,19 +59,19 @@ class WordDefineTest {
 
         setField(wordDefineRequest, "key", getKey("application-test.yml"));
         int index = 0;
-        for(; index < keywords.size(); index++) {
+        for (; index < keywords.size(); index++) {
             try {
                 String description = wordDefineRequest.getWordDefine(keywords.get(index));
                 System.out.println(keywords.get(index) + "의 정의: " + description);
-                if(description != null) break;
-            } catch(NoSuchElementException e){
+                if (description != null) break;
+            } catch (NoSuchElementException e) {
             }
         }
         assertEquals(index, resultIdx);
     }
 
 
-    private String getKey(String yamlFileName){
+    private String getKey(String yamlFileName) {
         Map<String, Object> map1 = readYamlFile(yamlFileName);
         Map<String, Map<String, String>> quiz = (Map<String, Map<String, String>>) map1.get("quiz");
         return quiz.get("word-define").get("key");
@@ -97,7 +97,6 @@ class WordDefineTest {
                 Arguments.arguments(List.of("방위비", "위원장", "그"), 3),
                 Arguments.arguments(List.of("방위비", "사과", "위원장"), 1),
                 Arguments.arguments(List.of("사과", "공군참모차장", "사과"), 0)
-
         );
     }
 }

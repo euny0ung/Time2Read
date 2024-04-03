@@ -4,7 +4,7 @@ services:
     container_name: bibibig-mysql
     build:
       dockerfile: Dockerfile
-      context: ./database/mysql
+      context: ./database
     image: xntm10/bibibig-mysql
     volumes:
       # 설정파일 저장될  위치
@@ -17,4 +17,4 @@ services:
       - MARIADB_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - "TZ=Asia/Seoul"
     ports:
-      - "13306:3306"
+      - "3306:3306"
