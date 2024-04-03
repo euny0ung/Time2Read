@@ -9,12 +9,10 @@ export const useQuizApiHandler = (selected) => {
 
   // API 호출, 페이지 이동, 퀴즈 데이터 저장
   const handleQuizApi = () => {
-    console.log('API 호출..');
     axios
       .get(`${import.meta.env.VITE_BASE_API}/game/${selected}/first`)
       .then((response) => {
         setQuiz(response.data.result);
-        console.log(response);
         navigate('/game');
       })
       .catch((error) => {
@@ -58,7 +56,6 @@ export const useTestQuizApiHandler = (selected) => {
   const { setQuiz } = useQuizStore.getState();
 
   const handleTestQuizApi = () => {
-    console.log('API 호출..');
     axios
       // .get(`${import.meta.env.VITE_BASE_API}/game/${selected}/first`)
       .get(`${import.meta.env.VITE_BASE_API}/game/${selected}`)

@@ -10,7 +10,6 @@ export const getTimeRecords = () => {
   return axios
     .get(apiUrl)
     .then((response) => {
-      console.log(response);
       return response.data.result;
     })
     .catch((error) => {
@@ -40,7 +39,6 @@ export const getBadge = () => {
   return axios
     .get(apiUrl)
     .then((response) => {
-      console.log('내가 푼 연도 뱃지 response', response);
       return response.data.result;
     })
     .catch((error) => {
@@ -56,8 +54,6 @@ export const getScrapArticles = () => {
   return axios
     .get(apiUrl)
     .then((response) => {
-      console.log('스크랩한 기사 리스트 response', response);
-
       const articles = response.data.result.data;
 
       const ids = Object.values(articles)
