@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { RigidBody } from '@react-three/rapier';
+import { useLoader } from '@react-three/fiber';
+import { SRGBColorSpace, TextureLoader, RepeatWrapping } from 'three';
 
 export const Cat = () => {
   const cat = useGLTF('cat/scene.glb');
@@ -185,25 +187,34 @@ export const Finish = () => {
   );
 };
 
-export const Start = ({ textures }) => {
+export const Start = () => {
+  const textures = useLoader(TextureLoader, 'maze/textures/grass-seamless-texture-tileable.webp');
+
+  useEffect(() => {
+    textures.repeat.set(1, 1);
+    textures.wrapS = RepeatWrapping; // 텍스처가 가로 방향으로 반복
+    textures.wrapT = RepeatWrapping; // 텍스처가 세로 방향으로 반복
+  }, [textures]);
+
+  textures.colorSpace = SRGBColorSpace;
   return (
     <>
       <RigidBody type="fixed">
         <mesh position={[-0.85, 1.51, -15]}>
-          <boxGeometry args={[1.3, 3, 0.2]} />
-          <meshStandardMaterial map={textures} />
+          <boxGeometry args={[2, 3, 0.2]} />
+          <meshBasicMaterial map={textures} />
         </mesh>
       </RigidBody>
       <RigidBody type="fixed">
         <mesh position={[-1.6, 1.51, -12.6]}>
           <boxGeometry args={[0.1, 3, 5]} />
-          <meshStandardMaterial map={textures} />
+          <meshBasicMaterial map={textures} />
         </mesh>
       </RigidBody>
       <RigidBody type="fixed">
-        <mesh position={[-0.1, 1.51, -12.6]}>
+        <mesh position={[0.11, 1.51, -12.6]}>
           <boxGeometry args={[0.1, 3, 5]} />
-          <meshStandardMaterial map={textures} />
+          <meshBasicMaterial map={textures} />
         </mesh>
       </RigidBody>
     </>
