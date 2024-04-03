@@ -82,11 +82,11 @@ body {
 }
 
 .red-scrollbar::-webkit-scrollbar-thumb {
-  background: var(--scrollbar-thumb-color);
+  background: var(--red-scrollbar-thumb-color);
 }
 
 .red-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: var(--scrollbar-thumb-hover-color);
+  background: var(--red-scrollbar-thumb-hover-color);
 }
 
 .gray-scrollbar::-webkit-scrollbar-thumb {
@@ -98,11 +98,11 @@ body {
 }
 
 .teal-scrollbar::-webkit-scrollbar-thumb {
-  background: var(--dropdown-scrollbar-thumb-color);
+  background: var(--teal-scrollbar-thumb-color);
 }
 
 .teal-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: var(--dropdown-scrollbar-thumb-hover-color);
+  background: var( --teal-scrollbar-thumb-hover-color);
 }
 
 .scrollbar::-webkit-scrollbar-track,
