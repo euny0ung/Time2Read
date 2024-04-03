@@ -126,7 +126,7 @@ const MyPage = () => {
               <div className="w-full h-[363px]">
                 <WhiteContainerHoverEffect>
                   <ResultTitle title={'타임어택 기록'} />
-                  <div className="h-full px-6 py-2 text-lg font-medium text-center ">
+                  <div className="px-6 py-6 text-lg font-medium text-center ">
                     <div className="w-full px-4 py-2 mb-2 font-bold border border-gray-200 rounded-full bg-gradient-to-r from-primary-yellow to-primary-teal-1">
                       <span className="text-teal-600">NEW!</span> {formatTime(600 - gameResult.timeAttackTime)}
                     </div>
@@ -135,7 +135,7 @@ const MyPage = () => {
                         .slice(0, 5)
                         .reverse()
                         .map((record, i) => (
-                          <div key={record.playDate} className="flex items-center w-full h-full px-4 mb-1 space-x-4">
+                          <div key={record.playDate} className="flex items-center w-full px-4 mb-1 space-x-4">
                             <div className="w-1/6 font-bold text-gray-500">{`${5 - i}`}</div>
                             <div className="w-2/6 font-bold">{formatTime(600 - record.timeAttackTime)}</div>
                             <div className="w-3/6 text-xs text-gray-500">
