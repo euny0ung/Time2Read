@@ -16,7 +16,7 @@ const ArticleDetail = ({ quizNumber, currentStep, article }) => {
   const { setPreLoginPath } = usePreLoginPathStore();
   const [openLoginInducementModal, setOpenLoginInducementModal] = useState(false);
 
-  console.log('scrapStatus', scrapStatus, 'article id', article.id);
+  console.log('scrapStatus', scrapStatus, 'isScraped', isScraped, 'article', article);
 
   const handleScrap = () => {
     const email = sessionStorage.getItem('email');
