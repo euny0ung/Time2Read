@@ -103,7 +103,7 @@ export default {
       },
       animation: {
         wiggle: 'wiggle 1s ease-in-out infinite',
-        hologram: 'hologram 3s infinite linear',
+        hologram: 'hologram 5s infinite linear',
         spin360: 'spin360 1s ease-in-out forwards',
       },
       keyframes: {
