@@ -74,9 +74,13 @@
 - 스프링부트에서 ES NativeQuery를 활용한 쿼리 변환 작업
 - tailwind를 활용한 CSS 적용
 ### 김수혁 FE
-- 한 일 작성하기
-- 한 일 작성하기
-- 한 일 작성하기
+- Nginx와 Docker를 이용한 프론트엔드 배포
+- 미로 모델에 Asset들과 Item들 배치 및 렌더링
+- 아이템, Asset들과 Player 물리 엔진 상호작용 로직 작성
+- 게임 설명 모달 구현
+- 게임 시간 설정 및 게임 백그라운드 음악 구현
+- 게임 종료 로직 구현
+- 게임 결과 API를 백엔드에 전송
 ### 신예지 BE INFRA
 - Jenkins를 사용한 자동배포 파이프라인 구축
 - Certbot을 사용한 SSL/TLS 설정, Nginx 연결
