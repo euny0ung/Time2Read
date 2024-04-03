@@ -59,9 +59,9 @@ export const getScrapArticles = () => {
 
       const articles = response.data.result.data;
 
-      Object.entries(articles).map(([mainCategory, a]) => {
+      Object.entries(articles).map(([mainCategory, a], index) => {
         console.log('마이페이지 초기화 article 출력', a);
-        console.log('마이페이지 초기화 article id 출력', a.id);
+        console.log('마이페이지 초기화 article id 출력', a[index].id);
         return null;
       });
 
