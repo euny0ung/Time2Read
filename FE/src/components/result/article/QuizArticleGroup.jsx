@@ -58,10 +58,7 @@ const QuizArticleGroup = ({ quizNumber, relatedArticles }) => {
         ref={containerRef}
       >
         {/* RelatedArticles Container */}
-        <button
-          className="flex flex-col items-center w-full gap-2 p-5 text-white rounded-t-lg bg-gradient-to-r from-primary-red to-primary-teal "
-          onClick={handleQuizToggle}
-        >
+        <button className="flex flex-col items-center w-full gap-2 p-5 text-white rounded-t-lg bg-gradient-to-r from-primary-red to-primary-teal ">
           {/* 문제번호 */}
           <div className="w-full text-2xl font-bold text-left"># {quizNumber}</div>
           {/* 프로그래스바 전체 컨테이너 */}
