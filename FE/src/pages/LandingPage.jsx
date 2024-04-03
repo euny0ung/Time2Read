@@ -1,10 +1,26 @@
 import { useEffect, useState } from 'react';
 import { useQuizApiHandler, useTestQuizApiHandler } from '@apis/quizApi';
 import KakaoLogin from '@components/kakao/KakaoLogin';
-import { useQuizStore } from '@stores/game/quizStore.jsx';
+import {
+  useGameResultStore,
+  useGameModalStore,
+  useGameItemStore,
+  useVisibilityStore,
+  checkCollidedStore,
+  checkGameSuccessStore,
+  checkGameYearStore,
+  useResultDataStore,
+  useChallengedArticleStore,
+} from '@stores/game/gameStore';
+import {
+  useQuizStore,
+  useHitsCategoryStore,
+  useAnswerCheckStore,
+  useClueIndexStore,
+  useClueStateStore,
+} from '@stores/game/quizStore.jsx';
 import BodyContainer from '../components/commons/containers/BodyContainer.jsx';
 import Dropdown from '../components/commons/Dropdown.jsx';
-import { checkGameYearStore } from '../stores/game/gameStore.jsx';
 
 const OPTIONS = Array.from({ length: 2024 - 2005 + 1 }, (v, k) => `${2024 - k}`);
 
@@ -16,6 +32,23 @@ const LandingPage = () => {
   const handleSelect = (selectedOption) => {
     setSelected(selectedOption);
     setGameYear(selectedOption);
+  };
+
+  const resetGame = () => {
+    useGameModalStore.getState().reset();
+    useGameResultStore.getState().reset();
+    useGameItemStore.getState().reset();
+    useVisibilityStore.getState().reset();
+    checkCollidedStore.getState().reset();
+    checkGameSuccessStore.getState().reset();
+    checkGameYearStore.getState().reset();
+    useResultDataStore.getState().reset();
+    useQuizStore.getState().reset();
+    useHitsCategoryStore.getState().reset();
+    useAnswerCheckStore.getState().reset();
+    useClueIndexStore.getState().reset();
+    useClueStateStore.getState().reset();
+    useChallengedArticleStore.getState().reset();
   };
 
   const handleQuizApi = useQuizApiHandler(selected);
@@ -41,7 +74,10 @@ const LandingPage = () => {
               <div>{animatedTitle}</div>
             </button>
             <button
-              onClick={handleQuizApi}
+              onClick={() => {
+                handleQuizApi();
+                resetGame();
+              }}
               className="enter px-8 text-2xl py-2 mb-6 w-[30vw] shadow font-semibold text-white rounded-full bg-primary-teal hover:opacity-70 hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-primary-teal-3 focus:ring-offset-2 transition-transform duration-200 ease-in-out hover:scale-[102%]"
               onMouseEnter={() => setIsDropdownVisible(true)}
               onMouseLeave={() => setIsDropdownVisible(false)}

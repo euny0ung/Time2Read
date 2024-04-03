@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef } from 'react';
 import { useSpring, a } from '@react-spring/three';
 import { Text } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
