@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useSecondQuizApi } from '@apis/quizApi';
+import { checkGameYearStore } from '@stores/game/gameStore.jsx';
 import A from '../../../public/images/A.png';
 import D from '../../../public/images/D.png';
 import ESC from '../../../public/images/ESC.png';
@@ -13,6 +15,9 @@ const StartModal = ({ onClose }) => {
   const [isNext, setIsNext] = useState(false);
 
   const handleToNext = () => {
+    const { gameYear } = checkGameYearStore.getState();
+    const handleSecondQuizApi = useSecondQuizApi(gameYear);
+    handleSecondQuizApi();
     setIsNext(true);
   };
 
