@@ -59,7 +59,14 @@ public class MyController {
     @GetMapping("/badges")
     public Response<List<BadgeResponse>> getBadges(HttpServletRequest request) {
         Long memberId = SessionInfo.getSessionMemberId(request);
-        return Response.success(badgeService.getBadges(memberId));
+        return Response.success(
+                badgeService.getBadges(memberId)
+                        .stream()
+                        .map(badge ->
+                                BadgeResponse.of(badge.getYear(), badge.getCount())
+                        )
+                        .toList()
+        );
     }
 
     @GetMapping("/records")
