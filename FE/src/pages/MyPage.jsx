@@ -72,10 +72,11 @@ const MyPage = () => {
   };
 
   const initializeScrapStatus = (data) => {
-    return data.map((article) => {
+    console.log('기사 id 목록 초기화 함수 호출됨');
+    data.forEach((article) => {
       console.log('초기화 article 출력', article);
       console.log('초기화 article id 출력', article.id);
-      // id 잘 나오면 여기서 초기화해주면 되겠다...
+      // id 잘 나오면 여기서 초기화해주면 되겠다... 아니야 결과 페이지에서도 보여야함..
     });
   };
 
