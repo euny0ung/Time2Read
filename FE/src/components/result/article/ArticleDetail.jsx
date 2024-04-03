@@ -58,7 +58,7 @@ const ArticleDetail = ({ quizNumber, currentStep, article }) => {
             <span className="inline-block px-3 py-2 mt-4 mr-2 text-sm font-semibold rounded-lg bg-rose-100 text-rose-600 main-category-tag">
               # {article.mainCategory}
             </span>
-            <span className="inline-block px-3 py-2 mt-4 mr-2 text-sm font-semibold rounded-lg bg-rose-100 text-rose-600 sub-category-tag">
+            <span className="inline-block px-3 py-2 mt-4 mr-2 text-sm font-semibold rounded-lg bg-rose-100 text-rose-900 sub-category-tag">
               # {article.subCategory}
             </span>
           </div>
