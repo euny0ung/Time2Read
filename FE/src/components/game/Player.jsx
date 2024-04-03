@@ -12,7 +12,7 @@ import {
 } from '../../stores/game/gameStore.jsx';
 
 const MOVE_SPEED = 3;
-const JUMP_FORCE = 10;
+const JUMP_FORCE = 1;
 const direction = new Vector3();
 const frontVector = new Vector3();
 const sideVector = new Vector3();
@@ -138,7 +138,7 @@ const Player = () => {
 
     // 카메라 위치 조정
     const { x, y, z } = playerRef.current.translation();
-    state.camera.position.set(x - 1, y + 1, z - 13);
+    state.camera.position.set(x - 1, y + 21, z - 13);
 
     if (!initialCameraPositionSet) {
       state.camera.lookAt(-0.8, 0.2, -10);
@@ -188,7 +188,7 @@ const Player = () => {
           }
         }}
       >
-        <mesh position={[-1, 0, -13]}>
+        <mesh position={[-1, 20, -13]}>
           <boxGeometry args={[0.6, 0.3, 0.6]} />
           <meshStandardMaterial color="red" transparent opacity={0} />
         </mesh>
