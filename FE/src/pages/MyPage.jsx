@@ -103,9 +103,9 @@ const MyPage = () => {
     // 스크랩한 기사 리스트 보기
     getScrapArticles()
       .then((data) => {
-        setScrapedArticle(data);
         console.log('Scraped Articles', data);
         console.log('Scraped Articles 바로 아래');
+        setScrapedArticle(data);
 
         initializeScrapStatus(data);
       })

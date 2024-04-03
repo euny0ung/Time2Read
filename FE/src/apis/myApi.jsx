@@ -58,9 +58,10 @@ export const getScrapArticles = () => {
       console.log('스크랩한 기사 리스트 response', response);
 
       const articles = response.data.result.data;
-      articles.map((article) => {
-        console.log('myApi에서 article 호출', article);
-        console.log('myApi에서 article id 호출', article.id);
+
+      Object.entries(articles).map(([mainCategory, a]) => {
+        console.log('마이페이지 초기화 article 출력', a);
+        console.log('마이페이지 초기화 article id 출력', a.id);
         return null;
       });
 
