@@ -74,7 +74,7 @@ const RadarChart = ({ solvedCount }) => {
       },
     },
     fill: {
-      opacity: 0.5,
+      opacity: 0.7,
       colors: ['#FEFEC3'],
       type: 'gradient',
       gradient: {
@@ -83,8 +83,8 @@ const RadarChart = ({ solvedCount }) => {
         shadeIntensity: 0.5,
         gradientToColors: ['#D3FFEE'],
         inverseColors: false,
-        opacityFrom: 0.5,
-        opacityTo: 0.5,
+        opacityFrom: 0.8,
+        opacityTo: 0.8,
         stops: [0, 50, 100],
         colorStops: [],
       },
