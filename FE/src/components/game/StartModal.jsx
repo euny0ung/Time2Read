@@ -21,6 +21,16 @@ const StartModal = ({ onClose }) => {
     setIsNext(true);
   };
 
+  const overlayStyle = {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    pointerEvents: isNext ? 'none' : 'auto', // Disable pointer events when isNext is false
+    zIndex: 500, // Ensure the overlay is on top of everything
+  };
+
   const renderShowModal = () => {
     if (isNext) {
       // 2번째화면
@@ -70,6 +80,7 @@ const StartModal = ({ onClose }) => {
     return (
       // 1번째 화면
       <BaseModal onClose={onClose} animationType="scale">
+        <div style={overlayStyle} />
         <div className="flex flex-col items-center gap-8 w-[468px] h-[500px]">
           {/* 중심 내용 */}
           <div className="flex flex-col gap-2">
@@ -113,7 +124,7 @@ const StartModal = ({ onClose }) => {
           <div className="flex items-center justify-center p-2 text-xl">미로 안의 아이템들을 이용해 탈출해 보세요.</div>
           <button
             onClick={handleToNext}
-            className="px-10 py-2 text-2xl font-semibold text-white transition-transform duration-200 ease-in-out rounded-full shadow bg-primary-teal hover:bg-primary-teal-3 hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-primary-teal-3 focus:ring-offset-2"
+            className="px-10 py-2 text-2xl font-semibold text-white transition-transform duration-200 ease-in-out rounded-full shadow bg-primary-teal hover:bg-primary-teal-3 hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-primary-teal-3 focus:ring-offset-2 z-[1000]"
           >
             탈출을 위한 <span className="font-bold text-primary-teal-1">플레이 방법</span> 보기
           </button>
