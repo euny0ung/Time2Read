@@ -41,7 +41,6 @@ const LandingPage = () => {
     useVisibilityStore.getState().reset();
     checkCollidedStore.getState().reset();
     checkGameSuccessStore.getState().reset();
-    checkGameYearStore.getState().reset();
     useResultDataStore.getState().reset();
     useQuizStore.getState().reset();
     useHitsCategoryStore.getState().reset();
