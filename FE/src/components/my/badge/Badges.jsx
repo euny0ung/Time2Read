@@ -11,7 +11,6 @@ const Badges = () => {
     getBadge()
       .then((data) => {
         setbadges(data);
-        console.log('Badge Data:', data);
       })
       .catch((error) => {
         console.error('Error requesting badge:', error);

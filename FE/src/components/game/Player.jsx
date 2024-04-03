@@ -165,14 +165,12 @@ const Player = () => {
             } else if (target.name === 'endPoint') {
               setGameOver(true);
             } else if (target.name === 'clue') {
-              console.log('clue와 충돌');
               increaseClueCount();
               if (target.parent) {
                 target.parent.remove(target);
               }
               target.remove();
             } else if (target.name === 'life') {
-              console.log('cookie와 충돌');
               increaseLifeCount();
               if (target.parent) {
                 target.parent.remove(target);
