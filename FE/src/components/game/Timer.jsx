@@ -7,7 +7,7 @@ export const formatTime = (seconds) => {
   return `${minutes}:${remainSec < 10 ? '0' : ''}${remainSec}`;
 };
 
-const Timer = () => {
+const Timer = ({ openModal }) => {
   const { gameResult, setGameResult } = useGameResultStore();
   const { isOver, setGameOver } = useGameModalStore();
 
@@ -19,19 +19,21 @@ const Timer = () => {
       return;
     }
 
-    timer = setInterval(() => {
-      const prevGameResult = { ...gameResult };
+    if (!openModal) {
+      timer = setInterval(() => {
+        const prevGameResult = { ...gameResult };
 
-      prevGameResult.timeAttackTime -= 1;
+        prevGameResult.timeAttackTime -= 1;
 
-      setGameResult(prevGameResult);
-      if (prevGameResult.timeAttackTime === 0) {
-        setGameOver(true);
-      }
-    }, 1000);
+        setGameResult(prevGameResult);
+        if (prevGameResult.timeAttackTime === 0) {
+          setGameOver(true);
+        }
+      }, 1000);
+    }
 
     return () => clearInterval(timer);
-  }, [gameResult, setGameResult, isOver]);
+  }, [gameResult, setGameResult, isOver, openModal]);
 
   return (
     <>
