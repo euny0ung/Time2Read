@@ -9,9 +9,9 @@ import ImageComponent from '../../commons/ImageComponent.jsx';
 import InducementModal from '../../commons/modals/InducementModal.jsx';
 
 // 상세 기사 컴포넌트
-const ArticleDetail = ({ quizNumber, currentStep, article }) => {
+const ArticleDetail = ({ quizNumber, currentStep, article, isScraped }) => {
   const { scrapStatus, toggleScrap } = useScrapStore();
-  const isScraped = scrapStatus[article.id] || false; // 기사의 스크랩 상태를 조회
+  // const isScraped = scrapStatus[article.id] || false; // 기사의 스크랩 상태를 조회
   const { setScrollPosition, setOpenedQuiz } = usePreLoginStateStore();
   const { setPreLoginPath } = usePreLoginPathStore();
   const [openLoginInducementModal, setOpenLoginInducementModal] = useState(false);

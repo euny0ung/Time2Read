@@ -1,15 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Card from './Card.jsx';
+import useScrapStore from '../../../stores/ui/scrapStore.jsx';
 import BaseModal from '../../commons/modals/BaseModal.jsx';
 import ArticleDetail from '../../result/article/ArticleDetail.jsx';
 
 // 기사 디테일 모달
-const CardDetailModal = ({ article, onClose }) => {
+const CardDetailModal = ({ article, onClose, isScraped }) => {
   return (
     <>
       <BaseModal onClose={onClose} animationType="slide">
         <div className="max-h-[80vh] max-w-[40vw]">
-          <ArticleDetail article={article} />
+          <ArticleDetail article={article} isScraped={isScraped} />
         </div>
       </BaseModal>
     </>
@@ -19,6 +20,16 @@ const CardDetailModal = ({ article, onClose }) => {
 // 특정 카테고리만 보여주는 컴포넌트
 const CardsByCategory = ({ category, articles }) => {
   const [activeIndex, setActiveIndex] = useState(null); // 현재 활성화된 카드의 인덱스
+  const { scrapStatus } = useScrapStore();
+  const [updatedArticles, setUpdatedArticles] = useState(articles);
+
+  useEffect(() => {
+    const updated = articles.map((article) => ({
+      ...article,
+      isScraped: scrapStatus[article.id] || false,
+    }));
+    setUpdatedArticles(updated);
+  }, [scrapStatus, articles]);
 
   // 모달 열고 닫기
   const openActiveIndex = (i) => {
@@ -34,12 +45,14 @@ const CardsByCategory = ({ category, articles }) => {
         {category}
       </h2>
       <div className="flex space-x-4 overflow-x-auto red-scrollbar">
-        {articles.map((article) => (
+        {updatedArticles.map((article) => (
           <div key={article.id} className="inline-block">
             <button onClick={() => openActiveIndex(article.id)}>
               <Card article={article} />
             </button>
-            {article.id === activeIndex && <CardDetailModal article={article} onClose={() => setActiveIndex(null)} />}
+            {article.id === activeIndex && (
+              <CardDetailModal article={article} onClose={() => setActiveIndex(null)} isScraped={article.isScraped} />
+            )}
           </div>
         ))}
       </div>
