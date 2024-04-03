@@ -124,7 +124,7 @@ const MyPage = () => {
                         .reverse()
                         .map((record, i) => (
                           <div key={record.playDate} className="flex items-center w-full px-4 mb-3 space-x-4">
-                            <div className="w-1/6 font-bold text-gray-500">{`${5 - i}`}</div>
+                            <div className="w-1/6 font-bold text-gray-500">{i + 1}</div>
                             <div className="w-2/6 font-bold">{formatTime(600 - record.timeAttackTime)}</div>
                             <div className="w-3/6 text-xs text-gray-500">
                               {format(new Date(record.playDate), 'yyyy-MM-dd HH:mm')}
