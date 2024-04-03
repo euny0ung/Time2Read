@@ -16,6 +16,8 @@ const ArticleDetail = ({ quizNumber, currentStep, article, isScraped }) => {
   const { setPreLoginPath } = usePreLoginPathStore();
   const [openLoginInducementModal, setOpenLoginInducementModal] = useState(false);
 
+  console.log('props로 받아온 isScrap', isScraped);
+
   const handleScrap = () => {
     const email = sessionStorage.getItem('email');
     if (email !== null) {
