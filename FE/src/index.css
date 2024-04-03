@@ -147,11 +147,29 @@ body {
 
 .main:hover {
   /* font-variation-settings: "wght" 100, "ital" 0; */
-  text-shadow: 10px 10px 0px #2BBAB4,
-    15px 15px 0px #FFA19F,
-    20px 20px 0px #E88AB1,
+  text-shadow: 0px 0px 0px #2BBAB4,
+    10px 10px 0px #FFA19F,
+    18px 18px 0px #E88AB1,
     25px 25px 0px #6C7DCE,
     45px 45px 10px #00709D;
+}
+
+/* 랜딩 페이지 입장하기 버튼 */
+.enter {
+  transition: all 0.5s;
+  -webkit-text-stroke: 0.5px #EEFCFB;
+  color: transparent;
+  font-family: "SUITE-Regular";
+  text-shadow: 1px 2px 0px #0d746e;
+  cursor: pointer;
+}
+
+.enter:hover {
+  box-shadow:
+    8px 8px 0px #FFA19F,
+    15px 15px 0px #E88AB1,
+    23px 23px 0px #6C7DCE,
+    40px 40px 10px #00709D;
 }
 
 /* 글자 올라오는 애니메이션 */
@@ -189,11 +207,14 @@ body {
 @keyframes hologram {
   0% {
     background-position: 0% 0%;
+    opacity: 0.5; /* 시작점에서는 약간의 투명도를 줌 */
   }
   50% {
     background-position: 100% 100%;
+    opacity: 1; /* 중간 지점에서는 투명도를 최대로 올림 */
   }
   100% {
     background-position: 0% 0%;
+    opacity: 0.5; /* 끝 지점에서는 다시 투명도를 줌 */
   }
 }
