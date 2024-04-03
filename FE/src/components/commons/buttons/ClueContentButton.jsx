@@ -39,7 +39,9 @@ const ClueContent = React.memo(({ clues, quizIndex, clueIndex }) => {
           />
         </svg>
       </button>
-      {isFirstLetter && <div>{clues.description}</div>}
+      {isFirstLetter && (
+        <div className="flex items-center justify-center w-full h-full pb-8 text-5xl">{clues.description}</div>
+      )}
     </div>
   );
 });
