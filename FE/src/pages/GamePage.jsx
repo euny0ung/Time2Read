@@ -61,7 +61,7 @@ const GamePage = () => {
         {/* <Overlay /> */}
         <ItemsOverlay />
         <Timer />
-        {openModal && <StartModal openModa={openModal} setOpenModal={setOpenModal} />}
+        {openModal && <StartModal onClose={() => setOpenModal(false)} />}
         {openQuizModal && <QuizModal quizIndex={quizIndex} />}
         {openGameOverModal && <GameOverModal />}
 
