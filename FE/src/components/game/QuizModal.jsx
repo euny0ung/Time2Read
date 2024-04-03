@@ -87,9 +87,11 @@ const QuizAnswerInput = ({ Component, ...props }) => (
 const QuizHint = ({ children }) => <div className="flex items-center justify-center w-full h-full">{children}</div>;
 
 const OXHint = ({ title, clueDescription }) => (
-  <div className="overflow-y-scroll ">
-    <p className="m-1 text-xl">{title}</p>
-    <p className="m-1 text-lg">{clueDescription}</p>
+  <div className="h-full overflow-y-scroll red-scrollbar">
+    <p className="p-3 m-1 text-xl font-bold rounded-lg bg-rose-100">{title}</p>
+    <p className="p-3 m-1 text-lg rounded-lg bg-rose-50" style={{ lineHeight: '1.7' }}>
+      {clueDescription}
+    </p>
   </div>
 );
 
@@ -128,7 +130,7 @@ const QuizModal = React.memo(
                 <QuizAnswerInput Component={additionalProps.component} {...additionalProps.componentProps} />
               </WhiteContainer>
               {/* 힌트 */}
-              <div className="flex flex-col w-3/5 h-full gap-4">
+              <div className="flex flex-col w-3/5 h-full gap-4 overflow-y-auto">
                 <div className="h-full">
                   <WhiteContainer>
                     <QuizHint>
