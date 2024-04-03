@@ -29,6 +29,8 @@ const CardsByCategory = ({ category, articles }) => {
       isScraped: scrapStatus[article.id] || false,
     }));
     setUpdatedArticles(updated);
+
+    console.log('updated article', updated);
   }, [scrapStatus, articles]);
 
   // 모달 열고 닫기
