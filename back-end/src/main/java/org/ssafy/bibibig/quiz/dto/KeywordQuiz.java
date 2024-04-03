@@ -2,8 +2,7 @@ package org.ssafy.bibibig.quiz.dto;
 
 import java.util.List;
 
-public class KeywordQuiz extends Quiz{
-
+public class KeywordQuiz extends Quiz {
     private String questionContent;
 
     public KeywordQuiz(QuizType quizType, String questionContent,
