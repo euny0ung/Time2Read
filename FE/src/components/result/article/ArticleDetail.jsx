@@ -52,7 +52,7 @@ const ArticleDetail = ({ quizNumber, currentStep, article }) => {
   return (
     <>
       {openLoginInducementModal && <InducementModal onClose={() => setOpenLoginInducementModal(false)} />}
-      <div className="flex flex-col justify-center">
+      <div className="flex flex-col justify-center h-full">
         {/* 대분류, 중분류, 제목, 스크랩 버튼, 요약 */}
         <div className="flex flex-col items-start text-left">
           {/* 대분류, 중분류 */}
@@ -79,6 +79,9 @@ const ArticleDetail = ({ quizNumber, currentStep, article }) => {
               <img className="object-contain h-10" src={isScraped ? AfterScrap : BeforeScrap} alt="Scrap Button" />
             </button>
           </div>
+        </div>
+        {/* 이미지와 컨텐츠 */}
+        <div className="flex flex-col mt-4 px-3 items-center text-left max-h-[90vh] overflow-y-auto gray-scrollbar">
           {/* 요약 */}
           <div
             className="px-3 py-2 mt-4 text-xl font-semibold leading-6 text-left text-gray-800 rounded-lg bg-rose-100 summary"
@@ -86,15 +89,12 @@ const ArticleDetail = ({ quizNumber, currentStep, article }) => {
           >
             {article.summary}
           </div>
-        </div>
-        {/* 이미지와 컨텐츠 */}
-        <div className="flex flex-col mt-4 items-center text-left max-h-[90vh] overflow-y-auto gray-scrollbar">
           {/* 이미지 */}
           <div className="max-h-[600px]">
             <ImageComponent src={article.image} alt={article.imageCaption} width={600} />
           </div>
           {/* 컨텐츠 */}
-          <div className="px-3 py-2 font-light text-left text-gray-600" style={{ lineHeight: '2' }}>
+          <div className="py-2 font-light text-left text-gray-600 " style={{ lineHeight: '2' }}>
             {article.content}
           </div>
         </div>

@@ -22,7 +22,7 @@ const EntireContentButton = React.memo(({ title, clues, quizIndex, clueIndex }) 
     <div className="w-full h-full">
       {/* 단서 개수가 0인데 클릭하지 않은 경우 - 버튼 비활성화, 상태변경X */}
       <button
-        className="inline-flex text-primary-red-3"
+        className={`inline-flex ${clueCount === 0 && !cluesClicked[`${quizIndex}-${clueIndex}`] ? 'text-gray-500' : 'text-primary-red-3'}`}
         onClick={handleClick}
         disabled={clueCount === 0 && !cluesClicked[`${quizIndex}-${clueIndex}`]}
       >
@@ -31,7 +31,7 @@ const EntireContentButton = React.memo(({ title, clues, quizIndex, clueIndex }) 
         <svg
           className={`w-5 h-5 ml-1 transform transition-transform duration-300 ${isEntireContent ? 'rotate-180' : 'rotate-0'}`}
           viewBox="0 0 20 20"
-          fill="#FF7465"
+          fill={`${clueCount === 0 && !cluesClicked[`${quizIndex}-${clueIndex}`] ? '#868E96' : '#FF7465'}`}
         >
           <path
             fillRule="evenodd"
@@ -42,7 +42,7 @@ const EntireContentButton = React.memo(({ title, clues, quizIndex, clueIndex }) 
       </button>
       {isEntireContent && (
         <div className="h-full pb-4">
-          <div className="h-full overflow-y-scroll">
+          <div className="h-full overflow-y-auto">
             <p className="p-3 m-1 text-xl font-bold rounded-lg bg-rose-100">{title}</p>
             <p className="p-3 m-1 text-lg rounded-lg bg-rose-50" style={{ lineHeight: '1.7' }}>
               {clues.description}

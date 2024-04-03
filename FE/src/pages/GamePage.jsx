@@ -9,8 +9,10 @@ import { Canvas } from '@react-three/fiber';
 import { Physics } from '@react-three/rapier';
 import { useGameModalStore } from '@stores/game/gameStore.jsx';
 import { useAnswerCheckStore } from '@stores/game/quizStore';
+import Temp from '../assets/music/GamePageMusic.mp3';
 import GameOverModal from '../components/game/GameOverModal.jsx';
 import ItemsOverlay from '../components/game/ItemsOverlay.jsx';
+import MusicPlay from '../components/game/MusicPlay.jsx';
 import StartModal from '../components/game/StartModal.jsx';
 import Timer from '../components/game/Timer.jsx';
 
@@ -23,6 +25,8 @@ const GamePage = () => {
   const openGameOverModal = useGameModalStore((state) => state.openGameOverModal);
   const [isPointerLockEnabled, setIsPointerLockEnabled] = useState(true);
   const [openModal, setOpenModal] = useState(false);
+  const audioRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
 
   useEffect(() => {
     setIsPointerLockEnabled(!openQuizModal);
@@ -35,13 +39,24 @@ const GamePage = () => {
   // 들어오자마자 openModal을 true로 하여 StartModal을 활성화시킨다.
   useEffect(() => {
     setOpenModal(true);
+    audioRef.current.play();
   }, []);
 
-  console.log('openModal : ', openModal);
+  const handlePlayMusic = () => {
+    if (audioRef.current.paused) {
+      audioRef.current.play();
+      setIsPlaying(true);
+    } else {
+      audioRef.current.pause();
+      setIsPlaying(false);
+    }
+  };
 
   return (
     <>
       <div className="w-screen h-screen overflow-hidden">
+        <audio ref={audioRef} src={Temp} loop />
+        <MusicPlay handlePlayMusic={handlePlayMusic} isPlaying={isPlaying} />
         <Canvas camera={{ position: [0, 10, 0] }}>
           {/* 환경 설정 */}
           {isPointerLockEnabled && <PointerLockControls pointerSpeed={0.3} enabled={!openQuizModal} />}
@@ -60,11 +75,10 @@ const GamePage = () => {
         {/* 정보 표시 */}
         {/* <Overlay /> */}
         <ItemsOverlay />
-        <Timer />
+        <Timer openModal={openModal} />
         {openModal && <StartModal onClose={() => setOpenModal(false)} />}
         {openQuizModal && <QuizModal quizIndex={quizIndex} />}
         {openGameOverModal && <GameOverModal />}
-
         {resultState !== '' && openAnswerResult && <AnswerCheckModal />}
       </div>
     </>

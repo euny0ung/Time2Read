@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useQuizApiHandler, useTestQuizApiHandler } from '@apis/quizApi';
+import { useState } from 'react';
+import { useQuizApiHandler } from '@apis/quizApi';
 import KakaoLogin from '@components/kakao/KakaoLogin';
 import {
   useGameResultStore,
@@ -66,9 +66,11 @@ const LandingPage = () => {
   return (
     <>
       <div className="max-h-[100vh] overflow-hidden">
+        <div className="fixed top-5 right-5">
+          <KakaoLogin />
+        </div>
         <BodyContainer>
           <div className="flex flex-col items-center justify-start mt-[20vh] h-[90vh]">
-            <KakaoLogin />
             <button onClick={handleQuizApi} className="mt-2 main">
               <div>{animatedTitle}</div>
             </button>

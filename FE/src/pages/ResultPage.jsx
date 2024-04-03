@@ -4,11 +4,11 @@ import { getYearSummary, postGameResult } from '../apis/resultApi.jsx';
 import PageMovingButton from '../components/commons/buttons/PageMovingButtons.jsx';
 import TopButton from '../components/commons/buttons/TopButton.jsx';
 import BodyContainer from '../components/commons/containers/BodyContainer.jsx';
+import ResultContent from '../components/commons/containers/ResultContent.jsx';
+import ResultTitle from '../components/commons/containers/ResultTitle.jsx';
 import TranslucentContainer from '../components/commons/containers/TranslucentContainer.jsx';
 import WhiteContainerHoverEffect from '../components/commons/containers/WhiteContainerHoverEffect.jsx';
 import InducementModal from '../components/commons/modals/InducementModal.jsx';
-import ResultContent from '../components/commons/ResultContent.jsx';
-import ResultTitle from '../components/commons/ResultTitle.jsx';
 import { formatTime } from '../components/game/Timer.jsx';
 import Articles from '../components/result/article/Articles.jsx';
 import Keyword from '../components/result/Keyword.jsx';
@@ -179,11 +179,13 @@ const ResultPage = () => {
                 <WhiteContainerHoverEffect>
                   <ResultTitle title={'맞은 개수 통계'} />
                   <ResultContent>
-                    <div className="flex items-center w-full justify-evenly">
-                      총 문제 수 {gameResult.correct + gameResult.incorrect} 개
+                    <div className="flex flex-col justify-center">
+                      <div className="flex items-center w-full justify-evenly">
+                        총 문제 수 {gameResult.correct + gameResult.incorrect} 개
+                      </div>
+                      <div>맞은 개수 {gameResult.correct} 개</div>
+                      <div>틀린 개수 {gameResult.incorrect} 개</div>
                     </div>
-                    <div>맞은 개수 {gameResult.correct} 개</div>
-                    <div>틀린 개수 {gameResult.incorrect} 개</div>
                   </ResultContent>
                 </WhiteContainerHoverEffect>
 

@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import Card from './Card.jsx';
+import useScrapStore from '../../../stores/ui/scrapStore.jsx';
 import BaseModal from '../../commons/modals/BaseModal.jsx';
 import ArticleDetail from '../../result/article/ArticleDetail.jsx';
-import useScrapStore from '../../../stores/ui/scrapStore.jsx';
 
 // 기사 디테일 모달
 const CardDetailModal = ({ article, onClose }) => {
@@ -12,7 +12,7 @@ const CardDetailModal = ({ article, onClose }) => {
   return (
     <>
       <BaseModal onClose={onClose} animationType="slide">
-        <div className="h-[80vh] w-[40vw]">
+        <div className="h-[80vh] w-[40vw] overflow-y-auto">
           <ArticleDetail article={article} />
         </div>
       </BaseModal>
