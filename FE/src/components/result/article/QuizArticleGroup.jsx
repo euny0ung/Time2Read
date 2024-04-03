@@ -44,10 +44,10 @@ const QuizArticleGroup = ({ quizNumber, relatedArticles }) => {
 
   useEffect(() => {
     handleResize();
-    window.addEventListener('resize', handleResize); // 리사이즈 이벤트 리스너 등록
+    window.addEventListener('resize', handleResize);
 
     return () => {
-      window.removeEventListener('resize', handleResize); // 컴포넌트 언마운트 시 리스너 제거
+      window.removeEventListener('resize', handleResize);
     };
   }, [relatedArticles.length]);
 
@@ -60,7 +60,7 @@ const QuizArticleGroup = ({ quizNumber, relatedArticles }) => {
         {/* RelatedArticles Container */}
         <div className="flex flex-col items-center w-full gap-2 p-5 text-white rounded-t-lg bg-gradient-to-r from-primary-red to-primary-teal ">
           {/* 문제번호 */}
-          <div className="w-full text-2xl font-bold">#{quizNumber}</div>
+          <div className="w-full text-2xl font-bold"># {quizNumber}</div>
           {/* 프로그래스바 전체 컨테이너 */}
           <div className="w-[80%]">
             <ProgressBar
