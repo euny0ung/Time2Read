@@ -104,6 +104,7 @@ const MyPage = () => {
       .then((data) => {
         setScrapedArticle(data);
         console.log('Scraped Articles', data);
+        console.log('Scraped Articles 바로 아래');
 
         initializeScrapStatus(data);
       })
