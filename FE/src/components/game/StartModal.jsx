@@ -1,4 +1,12 @@
 import { useState } from 'react';
+import A from '../../../public/images/A.png';
+import D from '../../../public/images/D.png';
+import ESC from '../../../public/images/ESC.png';
+import LifeIcon from '../../../public/images/life.webp';
+import ClueIcon from '../../../public/images/news.webp';
+import Pointer from '../../../public/images/pointer.gif';
+import S from '../../../public/images/S.png';
+import W from '../../../public/images/W.png';
 import BaseModal from '../commons/modals/BaseModal.jsx';
 
 const StartModal = ({ onClose }) => {
@@ -13,22 +21,36 @@ const StartModal = ({ onClose }) => {
       // 2번째화면
       return (
         <BaseModal onClose={onClose} animationType="scale">
-          <div className="w-[36rem] h-2/3 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 box-border flex flex-col items-center justify-center gap-4 p-6 bg-white bg-opacity-100 border-2 border-white shadow-xl rounded-2xl">
+          <div className="p-8 w-[36rem] h-2/3 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 box-border flex flex-col items-center justify-center gap-4 p-6 bg-white bg-opacity-100 border-2 border-white shadow-xl rounded-2xl">
             <div className="w-full h-full mb-[3rem] flex items-center flex-col">
-              <div className="flex justify-center items-center text-3xl md:text-2xl lg:text-3xl mt-[2rem]">이동</div>
-              <div className="flex justify-center items-center text-2xl md:text-1.5xl lg:text-2xl mt-[0.7rem]">
-                앞 : W, 뒤 : S, 좌 : A, 우 : D
+              <div className="flex justify-center items-center text-3xl md:text-2xl lg:text-3xl mt-[2rem] font-bold">
+                이동
               </div>
-              <div className="flex justify-center items-center text-3xl md:text-2xl lg:text-3xl mt-[2rem]">
+              <div className="flex justify-center items-center text-2xl md:text-1.5xl lg:text-2xl mt-[0.7rem]">
+                <img src={W} alt="W Icon" className="w-12 h-12" />
+                <div> &emsp;: &emsp;앞&emsp;&emsp;&emsp;</div>
+                <img src={S} alt="S Icon" className="w-12 h-12" />
+                <div> &emsp;: &emsp;뒤</div>
+              </div>
+              <div className="flex justify-center items-center text-2xl md:text-1.5xl lg:text-2xl">
+                <img src={A} alt="A Icon" className="w-12 h-12" />
+                <div> &emsp;: &emsp;좌&emsp;&emsp;&emsp;</div>
+                <img src={D} alt="D Icon" className="w-12 h-12" />
+                <div> &emsp;: &emsp;우</div>
+              </div>
+              <div className="flex justify-center items-center text-3xl md:text-2xl lg:text-3xl mt-[2rem] font-bold">
                 화면 전환
               </div>
               <div className="flex justify-center items-center text-2xl md:text-base lg:text-2xl mt-[0.7rem]">
-                화면을 마우스로 클릭
+                <img src={Pointer} alt="Pointer Icon" className="w-12 h-12" />
+                <div> &emsp;: &emsp;화면을 마우스로 클릭</div>
               </div>
-              <div className="flex justify-center items-center text-3xl md:text-2xl lg:text-3xl mt-[2rem]">
+              <div className="flex justify-center items-center text-3xl md:text-2xl lg:text-3xl mt-[2rem] font-bold">
                 화면 해제
               </div>
-              <div className="flex justify-center items-center text-2xl md:text-base lg:text-2xl mt-[0.7rem]">ESC</div>
+              <div className="flex justify-center items-center text-2xl md:text-base lg:text-2xl mt-[0.7rem]">
+                <img src={ESC} alt="ESC Icon" className="w-16 h-16" />
+              </div>
             </div>
             <button
               onClick={onClose}
@@ -43,17 +65,29 @@ const StartModal = ({ onClose }) => {
     return (
       // 1번째 화면
       <BaseModal onClose={onClose} animationType="scale">
-        <div className="w-[36rem] h-2/3 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 box-border flex flex-col items-center justify-center gap-4 p-6 bg-white bg-opacity-100 border-2 border-white shadow-xl rounded-2xl">
+        <div className="p-4 w-[36rem] h-2/3 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 box-border flex flex-col items-center justify-center gap-4 p-6 bg-white bg-opacity-100 border-2 border-white shadow-xl rounded-2xl">
           <div className="w-full h-full mb-[3rem] flex items-center flex-col">
-            <div className="flex justify-center items-center text-3xl md:text-2xl lg:text-3xl mt-[2rem]">
+            <div className="p-6 flex justify-center items-center text-3xl mt-[2rem]">
               제한 시간 10분 안에 미로를 탈출하세요!
             </div>
-            <div className="flex justify-center items-center text-2xl md:text-xl lg:text-2xl mt-[2rem]">
+            <div className="p-2 flex justify-center items-center text-2xl">
               미로를 탈출하기 위해서는 퀴즈를 맞혀야 합니다
             </div>
-            <div className="flex justify-center items-center text-2xl md:text-xl lg:text-2xl">
-              미로 안의 아이템들을 이용하여 도움을 얻을 수 있습니다
+            <div className="p-2 flex justify-center items-center text-2xl mb-[1rem]">
+              미로 안의 아이템들을 이용해보세요
             </div>
+            <div className="p-4 flex justify-center items-center text-2xl">
+              <img src={ClueIcon} alt="Clue Icon" className="w-16 h-16" />
+              <div> &emsp;X &emsp;5개</div>
+            </div>
+            <div className="p-4 flex justify-center items-center text-2xl">
+              <img src={LifeIcon} alt="Clue Icon" className="w-16 h-16" />
+              <div> &emsp;X &emsp;3개</div>
+            </div>
+            <div className="p-2 flex justify-center items-center text-2xl mt-[1rem]">
+              미로를 탐험하며 단서를 추가로 획득할 수 있습니다!
+            </div>
+            <div className="p-2 flex justify-center items-center text-2xl">쿠키를 먹으면 라이프 충전이 가능합니다!</div>
           </div>
           <button
             onClick={handleToNext}
