@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import {
   useGameResultStore,
   useGameModalStore,
@@ -19,7 +19,7 @@ import {
 } from '@stores/game/quizStore.jsx';
 import { format } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
-import { getTimeRecords, getSolved, getScrapArticles, getArticleDetail, putArticleStatus } from '../apis/myApi.jsx';
+import { getTimeRecords, getSolved, getScrapArticles } from '../apis/myApi.jsx';
 import PageMovingButton from '../components/commons/buttons/PageMovingButtons.jsx';
 import BodyContainer from '../components/commons/containers/BodyContainer.jsx';
 import TranslucentContainer from '../components/commons/containers/TranslucentContainer.jsx';
