@@ -138,7 +138,7 @@ export const HeartQueen = () => {
   }, []);
   return (
     <RigidBody name="heartQueen">
-      <primitive object={heartQueen.scene} scale={0.2} position={[3, 1.01, 6]} />
+      <primitive object={heartQueen.scene} scale={0.2} position={[3, 1.02, 6]} />
     </RigidBody>
   );
 };
