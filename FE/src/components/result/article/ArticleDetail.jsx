@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { putArticleStatus } from '@apis/myApi';
 import { format } from 'date-fns';
 import AfterScrap from '../../../assets/scrap/afterScrap.png';
-import BeforeScrap from '../../../assets/scrap/beforeScap.png';
+import BeforeScrap from '../../../assets/scrap/beforeScrap.png';
 import { usePreLoginPathStore, usePreLoginStateStore } from '../../../stores/ui/preLoginStore.jsx';
 import useScrapStore from '../../../stores/ui/scrapStore.jsx';
 import ImageComponent from '../../commons/ImageComponent.jsx';
@@ -76,7 +76,11 @@ const ArticleDetail = ({ quizNumber, currentStep, article }) => {
             </div>
             {/* 스크랩 버튼 */}
             <button onClick={handleScrap} className="m-4 focus:outline-none">
-              <img className="object-contain h-10" src={isScraped ? AfterScrap : BeforeScrap} alt="Scrap Button" />
+              <img
+                className="object-contain h-10 transition-opacity duration-300"
+                src={isScraped ? AfterScrap : BeforeScrap}
+                alt="Scrap Button"
+              />
             </button>
           </div>
         </div>
