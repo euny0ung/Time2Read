@@ -6,8 +6,7 @@ import org.ssafy.bibibig.member.domain.BadgeEntity;
 import java.util.List;
 import java.util.Optional;
 
-public interface BadgesRepository extends JpaRepository<BadgeEntity,Long> {
+public interface BadgesRepository extends JpaRepository<BadgeEntity, Long> {
     List<BadgeEntity> findByMemberId(Long memberId);
-
-    Optional<BadgeEntity> findByMemberIdAndYear(Long memberId, int yaer);
+    Optional<BadgeEntity> findByMemberIdAndYear(Long memberId, int year);
 }

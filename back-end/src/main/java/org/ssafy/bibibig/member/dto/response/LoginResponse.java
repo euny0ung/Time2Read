@@ -10,9 +10,9 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class LoginResponse {
-    private String name;
-
-    public static LoginResponse of(String name){
-        return new LoginResponse(name);
+    private String email;
+    private Long memberId;
+    public static LoginResponse of(String email, Long memberId) {
+        return new LoginResponse(email, memberId);
     }
 }
