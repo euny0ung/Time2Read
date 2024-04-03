@@ -74,7 +74,10 @@ const LandingPage = () => {
               <div>{animatedTitle}</div>
             </button>
             <button
-              onClick={(handleQuizApi, resetGame)}
+              onClick={() => {
+                handleQuizApi();
+                resetGame();
+              }}
               className="enter px-8 text-2xl py-2 mb-6 w-[30vw] shadow font-semibold text-white rounded-full bg-primary-teal hover:opacity-70 hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-primary-teal-3 focus:ring-offset-2 transition-transform duration-200 ease-in-out hover:scale-[102%]"
               onMouseEnter={() => setIsDropdownVisible(true)}
               onMouseLeave={() => setIsDropdownVisible(false)}
