@@ -28,14 +28,23 @@ const BadgeComponent = ({ year, successCount }) => {
     animation: 'hologram 3s infinite linear',
   };
 
+  const hologramBackgroundStyle = {
+    backgroundImage: `${hologramGradient}, linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5))`, // 투명도 추가
+    backgroundSize: '300% 300%',
+    animation: 'hologram 3s infinite linear',
+  };
+
   return (
     <div className="inline-block w-auto h-auto transition-transform duration-700 ease-in-out transform rounded-full shadow-xl hover:animate-spin360">
       <div
-        className="flex flex-col items-center justify-center h-full p-2 text-center rounded-full"
+        className="flex flex-col items-center justify-center h-full p-4 text-center rounded-full"
         style={hologramStyle}
       >
         {/* 내부 프레임 */}
-        <div className="flex flex-col items-center justify-center w-full h-full p-1 bg-white rounded-full ">
+        <div
+          className="flex flex-col items-center justify-center w-full h-full p-3 bg-white rounded-full"
+          style={hologramBackgroundStyle}
+        >
           {/* 뱃지 컨텐츠 */}
           <div className="text-center">
             <div className="font-bold text-black text-shadow">{year}</div>
