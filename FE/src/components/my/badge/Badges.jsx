@@ -20,11 +20,9 @@ const Badges = () => {
 
   return (
     <>
-      <div>
-        <div className="flex items-center justify-center gap-2">
-          {badges &&
-            badges.map((badge) => <BadgeComponent key={badge.year} year={badge.year} successCount={badge.count} />)}
-        </div>
+      <div className="flex items-center justify-center gap-2">
+        {badges &&
+          badges.map((badge) => <BadgeComponent key={badge.year} year={badge.year} successCount={badge.count} />)}
       </div>
     </>
   );
