@@ -91,7 +91,7 @@ const RadarChart = ({ solvedCount }) => {
     },
     stroke: {
       show: true,
-      width: 1,
+      width: 3,
       colors: ['#A4E3D6'],
     },
     markers: {
