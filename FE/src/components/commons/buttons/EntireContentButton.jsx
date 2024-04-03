@@ -42,7 +42,7 @@ const EntireContentButton = React.memo(({ title, clues, quizIndex, clueIndex }) 
       </button>
       {isEntireContent && (
         <div className="h-full pb-4">
-          <div className="h-full overflow-y-scroll">
+          <div className="h-full overflow-y-auto">
             <p className="p-3 m-1 text-xl font-bold rounded-lg bg-rose-100">{title}</p>
             <p className="p-3 m-1 text-lg rounded-lg bg-rose-50" style={{ lineHeight: '1.7' }}>
               {clues.description}
