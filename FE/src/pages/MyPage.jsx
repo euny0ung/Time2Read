@@ -75,7 +75,6 @@ const MyPage = () => {
     getTimeRecords()
       .then((data) => {
         setTimeresult(data);
-        console.log('TimeRecords Data:', data);
       })
       .catch((error) => {
         console.error('Error requesting badge:', error);
@@ -84,7 +83,6 @@ const MyPage = () => {
     getSolved()
       .then((data) => {
         setSolvedCount(data);
-        console.log('SolvedCount Data:', data);
       })
       .catch((error) => {
         console.error('Error requesting badge:', error);
@@ -98,16 +96,6 @@ const MyPage = () => {
       .catch((error) => {
         console.error('Error requesting badge:', error);
       });
-
-    // 스크랩한 기사 상세 보기
-    // getArticleDetail()
-    //   .then((data) => {
-    //     setArticleDetail(data);
-    //     console.log('Article Detail', data);
-    //   })
-    //   .catch((error) => {
-    //     console.error('Error requesting badge:', error);
-    //   });
   }, []);
 
   return (

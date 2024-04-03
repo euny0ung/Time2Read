@@ -18,11 +18,9 @@ export const getYearSummary = (year) => {
 // 과거와 연결된 기사
 export const postRelationArticles = (articleIds) => {
   const apiUrl = `${baseUrl}/result/related`;
-  console.log(articleIds);
   return axios
     .post(apiUrl, { id: articleIds })
     .then((response) => {
-      console.log('Response data:', response.data); // 데이터 로깅
       return response.data; // 데이터 반환
     })
     .catch((error) => {
@@ -41,7 +39,6 @@ export const postGameResult = (resultData) => {
       console.log('게임 결과 Post 성공');
     })
     .catch((error) => {
-      console.log('게임결과 post 실패');
       console.log('Error requesting data: ', error);
       throw error;
     });
