@@ -73,7 +73,7 @@ const QuizHeader = ({ quizIndex, questionText }) => (
 );
 
 const QuizQuestion = ({ questionSummary }) => (
-  <div className="w-full py-4 overflow-y-scroll text-lg h-2/3" style={{ lineHeight: '1.8' }}>
+  <div className="w-full py-4 overflow-y-auto text-lg h-2/3" style={{ lineHeight: '1.8' }}>
     {questionSummary}
   </div>
 );
@@ -87,7 +87,7 @@ const QuizAnswerInput = ({ Component, ...props }) => (
 const QuizHint = ({ children }) => <div className="flex items-center justify-center w-full h-full">{children}</div>;
 
 const OXHint = ({ title, clueDescription }) => (
-  <div className="h-full overflow-y-scroll red-scrollbar">
+  <div className="h-full overflow-y-auto red-scrollbar">
     <p className="p-3 m-1 text-xl font-bold rounded-lg bg-rose-100">{title}</p>
     <p className="p-3 m-1 text-lg rounded-lg bg-rose-50" style={{ lineHeight: '1.7' }}>
       {clueDescription}

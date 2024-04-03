@@ -52,7 +52,7 @@ const ArticleDetail = ({ quizNumber, currentStep, article, isScraped }) => {
   return (
     <>
       {openLoginInducementModal && <InducementModal onClose={() => setOpenLoginInducementModal(false)} />}
-      <div className="flex flex-col justify-center">
+      <div className="flex flex-col justify-center h-full">
         {/* 대분류, 중분류, 제목, 스크랩 버튼, 요약 */}
         <div className="flex flex-col items-start text-left">
           {/* 대분류, 중분류 */}
