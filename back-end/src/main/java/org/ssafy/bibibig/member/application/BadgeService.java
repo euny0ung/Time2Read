@@ -23,27 +23,29 @@ import java.util.List;
 public class BadgeService {
     private final BadgesRepository badgesRepository;
     private final MemberRepository memberRepository;
-    public List<BadgeResponse> getBadges(Long memberId){
+
+    public List<BadgeResponse> getBadges(Long memberId) {
         List<BadgeEntity> badgeEntities = badgesRepository.findByMemberId(memberId);
         List<BadgeResponse> badges = new ArrayList<>();
-        for(BadgeEntity row : badgeEntities){
+        for (BadgeEntity row : badgeEntities) {
             Badge badge = Badge.from(row);
-            badges.add(BadgeResponse.of(badge.getYear() ,badge.getCount()));
+            badges.add(BadgeResponse.of(badge.getYear(), badge.getCount()));
         }
         return badges;
     }
 
     @Transactional
-    public void saveBadge(Long memberId, int year){
+    public void saveBadge(Long memberId, int year) {
         try {
-            badgesRepository.findByMemberIdAndYear(memberId, year).ifPresentOrElse((badgeEntity) -> {
+            badgesRepository.findByMemberIdAndYear(memberId, year)
+                    .ifPresentOrElse((badgeEntity) -> {
                 badgesRepository.save(Badge.from(badgeEntity).toEntityCountUp());
             }, () -> {
                 MemberEntity memberEntity = memberRepository.findById(memberId)
                         .orElseThrow(() -> new CommonException(ErrorCode.USER_NOT_FOUND));
                 badgesRepository.save(Badge.toEnitiy(null, year, 1, null, Member.from(memberEntity)));
             });
-        }catch (Exception e){
+        } catch (Exception e) {
             log.error("Error occurred while saving badge for memberId: {} and year: {}", memberId, year, e);
             throw new CommonException(ErrorCode.INTERNAL_SERVER_ERROR);
         }

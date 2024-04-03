@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
 import { useGLTF } from '@react-three/drei';
+import { useLoader } from '@react-three/fiber';
 import { RigidBody } from '@react-three/rapier';
+import { SRGBColorSpace, TextureLoader, RepeatWrapping } from 'three';
 
 export const Cat = () => {
   const cat = useGLTF('cat/scene.glb');
@@ -138,7 +140,7 @@ export const HeartQueen = () => {
   }, []);
   return (
     <RigidBody name="heartQueen">
-      <primitive object={heartQueen.scene} scale={0.2} position={[3, 1.01, 6]} />
+      <primitive object={heartQueen.scene} scale={0.2} position={[3, 1.02, 6]} />
     </RigidBody>
   );
 };
@@ -185,25 +187,52 @@ export const Finish = () => {
   );
 };
 
-export const Start = ({ textures }) => {
+export const Start = () => {
+  const textures = useLoader(TextureLoader, 'maze/textures/grass-seamless-texture-tileable.webp');
+
+  useEffect(() => {
+    textures.repeat.set(1, 1);
+    textures.wrapS = RepeatWrapping; // 텍스처가 가로 방향으로 반복
+    textures.wrapT = RepeatWrapping; // 텍스처가 세로 방향으로 반복
+  }, [textures]);
+
+  textures.colorSpace = SRGBColorSpace;
   return (
     <>
       <RigidBody type="fixed">
         <mesh position={[-0.85, 1.51, -15]}>
-          <boxGeometry args={[1.3, 3, 0.2]} />
-          <meshStandardMaterial map={textures} />
+          <boxGeometry args={[2, 3, 0.2]} />
+          <meshBasicMaterial map={textures} />
         </mesh>
       </RigidBody>
       <RigidBody type="fixed">
         <mesh position={[-1.6, 1.51, -12.6]}>
           <boxGeometry args={[0.1, 3, 5]} />
-          <meshStandardMaterial map={textures} />
+          <meshBasicMaterial map={textures} />
         </mesh>
       </RigidBody>
       <RigidBody type="fixed">
-        <mesh position={[-0.1, 1.51, -12.6]}>
+        <mesh position={[0.11, 1.51, -12.6]}>
           <boxGeometry args={[0.1, 3, 5]} />
-          <meshStandardMaterial map={textures} />
+          <meshBasicMaterial map={textures} />
+        </mesh>
+      </RigidBody>
+      <RigidBody type="fixed">
+        <mesh position={[-0.85, 9.51, -15]}>
+          <boxGeometry args={[2, 13, 0.2]} />
+          <meshStandardMaterial color={0xff0000} transparent opacity={0} />
+        </mesh>
+      </RigidBody>
+      <RigidBody type="fixed">
+        <mesh position={[-1.6, 9.51, -12.6]}>
+          <boxGeometry args={[0.1, 13, 5]} />
+          <meshStandardMaterial color={0xff0000} transparent opacity={0} />
+        </mesh>
+      </RigidBody>
+      <RigidBody type="fixed">
+        <mesh position={[0.11, 9.51, -12.6]}>
+          <boxGeometry args={[0.1, 13, 5]} />
+          <meshStandardMaterial color={0xff0000} transparent opacity={0} />
         </mesh>
       </RigidBody>
     </>

@@ -20,7 +20,6 @@ public class ElasticsearchMemberRepository {
 
     public List<ArticleEntity> getAllArticles(List<String> id) {
         TermsQueryBuilder termsQuery = QueryBuilders.termsQuery("id", id);
-
         NativeSearchQuery searchQuery = new NativeSearchQueryBuilder()
                 .withQuery(termsQuery)
                 .build();

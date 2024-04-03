@@ -82,11 +82,11 @@ body {
 }
 
 .red-scrollbar::-webkit-scrollbar-thumb {
-  background: var(--scrollbar-thumb-color);
+  background: var(--red-scrollbar-thumb-color);
 }
 
 .red-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: var(--scrollbar-thumb-hover-color);
+  background: var(--red-scrollbar-thumb-hover-color);
 }
 
 .gray-scrollbar::-webkit-scrollbar-thumb {
@@ -98,11 +98,11 @@ body {
 }
 
 .teal-scrollbar::-webkit-scrollbar-thumb {
-  background: var(--dropdown-scrollbar-thumb-color);
+  background: var(--teal-scrollbar-thumb-color);
 }
 
 .teal-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: var(--dropdown-scrollbar-thumb-hover-color);
+  background: var( --teal-scrollbar-thumb-hover-color);
 }
 
 .scrollbar::-webkit-scrollbar-track,
@@ -204,17 +204,33 @@ body {
   
 }
 
-@keyframes hologram {
+/* 뱃지 홀로그램 */
+/* @keyframes hologram {
   0% {
     background-position: 0% 0%;
-    opacity: 0.5; /* 시작점에서는 약간의 투명도를 줌 */
   }
   50% {
     background-position: 100% 100%;
-    opacity: 1; /* 중간 지점에서는 투명도를 최대로 올림 */
   }
   100% {
     background-position: 0% 0%;
-    opacity: 0.5; /* 끝 지점에서는 다시 투명도를 줌 */
+  }
+} */
+
+@keyframes hologram {
+  0% {
+    background-position: 0% 50%;
+  }
+  25% {
+    background-position: 100% 50%;
+  }
+  50% {
+    background-position: 50% 100%;
+  }
+  75% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
