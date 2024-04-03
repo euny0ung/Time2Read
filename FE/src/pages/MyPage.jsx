@@ -71,16 +71,6 @@ const MyPage = () => {
     navigate('/');
   };
 
-  const initializeScrapStatus = (data) => {
-    console.log('기사 id 목록 초기화 함수 호출됨');
-
-    Object.entries(data).map(([mainCategory, articles]) => {
-      console.log('마이페이지 초기화 article 출력', articles);
-      console.log('마이페이지 초기화 article id 출력', articles.id);
-      return null;
-    });
-  };
-
   useEffect(() => {
     getTimeRecords()
       .then((data) => {
@@ -103,11 +93,7 @@ const MyPage = () => {
     // 스크랩한 기사 리스트 보기
     getScrapArticles()
       .then((data) => {
-        console.log('Scraped Articles', data);
-        console.log('Scraped Articles 바로 아래');
         setScrapedArticle(data);
-
-        initializeScrapStatus(data);
       })
       .catch((error) => {
         console.error('Error requesting badge:', error);
