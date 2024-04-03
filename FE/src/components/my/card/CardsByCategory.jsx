@@ -30,7 +30,7 @@ const CardsByCategory = ({ category, articles }) => {
     }));
     setUpdatedArticles(updated);
 
-    console.log('updated article', updated);
+    console.log('카드바이카테고리 updated article', updated);
   }, [scrapStatus, articles]);
 
   // 모달 열고 닫기
