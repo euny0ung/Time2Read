@@ -64,7 +64,7 @@ export const getScrapArticles = () => {
         .flat()
         .map((article) => article.id);
 
-      console.log('myApi 스크랩 기사 id들 타입', typeof ids);
+      console.log('myApi 스크랩 기사 id들 배열인가요', Array.isArray(ids));
       useScrapStore.getState().initializeScrapStatus(ids);
 
       return response.data.result.data;
