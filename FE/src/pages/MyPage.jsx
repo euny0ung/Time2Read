@@ -131,10 +131,10 @@ const MyPage = () => {
                     new! {formatTime(600 - gameResult.timeAttackTime)}
                     {timeresult &&
                       timeresult.map((record, i) => (
-                        <div key={record.playDate} className="flex justify-between">
-                          <div>{`기록 ${i + 1}:`}</div>
+                        <div key={record.playDate} className="flex items-center justify-between mb-4 space-x-4">
+                          <div className="text-bold">{`기록 ${i + 1}:`}</div>
                           <div>{formatTime(600 - record.timeAttackTime)}</div>
-                          <div>{format(new Date(record.playDate), 'yyyy-MM-dd HH:mm')}</div>
+                          <div className="text-gray-500">{format(new Date(record.playDate), 'yyyy-MM-dd HH:mm')}</div>
                         </div>
                       ))}
                   </ResultContent>

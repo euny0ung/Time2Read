@@ -179,11 +179,13 @@ const ResultPage = () => {
                 <WhiteContainerHoverEffect>
                   <ResultTitle title={'맞은 개수 통계'} />
                   <ResultContent>
-                    <div className="flex items-center w-full justify-evenly">
-                      총 문제 수 {gameResult.correct + gameResult.incorrect} 개
+                    <div className="flex flex-col justify-center">
+                      <div className="flex items-center w-full justify-evenly">
+                        총 문제 수 {gameResult.correct + gameResult.incorrect} 개
+                      </div>
+                      <div>맞은 개수 {gameResult.correct} 개</div>
+                      <div>틀린 개수 {gameResult.incorrect} 개</div>
                     </div>
-                    <div>맞은 개수 {gameResult.correct} 개</div>
-                    <div>틀린 개수 {gameResult.incorrect} 개</div>
                   </ResultContent>
                 </WhiteContainerHoverEffect>
 
