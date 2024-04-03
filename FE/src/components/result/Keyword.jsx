@@ -17,15 +17,6 @@ const Keyword = ({ data, width, height }) => {
       spiral="rectangular"
       random={Math.random}
       fill={(d) => color(d.value / Math.max(...data.map((word) => word.value)))}
-      // onWordClick={(event, d) => {
-      //   console.log(`onWordClick: ${d.text}`);
-      // }}
-      // onWordMouseOver={(event, d) => {
-      //   console.log(`onWordMouseOver: ${d.text}`);
-      // }}
-      // onWordMouseOut={(event, d) => {
-      //   console.log(`onWordMouseOut: ${d.text}`);
-      // }}
     />
   );
 };

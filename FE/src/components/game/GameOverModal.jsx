@@ -11,8 +11,6 @@ const GameOverModal = () => {
     navigate('/result');
   };
 
-  console.log('isSucceed : ', isSucceed);
-
   const showSuccessOrFail = () => {
     if (isSucceed) {
       return <GameSuccess />;

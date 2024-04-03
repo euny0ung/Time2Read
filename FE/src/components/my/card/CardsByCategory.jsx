@@ -6,9 +6,6 @@ import ArticleDetail from '../../result/article/ArticleDetail.jsx';
 
 // 기사 디테일 모달
 const CardDetailModal = ({ article, onClose }) => {
-  const { scrapStatus, toggleScrap } = useScrapStore();
-  console.log('카드바이카테고리 scrapStatus', scrapStatus, 'article id', article.id);
-
   return (
     <>
       <BaseModal onClose={onClose} animationType="slide">
@@ -23,6 +20,7 @@ const CardDetailModal = ({ article, onClose }) => {
 // 특정 카테고리만 보여주는 컴포넌트
 const CardsByCategory = ({ category, articles }) => {
   const [activeIndex, setActiveIndex] = useState(null); // 현재 활성화된 카드의 인덱스
+  const { scrapStatus } = useScrapStore();
 
   // 모달 열고 닫기
   const openActiveIndex = (i) => {
