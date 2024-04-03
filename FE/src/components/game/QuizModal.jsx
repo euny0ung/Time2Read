@@ -129,7 +129,7 @@ const QuizModal = React.memo(
               </WhiteContainer>
               {/* 힌트 */}
               <div className="flex flex-col w-3/5 h-full gap-4">
-                <div className="h-full max-h-[80%]">
+                <div className="h-full max-h-[70%]">
                   <WhiteContainer>
                     <QuizHint>
                       {type === 'OX' ? (
@@ -145,7 +145,7 @@ const QuizModal = React.memo(
                     </QuizHint>
                   </WhiteContainer>
                 </div>
-                <div className="h-full max-h-[20%]">
+                <div className="h-[30%]">
                   <WhiteContainer>
                     {quizTypeConfig.hintTwoHeight !== 0 && (
                       <QuizHint height={quizTypeConfig.hintTwoHeight}>
