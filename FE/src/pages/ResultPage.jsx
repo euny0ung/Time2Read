@@ -38,8 +38,6 @@ import { useScrollPositionStore } from '../stores/ui/scrollStore.jsx';
 const ResultPage = () => {
   const navigate = useNavigate();
 
-  console.log('resultPAge 입장');
-
   const { gameResult } = useGameResultStore(); // 게임 결과 : 정답 수, 오답 수, 타임 어택 시간
   const [keywordData, setKeywordData] = useState([]);
 
@@ -67,8 +65,6 @@ const ResultPage = () => {
     timeAttackTime: gameResult.timeAttackTime,
     solvedCategory: hitsCategory,
   };
-
-  console.log('resultData: ', resultData);
 
   const resetGame = () => {
     useGameModalStore.getState().reset();
@@ -143,11 +139,6 @@ const ResultPage = () => {
     // 페이지 로딩 시 스크롤 위치 복원
     if (scrollPosition) {
       window.scrollTo(0, scrollPosition);
-    }
-
-    // 페이지 로딩 시 열린 퀴즈 상태 복원
-    if (openedQuiz) {
-      console.log(`Quiz Number: ${openedQuiz.quizNumber}, Article Index: ${openedQuiz.articleIndex}`);
     }
 
     // 리사이즈 이벤트 리스너 등록 및 제거

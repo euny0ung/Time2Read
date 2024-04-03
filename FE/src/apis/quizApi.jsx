@@ -28,7 +28,7 @@ export const useQuizApiHandler = (selected) => {
   return handleQuizApi;
 };
 
-// 첫번째 문제 모달창이 뜨면 두번째 API 렌더링
+// 스타트 모달 버튼 누를 때 호출
 export const useSecondQuizApi = (selected) => {
   const { quizzes, setQuiz } = useQuizStore.getState();
 
