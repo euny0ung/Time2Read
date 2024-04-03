@@ -33,23 +33,21 @@ export const useSecondQuizApi = (selected) => {
   const { quizzes, setQuiz } = useQuizStore.getState();
 
   const handleSecondQuizApi = () => {
-    useEffect(() => {
-      if (quizzes.length < 9) {
-        console.log('두번째 API 호출..');
-        axios
-          .get(`${import.meta.env.VITE_BASE_API}/game/${selected}/second`)
-          .then((response) => {
-            const updatedQuizzes = [...quizzes, ...response.data.result];
-            setQuiz(updatedQuizzes);
-          })
-          .catch((error) => {
-            if (error.response.status === 500) {
-              console.log('500에러로 인한 재호출');
-              handleSecondQuizApi();
-            }
-          });
-      }
-    }, [quizzes, setQuiz]);
+    if (quizzes.length < 9) {
+      console.log('두번째 API 호출..');
+      axios
+        .get(`${import.meta.env.VITE_BASE_API}/game/${selected}/second`)
+        .then((response) => {
+          const updatedQuizzes = [...quizzes, ...response.data.result];
+          setQuiz(updatedQuizzes);
+        })
+        .catch((error) => {
+          if (error.response.status === 500) {
+            console.log('500에러로 인한 재호출');
+            handleSecondQuizApi();
+          }
+        });
+    }
   };
 
   return handleSecondQuizApi;
