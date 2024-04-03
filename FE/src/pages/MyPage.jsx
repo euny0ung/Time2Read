@@ -94,7 +94,6 @@ const MyPage = () => {
     getScrapArticles()
       .then((data) => {
         setScrapedArticle(data);
-        console.log('Scraped Articles', data);
       })
       .catch((error) => {
         console.error('Error requesting badge:', error);
