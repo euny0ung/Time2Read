@@ -37,7 +37,7 @@ const Timer = ({ openModal }) => {
 
   return (
     <>
-      <div className="absolute top-[3%] left-[2%] bg-gray-500 text-white font-bold py-2 px-4 rounded hover:bg-gray-700 focus:outline-none focus:shadow-outline">
+      <div className="absolute top-[1rem] left-[1rem] bg-black text-white text-xl font-bold bg-opacity-75 py-3 px-5 rounded-xl focus:outline-none focus:shadow-outline">
         남은 시간 : {formatTime(gameResult.timeAttackTime)}
       </div>
     </>
