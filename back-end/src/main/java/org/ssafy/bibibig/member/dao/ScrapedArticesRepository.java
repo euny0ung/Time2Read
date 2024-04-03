@@ -6,7 +6,7 @@ import org.ssafy.bibibig.member.domain.ScrapedArticleEntity;
 import java.util.List;
 import java.util.Optional;
 
-public interface ScrapedArticesRepository extends JpaRepository<ScrapedArticleEntity,Long> {
+public interface ScrapedArticesRepository extends JpaRepository<ScrapedArticleEntity, Long> {
     Optional<ScrapedArticleEntity> findByMemberIdAndArticleId(Long memberId, String articleId);
 
     List<ScrapedArticleEntity> findByMemberId(Long memberId);

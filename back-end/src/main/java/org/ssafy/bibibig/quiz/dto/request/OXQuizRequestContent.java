@@ -11,7 +11,7 @@ public record OXQuizRequestContent(
             String article2,
             String article3,
             String article4
-    ){
-        return new OXQuizRequestContent(article1,article2,article3,article4);
+    ) {
+        return new OXQuizRequestContent(article1, article2, article3, article4);
     }
 }

@@ -122,7 +122,7 @@ const MazeModel = () => {
       <Finish />
       <Clues cluePositions={randomCluePositions} />
       <Lifes lifePositions={randomLifePositions} />
-      <Start textures={textures} />
+      <Start />
     </>
   );
 };

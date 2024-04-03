@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="solved_categories")
+@Table(name = "solved_categories")
 public class SolvedCategoriesEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,10 +37,11 @@ public class SolvedCategoriesEntity {
         createdAt = LocalDateTime.now();
     }
 
-    public static SolvedCategoriesEntity of(){
+    public static SolvedCategoriesEntity of() {
         return new SolvedCategoriesEntity();
     }
-    public static SolvedCategoriesEntity of(Long id, int politic, int economy, int society, int culture, int sports, int international, LocalDateTime createdAt){
+
+    public static SolvedCategoriesEntity of(Long id, int politic, int economy, int society, int culture, int sports, int international, LocalDateTime createdAt) {
         return new SolvedCategoriesEntity(id, politic, economy, society, culture, sports, international, createdAt);
     }
 }

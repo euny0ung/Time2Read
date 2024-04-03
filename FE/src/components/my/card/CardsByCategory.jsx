@@ -9,8 +9,8 @@ const CardDetailModal = ({ article, onClose, isScraped }) => {
   return (
     <>
       <BaseModal onClose={onClose} animationType="slide">
-        <div className="max-h-[80vh] max-w-[40vw]">
-          <ArticleDetail article={article} isScraped={isScraped} />
+        <div className="h-[80vh] w-[40vw]">
+          <ArticleDetail article={article} />
         </div>
       </BaseModal>
     </>

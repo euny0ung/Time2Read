@@ -17,9 +17,9 @@ public enum CategoryType {
 
     private final String name;
 
-    public static CategoryType findByName(String korean){
+    public static CategoryType findByName(String category) {
         return Arrays.stream(CategoryType.values())
-                .filter(type -> type.getName().equals(korean))
+                .filter(type -> type.getName().equals(category))
                 .findAny()
                 .orElseThrow(() -> new IllegalArgumentException("알맞은 대분류를 찾을 수 없습니다."));
     }

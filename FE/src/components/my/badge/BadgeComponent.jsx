@@ -1,10 +1,4 @@
 const BadgeComponent = ({ year, successCount }) => {
-  // const medalBorderColors = {
-  //   gold: 'border-yellow-500',
-  //   silver: 'border-gray-300',
-  //   bronze: 'border-orange-500',
-  // };
-
   const medalHologramGradients = {
     gold: 'linear-gradient(45deg, #ffd700, #c65102, #fefd48, #c65102, #ffd700)',
     silver: 'linear-gradient(45deg, #c0c0c0, #595959,#e0e0e0, #595959, #c0c0c0)',

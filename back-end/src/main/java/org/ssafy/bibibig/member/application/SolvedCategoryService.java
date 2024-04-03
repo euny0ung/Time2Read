@@ -20,12 +20,11 @@ public class SolvedCategoryService {
     private final MemberRepository memberRepository;
     private final SolvedCategoryRepository solvedCategoryRepository;
 
-    public SolvedCategory getSolvedCategory(Long memberId){
+    public SolvedCategory getSolvedCategory(Long memberId) {
         System.out.println(memberId);
         MemberEntity memberEntity = memberRepository.findById(memberId)
                 .orElseThrow(() -> new CommonException(ErrorCode.USER_NOT_FOUND));
         return SolvedCategory.from(memberEntity.getSolvedCategoriesEntity());
-
     }
 
     @Transactional
@@ -41,10 +40,9 @@ public class SolvedCategoryService {
                     solvedCategoryRequest.getSports(),
                     solvedCategoryRequest.getInternational()
             ));
-        }catch(Exception e){
+        } catch (Exception e) {
             log.error("Error occurred while saving solvedCategory for memberId: {} and solvedCategory: {}", memberId, solvedCategoryRequest, e);
             throw new CommonException(ErrorCode.INTERNAL_SERVER_ERROR);
         }
-
     }
 }
