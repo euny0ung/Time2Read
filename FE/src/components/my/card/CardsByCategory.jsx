@@ -2,9 +2,13 @@ import { useState, useEffect } from 'react';
 import Card from './Card.jsx';
 import BaseModal from '../../commons/modals/BaseModal.jsx';
 import ArticleDetail from '../../result/article/ArticleDetail.jsx';
+import useScrapStore from '../../../stores/ui/scrapStore.jsx';
 
 // 기사 디테일 모달
 const CardDetailModal = ({ article, onClose }) => {
+  const { scrapStatus, toggleScrap } = useScrapStore();
+  console.log('카드바이카테고리 scrapStatus', scrapStatus, 'article id', article.id);
+
   return (
     <>
       <BaseModal onClose={onClose} animationType="slide">
