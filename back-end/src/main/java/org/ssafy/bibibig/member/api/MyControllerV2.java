@@ -59,11 +59,18 @@ public class MyControllerV2 {
     @GetMapping("/badges/{id}")
     public Response<List<BadgeResponse>> getBadges(@PathVariable(name = "id") Long memberId) {
 //        Long memberId = SessionInfo.getSessionMemberId(request);
-        return Response.success(badgeService.getBadges(memberId));
+        return Response.success(
+                badgeService.getBadges(memberId)
+                        .stream()
+                        .map(badge ->
+                                BadgeResponse.of(badge.getYear(), badge.getCount())
+                        )
+                        .toList()
+        );
     }
 
     @GetMapping("/records/{id}")
-    public Response<List<TimeAttackResponse>> getRecords(HttpServletRequest request,@PathVariable(name = "id") Long memberId) {
+    public Response<List<TimeAttackResponse>> getRecords(HttpServletRequest request, @PathVariable(name = "id") Long memberId) {
 //        Long memberId = SessionInfo.getSessionMemberId(request);
         return Response.success(timeAttackRecordService.getRecords(memberId));
 
