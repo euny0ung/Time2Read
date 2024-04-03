@@ -128,15 +128,20 @@ const MyPage = () => {
                 <WhiteContainerHoverEffect>
                   <ResultTitle title={'타임어택 기록'} />
                   <ResultContent>
-                    <div className="w-full px-4 py-2 mb-2 rounded opacity-50 text-bold bg-gradient-to-br from-primary-yellow to-primary-teal-1">
-                      <span className="text-teal-600">new!</span> {formatTime(600 - gameResult.timeAttackTime)}
+                    <div className="w-full px-4 py-2 mb-2 font-bold rounded-full text-bold bg-gradient-to-br from-primary-yellow to-primary-teal-1">
+                      <span className="text-teal-600">NEW!</span> {formatTime(600 - gameResult.timeAttackTime)}
                     </div>
                     {timeresult &&
                       timeresult.slice(0, 5).map((record, i) => (
-                        <div key={record.playDate} className="flex items-center justify-between mb-4 space-x-4">
-                          <div className="text-bold">{`기록 ${i + 1}:`}</div>
-                          <div>{formatTime(600 - record.timeAttackTime)}</div>
-                          <div className="text-gray-500">{format(new Date(record.playDate), 'yyyy-MM-dd HH:mm')}</div>
+                        <div
+                          key={record.playDate}
+                          className="flex items-center justify-between w-full px-4 mb-4 space-x-4"
+                        >
+                          <div className="w-1/5 font-bold">{`기록 ${i + 1}:`}</div>
+                          <div className="w-3/5 font-bold">{formatTime(600 - record.timeAttackTime)}</div>
+                          <div className="w-1/5 text-xs text-gray-500">
+                            {format(new Date(record.playDate), 'yyyy-MM-dd HH:mm')}
+                          </div>
                         </div>
                       ))}
                   </ResultContent>
