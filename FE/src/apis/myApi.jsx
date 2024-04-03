@@ -1,3 +1,4 @@
+import useScrapStore from '@stores/ui/scrapStore.jsx';
 import axios from 'axios';
 
 const baseUrl = import.meta.env.VITE_BASE_API;
@@ -63,7 +64,8 @@ export const getScrapArticles = () => {
         .flat()
         .map((article) => article.id);
 
-      console.log('myApi 스크랩 기사 id들', ids);
+      console.log('myApi 스크랩 기사 id들 타입', typeof ids);
+      useScrapStore.getState().initializeScrapStatus(ids);
 
       return response.data.result.data;
     })

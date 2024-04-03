@@ -18,6 +18,16 @@ const useScrapStore = create(
             },
           })),
         resetScrapStatus: () => set({ scrapStatus: {} }),
+        initializeScrapStatus: (articleIds) =>
+          set({
+            scrapStatus: articleIds.reduce(
+              (acc, id) => ({
+                ...acc,
+                [id]: true, // 모든 ID에 대해 true로 초기화
+              }),
+              {},
+            ),
+          }),
       }),
       { name: 'useScrapStore', storage: createJSONStorage(() => sessionStorage) },
     ),
