@@ -26,7 +26,7 @@ const CardsByCategory = ({ category, articles }) => {
   useEffect(() => {
     const updated = articles.map((article) => ({
       ...article,
-      isScraped: scrapStatus[article.id] || false,
+      isScraped: !scrapStatus[article.id] && true,
     }));
     setUpdatedArticles(updated);
 
