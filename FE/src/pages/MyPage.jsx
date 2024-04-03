@@ -128,9 +128,11 @@ const MyPage = () => {
                 <WhiteContainerHoverEffect>
                   <ResultTitle title={'타임어택 기록'} />
                   <ResultContent>
-                    new! {formatTime(600 - gameResult.timeAttackTime)}
+                    <div className="w-full px-4 py-2 mb-2 rounded opacity-50 text-bold bg-gradient-to-br from-primary-yellow to-primary-teal-1">
+                      <span className="text-teal-600">new!</span> {formatTime(600 - gameResult.timeAttackTime)}
+                    </div>
                     {timeresult &&
-                      timeresult.map((record, i) => (
+                      timeresult.slice(0, 5).map((record, i) => (
                         <div key={record.playDate} className="flex items-center justify-between mb-4 space-x-4">
                           <div className="text-bold">{`기록 ${i + 1}:`}</div>
                           <div>{formatTime(600 - record.timeAttackTime)}</div>
