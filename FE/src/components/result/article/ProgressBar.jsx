@@ -52,7 +52,7 @@ const ProgressBar = ({ relatedArticles, currentStep, goToStep, setIsToggleOn, ti
             >
               <button
                 key={article.id}
-                className="absolute top-0.5 z-10 flex items-center justify-center transform -translate-y-1/2 w-4 h-4 rounded-full"
+                className="absolute top-0.5 flex items-center justify-center transform -translate-y-1/2 w-4 h-4 rounded-full"
                 style={{
                   left: `calc(${(i / (relatedArticles.length - 1)) * 100}% - 0.5rem)`,
                   backgroundColor: circleColor,
@@ -77,7 +77,6 @@ const ProgressBar = ({ relatedArticles, currentStep, goToStep, setIsToggleOn, ti
             >
               <button
                 key={article.id}
-                text-primary-indigo-4
                 className={`truncate cursor-pointer flex-grow flex-shrink text-lg font-bold ${i === currentStep ? 'text-primary-indigo-4' : 'text-white'}`}
                 style={{ maxWidth: titleMaxWidth }}
                 onClick={() => {

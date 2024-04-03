@@ -27,7 +27,7 @@ const GameOverModal = () => {
         {/* <GameSuccess /> */}
         <button
           onClick={moveToResult}
-          className="absolute top-3/4 left-1/2 mt-[4rem] bg-white hover:bg-gray-700 text-gray-700 font-bold py-3 px-7 rounded focus:outline-none focus:shadow-outline transform -translate-x-1/2 -translate-y-1/2 mb-5rem"
+          className="absolute top-3/4 px-10 text-2xl py-2 mb-6 shadow font-semibold text-white rounded-full bg-primary-teal hover:bg-primary-teal-3 hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-primary-teal-3 focus:ring-offset-2 transition-transform duration-200 ease-in-out"
         >
           결과 페이지로 이동하기
         </button>

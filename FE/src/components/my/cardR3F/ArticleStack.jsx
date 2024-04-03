@@ -1,4 +1,4 @@
-import { useState, useMemo, useRef } from 'react';
+import { useState, useMemo } from 'react';
 import { Canvas } from '@react-three/fiber';
 import ArticleCard from './ArticleCard.jsx';
 

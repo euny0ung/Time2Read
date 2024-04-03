@@ -7,11 +7,12 @@ import QuizModal from '@components/game/QuizModal.jsx';
 import { PointerLockControls, OrbitControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { Physics } from '@react-three/rapier';
+import { useGameModalStore } from '@stores/game/gameStore.jsx';
 import { useAnswerCheckStore } from '@stores/game/quizStore';
 import GameOverModal from '../components/game/GameOverModal.jsx';
-import Items from '../components/game/Items.jsx';
+import ItemsOverlay from '../components/game/ItemsOverlay.jsx';
+import StartModal from '../components/game/StartModal.jsx';
 import Timer from '../components/game/Timer.jsx';
-import { useGameModalStore } from '../stores/game/gameStore.jsx';
 
 const GamePage = () => {
   const [isPlayerMode, setIsPlayerMode] = useState(true); // 1인칭, 3인칭 모드 전환. 테스트할 때 편하라고 만듦
@@ -21,19 +22,29 @@ const GamePage = () => {
   const quizIndex = useAnswerCheckStore((state) => state.quizIndex);
   const openGameOverModal = useGameModalStore((state) => state.openGameOverModal);
   const [isPointerLockEnabled, setIsPointerLockEnabled] = useState(true);
+  const [openModal, setOpenModal] = useState(false);
 
   useEffect(() => {
     setIsPointerLockEnabled(!openQuizModal);
   }, [openQuizModal]);
+
+  useEffect(() => {
+    setIsPointerLockEnabled(!openGameOverModal);
+  }, [openGameOverModal]);
+
+  // 들어오자마자 openModal을 true로 하여 StartModal을 활성화시킨다.
+  useEffect(() => {
+    setOpenModal(true);
+  }, []);
+
+  console.log('openModal : ', openModal);
 
   return (
     <>
       <div className="w-screen h-screen overflow-hidden">
         <Canvas camera={{ position: [0, 10, 0] }}>
           {/* 환경 설정 */}
-          <PointerLockControls pointerSpeed={0.3} enabled={isPointerLockEnabled} />
-          {/* {isPlayerMode ? <PointerLockControls enabled={!openQuizModal} /> : <OrbitControls />} */}
-          {/* <ambientLight intensity={0.5} /> */}
+          {isPointerLockEnabled && <PointerLockControls pointerSpeed={0.3} enabled={!openQuizModal} />}
           <ambientLight intensity={1} />
           <pointLight position={[10, 10, 10]} />
           <gridHelper args={[50, 100]} />
@@ -48,16 +59,11 @@ const GamePage = () => {
         </Canvas>
         {/* 정보 표시 */}
         {/* <Overlay /> */}
-        <Items />
-        <Timer />
+        <ItemsOverlay />
+        <Timer openModal={openModal} />
+        {openModal && <StartModal onClose={() => setOpenModal(false)} />}
         {openQuizModal && <QuizModal quizIndex={quizIndex} />}
         {openGameOverModal && <GameOverModal />}
-        {/* <button
-          className="absolute top-2.5 left-2.5 bg-gray-500 text-white font-bold py-2 px-4 rounded hover:bg-gray-700 focus:outline-none focus:shadow-outline"
-          onClick={() => setIsPlayerMode(!isPlayerMode)}
-        >
-          {isPlayerMode ? '3인칭 모드로 전환' : '1인칭 모드로 전환'}
-        </button> */}
 
         {resultState !== '' && openAnswerResult && <AnswerCheckModal />}
       </div>

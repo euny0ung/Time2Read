@@ -19,11 +19,29 @@ const ClueContent = React.memo(({ clues, quizIndex, clueIndex }) => {
   };
 
   return (
-    <div>
-      <button onClick={handleClick} disabled={clueCount === 0 && !cluesClicked[`${quizIndex}-${clueIndex}`]}>
-        {isFirstLetter ? '두번째 힌트 닫기' : '두번째 힌트 보기'}
+    <div className="w-full h-full">
+      <button
+        className="inline-flex text-primary-red-3"
+        onClick={handleClick}
+        disabled={clueCount === 0 && !cluesClicked[`${quizIndex}-${clueIndex}`]}
+      >
+        <span>{isFirstLetter ? '초성 힌트 닫기' : '초성 힌트 보기'}</span>
+        {/* 화살표 */}
+        <svg
+          className={`w-5 h-5 ml-1 transform transition-transform duration-100 ${isFirstLetter ? 'rotate-180' : 'rotate-0'}`}
+          viewBox="0 0 20 20"
+          fill="#FF7465"
+        >
+          <path
+            fillRule="evenodd"
+            d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+            clipRule="evenodd"
+          />
+        </svg>
       </button>
-      {isFirstLetter && <div>{clues.description}</div>}
+      {isFirstLetter && (
+        <div className="flex items-center justify-center w-full h-full pb-8 text-5xl">{clues.description}</div>
+      )}
     </div>
   );
 });

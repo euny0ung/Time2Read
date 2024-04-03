@@ -1,3 +1,4 @@
+import useScrapStore from '@stores/ui/scrapStore.jsx';
 import axios from 'axios';
 
 const baseUrl = import.meta.env.VITE_BASE_API;
@@ -8,7 +9,10 @@ export const getTimeRecords = () => {
 
   return axios
     .get(apiUrl)
-    .then((response) => response.data)
+    .then((response) => {
+      console.log(response);
+      return response.data.result;
+    })
     .catch((error) => {
       console.error('Error requesting data:', error);
       throw error;
@@ -21,7 +25,8 @@ export const getSolved = () => {
 
   return axios
     .get(apiUrl)
-    .then((response) => response.data)
+    .then((response) => response.data.result)
+
     .catch((error) => {
       console.error('Error requesting data:', error);
       throw error;
@@ -34,7 +39,10 @@ export const getBadge = () => {
 
   return axios
     .get(apiUrl)
-    .then((response) => response.data)
+    .then((response) => {
+      console.log('내가 푼 연도 뱃지 response', response);
+      return response.data.result;
+    })
     .catch((error) => {
       console.error('Error requesting data:', error);
       throw error;
@@ -47,9 +55,20 @@ export const getScrapArticles = () => {
 
   return axios
     .get(apiUrl)
-    .then((response) => response.data)
+    .then((response) => {
+      console.log('스크랩한 기사 리스트 response', response);
+
+      const articles = response.data.result.data;
+
+      const ids = Object.values(articles)
+        .flat()
+        .map((article) => article.id);
+
+      useScrapStore.getState().initializeScrapStatus(ids);
+
+      return response.data.result.data;
+    })
     .catch((error) => {
-      console.error('Error requesting data:', error);
       throw error;
     });
 };
@@ -60,7 +79,7 @@ export const getArticleDetail = (articleId) => {
 
   return axios
     .get(apiUrl)
-    .then((response) => response.data)
+    .then((response) => response.data.result)
     .catch((error) => {
       console.error('Error requesting data:', error);
       throw error;
@@ -73,7 +92,7 @@ export const putArticleStatus = (articleId, status) => {
 
   return axios
     .put(apiUrl)
-    .then((response) => response.data)
+    .then((response) => response.data.result)
     .catch((error) => {
       console.error('Error requesting data:', error);
       throw error;

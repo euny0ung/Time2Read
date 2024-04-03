@@ -1,5 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import kakaoLoginButton from '../../assets/kakao/complete/kakao_login_medium_narrow.png';
+import kakaoLoginButton from '../../assets/kakao/simple/kakao_login_medium.png';
+import myPageIcon from '../../assets/myPageIcon.png';
 
 const kakaoLoginLink = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${import.meta.env.VITE_KAKAO_API}&redirect_uri=${import.meta.env.VITE_KAKAO_REDIRECT_URI}&response_type=code&prompt=login`;
 
@@ -21,10 +22,13 @@ const KakaoLogin = () => {
     <div>
       {email ? (
         <button
-          className="px-4 py-2 text-primary-red font-bold bg-primary-red-0 rounded transition-transform duration-200 ease-in-out shadow cursor-pointer hover:opacity-70 hover:scale-[102%]"
+          className="px-3 py-2 text-primary-red-3 font-bold bg-primary-red-0 rounded transition-transform duration-200 ease-in-out shadow cursor-pointer hover:opacity-70 hover:scale-[102%]"
           onClick={onMyPage}
         >
-          마이페이지
+          <div className="flex flex-row">
+            <img className="w-[15px] mx-1 object-contain" src={myPageIcon} alt="마이페이지" />
+            <span>마이페이지</span>
+          </div>
         </button>
       ) : (
         <button onClick={onKakaoLogin}>

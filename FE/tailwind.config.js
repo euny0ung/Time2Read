@@ -103,7 +103,7 @@ export default {
       },
       animation: {
         wiggle: 'wiggle 1s ease-in-out infinite',
-        hologram: 'hologram 3s infinite linear',
+        hologram: 'hologram 5s infinite linear',
         spin360: 'spin360 1s ease-in-out forwards',
       },
       keyframes: {
@@ -113,7 +113,9 @@ export default {
         },
         hologram: {
           '0%, 100%': { backgroundPosition: '0% 50%' },
-          '50%': { backgroundPosition: '100% 50%' },
+          '25%': { backgroundPosition: '100% 50%' }, // 오른쪽으로 이동
+          '50%': { backgroundPosition: '50% 100%' }, // 아래쪽으로 이동
+          '75%': { backgroundPosition: '0% 50%' }, // 왼쪽으로 이동
         },
         spin360: {
           from: { transform: 'rotateY(0deg)' },

@@ -1,39 +1,27 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { RigidBody } from '@react-three/rapier';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
-const Clues = () => {
+const Clues = (cluePositions) => {
   const [clueList, setClueList] = useState([]);
+  const gltfRef = useRef(null);
   const loader = new GLTFLoader();
-  const cluePositions = [
-    [-9.3, 0.3, -7.5],
-    [4.2, 0.3, -7.5],
-    [1, 0.3, -1],
-    [6.2, 0.3, -3],
-    [-2.7, 0.3, 2],
-    [-4.6, 0.3, 1],
-    [-7.5, 0.3, 2.6],
-    [-9, 0.3, 9],
-    [9.3, 0.3, 9.3],
-    [6, 0.3, 7.8],
-  ];
-  const [randomCluePositions, setRandomCluePositions] = useState([]);
+
+  const dracoLoader = new DRACOLoader(); // DRACOLoader 인스턴스 생성
+  dracoLoader.setDecoderPath('/draco/gltf/'); // DRACO 디코더 파일들의 경로를 설정
+  loader.setDRACOLoader(dracoLoader); // GLTFLoader에 DRACOLoader 설정
 
   useEffect(() => {
-    const shuffledCluePositions = [...cluePositions].sort(() => Math.random() - 0.5);
-    const selectedCluePositions = shuffledCluePositions.slice(0, 5);
-    setRandomCluePositions(selectedCluePositions);
-  }, []);
-
-  useEffect(() => {
-    loader.load('clue/scene.gltf', (gltf) => {
-      const newClueList = randomCluePositions.map((position, index) => {
-        const clueInstance = gltf.scene.clone();
-        return <Clue instance={clueInstance} position={position} key={index} />;
+    loader.load('clue/scene.glb', (gltf) => {
+      gltfRef.current = gltf;
+      const newClueList = cluePositions.cluePositions.map((position, index) => {
+        const instance = gltf.scene.clone();
+        return <Clue instance={instance} position={position} key={index} />;
       });
       setClueList(newClueList);
     });
-  }, [randomCluePositions]);
+  }, [cluePositions]);
 
   return <>{clueList}</>;
 };
@@ -41,7 +29,7 @@ const Clues = () => {
 const Clue = ({ instance, position }) => {
   return (
     <RigidBody name="clue">
-      <primitive object={instance} scale={3} position={position} />
+      <primitive object={instance} scale={0.01} position={position} />
     </RigidBody>
   );
 };

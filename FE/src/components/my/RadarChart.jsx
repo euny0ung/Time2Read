@@ -35,8 +35,8 @@ const RadarChart = ({ solvedCount }) => {
     chart: {
       width: 'auto',
       height: 'auto',
-      offsetX: -20,
-      offsetY: -10,
+      offsetX: -10, // 레이터 컴포넌트 전체 왼쪽 여백
+      offsetY: 0, // 레이더 컴포넌트 전체 위쪽 여백
     },
     xaxis: {
       categories: countCategories,
@@ -74,7 +74,7 @@ const RadarChart = ({ solvedCount }) => {
       },
     },
     fill: {
-      opacity: 0.5,
+      opacity: 0.7,
       colors: ['#FEFEC3'],
       type: 'gradient',
       gradient: {
@@ -91,7 +91,7 @@ const RadarChart = ({ solvedCount }) => {
     },
     stroke: {
       show: true,
-      width: 0,
+      width: 3,
       colors: ['#A4E3D6'],
     },
     markers: {
@@ -126,8 +126,8 @@ const RadarChart = ({ solvedCount }) => {
     plotOptions: {
       radar: {
         size: 100, // 레이더 차트 크기
-        offsetX: 30, // 레이더 차트 왼쪽 여백
-        offsetY: 30, // 레이더 차트 위쪽 여백
+        offsetX: 15, // 레이더 차트 왼쪽 여백
+        offsetY: 20, // 레이더 차트 위쪽 여백
         polygons: {
           strokeColors: '#bdbdbd',
           strokeWidth: 1,

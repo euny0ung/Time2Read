@@ -10,8 +10,8 @@ const Badges = () => {
   useEffect(() => {
     getBadge()
       .then((data) => {
-        setbadges(data.badges);
-        console.log('Badge Data:', data.badges);
+        setbadges(data);
+        console.log('Badge Data:', data);
       })
       .catch((error) => {
         console.error('Error requesting badge:', error);
@@ -20,11 +20,9 @@ const Badges = () => {
 
   return (
     <>
-      <div>
-        <div className="">
-          {badges &&
-            badges.map((badge) => <BadgeComponent key={badge.year} year={badge.year} successCount={badge.count} />)}
-        </div>
+      <div className="flex items-center justify-center h-full gap-2">
+        {badges &&
+          badges.map((badge) => <BadgeComponent key={badge.year} year={badge.year} successCount={badge.count} />)}
       </div>
     </>
   );

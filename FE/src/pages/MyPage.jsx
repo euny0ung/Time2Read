@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import {
   useGameResultStore,
   useGameModalStore,
@@ -8,6 +8,7 @@ import {
   checkGameSuccessStore,
   checkGameYearStore,
   useResultDataStore,
+  useChallengedArticleStore,
 } from '@stores/game/gameStore';
 import {
   useQuizStore,
@@ -18,7 +19,7 @@ import {
 } from '@stores/game/quizStore.jsx';
 import { format } from 'date-fns';
 import { useNavigate } from 'react-router-dom';
-import { getTimeRecords, getSolved, getScrapArticles, getArticleDetail, putArticleStatus } from '../apis/myApi.jsx';
+import { getTimeRecords, getSolved, getScrapArticles } from '../apis/myApi.jsx';
 import PageMovingButton from '../components/commons/buttons/PageMovingButtons.jsx';
 import BodyContainer from '../components/commons/containers/BodyContainer.jsx';
 import TranslucentContainer from '../components/commons/containers/TranslucentContainer.jsx';
@@ -31,96 +32,8 @@ import Badges from '../components/my/badge/Badges.jsx';
 import Cards from '../components/my/card/Cards.jsx';
 import RadarChart from '../components/my/RadarChart.jsx';
 
-// 테스트 데이터
-const categoriesData = [
-  {
-    social: [
-      {
-        id: '1',
-        mainCategory: 'Social',
-        subCategory: 'Community',
-        title: 'The Power of Community Support',
-        wroteAt: '2023-03-25T15:00:00',
-        summary: 'Exploring how community support can make a big difference in times of need.',
-        image: 'https://cdn.hankyung.com/photo/202305/99.33544112.1.jpg',
-      },
-      {
-        id: '2',
-        mainCategory: 'Social',
-        subCategory: 'Activism',
-        title: 'Rising Trends in Social Activism',
-        wroteAt: '2023-04-01T10:30:00',
-        summary: 'A look at how social activism has evolved in the digital age.',
-        image: 'https://dimg.donga.com/wps/NEWS/IMAGE/2022/01/28/111500268.2.jpg',
-      },
-      {
-        id: '22',
-        mainCategory: 'Social',
-        subCategory: 'Activism',
-        title: 'Rising Trends in Social Activism',
-        wroteAt: '2023-04-01T10:30:00',
-        summary: 'A look at how social activism has evolved in the digital age.',
-      },
-      {
-        id: '23',
-        mainCategory: 'Social',
-        subCategory: 'Activism',
-        title: 'Rising Trends in Social Activism',
-        wroteAt: '2023-04-01T10:30:00',
-        image: '',
-        summary: 'A look at how social activism has evolved in the digital age.',
-      },
-    ],
-  },
-  {
-    politics: [
-      {
-        id: '3',
-        mainCategory: 'Politics',
-        subCategory: 'Elections',
-        title: 'The Impact of Social Media on Elections',
-        wroteAt: '2023-02-20T09:20:00',
-        image: '',
-        summary: 'Analyzing the role of social media in shaping political campaigns and voter opinions.',
-      },
-      {
-        id: '4',
-        mainCategory: 'Politics',
-        subCategory: 'International Relations',
-        title: 'Recent Developments in International Relations',
-        wroteAt: '2023-03-15T14:45:00',
-        image: '',
-        summary: 'Insights into the latest trends and challenges in international relations.',
-      },
-    ],
-  },
-  {
-    technology: [
-      {
-        id: '5',
-        mainCategory: 'Technology',
-        subCategory: 'Innovation',
-        title: 'Innovations That Could Change the World',
-        wroteAt: '2023-04-05T16:00:00',
-        image: '',
-        summary: 'Exploring groundbreaking technological innovations that have the potential to impact our future.',
-      },
-      {
-        id: '6',
-        mainCategory: 'Technology',
-        subCategory: 'Cybersecurity',
-        title: 'The Future of Cybersecurity',
-        wroteAt: '2023-03-30T11:00:00',
-        image: '',
-        summary:
-          'Understanding the evolving landscape of cybersecurity and what it means for personal and national security.',
-      },
-    ],
-  },
-];
-
 const MyPage = () => {
-  const [timeRecords, setTimeRecords] = useState([]);
+  const [timeresult, setTimeresult] = useState([]);
   const [solvedCount, setSolvedCount] = useState({
     social: 0,
     politics: 0,
@@ -130,7 +43,7 @@ const MyPage = () => {
     sports: 0,
   });
   const [scrapedArticle, setScrapedArticle] = useState([]);
-  const [articleDetail, setArticleDetail] = useState([]);
+  // const [articleDetail, setArticleDetail] = useState([]);
 
   const { gameResult } = useGameResultStore();
 
@@ -150,6 +63,7 @@ const MyPage = () => {
     useAnswerCheckStore.getState().reset();
     useClueIndexStore.getState().reset();
     useClueStateStore.getState().reset();
+    useChallengedArticleStore.getState().reset();
   };
 
   const navigateToLandingPage = () => {
@@ -160,8 +74,8 @@ const MyPage = () => {
   useEffect(() => {
     getTimeRecords()
       .then((data) => {
-        setTimeRecords(data.records);
-        console.log('TimeRecords Data:', data.records);
+        setTimeresult(data);
+        console.log('TimeRecords Data:', data);
       })
       .catch((error) => {
         console.error('Error requesting badge:', error);
@@ -180,7 +94,6 @@ const MyPage = () => {
     getScrapArticles()
       .then((data) => {
         setScrapedArticle(data);
-        console.log('Scraped Articles', data);
       })
       .catch((error) => {
         console.error('Error requesting badge:', error);
@@ -213,17 +126,27 @@ const MyPage = () => {
               <div className="w-full ">
                 <WhiteContainerHoverEffect>
                   <ResultTitle title={'타임어택 기록'} />
-                  <ResultContent>
-                    new! {formatTime(600 - gameResult.timeAttackTime)}
-                    {timeRecords &&
-                      timeRecords.map((record, i) => (
-                        <div key={record.playDate} className="flex justify-between">
-                          <div>{`기록 ${i + 1}:`}</div>
-                          <div>{record.timeAttackTime}</div>
-                          <div>{format(new Date(record.playDate), 'yyyy-MM-dd HH:mm')}</div>
-                        </div>
-                      ))}
-                  </ResultContent>
+                  <div className="px-6 py-2 text-lg font-medium text-center">
+                    <div className="w-full px-4 py-2 mb-2 font-bold border border-gray-200 rounded-full bg-gradient-to-r from-primary-yellow to-primary-teal-1">
+                      <span className="text-teal-600">NEW!</span> {formatTime(600 - gameResult.timeAttackTime)}
+                    </div>
+                    {timeresult &&
+                      timeresult
+                        .slice(0, 5)
+                        .reverse()
+                        .map((record, i) => (
+                          <div
+                            key={record.playDate}
+                            className="flex items-center justify-between w-full px-4 mb-1 space-x-4"
+                          >
+                            <div className="w-1/6 font-bold text-gray-500">{`${5 - i}`}</div>
+                            <div className="w-2/6 font-bold">{formatTime(600 - record.timeAttackTime)}</div>
+                            <div className="w-3/6 text-xs text-gray-500">
+                              {format(new Date(record.playDate), 'yyyy-MM-dd HH:mm')}
+                            </div>
+                          </div>
+                        ))}
+                  </div>
                 </WhiteContainerHoverEffect>
               </div>
               {/* 카테고리별 맞은 개수 */}
@@ -247,7 +170,7 @@ const MyPage = () => {
           <TranslucentContainer>
             <ResultTitle title={'스크랩한 기사'} />
             <WhiteContainer>
-              <Cards data={categoriesData} />
+              <Cards scrapedArticles={scrapedArticle} />
             </WhiteContainer>
           </TranslucentContainer>
         </div>

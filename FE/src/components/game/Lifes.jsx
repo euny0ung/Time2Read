@@ -1,35 +1,27 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { RigidBody } from '@react-three/rapier';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 
-const Lifes = () => {
+const Lifes = (lifePositions) => {
   const [lifeList, setLifeList] = useState([]);
+  const gltfRef = useRef(null);
   const loader = new GLTFLoader();
-  const lifePositions = [
-    [-6.5, 0.3, -9],
-    [-6, 0.3, 3],
-    [-4, 0.3, 6],
-    [-1.3, 0.3, 1],
-    [9, 0.3, 2.8],
-    [3, 0.3, 8],
-  ];
-  const [randomLifePositions, setRandomLifePositions] = useState([]);
+  // C:\Users\SSAFY\Desktop\React\S10P22B307\FE\node_modules\three\examples\jsm\libs\draco\gltf
+  const dracoLoader = new DRACOLoader(); // DRACOLoader 인스턴스 생성
+  dracoLoader.setDecoderPath('/draco/gltf/'); // DRACO 디코더 파일들의 경로를 설정
+  loader.setDRACOLoader(dracoLoader); // GLTFLoader에 DRACOLoader 설정
 
   useEffect(() => {
-    const shuffledLifePositions = [...lifePositions].sort(() => Math.random() - 0.5);
-    const selectedLifePositions = shuffledLifePositions.slice(0, 3);
-    setRandomLifePositions(selectedLifePositions);
-  }, []);
-
-  useEffect(() => {
-    loader.load('life/scene.gltf', (gltf) => {
-      const newLifeList = randomLifePositions.map((position, index) => {
-        const lifeInstance = gltf.scene.clone();
-        return <Life instance={lifeInstance} position={position} key={index} />;
+    loader.load('life/scene.glb', (gltf) => {
+      gltfRef.current = gltf;
+      const newLifeList = lifePositions.lifePositions.map((position, index) => {
+        const instance = gltf.scene.clone();
+        return <Life instance={instance} position={position} key={index} />;
       });
       setLifeList(newLifeList);
     });
-  }, [randomLifePositions]);
+  }, [lifePositions]);
 
   return <>{lifeList}</>;
 };

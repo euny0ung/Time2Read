@@ -31,7 +31,8 @@ import {
   useClueIndexStore,
   useClueStateStore,
 } from '../stores/game/quizStore.jsx';
-import usePreLoginPathStore from '../stores/ui/loginStore.jsx';
+import { usePreLoginPathStore, usePreLoginStateStore } from '../stores/ui/preLoginStore.jsx';
+import useScrapStore from '../stores/ui/scrapStore.jsx';
 import { useScrollPositionStore } from '../stores/ui/scrollStore.jsx';
 
 const ResultPage = () => {
@@ -41,6 +42,7 @@ const ResultPage = () => {
 
   const { gameResult } = useGameResultStore(); // 게임 결과 : 정답 수, 오답 수, 타임 어택 시간
   const [keywordData, setKeywordData] = useState([]);
+
   const topboxRef = useRef(null);
   const leftboxRef = useRef(null);
   const rightboxRef = useRef(null);
@@ -48,8 +50,12 @@ const ResultPage = () => {
   const [rightboxHeight, setRightboxHeight] = useState('0px');
   const [keywordWidth, setKeywordWidth] = useState(0);
   const [keywordHeight, setKeywordHeight] = useState(0);
+
   const { hitsCategory } = useHitsCategoryStore();
   const { isSucceed, setIsSucceed } = checkGameSuccessStore();
+  const { scrollPosition, openedQuiz } = usePreLoginStateStore();
+  const { scrapStatus } = useScrapStore();
+
   const gameYear = checkGameYearStore((state) => state.gameYear);
   const setResultData = useResultDataStore((state) => state.setResultData);
   const [openLoginInducementModal, setOpenLoginInducementModal] = useState(false);
@@ -125,7 +131,7 @@ const ResultPage = () => {
 
   useEffect(() => {
     // 페이지 로딩 시 초기 데이터 로딩
-    getYearSummary(2023)
+    getYearSummary(gameYear)
       .then((data) => {
         setKeywordData(data.result);
         console.log('Year Summary Data:', data.result);
@@ -135,8 +141,14 @@ const ResultPage = () => {
       });
 
     // 페이지 로딩 시 스크롤 위치 복원
-    const savedPosition = useScrollPositionStore.getState().scrollPosition;
-    if (savedPosition) window.scrollTo(0, savedPosition);
+    if (scrollPosition) {
+      window.scrollTo(0, scrollPosition);
+    }
+
+    // 페이지 로딩 시 열린 퀴즈 상태 복원
+    if (openedQuiz) {
+      console.log(`Quiz Number: ${openedQuiz.quizNumber}, Article Index: ${openedQuiz.articleIndex}`);
+    }
 
     // 리사이즈 이벤트 리스너 등록 및 제거
     handleResize();
@@ -167,11 +179,13 @@ const ResultPage = () => {
                 <WhiteContainerHoverEffect>
                   <ResultTitle title={'맞은 개수 통계'} />
                   <ResultContent>
-                    <div className="flex items-center w-full justify-evenly">
-                      총 문제 수 {gameResult.correct + gameResult.incorrect} 개
+                    <div className="flex flex-col justify-center">
+                      <div className="flex items-center w-full justify-evenly">
+                        총 문제 수 {gameResult.correct + gameResult.incorrect} 개
+                      </div>
+                      <div>맞은 개수 {gameResult.correct} 개</div>
+                      <div>틀린 개수 {gameResult.incorrect} 개</div>
                     </div>
-                    <div>맞은 개수 {gameResult.correct} 개</div>
-                    <div>틀린 개수 {gameResult.incorrect} 개</div>
                   </ResultContent>
                 </WhiteContainerHoverEffect>
 
