@@ -128,7 +128,7 @@ const MyPage = () => {
                 <WhiteContainerHoverEffect>
                   <ResultTitle title={'타임어택 기록'} />
                   <ResultContent>
-                    <div className="w-full px-4 py-2 mb-2 font-bold rounded-full text-bold bg-gradient-to-br from-primary-yellow to-primary-teal-1">
+                    <div className="w-full px-4 py-2 mb-2 font-bold rounded-full bg-gradient-to-r from-primary-yellow to-primary-teal-1">
                       <span className="text-teal-600">NEW!</span> {formatTime(600 - gameResult.timeAttackTime)}
                     </div>
                     {timeresult &&
