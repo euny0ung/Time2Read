@@ -71,6 +71,14 @@ const MyPage = () => {
     navigate('/');
   };
 
+  const initializeScrapStatus = (data) => {
+    return data.map((article) => {
+      console.log('초기화 article 출력', article);
+      console.log('초기화 article id 출력', article.id);
+      // id 잘 나오면 여기서 초기화해주면 되겠다...
+    });
+  };
+
   useEffect(() => {
     getTimeRecords()
       .then((data) => {
@@ -95,6 +103,8 @@ const MyPage = () => {
       .then((data) => {
         setScrapedArticle(data);
         console.log('Scraped Articles', data);
+
+        initializeScrapStatus(data);
       })
       .catch((error) => {
         console.error('Error requesting badge:', error);
