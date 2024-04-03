@@ -20,7 +20,7 @@ const Badges = () => {
 
   return (
     <>
-      <div className="flex items-center justify-center gap-2">
+      <div className="flex items-center justify-center h-full gap-2">
         {badges &&
           badges.map((badge) => <BadgeComponent key={badge.year} year={badge.year} successCount={badge.count} />)}
       </div>
