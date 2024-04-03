@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { useQuizApiHandler, useTestQuizApiHandler } from '@apis/quizApi';
+import { useState } from 'react';
+import { useQuizApiHandler } from '@apis/quizApi';
 import KakaoLogin from '@components/kakao/KakaoLogin';
 import {
   useGameResultStore,
