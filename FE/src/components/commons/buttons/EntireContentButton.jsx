@@ -19,7 +19,7 @@ const EntireContentButton = React.memo(({ title, clues, quizIndex, clueIndex }) 
   };
 
   return (
-    <div className="w-full h-full overflow-y-scroll">
+    <div className="w-full h-full">
       {/* 단서 개수가 0인데 클릭하지 않은 경우 - 버튼 비활성화, 상태변경X */}
       <button
         className="inline-flex text-primary-red-3"
@@ -41,9 +41,11 @@ const EntireContentButton = React.memo(({ title, clues, quizIndex, clueIndex }) 
         </svg>
       </button>
       {isEntireContent && (
-        <div className="">
-          <p className="m-1 text-xl">{title}</p>
-          <p className="m-1 text-lg">{clues.description}</p>
+        <div className="h-full pb-4">
+          <div className="h-full overflow-y-scroll">
+            <p className="m-1 text-xl">{title}</p>
+            <p className="m-1 text-lg">{clues.description}</p>
+          </div>
         </div>
       )}
     </div>

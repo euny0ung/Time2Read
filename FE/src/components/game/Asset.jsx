@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useGLTF } from '@react-three/drei';
-import { RigidBody } from '@react-three/rapier';
 import { useLoader } from '@react-three/fiber';
+import { RigidBody } from '@react-three/rapier';
 import { SRGBColorSpace, TextureLoader, RepeatWrapping } from 'three';
 
 export const Cat = () => {
@@ -215,6 +215,24 @@ export const Start = () => {
         <mesh position={[0.11, 1.51, -12.6]}>
           <boxGeometry args={[0.1, 3, 5]} />
           <meshBasicMaterial map={textures} />
+        </mesh>
+      </RigidBody>
+      <RigidBody type="fixed">
+        <mesh position={[-0.85, 9.51, -15]}>
+          <boxGeometry args={[2, 13, 0.2]} />
+          <meshStandardMaterial color={0xff0000} transparent opacity={0} />
+        </mesh>
+      </RigidBody>
+      <RigidBody type="fixed">
+        <mesh position={[-1.6, 9.51, -12.6]}>
+          <boxGeometry args={[0.1, 13, 5]} />
+          <meshStandardMaterial color={0xff0000} transparent opacity={0} />
+        </mesh>
+      </RigidBody>
+      <RigidBody type="fixed">
+        <mesh position={[0.11, 9.51, -12.6]}>
+          <boxGeometry args={[0.1, 13, 5]} />
+          <meshStandardMaterial color={0xff0000} transparent opacity={0} />
         </mesh>
       </RigidBody>
     </>
