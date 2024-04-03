@@ -22,11 +22,11 @@ import { useNavigate } from 'react-router-dom';
 import { getTimeRecords, getSolved, getScrapArticles } from '../apis/myApi.jsx';
 import PageMovingButton from '../components/commons/buttons/PageMovingButtons.jsx';
 import BodyContainer from '../components/commons/containers/BodyContainer.jsx';
+import ResultContent from '../components/commons/containers/ResultContent.jsx';
+import ResultTitle from '../components/commons/containers/ResultTitle.jsx';
 import TranslucentContainer from '../components/commons/containers/TranslucentContainer.jsx';
 import WhiteContainer from '../components/commons/containers/WhiteContainer.jsx';
 import WhiteContainerHoverEffect from '../components/commons/containers/WhiteContainerHoverEffect.jsx';
-import ResultContent from '../components/commons/ResultContent.jsx';
-import ResultTitle from '../components/commons/ResultTitle.jsx';
 import { formatTime } from '../components/game/Timer.jsx';
 import Badges from '../components/my/badge/Badges.jsx';
 import Cards from '../components/my/card/Cards.jsx';
@@ -123,10 +123,10 @@ const MyPage = () => {
             <ResultTitle title={'나의 기록'} />
             <div className="flex flex-col justify-between w-full gap-4 lg:flex-row lg:justify-center">
               {/* 타임어택 기록 */}
-              <div className="w-full ">
+              <div className="w-full h-[363px]">
                 <WhiteContainerHoverEffect>
                   <ResultTitle title={'타임어택 기록'} />
-                  <div className="px-6 py-2 text-lg font-medium text-center">
+                  <div className="h-full px-6 py-2 text-lg font-medium text-center ">
                     <div className="w-full px-4 py-2 mb-2 font-bold border border-gray-200 rounded-full bg-gradient-to-r from-primary-yellow to-primary-teal-1">
                       <span className="text-teal-600">NEW!</span> {formatTime(600 - gameResult.timeAttackTime)}
                     </div>
@@ -137,7 +137,7 @@ const MyPage = () => {
                         .map((record, i) => (
                           <div
                             key={record.playDate}
-                            className="flex items-center justify-between w-full px-4 mb-1 space-x-4"
+                            className="flex items-center justify-between w-full h-full px-4 mb-1 space-x-4"
                           >
                             <div className="w-1/6 font-bold text-gray-500">{`${5 - i}`}</div>
                             <div className="w-2/6 font-bold">{formatTime(600 - record.timeAttackTime)}</div>
@@ -150,7 +150,7 @@ const MyPage = () => {
                 </WhiteContainerHoverEffect>
               </div>
               {/* 카테고리별 맞은 개수 */}
-              <div className="w-full">
+              <div className="w-full h-[363px]">
                 <WhiteContainerHoverEffect>
                   <RadarChart solvedCount={solvedCount} />
                 </WhiteContainerHoverEffect>

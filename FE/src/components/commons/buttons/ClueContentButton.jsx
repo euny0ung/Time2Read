@@ -21,7 +21,7 @@ const ClueContent = React.memo(({ clues, quizIndex, clueIndex }) => {
   return (
     <div className="w-full h-full">
       <button
-        className="inline-flex text-primary-red-3"
+        className={`inline-flex ${clueCount === 0 && !cluesClicked[`${quizIndex}-${clueIndex}`] ? 'text-gray-500' : 'text-primary-red-3'}`}
         onClick={handleClick}
         disabled={clueCount === 0 && !cluesClicked[`${quizIndex}-${clueIndex}`]}
       >
@@ -30,7 +30,7 @@ const ClueContent = React.memo(({ clues, quizIndex, clueIndex }) => {
         <svg
           className={`w-5 h-5 ml-1 transform transition-transform duration-100 ${isFirstLetter ? 'rotate-180' : 'rotate-0'}`}
           viewBox="0 0 20 20"
-          fill="#FF7465"
+          fill={`${clueCount === 0 && !cluesClicked[`${quizIndex}-${clueIndex}`] ? '#868E96' : '#FF7465'}`}
         >
           <path
             fillRule="evenodd"
