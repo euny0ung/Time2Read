@@ -22,7 +22,7 @@ const KakaoLogin = () => {
     <div>
       {email ? (
         <button
-          className="px-2 py-2 text-primary-red-3 font-bold bg-primary-red-0 rounded transition-transform duration-200 ease-in-out shadow cursor-pointer hover:opacity-70 hover:scale-[102%]"
+          className="px-3 py-2 text-primary-red-3 font-bold bg-primary-red-0 rounded transition-transform duration-200 ease-in-out shadow cursor-pointer hover:opacity-70 hover:scale-[102%]"
           onClick={onMyPage}
         >
           <div className="flex flex-row">
