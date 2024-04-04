@@ -43,9 +43,9 @@
 |:----:|:----:|
 |![main](/uploads/d42735a438d8045627cd392f1c60c3ab/메인화면.gif)|![my](/uploads/d0f88f886da47a97bc5f8b57bd9a7320/마이페이지.gif)|
 | 키워드 퀴즈 | 객관식 퀴즈 |
-|![main](/uploads/872429887750a1e3c4a9f2cb20da7368/단답키워드.gif)|![my](/uploads/b03bb64e2ae50b6a7f747ccf6fb95c6e/고양이_객관식.gif)|
+|![key](/uploads/701352a9c4c0b05095a9b25df79f463c/문고리_키워드.gif)|![multi](/uploads/f108be3b26fe1bd912c9ddd7ce208290/담배피는_애벌레_객관식.gif)|
 | 애너그램 퀴즈 | OX 퀴즈 |
-|![main](/uploads/1ed7af97643f2e1a34d8a611f526ecb4/도도새_애너그램.gif)|![my](/uploads/65af22f3d68608a87cc4ccfb00612573/병정_ox.gif)|
+|![gram](/uploads/6d8f9023584be8df08c6f984a527c088/고양이_애너그램.gif)|![ox](/uploads/999ef52089c02af9c1f7ade33ab9f86f/홍학_ox.gif)|
 | 결과페이지 | 과거와 연결된 기사 |
 |![main](/uploads/c93482b9c0292dbafe03d6e3424292d9/결과_화면_.gif)|![past](/uploads/aa1d3e3e598273f462d4389d06594c00/과거와_연결된_기사.gif)|
 
@@ -74,9 +74,13 @@
 - 스프링부트에서 ES NativeQuery를 활용한 쿼리 변환 작업
 - tailwind를 활용한 CSS 적용
 ### 김수혁 FE
-- 한 일 작성하기
-- 한 일 작성하기
-- 한 일 작성하기
+- Nginx와 Docker를 이용한 프론트엔드 배포
+- 미로 모델에 Asset들과 Item들 배치 및 렌더링
+- 아이템, Asset들과 Player 물리 엔진 상호작용 로직 작성
+- 게임 설명 모달 구현
+- 게임 시간 설정 및 게임 백그라운드 음악 구현
+- 게임 종료 로직 구현
+- 게임 결과 API를 백엔드에 전송
 ### 신예지 BE INFRA
 - Jenkins를 사용한 자동배포 파이프라인 구축
 - Certbot을 사용한 SSL/TLS 설정, Nginx 연결
@@ -106,9 +110,17 @@
 - 자주 쓰이는 스타일을 컴포넌트 혹은 전역 스타일로 관리하여 재사용성을 높이고 코드의 일관성을 유지
 - 와이어 프레임을 사용하여 프로젝트 구조를 시각화
 ### 조은영 FE
-- 한 일 작성하기
-- 한 일 작성하기
-- 한 일 작성하기
+- gltf 파일 커스터마이징
+- gltf 텍스쳐링 작업
+- esLint 설정으로 프론트엔드 코드 리뷰 시간 단축
+- 프론트엔드 초기 개발 환경 세팅
+- 퀴즈 로직 개발 및 구현 - 애너그램, OX, 객관식, 단답식
+- 다양한 훅을 이용하여 리렌더링을 최소화하여 사용자 경험 개선
+- API 분리, 리소스 우선순위 설정 ,WebP, Draco 기술을 활용하여 로딩 시간을 1분 이상 단축
+- 소셜 로그인 구현
+- 단서, 쿠키, 맞은 개수, 카테고리 카운팅 로직 개발 및 구현 
+
+
 
 ---
 <div align="center">
