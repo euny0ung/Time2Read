@@ -44,11 +44,11 @@ const StartModal = ({ onClose }) => {
                   <div>앞 : </div>
                   <img src={W} alt="W Icon" className="w-12 h-12" />
                   <span>뒤 : </span>
-                  <img src={S} alt="D Icon" className="w-12 h-12" />
+                  <img src={S} alt="S Icon" className="w-12 h-12" />
                   <span>좌 : </span>
-                  <img src={A} alt="S Icon" className="w-12 h-12" />
+                  <img src={A} alt="A Icon" className="w-12 h-12" />
                   <span>우 : </span>
-                  <img src={D} alt="A Icon" className="w-12 h-12" />
+                  <img src={D} alt="D Icon" className="w-12 h-12" />
                 </div>
                 <div className="flex justify-center items-center text-2xl md:text-1.5xl lg:text-2xl space-x-2" />
               </div>
