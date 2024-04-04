@@ -45,7 +45,7 @@
 | 키워드 퀴즈 | 객관식 퀴즈 |
 |![key](/uploads/701352a9c4c0b05095a9b25df79f463c/문고리_키워드.gif)|![multi](/uploads/f108be3b26fe1bd912c9ddd7ce208290/담배피는_애벌레_객관식.gif)|
 | 애너그램 퀴즈 | OX 퀴즈 |
-|![gram](/uploads/6d8f9023584be8df08c6f984a527c088/고양이_애너그램.gif)|![ox](/uploads/999ef52089c02af9c1f7ade33ab9f86f/홍학_ox.gif)|
+|![gram](./img/고양이%20애너그램.gif)|![ox](/uploads/999ef52089c02af9c1f7ade33ab9f86f/홍학_ox.gif)|
 | 워드클라우드 | 과거와 연결된 기사 |
 |![word](/uploads/04fc1476b80159a76de1a224bba585a2/워드클라우드.gif)|![past](/uploads/9ab4b5c3cd7ab341b91b1b80960f5f4c/과거와_연결된_기사.gif)|
 
