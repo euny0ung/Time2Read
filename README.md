@@ -41,13 +41,13 @@
 ## 서비스 화면
 | 게임 시작 | 마이페이지 |
 |:----:|:----:|
-|![main](/uploads/d42735a438d8045627cd392f1c60c3ab/메인화면.gif)|![my](/uploads/d0f88f886da47a97bc5f8b57bd9a7320/마이페이지.gif)|
+|![main](/uploads/29dc7ebd695eb9840170b38aec50d948/메인_페이지.gif)|![my](/uploads/2f9f34fde40f529cec559b55f656d11c/마이페이지.gif)|
 | 키워드 퀴즈 | 객관식 퀴즈 |
 |![key](/uploads/701352a9c4c0b05095a9b25df79f463c/문고리_키워드.gif)|![multi](/uploads/f108be3b26fe1bd912c9ddd7ce208290/담배피는_애벌레_객관식.gif)|
 | 애너그램 퀴즈 | OX 퀴즈 |
 |![gram](/uploads/6d8f9023584be8df08c6f984a527c088/고양이_애너그램.gif)|![ox](/uploads/999ef52089c02af9c1f7ade33ab9f86f/홍학_ox.gif)|
-| 결과페이지 | 과거와 연결된 기사 |
-|![main](/uploads/c93482b9c0292dbafe03d6e3424292d9/결과_화면_.gif)|![past](/uploads/aa1d3e3e598273f462d4389d06594c00/과거와_연결된_기사.gif)|
+| 워드클라우드 | 과거와 연결된 기사 |
+|![word](/uploads/04fc1476b80159a76de1a224bba585a2/워드클라우드.gif)|![past](/uploads/9ab4b5c3cd7ab341b91b1b80960f5f4c/과거와_연결된_기사.gif)|
 
 
 ## 시스템 아키텍처
