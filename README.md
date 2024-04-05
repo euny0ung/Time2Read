@@ -3,8 +3,59 @@
 > 도메인 : 빅데이터 - 분산  
 > 개발 기간 : 2024.02.19 ~ 2024.04.04
 
+<div align="center">
+<h1>✨Front-end Stack✨</h1>
+<img src="https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=HTML5&logoColor=white"/>
+<img src="https://img.shields.io/badge/CSS3-F68212?style=for-the-badge&logo=CSS3&logoColor=white"/>
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white"/>
+<img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white"/>
+<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"/>
+<img src="https://img.shields.io/badge/three.js-000000?style=for-the-badge&logo=threedotjs&logoColor=white"/>
+<img src="https://img.shields.io/badge/R3F-13B4FF?style=for-the-badge&logo=R3F&logoColor=white"/>
+<img src="https://img.shields.io/badge/eslint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white"/>
+<img src="https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white"/>
+<img src="https://img.shields.io/badge/zustand-A30701?style=for-the-badge&logo=zustand&logoColor=white"/>
+<img src="https://img.shields.io/badge/VITE-%23646CFF?style=for-the-badge&logo=vite&logoColor=white"/>
+<img src="https://img.shields.io/badge/AXIOS-%235A29E4?style=for-the-badge&logo=axios&logoColor=white"/>
+</div>
 
+<div align="center">
+<h1>✨Data Stack✨</h1>
+<img src="https://img.shields.io/badge/Apache Spark-E25A1C?style=for-the-badge&logo=Apache-Spark&logoColor=white"/>
+<img src="https://img.shields.io/badge/Apache Kafka-231F20?style=for-the-badge&logo=Apache Kafka&logoColor=white"/>
+<img src="https://img.shields.io/badge/Apache Airflow-017CEE?style=for-the-badge&logo=Apache Airflow&logoColor=white"/>
+<img src="https://img.shields.io/badge/Elasticsearch-005571?style=for-the-badge&logo=Elasticsearch&logoColor=white"/>
+<img src="https://img.shields.io/badge/Kibana-005571?style=for-the-badge&logo=Kibana&logoColor=white"/>
+<img src="https://img.shields.io/badge/Logstash-005571?style=for-the-badge&logo=Logstash&logoColor=white"/>
+<img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=Python&logoColor=white"/>
+<img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=Amazon S3&logoColor=white"/>
+</div>
+
+<div align="center">
+<h1>✨Back-end Stack✨</h1>
+<img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=white"/>
+<img src="https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=MariaDB&logoColor=white"/>
+<img src="https://img.shields.io/badge/elasticsearch-005571?style=for-the-badge&logo=elasticsearch&logoColor=white"/><br/>
+<img src="https://img.shields.io/badge/swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=white"/>
+<img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white">
+<img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white">
+<img src="https://img.shields.io/badge/Jpa-6DB33F?style=for-the-badge&logo=Jpa&logoColor=white"/>
+<img src="https://img.shields.io/badge/logback-6DB33F?style=for-the-badge&logo=Jpa&logoColor=white"/>
+</div>
+
+<div align="center">
+<h1>✨Infra Stack✨</h1>
+<img src="https://img.shields.io/badge/DOCKER-%232496ED?style=for-the-badge&logo=docker&logoColor=white">
+<img src="https://img.shields.io/badge/NGINX-%23009639?style=for-the-badge&logo=nginx&logoColor=white">
+<img src="https://img.shields.io/badge/AMAZON%20S3-%23569A31?style=for-the-badge&logo=amazons3&logoColor=white">
+<img src="https://img.shields.io/badge/AMAZON%20AWS-%23232F3E?style=for-the-badge&logo=amazonaws&logoColor=white">
+<img src="https://img.shields.io/badge/JENKINS-%23D24939?style=for-the-badge&logo=jenkins&logoColor=white">
+<img src="https://img.shields.io/badge/portainer-13BEF9?style=for-the-badge&logo=portainer&logoColor=white"/>
+</div>
+
+[image](/uploads/c67466a2439e9f0dfd1ab603c6dcf46f/image.png)
 ## 프로젝트 소개
+[image](/uploads/99e7c31c16fe4596093df72a03612fe1/image.png)  
 과거의 뉴스가 현재와 미래를 이해하는 데 얼마나 중요한 역할을 하는지 알고 계시나요? 
 우리의 서비스를 통해 역사적 순간들을 탐험하고, 그 당시의 흐름과 사건들을 되짚어 보는 데 도움이 될 거예요.
 과거의 뉴스 기사들을 읽고, 그 당시의 사회적, 정치적 풍경을 살펴보며 역사적 지식을 테스트해 보세요.
@@ -26,16 +77,22 @@
 
 ## 주요 기능 소개
 ### 1. 빅데이터 기반의 퀴즈 생성
+[image](/uploads/53f7ffe2427783ef7c0212b13588ec51/image.png)  
 2005년부터 2024년 현재까지의 뉴스 데이터 80만 개를 관리하고 있습니다. 사용자는 연도를 선택하여 해당연도에 대표되는 기사를 퀴즈 형식으로 접하고 추세를 파악할 수 있습니다.
-### 2. 미로 탈출 퀴즈 게임
+### 2. 미로 탈출 퀴즈 게임  
+[image](/uploads/7bc5a7351602efcafa6470542185bb24/image.png)  
 이상한 나라의 앨리스 컨셉을 통해 사용자들이 게임에 더 몰입할 수 있도록 하고자 하였습니다. 미로에서 탈출하는 재미도 있지만, 퀴즈를 하나하나 해결하며 자신의 역사적 지식을 테스트할 수 있습니다.
 ### 3. 당시의 트렌드는?
+[image](/uploads/241faf747f8a7e7e11b76e4153a87ddf/image.png)  
 단순히 퀴즈로 그 당시를 이해하기는 어렵습니다. 게임이 끝난 후 해당연도를 대표하는 키워드를 통해 빠르게 정보를 얻을 수 있습니다.
 ### 4. 지금까지 이어져 오는 정보의 연결고리
+[image](/uploads/fed49bb0f98c090f78c363df41f9456c/image.png)  
 지금까지 이어져 오는 관련 기사를 같이 살펴봄으로써 현재의 흐름은 어떠한지 파악하며, 현재와 비교할 수 있도록 하였습니다.
 ### 5. 중요 기사 스크랩하기
+[image](/uploads/cfa99a6e11fe03e49a05511ef5ac978e/image.png)  
 퀴즈를 통한 문제를 접하면서 자신이 중요하다고 생각하는 기사를 스크랩하고, 계속해서 볼 수 있습니다. 이렇게 쌓인 스크랩 기사는 나중에 모여서 자신의 관심 분야, 사건들을 파악하는데 도움이 됩니다.
 ### 6. 뱃지를 활용한 흥미 유발 요소 제공
+[image](/uploads/5c88c8f5dab65ef235931dc731862159/image.png)  
 퀴즈 형식의 게임은 금방 질릴 수 있습니다. 그런 점을 충분히 알기에 뱃지 요소를 활용하여 사용자의 수집 욕구를 불러일으키고자 하였습니다. 
 
 ## 서비스 화면
@@ -43,9 +100,9 @@
 |:----:|:----:|
 |![main](/uploads/29dc7ebd695eb9840170b38aec50d948/메인_페이지.gif)|![my](/uploads/2f9f34fde40f529cec559b55f656d11c/마이페이지.gif)|
 | 키워드 퀴즈 | 객관식 퀴즈 |
-|![key](/uploads/701352a9c4c0b05095a9b25df79f463c/문고리_키워드.gif)|![multi](/uploads/f108be3b26fe1bd912c9ddd7ce208290/담배피는_애벌레_객관식.gif)|
+|![key](/uploads/701352a9c4c0b05095a9b25df79f463c/문고리_키워드.gif)|[객관식_짧](/uploads/0efaa496ce770547abd8f93d8ea09c2a/객관식_짧.gif)|
 | 애너그램 퀴즈 | OX 퀴즈 |
-|![gram](./img/고양이%20애너그램.gif)|![ox](/uploads/999ef52089c02af9c1f7ade33ab9f86f/홍학_ox.gif)|
+|![gram](./img/고양이%20애너그램.gif)|[ox_짧](/uploads/6a1d7a4ffc62e3fb8d25b423b5e5f340/ox_짧.gif)|
 | 워드클라우드 | 과거와 연결된 기사 |
 |![word](/uploads/04fc1476b80159a76de1a224bba585a2/워드클라우드.gif)|![past](/uploads/9ab4b5c3cd7ab341b91b1b80960f5f4c/과거와_연결된_기사.gif)|
 
@@ -121,52 +178,8 @@
 - 단서, 쿠키, 맞은 개수, 카테고리 카운팅 로직 개발 및 구현 
 
 
+## 패키지 구조
+[프론트엔드 파일 구조](https://handsome-airport-d67.notion.site/Frontend-fc01c67e54f0405580cc77e3aa87e2d7?pvs=4)  
+[백엔드 파일 구조](https://handsome-airport-d67.notion.site/Backend-c4e5630bde2048418b7d0f9cfb796341?pvs=4)
 
 ---
-<div align="center">
-<h1>✨Front-end Stack✨</h1>
-<img src="https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=HTML5&logoColor=white"/>
-<img src="https://img.shields.io/badge/CSS3-F68212?style=flat-square&logo=CSS3&logoColor=white"/>
-<img src="https://img.shields.io/badge/SCSS-CC6699?style=flat-square&logo=Sass&logoColor=white"/>
-<img src="https://img.shields.io/badge/StyledComponents/Emotion-DB7093?style=flat-square&logo=Styled-components&logoColor=white"/><br/>
-<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=white"/>
-<img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=TypeScript&logoColor=white"/>
-<img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white"/>
-<img src="https://img.shields.io/badge/Redux-764ABC?style=flat-square&logo=Redux&logoColor=white"/>
-<img src="https://img.shields.io/badge/Mobx-FF9955?style=flat-square&logo=Mobx&logoColor=white"/>
-<img src="https://img.shields.io/badge/Recoil-FD2251?style=flat-square&logo=Recoil&logoColor=white"/><br/>
-<img src="https://img.shields.io/badge/Next-000000?style=flat-square&logo=Next.js&logoColor=white"/>
-<img src="https://img.shields.io/badge/ReactQuery-0000123?style=flat-square&logo=ReactQuery&logoColor=white"/>
-</div>
-
-<div align="center">
-<h1>✨Data Stack✨</h1>
-<img src="https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=HTML5&logoColor=white"/>
-<img src="https://img.shields.io/badge/CSS3-F68212?style=flat-square&logo=CSS3&logoColor=white"/>
-<img src="https://img.shields.io/badge/SCSS-CC6699?style=flat-square&logo=Sass&logoColor=white"/>
-<img src="https://img.shields.io/badge/StyledComponents/Emotion-DB7093?style=flat-square&logo=Styled-components&logoColor=white"/><br/>
-<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=white"/>
-<img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=TypeScript&logoColor=white"/>
-<img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white"/>
-<img src="https://img.shields.io/badge/Redux-764ABC?style=flat-square&logo=Redux&logoColor=white"/>
-<img src="https://img.shields.io/badge/Mobx-FF9955?style=flat-square&logo=Mobx&logoColor=white"/>
-<img src="https://img.shields.io/badge/Recoil-FD2251?style=flat-square&logo=Recoil&logoColor=white"/><br/>
-<img src="https://img.shields.io/badge/Next-000000?style=flat-square&logo=Next.js&logoColor=white"/>
-<img src="https://img.shields.io/badge/ReactQuery-0000123?style=flat-square&logo=ReactQuery&logoColor=white"/>
-</div>
-
-<div align="center">
-<h1>✨Back-end Stack✨</h1>
-<img src="https://img.shields.io/badge/HTML-E34F26?style=flat-square&logo=HTML5&logoColor=white"/>
-<img src="https://img.shields.io/badge/CSS3-F68212?style=flat-square&logo=CSS3&logoColor=white"/>
-<img src="https://img.shields.io/badge/SCSS-CC6699?style=flat-square&logo=Sass&logoColor=white"/>
-<img src="https://img.shields.io/badge/StyledComponents/Emotion-DB7093?style=flat-square&logo=Styled-components&logoColor=white"/><br/>
-<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=white"/>
-<img src="https://img.shields.io/badge/TypeScript-3178C6?style=flat-square&logo=TypeScript&logoColor=white"/>
-<img src="https://img.shields.io/badge/React-61DAFB?style=flat-square&logo=React&logoColor=white"/>
-<img src="https://img.shields.io/badge/Redux-764ABC?style=flat-square&logo=Redux&logoColor=white"/>
-<img src="https://img.shields.io/badge/Mobx-FF9955?style=flat-square&logo=Mobx&logoColor=white"/>
-<img src="https://img.shields.io/badge/Recoil-FD2251?style=flat-square&logo=Recoil&logoColor=white"/><br/>
-<img src="https://img.shields.io/badge/Next-000000?style=flat-square&logo=Next.js&logoColor=white"/>
-<img src="https://img.shields.io/badge/ReactQuery-0000123?style=flat-square&logo=ReactQuery&logoColor=white"/>
-</div>
