@@ -53,9 +53,9 @@
 <img src="https://img.shields.io/badge/portainer-13BEF9?style=for-the-badge&logo=portainer&logoColor=white"/>
 </div>
 
-[image](/uploads/c67466a2439e9f0dfd1ab603c6dcf46f/image.png)
+![image](/uploads/c67466a2439e9f0dfd1ab603c6dcf46f/image.png)
 ## 프로젝트 소개
-[image](/uploads/99e7c31c16fe4596093df72a03612fe1/image.png)  
+![image](/uploads/99e7c31c16fe4596093df72a03612fe1/image.png)  
 과거의 뉴스가 현재와 미래를 이해하는 데 얼마나 중요한 역할을 하는지 알고 계시나요? 
 우리의 서비스를 통해 역사적 순간들을 탐험하고, 그 당시의 흐름과 사건들을 되짚어 보는 데 도움이 될 거예요.
 과거의 뉴스 기사들을 읽고, 그 당시의 사회적, 정치적 풍경을 살펴보며 역사적 지식을 테스트해 보세요.
@@ -77,34 +77,34 @@
 
 ## 주요 기능 소개
 ### 1. 빅데이터 기반의 퀴즈 생성
-[image](/uploads/53f7ffe2427783ef7c0212b13588ec51/image.png)  
+![image](/uploads/53f7ffe2427783ef7c0212b13588ec51/image.png)  
 2005년부터 2024년 현재까지의 뉴스 데이터 80만 개를 관리하고 있습니다. 사용자는 연도를 선택하여 해당연도에 대표되는 기사를 퀴즈 형식으로 접하고 추세를 파악할 수 있습니다.
 ### 2. 미로 탈출 퀴즈 게임  
-[image](/uploads/7bc5a7351602efcafa6470542185bb24/image.png)  
+![image](/uploads/7bc5a7351602efcafa6470542185bb24/image.png)  
 이상한 나라의 앨리스 컨셉을 통해 사용자들이 게임에 더 몰입할 수 있도록 하고자 하였습니다. 미로에서 탈출하는 재미도 있지만, 퀴즈를 하나하나 해결하며 자신의 역사적 지식을 테스트할 수 있습니다.
 ### 3. 당시의 트렌드는?
-[image](/uploads/241faf747f8a7e7e11b76e4153a87ddf/image.png)  
+![image](/uploads/241faf747f8a7e7e11b76e4153a87ddf/image.png)  
 단순히 퀴즈로 그 당시를 이해하기는 어렵습니다. 게임이 끝난 후 해당연도를 대표하는 키워드를 통해 빠르게 정보를 얻을 수 있습니다.
 ### 4. 지금까지 이어져 오는 정보의 연결고리
-[image](/uploads/fed49bb0f98c090f78c363df41f9456c/image.png)  
+![image](/uploads/fed49bb0f98c090f78c363df41f9456c/image.png)  
 지금까지 이어져 오는 관련 기사를 같이 살펴봄으로써 현재의 흐름은 어떠한지 파악하며, 현재와 비교할 수 있도록 하였습니다.
 ### 5. 중요 기사 스크랩하기
-[image](/uploads/cfa99a6e11fe03e49a05511ef5ac978e/image.png)  
+![image](/uploads/cfa99a6e11fe03e49a05511ef5ac978e/image.png)  
 퀴즈를 통한 문제를 접하면서 자신이 중요하다고 생각하는 기사를 스크랩하고, 계속해서 볼 수 있습니다. 이렇게 쌓인 스크랩 기사는 나중에 모여서 자신의 관심 분야, 사건들을 파악하는데 도움이 됩니다.
 ### 6. 뱃지를 활용한 흥미 유발 요소 제공
-[image](/uploads/5c88c8f5dab65ef235931dc731862159/image.png)  
+![image](/uploads/5c88c8f5dab65ef235931dc731862159/image.png)  
 퀴즈 형식의 게임은 금방 질릴 수 있습니다. 그런 점을 충분히 알기에 뱃지 요소를 활용하여 사용자의 수집 욕구를 불러일으키고자 하였습니다. 
 
 ## 서비스 화면
-| 게임 시작 | 마이페이지 |
-|:----:|:----:|
-|![main](/uploads/29dc7ebd695eb9840170b38aec50d948/메인_페이지.gif)|![my](/uploads/2f9f34fde40f529cec559b55f656d11c/마이페이지.gif)|
-| 키워드 퀴즈 | 객관식 퀴즈 |
-|![key](/uploads/701352a9c4c0b05095a9b25df79f463c/문고리_키워드.gif)|[객관식_짧](/uploads/0efaa496ce770547abd8f93d8ea09c2a/객관식_짧.gif)|
-| 애너그램 퀴즈 | OX 퀴즈 |
-|![gram](./img/고양이%20애너그램.gif)|[ox_짧](/uploads/6a1d7a4ffc62e3fb8d25b423b5e5f340/ox_짧.gif)|
-| 워드클라우드 | 과거와 연결된 기사 |
-|![word](/uploads/04fc1476b80159a76de1a224bba585a2/워드클라우드.gif)|![past](/uploads/9ab4b5c3cd7ab341b91b1b80960f5f4c/과거와_연결된_기사.gif)|
+| 게임 시작 |                               마이페이지                               |
+|:----:|:-----------------------------------------------------------------:|
+|![main](/uploads/29dc7ebd695eb9840170b38aec50d948/메인_페이지.gif)|    ![my](/uploads/2f9f34fde40f529cec559b55f656d11c/마이페이지.gif)     |
+| 키워드 퀴즈 |                              객관식 퀴즈                               |
+|![key](/uploads/701352a9c4c0b05095a9b25df79f463c/문고리_키워드.gif)|   ![객관식_짧](/uploads/0efaa496ce770547abd8f93d8ea09c2a/객관식_짧.gif)   |
+| 애너그램 퀴즈 |                               OX 퀴즈                               |
+|![gram](./img/고양이%20애너그램.gif)|    ![ox_짧](/uploads/6a1d7a4ffc62e3fb8d25b423b5e5f340/ox_짧.gif)    |
+| 워드클라우드 |                            과거와 연결된 기사                             |
+|![word](/uploads/04fc1476b80159a76de1a224bba585a2/워드클라우드.gif)| ![past](/uploads/9ab4b5c3cd7ab341b91b1b80960f5f4c/과거와_연결된_기사.gif) |
 
 
 ## 시스템 아키텍처
