@@ -100,7 +100,7 @@
 |:----:|:-----------------------------------------------------------------:|
 |![main](/uploads/29dc7ebd695eb9840170b38aec50d948/메인_페이지.gif)|    ![my](/uploads/2f9f34fde40f529cec559b55f656d11c/마이페이지.gif)     |
 | 키워드 퀴즈 |                              객관식 퀴즈                               |
-|![키워드_짧](/uploads/4e36a83c2cdda808cc5fe82d2734584a/키워드_짧.gif)|   ![객관식_짧](/uploads/0efaa496ce770547abd8f93d8ea09c2a/객관식_짧.gif)   |
+|![key](/uploads/701352a9c4c0b05095a9b25df79f463c/문고리_키워드.gif)|   ![객관식_짧](/uploads/0efaa496ce770547abd8f93d8ea09c2a/객관식_짧.gif)   |
 | 애너그램 퀴즈 |                               OX 퀴즈                               |
 |![gram](./img/고양이%20애너그램.gif)|    ![ox_짧](/uploads/6a1d7a4ffc62e3fb8d25b423b5e5f340/ox_짧.gif)    |
 | 워드클라우드 |                            과거와 연결된 기사                             |
