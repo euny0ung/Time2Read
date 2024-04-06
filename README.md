@@ -1,59 +1,11 @@
-# TimeTo Read
+#  <img src="/uploads/c67466a2439e9f0dfd1ab603c6dcf46f/image.png"  width="30" height="30"/> TimeTo Read  
 > Samsung Software Academy For Youth 10기  
 > 도메인 : 빅데이터 - 분산  
 > 개발 기간 : 2024.02.19 ~ 2024.04.04
 
-<div align="center">
-<h1>✨Front-end Stack✨</h1>
-<img src="https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=HTML5&logoColor=white"/>
-<img src="https://img.shields.io/badge/CSS3-F68212?style=for-the-badge&logo=CSS3&logoColor=white"/>
-<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white"/>
-<img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white"/>
-<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"/>
-<img src="https://img.shields.io/badge/three.js-000000?style=for-the-badge&logo=threedotjs&logoColor=white"/>
-<img src="https://img.shields.io/badge/R3F-13B4FF?style=for-the-badge&logo=R3F&logoColor=white"/>
-<img src="https://img.shields.io/badge/eslint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white"/>
-<img src="https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white"/>
-<img src="https://img.shields.io/badge/zustand-A30701?style=for-the-badge&logo=zustand&logoColor=white"/>
-<img src="https://img.shields.io/badge/VITE-%23646CFF?style=for-the-badge&logo=vite&logoColor=white"/>
-<img src="https://img.shields.io/badge/AXIOS-%235A29E4?style=for-the-badge&logo=axios&logoColor=white"/>
-</div>
 
-<div align="center">
-<h1>✨Data Stack✨</h1>
-<img src="https://img.shields.io/badge/Apache Spark-E25A1C?style=for-the-badge&logo=Apache-Spark&logoColor=white"/>
-<img src="https://img.shields.io/badge/Apache Kafka-231F20?style=for-the-badge&logo=Apache Kafka&logoColor=white"/>
-<img src="https://img.shields.io/badge/Apache Airflow-017CEE?style=for-the-badge&logo=Apache Airflow&logoColor=white"/>
-<img src="https://img.shields.io/badge/Elasticsearch-005571?style=for-the-badge&logo=Elasticsearch&logoColor=white"/>
-<img src="https://img.shields.io/badge/Kibana-005571?style=for-the-badge&logo=Kibana&logoColor=white"/>
-<img src="https://img.shields.io/badge/Logstash-005571?style=for-the-badge&logo=Logstash&logoColor=white"/>
-<img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=Python&logoColor=white"/>
-<img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=Amazon S3&logoColor=white"/>
-</div>
 
-<div align="center">
-<h1>✨Back-end Stack✨</h1>
-<img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=white"/>
-<img src="https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=MariaDB&logoColor=white"/>
-<img src="https://img.shields.io/badge/elasticsearch-005571?style=for-the-badge&logo=elasticsearch&logoColor=white"/><br/>
-<img src="https://img.shields.io/badge/swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=white"/>
-<img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white">
-<img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white">
-<img src="https://img.shields.io/badge/Jpa-6DB33F?style=for-the-badge&logo=Jpa&logoColor=white"/>
-<img src="https://img.shields.io/badge/logback-6DB33F?style=for-the-badge&logo=Jpa&logoColor=white"/>
-</div>
 
-<div align="center">
-<h1>✨Infra Stack✨</h1>
-<img src="https://img.shields.io/badge/DOCKER-%232496ED?style=for-the-badge&logo=docker&logoColor=white">
-<img src="https://img.shields.io/badge/NGINX-%23009639?style=for-the-badge&logo=nginx&logoColor=white">
-<img src="https://img.shields.io/badge/AMAZON%20S3-%23569A31?style=for-the-badge&logo=amazons3&logoColor=white">
-<img src="https://img.shields.io/badge/AMAZON%20AWS-%23232F3E?style=for-the-badge&logo=amazonaws&logoColor=white">
-<img src="https://img.shields.io/badge/JENKINS-%23D24939?style=for-the-badge&logo=jenkins&logoColor=white">
-<img src="https://img.shields.io/badge/portainer-13BEF9?style=for-the-badge&logo=portainer&logoColor=white"/>
-</div>
-
-![image](/uploads/c67466a2439e9f0dfd1ab603c6dcf46f/image.png)
 ## 프로젝트 소개
 ![image](/uploads/99e7c31c16fe4596093df72a03612fe1/image.png)  
 과거의 뉴스가 현재와 미래를 이해하는 데 얼마나 중요한 역할을 하는지 알고 계시나요? 
@@ -183,3 +135,53 @@
 [백엔드 파일 구조](https://handsome-airport-d67.notion.site/Backend-c4e5630bde2048418b7d0f9cfb796341?pvs=4)
 
 ---
+
+<div align="center">
+<h1>✨Front-end Stack✨</h1>
+<img src="https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=HTML5&logoColor=white"/>
+<img src="https://img.shields.io/badge/CSS3-F68212?style=for-the-badge&logo=CSS3&logoColor=white"/>
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=JavaScript&logoColor=white"/>
+<img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=TypeScript&logoColor=white"/>
+<img src="https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=white"/>
+<img src="https://img.shields.io/badge/three.js-000000?style=for-the-badge&logo=threedotjs&logoColor=white"/>
+<img src="https://img.shields.io/badge/R3F-13B4FF?style=for-the-badge&logo=R3F&logoColor=white"/>
+<img src="https://img.shields.io/badge/eslint-4B32C3?style=for-the-badge&logo=eslint&logoColor=white"/>
+<img src="https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white"/>
+<img src="https://img.shields.io/badge/zustand-A30701?style=for-the-badge&logo=zustand&logoColor=white"/>
+<img src="https://img.shields.io/badge/VITE-%23646CFF?style=for-the-badge&logo=vite&logoColor=white"/>
+<img src="https://img.shields.io/badge/AXIOS-%235A29E4?style=for-the-badge&logo=axios&logoColor=white"/>
+</div>
+
+<div align="center">
+<h1>✨Data Stack✨</h1>
+<img src="https://img.shields.io/badge/Apache Spark-E25A1C?style=for-the-badge&logo=Apache-Spark&logoColor=white"/>
+<img src="https://img.shields.io/badge/Apache Kafka-231F20?style=for-the-badge&logo=Apache Kafka&logoColor=white"/>
+<img src="https://img.shields.io/badge/Apache Airflow-017CEE?style=for-the-badge&logo=Apache Airflow&logoColor=white"/>
+<img src="https://img.shields.io/badge/Elasticsearch-005571?style=for-the-badge&logo=Elasticsearch&logoColor=white"/>
+<img src="https://img.shields.io/badge/Kibana-005571?style=for-the-badge&logo=Kibana&logoColor=white"/>
+<img src="https://img.shields.io/badge/Logstash-005571?style=for-the-badge&logo=Logstash&logoColor=white"/>
+<img src="https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=Python&logoColor=white"/>
+<img src="https://img.shields.io/badge/Amazon S3-569A31?style=for-the-badge&logo=Amazon S3&logoColor=white"/>
+</div>
+
+<div align="center">
+<h1>✨Back-end Stack✨</h1>
+<img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=for-the-badge&logo=Spring Boot&logoColor=white"/>
+<img src="https://img.shields.io/badge/MariaDB-003545?style=for-the-badge&logo=MariaDB&logoColor=white"/>
+<img src="https://img.shields.io/badge/elasticsearch-005571?style=for-the-badge&logo=elasticsearch&logoColor=white"/><br/>
+<img src="https://img.shields.io/badge/swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=white"/>
+<img src="https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white">
+<img src="https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white">
+<img src="https://img.shields.io/badge/Jpa-6DB33F?style=for-the-badge&logo=Jpa&logoColor=white"/>
+<img src="https://img.shields.io/badge/logback-6DB33F?style=for-the-badge&logo=Jpa&logoColor=white"/>
+</div>
+
+<div align="center">
+<h1>✨Infra Stack✨</h1>
+<img src="https://img.shields.io/badge/DOCKER-%232496ED?style=for-the-badge&logo=docker&logoColor=white">
+<img src="https://img.shields.io/badge/NGINX-%23009639?style=for-the-badge&logo=nginx&logoColor=white">
+<img src="https://img.shields.io/badge/AMAZON%20S3-%23569A31?style=for-the-badge&logo=amazons3&logoColor=white">
+<img src="https://img.shields.io/badge/AMAZON%20AWS-%23232F3E?style=for-the-badge&logo=amazonaws&logoColor=white">
+<img src="https://img.shields.io/badge/JENKINS-%23D24939?style=for-the-badge&logo=jenkins&logoColor=white">
+<img src="https://img.shields.io/badge/portainer-13BEF9?style=for-the-badge&logo=portainer&logoColor=white"/>
+</div>
