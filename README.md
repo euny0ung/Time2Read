@@ -115,12 +115,6 @@
 - 단서, 쿠키, 맞은 개수, 카테고리 카운팅 로직 개발 및 구현 
 
 
-## 패키지 구조
-[프론트엔드 파일 구조](https://handsome-airport-d67.notion.site/Frontend-fc01c67e54f0405580cc77e3aa87e2d7?pvs=4)  
-[백엔드 파일 구조](https://handsome-airport-d67.notion.site/Backend-c4e5630bde2048418b7d0f9cfb796341?pvs=4)
-
----
-
 <div align="center">
 <h1>✨Front-end Stack✨</h1>
 <img src="https://img.shields.io/badge/HTML-E34F26?style=for-the-badge&logo=HTML5&logoColor=white"/>
@@ -174,3 +168,5 @@
 ## 더보기
 ### [PPT보기](https://www.notion.so/PPT-62dc3c3b6aa543f89f8c9e2a3f743f2c)   
 ### [UCC보기](https://handsome-airport-d67.notion.site/UCC-ec68fdcc696843bba720e20183c61c10?pvs=4)
+### [프론트엔드 파일 구조](https://handsome-airport-d67.notion.site/Frontend-fc01c67e54f0405580cc77e3aa87e2d7?pvs=4)  
+### [백엔드 파일 구조](https://handsome-airport-d67.notion.site/Backend-c4e5630bde2048418b7d0f9cfb796341?pvs=4)
