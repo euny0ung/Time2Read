@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
-import kakaoLoginButton from '../../assets/kakao/simple/kakao_login_medium.png';
-import myPageIcon from '../../assets/myPageIcon.png';
+import kakaoLoginButton from '@/assets/kakao/simple/kakao_login_medium.png';
+import myPageIcon from '@/assets/myPageIcon.png';
 
 const kakaoLoginLink = `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=${import.meta.env.VITE_KAKAO_API}&redirect_uri=${import.meta.env.VITE_KAKAO_REDIRECT_URI}&response_type=code&prompt=login`;
 

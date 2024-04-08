@@ -35,109 +35,84 @@ export const useGameResultStore = create(
 );
 
 export const useGameModalStore = create(
-  devtools(
-    // persist(
-    (set) => ({
-      isBumped: false, // 객체와 충돌여부를 확인하는 변수
-      openQuizModal: false, // 퀴즈 모달이 열리는지 확인하는 변수
-      openGameOverModal: false, // 게임 종료 모달이 열리는지 확인하는 변수
-      isOver: false, // 게임 종료 여부를 확인하는 변수
-      setBumped: (value) => set({ isBumped: value }),
-      setOpenQuizModal: (value) => set({ openQuizModal: value }),
-      setOpenGameOverModal: (value) => set({ openGameOverModal: value }),
-      setGameOver: (value) => set({ isOver: value }),
-      reset: () => set({ isBumped: false, openQuizModal: false, openGameOverModal: false, isOver: false }),
-    }),
-    //   { name: 'useGameModalStore', storage: createJSONStorage(() => sessionStorage) },
-    // ),
-  ),
+  devtools((set) => ({
+    isBumped: false, // 객체와 충돌여부를 확인하는 변수
+    openQuizModal: false, // 퀴즈 모달이 열리는지 확인하는 변수
+    openGameOverModal: false, // 게임 종료 모달이 열리는지 확인하는 변수
+    isOver: false, // 게임 종료 여부를 확인하는 변수
+    setBumped: (value) => set({ isBumped: value }),
+    setOpenQuizModal: (value) => set({ openQuizModal: value }),
+    setOpenGameOverModal: (value) => set({ openGameOverModal: value }),
+    setGameOver: (value) => set({ isOver: value }),
+    reset: () => set({ isBumped: false, openQuizModal: false, openGameOverModal: false, isOver: false }),
+  })),
 );
 
 export const useGameItemStore = create(
-  devtools(
-    // persist(
-    (set) => ({
-      clueCount: 5,
-      lifeCount: 3,
-      decreaseLifeCount: () => set((state) => ({ lifeCount: Math.max(0, state.lifeCount - 1) })), // 생명 개수 감소
-      increaseLifeCount: () => set((state) => ({ lifeCount: Math.min(3, state.lifeCount + 1) })), // 생명 개수 증가
-      decreaseClueCount: () => set((state) => ({ clueCount: Math.max(0, state.clueCount - 1) })), // 단서 개수 감소
-      increaseClueCount: () => set((state) => ({ clueCount: Math.min(10, state.clueCount + 1) })), // 단서 개수 증가
-      reset: () => set({ clueCount: 5, lifeCount: 3 }),
-    }),
-    //   { name: 'useGameItemStore', storage: createJSONStorage(() => sessionStorage) },
-    // ),
-  ),
+  devtools((set) => ({
+    clueCount: 5,
+    lifeCount: 3,
+    decreaseLifeCount: () => set((state) => ({ lifeCount: Math.max(0, state.lifeCount - 1) })), // 생명 개수 감소
+    increaseLifeCount: () => set((state) => ({ lifeCount: Math.min(3, state.lifeCount + 1) })), // 생명 개수 증가
+    decreaseClueCount: () => set((state) => ({ clueCount: Math.max(0, state.clueCount - 1) })), // 단서 개수 감소
+    increaseClueCount: () => set((state) => ({ clueCount: Math.min(10, state.clueCount + 1) })), // 단서 개수 증가
+    reset: () => set({ clueCount: 5, lifeCount: 3 }),
+  })),
 );
 
 export const useVisibilityStore = create(
-  devtools(
-    // persist(
-    (set) => ({
-      catVisible: true,
-      doorKnobVisible: true,
-      dodoBirdVisible: true,
-      caterpillarVisible: true,
-      cheshireCatVisible: true,
-      roseVisible: true,
-      flamingoVisible: true,
-      cardSoldierVisible: true,
-      heartQueenVisible: true,
-      rabbitVisible: true,
-      setCatVisible: (visible) => set({ catVisible: visible }),
-      setDoorKnobVisible: (visible) => set({ doorKnobVisible: visible }),
-      setDodoBirdVisible: (visible) => set({ dodoBirdVisible: visible }),
-      setCaterpillarVisible: (visible) => set({ caterpillarVisible: visible }),
-      setCheshireCatVisible: (visible) => set({ cheshireCatVisible: visible }),
-      setRoseVisible: (visible) => set({ roseVisible: visible }),
-      setFlamingoVisible: (visible) => set({ flamingoVisible: visible }),
-      setCardSoldierVisible: (visible) => set({ cardSoldierVisible: visible }),
-      setHeartQueenVisible: (visible) => set({ heartQueenVisible: visible }),
-      setRabbitVisible: (visible) => set({ rabbitVisible: visible }),
-      reset: () =>
-        set({
-          catVisible: true,
-          doorKnobVisible: true,
-          dodoBirdVisible: true,
-          caterpillarVisible: true,
-          cheshireCatVisible: true,
-          roseVisible: true,
-          flamingoVisible: true,
-          cardSoldierVisible: true,
-          heartQueenVisible: true,
-          rabbitVisible: true,
-        }),
-    }),
-    //   { name: 'useVisibilityStore', storage: createJSONStorage(() => sessionStorage) },
-    // ),
-  ),
+  devtools((set) => ({
+    catVisible: true,
+    doorKnobVisible: true,
+    dodoBirdVisible: true,
+    caterpillarVisible: true,
+    cheshireCatVisible: true,
+    roseVisible: true,
+    flamingoVisible: true,
+    cardSoldierVisible: true,
+    heartQueenVisible: true,
+    rabbitVisible: true,
+    setCatVisible: (visible) => set({ catVisible: visible }),
+    setDoorKnobVisible: (visible) => set({ doorKnobVisible: visible }),
+    setDodoBirdVisible: (visible) => set({ dodoBirdVisible: visible }),
+    setCaterpillarVisible: (visible) => set({ caterpillarVisible: visible }),
+    setCheshireCatVisible: (visible) => set({ cheshireCatVisible: visible }),
+    setRoseVisible: (visible) => set({ roseVisible: visible }),
+    setFlamingoVisible: (visible) => set({ flamingoVisible: visible }),
+    setCardSoldierVisible: (visible) => set({ cardSoldierVisible: visible }),
+    setHeartQueenVisible: (visible) => set({ heartQueenVisible: visible }),
+    setRabbitVisible: (visible) => set({ rabbitVisible: visible }),
+    reset: () =>
+      set({
+        catVisible: true,
+        doorKnobVisible: true,
+        dodoBirdVisible: true,
+        caterpillarVisible: true,
+        cheshireCatVisible: true,
+        roseVisible: true,
+        flamingoVisible: true,
+        cardSoldierVisible: true,
+        heartQueenVisible: true,
+        rabbitVisible: true,
+      }),
+  })),
 );
 
 export const checkCollidedStore = create(
-  devtools(
-    // persist(
-    (set) => ({
-      collidedItem: [],
-      setCollidedItem: (value) => set({ collidedItem: value }),
-      reset: () => set({ collidedItem: [] }),
-    }),
-    // { name: 'checkCollidedStore', storage: createJSONStorage(() => sessionStorage) },
-    // ),
-  ),
+  devtools((set) => ({
+    collidedItem: [],
+    setCollidedItem: (value) => set({ collidedItem: value }),
+    reset: () => set({ collidedItem: [] }),
+  })),
 );
 
 export const checkGameSuccessStore = create(
-  devtools(
-    // persist(
-    (set) => ({
-      // isSucceed가 true면 탈출 성공, false면 탈출 실패
-      isSucceed: false,
-      setIsSucceed: (value) => set({ isSucceed: value }),
-      reset: () => set({ isSucceed: false }),
-    }),
-    //   { name: 'checkGameSuccessStore', storage: createJSONStorage(() => sessionStorage) },
-    // ),
-  ),
+  devtools((set) => ({
+    // isSucceed가 true면 탈출 성공, false면 탈출 실패
+    isSucceed: false,
+    setIsSucceed: (value) => set({ isSucceed: value }),
+    reset: () => set({ isSucceed: false }),
+  })),
 );
 
 export const checkGameYearStore = create(

@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react';
-import { putArticleStatus } from '@apis/myApi';
 import { format } from 'date-fns';
+import { putArticleStatus } from '@/apis/myApi.jsx';
 import AfterScrap from '@/assets/scrap/afterScrap.png';
 import BeforeScrap from '@/assets/scrap/beforeScrap.png';
-import ImageComponent from '@/commons/ImageComponent.jsx';
-import InducementModal from '@/commons/modals/InducementModal.jsx';
+import ImageComponent from '@/components/commons/ImageComponent.jsx';
+import InducementModal from '@/components/commons/modals/InducementModal.jsx';
 import { usePreLoginPathStore, usePreLoginStateStore } from '@/stores/ui/preLoginStore.jsx';
 import useScrapStore from '@/stores/ui/scrapStore.jsx';
 

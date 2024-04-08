@@ -1,5 +1,5 @@
 import Lottie from 'lottie-react';
-import Rabbit from '../../assets/lottie/rabbit.json';
+import Rabbit from '@/assets/lottie/rabbit.json';
 
 const GameFail = () => {
   return (

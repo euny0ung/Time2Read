@@ -25,9 +25,6 @@ const MazeModel = () => {
   const textureLoader = new TextureLoader();
   const textures = textureLoader.load('maze/textures/grass-seamless-texture-tileable.webp');
   const wallsBaseColor = textureLoader.load('maze/textures/ground/Stylized_Stone_Floor_005_basecolor.jpg');
-  // const wallsHeightColor = textureLoader.load('maze/texture/ground/Stylized_Stone_Floor_005_height.png');
-  // const wallsNormalColor = textureLoader.load('maze/texture/ground/Stylized_Stone_Floor_005_normal.jpg');
-  // const wallsRoughColor = textureLoader.load('maze/textures/ground/Stylized_Stone_Floor_005_roughness.jpg');
   const wallsAmbientColor = textureLoader.load('maze/textures/ground/Stylized_Stone_Floor_005_ambientOcclusion.jpg');
   textures.colorSpace = SRGBColorSpace;
   wallsAmbientColor.colorSpace = SRGBColorSpace;
@@ -77,9 +74,8 @@ const MazeModel = () => {
 
   useEffect(() => {
     textures.repeat.set(8, 8);
-    textures.wrapS = RepeatWrapping; // 텍스처가 가로 방향으로 반복되도록 설정합니다.
-    textures.wrapT = RepeatWrapping; // 텍스처가 세로 방향으로 반복되도록 설정합니다.
-
+    textures.wrapS = RepeatWrapping; // 텍스처가 가로 방향으로 반복
+    textures.wrapT = RepeatWrapping; // 텍스처가 세로 방향으로 반복
     wallsBaseColor.repeat.set(8, 8);
     wallsBaseColor.wrapS = RepeatWrapping;
     wallsBaseColor.wrapT = RepeatWrapping;

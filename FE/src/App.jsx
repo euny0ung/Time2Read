@@ -5,6 +5,12 @@ import LandingPage from '@/pages/LandingPage.jsx';
 import MyPage from '@/pages/MyPage.jsx';
 import ResultPage from '@/pages/ResultPage.jsx';
 
+import KakaoRedirect from '@/components/kakao/KakaoRedirect.jsx';
+import GamePage from '@/pages/GamePage.jsx';
+import LandingPage from '@/pages/LandingPage.jsx';
+import MyPage from '@/pages/MyPage.jsx';
+import ResultPage from '@/pages/ResultPage.jsx';
+
 const App = () => {
   return (
     <Routes>

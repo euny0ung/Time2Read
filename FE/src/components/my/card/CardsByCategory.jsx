@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import Card from './Card.jsx';
-import BaseModal from '@/compoents/commons/modals/BaseModal.jsx';
+import BaseModal from '@/components/commons/modals/BaseModal.jsx';
+import Card from '@/components/my/card/Card.jsx';
 import ArticleDetail from '@/components/result/article/ArticleDetail.jsx';
 import useScrapStore from '@/stores/ui/scrapStore.jsx';
 

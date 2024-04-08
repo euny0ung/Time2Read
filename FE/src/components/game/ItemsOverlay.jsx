@@ -1,6 +1,6 @@
 import LifeIcon from '../../../public/images/life.webp';
 import ClueIcon from '../../../public/images/news.webp';
-import { useGameItemStore } from '../../stores/game/gameStore.jsx';
+import { useGameItemStore } from '@/stores/game/gameStore.jsx';
 
 export const ClueView = (clueCount) => {
   return (

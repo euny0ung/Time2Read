@@ -3,7 +3,7 @@ import { PointerLockControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { Physics } from '@react-three/rapier';
 import Temp from '@/assets/music/GamePageMusic.mp3';
-import AnswerCheckModal from '@/components/commons/AnswerCheckModal.jsx';
+import AnswerCheckModal from '@/components/commons/modals/AnswerCheckModal.jsx';
 import GameOverModal from '@/components/game/GameOverModal.jsx';
 import ItemsOverlay from '@/components/game/ItemsOverlay.jsx';
 import Maze, { Floor } from '@/components/game/Maze.jsx';
@@ -16,7 +16,7 @@ import { useGameModalStore } from '@/stores/game/gameStore.jsx';
 import { useAnswerCheckStore } from '@/stores/game/quizStore.jsx';
 
 const GamePage = () => {
-  const [isPlayerMode, setIsPlayerMode] = useState(true); // 1인칭, 3인칭 모드 전환. 테스트할 때 편하라고 만듦
+  const [isPlayerMode, setIsPlayerMode] = useState(true); // 테스트용 1인칭, 3인칭 모드 전환
   const openQuizModal = useGameModalStore((state) => state.openQuizModal);
   const openAnswerResult = useAnswerCheckStore((state) => state.openAnswerResult);
   const resultState = useAnswerCheckStore((state) => state.resultState);
@@ -35,7 +35,7 @@ const GamePage = () => {
     setIsPointerLockEnabled(!openGameOverModal);
   }, [openGameOverModal]);
 
-  // 들어오자마자 openModal을 true로 하여 StartModal을 활성화시킨다.
+  // 들어오자마자 openModal을 true로 하여 StartModal을 활성화
   useEffect(() => {
     setOpenModal(true);
     audioRef.current.play();

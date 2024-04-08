@@ -3,13 +3,13 @@ import * as RAPIER from '@dimforge/rapier3d-compat';
 import { useFrame } from '@react-three/fiber';
 import { RigidBody, useRapier } from '@react-three/rapier';
 import { Vector3 } from 'three';
-import usePersonControls from '../../hooks/usePersonControls.jsx';
+import usePersonControls from '@/hooks/usePersonControls.jsx';
 import {
   useGameModalStore,
   useGameItemStore,
   useVisibilityStore,
   checkCollidedStore,
-} from '../../stores/game/gameStore.jsx';
+} from '@/stores/game/gameStore.jsx';
 
 const MOVE_SPEED = 3;
 const JUMP_FORCE = 1;
@@ -17,12 +17,6 @@ const direction = new Vector3();
 const frontVector = new Vector3();
 const sideVector = new Vector3();
 
-/// //////////////
-// 나중에 hooks 파일로 옮길 것. player를 WADS키와 spacebar로 제어하는 함수
-// 현재 right가 안되는 현상 발견
-// 혜진이 누나 오면 질문 (현재 플레이어가 움직이는건 빨간 상자가 움직이는건지 아니면 카메라가 움직이는건지)
-
-// 미로 벽 막혔는지 테스트할 용도로 만들어놓은 빨간 큐브. 방향키로 움직일 수 있음
 const Player = () => {
   const playerRef = useRef(null);
   const [initialCameraPositionSet, setInitialCameraPositionSet] = useState(false);
