@@ -1,6 +1,5 @@
 import { useState } from 'react';
-import ArticleStack from '../components/my/card/ArticleStack.jsx';
-// import CombinedComponent from '../components/my/card/CombinedComponent.jsx';
+import ArticleStack from '@/components/my/card/ArticleStack.jsx';
 
 const ScrapedArticles = () => {
   const [hoverIndex, setHoverIndex] = useState(null);

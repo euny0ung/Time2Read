@@ -1,8 +1,8 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Card from './Card.jsx';
-import useScrapStore from '../../../stores/ui/scrapStore.jsx';
-import BaseModal from '../../commons/modals/BaseModal.jsx';
-import ArticleDetail from '../../result/article/ArticleDetail.jsx';
+import BaseModal from '@/compoents/commons/modals/BaseModal.jsx';
+import ArticleDetail from '@/components/result/article/ArticleDetail.jsx';
+import useScrapStore from '@/stores/ui/scrapStore.jsx';
 
 // 기사 디테일 모달
 const CardDetailModal = ({ article, onClose }) => {

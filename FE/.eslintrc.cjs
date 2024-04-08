@@ -10,6 +10,7 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:import/recommended',
     'plugin:jsx-a11y/recommended',
+    'plugin:import/warnings',
     'airbnb-base',
     'prettier/prettier',
     'prettier',
@@ -57,7 +58,7 @@ module.exports = {
     'import/order': [
       'warn',
       {
-        groups: ['builtin', 'external', 'internal', 'type'],
+        groups: ['builtin', 'external', 'internal', 'parent', 'sibling', 'index'],
         pathGroups: [
           {
             pattern: 'react',
@@ -74,7 +75,7 @@ module.exports = {
           order: 'asc',
           caseInsensitive: true,
         },
-        pathGroupsExcludedImportTypes: ['builtin'],
+        pathGroupsExcludedImportTypes: ['react'],
       },
     ],
     'import/extensions': ['error', 'ignorePackages'],

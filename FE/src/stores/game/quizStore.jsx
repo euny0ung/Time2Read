@@ -6,7 +6,7 @@ import {
   useGameResultStore,
   useChallengedArticleStore,
   checkGameSuccessStore,
-} from './gameStore.jsx';
+} from '@/stores/game/gameStore.jsx';
 
 export const useQuizStore = create(
   devtools(

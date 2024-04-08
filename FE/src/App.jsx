@@ -1,10 +1,9 @@
-import KakaoRedirect from '@components/kakao/KakaoRedirect';
-import GamePage from '@pages/GamePage';
-import LandingPage from '@pages/LandingPage';
-import MyPage from '@pages/MyPage';
-import ResultPage from '@pages/ResultPage';
-
 import { Routes, Route } from 'react-router-dom';
+import KakaoRedirect from '@/components/kakao/KakaoRedirect.jsx';
+import GamePage from '@/pages/GamePage.jsx';
+import LandingPage from '@/pages/LandingPage.jsx';
+import MyPage from '@/pages/MyPage.jsx';
+import ResultPage from '@/pages/ResultPage.jsx';
 
 const App = () => {
   return (

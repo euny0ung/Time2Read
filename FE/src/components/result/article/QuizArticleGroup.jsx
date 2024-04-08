@@ -1,12 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
-
-import ArticleDetail from './ArticleDetail.jsx';
-import ProgressBar from './ProgressBar.jsx';
-
-import CloseToggle from '../../../assets/toggle/closeToggle.png';
-import OpenToggle from '../../../assets/toggle/openToggle.png';
-
-import { usePreLoginStateStore } from '../../../stores/ui/preLoginStore.jsx';
+import CloseToggle from '@/assets/toggle/closeToggle.png';
+import OpenToggle from '@/assets/toggle/openToggle.png';
+import ArticleDetail from '@/components/result/article/ArticleDetail.jsx';
+import ProgressBar from '@/components/result/article/ProgressBar.jsx';
+import { usePreLoginStateStore } from '@/stores/ui/preLoginStore.jsx';
 
 // 특정 문제에 대한 관련 기사 그룹을 렌더링
 const QuizArticleGroup = ({ quizNumber, relatedArticles }) => {

@@ -1,6 +1,6 @@
 import { format } from 'date-fns';
-import ImageComponent from '../../commons/ImageComponent.jsx';
-import Tooltip from '../../commons/Tooltip.jsx';
+import ImageComponent from '@/components/commons/ImageComponent.jsx';
+import Tooltip from '@/components/commons/Tooltip.jsx';
 
 const ProgressBar = ({ relatedArticles, currentStep, goToStep, setIsToggleOn, titleMaxWidth }) => {
   return (

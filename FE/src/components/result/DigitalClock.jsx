@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const DigitalClock = ({time}) => {
+const DigitalClock = ({ time }) => {
   const [time, setTime] = useState('');
 
   useEffect(() => {

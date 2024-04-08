@@ -1,6 +1,6 @@
 // CardStack.js
 import { Canvas } from '@react-three/fiber';
-import Card from './Card.jsx';
+import Card from '@/components/my/card/Card.jsx';
 
 const cardData = [
   {

@@ -2,7 +2,6 @@ import React, { useState, useMemo, useRef } from 'react';
 import { useSpring, a } from '@react-spring/three';
 import { Text } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
-import gsap from 'gsap';
 
 // 기사 데이터 생성 함수
 const generateArticles = (num) => {

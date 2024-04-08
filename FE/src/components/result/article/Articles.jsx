@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import QuizArticleGroup from './QuizArticleGroup.jsx';
 import { postRelationArticles } from '@/apis/resultApi.jsx';
+import QuizArticleGroup from '@/components/result/article/QuizArticleGroup.jsx';
 import { useChallengedArticleStore } from '@/stores/game/gameStore.jsx';
 
 const Articles = () => {
