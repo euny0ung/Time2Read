@@ -1,6 +1,6 @@
-import BaseModal from './BaseModal.jsx';
-import Folder from '../../../assets/password.png';
-import KakaoLogin from '../../kakao/KakaoLogin.jsx';
+import Folder from '@/assets/password.png';
+import BaseModal from '@/components/commons/modals/BaseModal.jsx';
+import KakaoLogin from '@/components/kakao/KakaoLogin.jsx';
 
 const InducementModal = ({ onClose }) => {
   return (

@@ -1,4 +1,4 @@
-import CardsByCategory from './CardsByCategory.jsx';
+import CardsByCategory from '@/components/my/card/CardsByCategory.jsx';
 
 const Cards = ({ scrapedArticles }) => {
   return (

@@ -1,4 +1,18 @@
 import { useState, useEffect } from 'react';
+import { format } from 'date-fns';
+import { useNavigate } from 'react-router-dom';
+
+import { getTimeRecords, getSolved, getScrapArticles } from '@/apis/myApi.jsx';
+import PageMovingButton from '@/components/commons/buttons/PageMovingButtons.jsx';
+import BodyContainer from '@/components/commons/containers/BodyContainer.jsx';
+import ResultTitle from '@/components/commons/containers/ResultTitle.jsx';
+import TranslucentContainer from '@/components/commons/containers/TranslucentContainer.jsx';
+import WhiteContainer from '@/components/commons/containers/WhiteContainer.jsx';
+import WhiteContainerHoverEffect from '@/components/commons/containers/WhiteContainerHoverEffect.jsx';
+import { formatTime } from '@/components/game/Timer.jsx';
+import Badges from '@/components/my/badge/Badges.jsx';
+import Cards from '@/components/my/card/Cards.jsx';
+import RadarChart from '@/components/my/RadarChart.jsx';
 import {
   useGameResultStore,
   useGameModalStore,
@@ -9,28 +23,14 @@ import {
   checkGameYearStore,
   useResultDataStore,
   useChallengedArticleStore,
-} from '@stores/game/gameStore';
+} from '@/stores/game/gameStore.jsx';
 import {
   useQuizStore,
   useHitsCategoryStore,
   useAnswerCheckStore,
   useClueIndexStore,
   useClueStateStore,
-} from '@stores/game/quizStore.jsx';
-import { format } from 'date-fns';
-import { useNavigate } from 'react-router-dom';
-import { getTimeRecords, getSolved, getScrapArticles } from '../apis/myApi.jsx';
-import PageMovingButton from '../components/commons/buttons/PageMovingButtons.jsx';
-import BodyContainer from '../components/commons/containers/BodyContainer.jsx';
-import ResultContent from '../components/commons/containers/ResultContent.jsx';
-import ResultTitle from '../components/commons/containers/ResultTitle.jsx';
-import TranslucentContainer from '../components/commons/containers/TranslucentContainer.jsx';
-import WhiteContainer from '../components/commons/containers/WhiteContainer.jsx';
-import WhiteContainerHoverEffect from '../components/commons/containers/WhiteContainerHoverEffect.jsx';
-import { formatTime } from '../components/game/Timer.jsx';
-import Badges from '../components/my/badge/Badges.jsx';
-import Cards from '../components/my/card/Cards.jsx';
-import RadarChart from '../components/my/RadarChart.jsx';
+} from '@/stores/game/quizStore.jsx';
 
 const MyPage = () => {
   const [timeresult, setTimeresult] = useState([]);

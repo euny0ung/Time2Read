@@ -1,18 +1,19 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getYearSummary, postGameResult } from '../apis/resultApi.jsx';
-import PageMovingButton from '../components/commons/buttons/PageMovingButtons.jsx';
-import TopButton from '../components/commons/buttons/TopButton.jsx';
-import BodyContainer from '../components/commons/containers/BodyContainer.jsx';
-import ResultContent from '../components/commons/containers/ResultContent.jsx';
-import ResultTitle from '../components/commons/containers/ResultTitle.jsx';
-import TranslucentContainer from '../components/commons/containers/TranslucentContainer.jsx';
-import WhiteContainerHoverEffect from '../components/commons/containers/WhiteContainerHoverEffect.jsx';
-import InducementModal from '../components/commons/modals/InducementModal.jsx';
-import { formatTime } from '../components/game/Timer.jsx';
-import Articles from '../components/result/article/Articles.jsx';
-import Keyword from '../components/result/Keyword.jsx';
-import TimeLoader from '../components/result/timeattack/TimeLoader.jsx';
+
+import { getYearSummary, postGameResult } from '@/apis/resultApi.jsx';
+import PageMovingButton from '@/components/commons/buttons/PageMovingButtons.jsx';
+import TopButton from '@/components/commons/buttons/TopButton.jsx';
+import BodyContainer from '@/components/commons/containers/BodyContainer.jsx';
+import ResultContent from '@/components/commons/containers/ResultContent.jsx';
+import ResultTitle from '@/components/commons/containers/ResultTitle.jsx';
+import TranslucentContainer from '@/components/commons/containers/TranslucentContainer.jsx';
+import WhiteContainerHoverEffect from '@/components/commons/containers/WhiteContainerHoverEffect.jsx';
+import InducementModal from '@/components/commons/modals/InducementModal.jsx';
+import { formatTime } from '@/components/game/Timer.jsx';
+import Articles from '@/components/result/article/Articles.jsx';
+import Keyword from '@/components/result/Keyword.jsx';
+import TimeLoader from '@/components/result/timeattack/TimeLoader.jsx';
 import {
   useGameResultStore,
   useGameModalStore,
@@ -23,16 +24,15 @@ import {
   checkGameYearStore,
   useResultDataStore,
   useChallengedArticleStore,
-} from '../stores/game/gameStore.jsx';
+} from '@/stores/game/gameStore.jsx';
 import {
   useQuizStore,
   useHitsCategoryStore,
   useAnswerCheckStore,
   useClueIndexStore,
   useClueStateStore,
-} from '../stores/game/quizStore.jsx';
-import { usePreLoginPathStore, usePreLoginStateStore } from '../stores/ui/preLoginStore.jsx';
-import useScrapStore from '../stores/ui/scrapStore.jsx';
+} from '@/stores/game/quizStore.jsx';
+import { usePreLoginPathStore, usePreLoginStateStore } from '@/stores/ui/preLoginStore.jsx';
 
 const ResultPage = () => {
   const navigate = useNavigate();

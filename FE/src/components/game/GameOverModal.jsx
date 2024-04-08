@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
-import { checkGameSuccessStore } from '../../stores/game/gameStore.jsx';
-import GameFail from '../commons/GameFail.jsx';
-import GameSuccess from '../commons/GameSuccess.jsx';
+import GameFail from '@/components/commons/modals/GameFail.jsx';
+import GameSuccess from '@/components/commons/modals/GameSuccess.jsx';
+import { checkGameSuccessStore } from '@/stores/game/gameStore.jsx';
 
 const GameOverModal = () => {
   const { isSucceed } = checkGameSuccessStore();

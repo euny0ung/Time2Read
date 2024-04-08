@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { useGameItemStore } from '@stores/game/gameStore';
-import { useClueIndexStore } from '@stores/game/quizStore';
+
+import { useGameItemStore } from '@/stores/game/gameStore.jsx';
+import { useClueIndexStore } from '@/stores/game/quizStore.jsx';
 
 const EntireContentButton = React.memo(({ title, clues, quizIndex, clueIndex }) => {
   const [isEntireContent, setIsEntireContent] = useState(false);

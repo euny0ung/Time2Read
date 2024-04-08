@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useAnswerCheckStore } from '@stores/game/quizStore';
+import { useAnswerCheckStore } from '@/stores/game/quizStore.jsx';
 
 const AnswerCheckModal = () => {
   const [opacity, setOpacity] = useState(1); // 시작 시 완전 불투명
@@ -33,9 +33,9 @@ const AnswerCheckModal = () => {
 
   return (
     <>
-      <div className="fixed inset-0 bg-opacity-50 flex justify-center p-4">
+      <div className="fixed inset-0 flex justify-center p-4 bg-opacity-50">
         <div
-          className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md h-32 flex justify-center items-center text-2xl"
+          className="flex items-center justify-center w-full h-32 max-w-md p-6 text-2xl bg-white rounded-lg shadow-lg"
           style={{ opacity }}
         >
           {resultState}

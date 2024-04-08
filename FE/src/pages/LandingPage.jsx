@@ -1,6 +1,9 @@
 import { useState } from 'react';
-import { useQuizApiHandler } from '@apis/quizApi';
-import KakaoLogin from '@components/kakao/KakaoLogin';
+
+import { useQuizApiHandler } from '@/apis/quizApi.jsx';
+import BodyContainer from '@/components/commons/containers/BodyContainer.jsx';
+import Dropdown from '@/components/commons/Dropdown.jsx';
+import KakaoLogin from '@/components/kakao/KakaoLogin.jsx';
 import {
   useGameResultStore,
   useGameModalStore,
@@ -11,16 +14,14 @@ import {
   checkGameYearStore,
   useResultDataStore,
   useChallengedArticleStore,
-} from '@stores/game/gameStore';
+} from '@/stores/game/gameStore.jsx';
 import {
   useQuizStore,
   useHitsCategoryStore,
   useAnswerCheckStore,
   useClueIndexStore,
   useClueStateStore,
-} from '@stores/game/quizStore.jsx';
-import BodyContainer from '../components/commons/containers/BodyContainer.jsx';
-import Dropdown from '../components/commons/Dropdown.jsx';
+} from '@/stores/game/quizStore.jsx';
 
 const OPTIONS = Array.from({ length: 2024 - 2005 + 1 }, (v, k) => `${2024 - k}`);
 
@@ -51,9 +52,6 @@ const LandingPage = () => {
   };
 
   const handleQuizApi = useQuizApiHandler(selected);
-  // const handleTestQuizApi = () => {
-  //   useTestQuizApiHandler(selected);
-  // };
 
   // 텍스트를 분리하여 각 글자에 <span> 태그 적용
   const title = 'Time 2 Read';

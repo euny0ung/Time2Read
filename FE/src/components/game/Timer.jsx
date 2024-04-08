@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useGameResultStore, useGameModalStore } from '../../stores/game/gameStore.jsx';
+import { useGameResultStore, useGameModalStore } from '@/stores/game/gameStore.jsx';
 
 export const formatTime = (seconds) => {
   const minutes = Math.floor(seconds / 60);

@@ -1,6 +1,4 @@
 import { useState } from 'react';
-import { useSecondQuizApi } from '@apis/quizApi';
-import { checkGameYearStore } from '@stores/game/gameStore.jsx';
 import A from '../../../public/images/A.png';
 import D from '../../../public/images/D.png';
 import ESC from '../../../public/images/ESC.png';
@@ -8,7 +6,9 @@ import LifeIcon from '../../../public/images/life.webp';
 import ClueIcon from '../../../public/images/news.webp';
 import S from '../../../public/images/S.png';
 import W from '../../../public/images/W.png';
-import BaseModal from '../commons/modals/BaseModal.jsx';
+import { useSecondQuizApi } from '@/apis/quizApi.jsx';
+import BaseModal from '@/components/commons/modals/BaseModal.jsx';
+import { checkGameYearStore } from '@/stores/game/gameStore.jsx';
 
 const StartModal = ({ onClose }) => {
   const [isNext, setIsNext] = useState(false);

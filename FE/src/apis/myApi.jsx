@@ -1,5 +1,5 @@
-import useScrapStore from '@stores/ui/scrapStore.jsx';
 import axios from 'axios';
+import useScrapStore from '@/stores/ui/scrapStore.jsx';
 
 const baseUrl = import.meta.env.VITE_BASE_API;
 

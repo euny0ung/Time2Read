@@ -3,13 +3,13 @@ import * as RAPIER from '@dimforge/rapier3d-compat';
 import { useFrame } from '@react-three/fiber';
 import { RigidBody, useRapier } from '@react-three/rapier';
 import { Vector3 } from 'three';
-import usePersonControls from '../../hooks/usePersonControls.jsx';
+import usePersonControls from '@/hooks/usePersonControls.jsx';
 import {
   useGameModalStore,
   useGameItemStore,
   useVisibilityStore,
   checkCollidedStore,
-} from '../../stores/game/gameStore.jsx';
+} from '@/stores/game/gameStore.jsx';
 
 const MOVE_SPEED = 3;
 const JUMP_FORCE = 1;

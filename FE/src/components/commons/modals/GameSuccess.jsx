@@ -1,5 +1,5 @@
 import Lottie from 'lottie-react';
-import Firework from '../../assets/lottie/fireworks.json';
+import Firework from '@/assets/lottie/fireworks.json';
 
 const GameSuccess = () => {
   return (

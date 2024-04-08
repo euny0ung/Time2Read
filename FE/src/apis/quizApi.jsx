@@ -1,6 +1,6 @@
-import { useQuizStore } from '@stores/game/quizStore.jsx';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useQuizStore } from '@/stores/game/quizStore.jsx';
 
 export const useQuizApiHandler = (selected) => {
   const navigate = useNavigate();

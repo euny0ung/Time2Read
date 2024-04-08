@@ -1,12 +1,12 @@
 import React from 'react';
-import ClueContentButton from '@components/commons/buttons/ClueContentButton';
-import EntireContentButton from '@components/commons/buttons/EntireContentButton';
-import AnagramQuiz from '@components/quizTypes/AnagramQuiz.jsx';
-import ChoiceQuiz from '@components/quizTypes/ChoiceQuiz.jsx';
-import OxQuiz from '@components/quizTypes/OxQuiz.jsx';
-import ShortAnswerQuiz from '@components/quizTypes/ShortAnswerQuiz.jsx';
-import { useQuizStore } from '@stores/game/quizStore';
-import WhiteContainer from '../commons/containers/WhiteContainer.jsx';
+import WhiteContainer from '@/components/commons/containers/WhiteContainer.jsx';
+import AnagramQuiz from '@/components/quizTypes/AnagramQuiz.jsx';
+import ChoiceQuiz from '@/components/quizTypes/ChoiceQuiz.jsx';
+import ClueContentButton from '@/components/quizTypes/ClueContentButton.jsx';
+import EntireContentButton from '@/components/quizTypes/EntireContentButton.jsx';
+import OxQuiz from '@/components/quizTypes/OxQuiz.jsx';
+import ShortAnswerQuiz from '@/components/quizTypes/ShortAnswerQuiz.jsx';
+import { useQuizStore } from '@/stores/game/quizStore.jsx';
 
 // 퀴즈 유형이 객관식인 경우, 랜덤 숫자를 생성하여 애너그램과 객관식으로 나눔. 편향 때문에 random 함수 대신 피셔-예이츠 셔플 알고리즘 사용
 const FisherYatesShuffle = (answer) => {

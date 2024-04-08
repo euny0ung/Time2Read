@@ -1,5 +1,6 @@
 import { useReducer } from 'react';
-import { handleAnswerCheck } from '@stores/game/quizStore';
+
+import { handleAnswerCheck } from '@/stores/game/quizStore.jsx';
 
 const oxButtons = [
   { label: 'O', value: 'true' },

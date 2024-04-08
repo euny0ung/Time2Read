@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useGLTF } from '@react-three/drei';
 import { useLoader } from '@react-three/fiber';
 import { RigidBody } from '@react-three/rapier';

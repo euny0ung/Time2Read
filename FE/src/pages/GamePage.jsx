@@ -1,19 +1,20 @@
 import React, { Suspense, useState, useRef, useEffect } from 'react';
-import AnswerCheckModal from '@components/commons/AnswerCheckModal';
-import Maze, { Floor } from '@components/game/Maze';
-import Player from '@components/game/Player';
-import QuizModal from '@components/game/QuizModal.jsx';
 import { PointerLockControls } from '@react-three/drei';
 import { Canvas } from '@react-three/fiber';
 import { Physics } from '@react-three/rapier';
-import { useGameModalStore } from '@stores/game/gameStore.jsx';
-import { useAnswerCheckStore } from '@stores/game/quizStore';
-import Temp from '../assets/music/GamePageMusic.mp3';
-import GameOverModal from '../components/game/GameOverModal.jsx';
-import ItemsOverlay from '../components/game/ItemsOverlay.jsx';
-import MusicPlay from '../components/game/MusicPlay.jsx';
-import StartModal from '../components/game/StartModal.jsx';
-import Timer from '../components/game/Timer.jsx';
+
+import Temp from '@/assets/music/GamePageMusic.mp3';
+import AnswerCheckModal from '@/components/commons/modals/AnswerCheckModal.jsx';
+import GameOverModal from '@/components/game/GameOverModal.jsx';
+import ItemsOverlay from '@/components/game/ItemsOverlay.jsx';
+import Maze, { Floor } from '@/components/game/Maze.jsx';
+import MusicPlay from '@/components/game/MusicPlay.jsx';
+import Player from '@/components/game/Player.jsx';
+import QuizModal from '@/components/game/QuizModal.jsx';
+import StartModal from '@/components/game/StartModal.jsx';
+import Timer from '@/components/game/Timer.jsx';
+import { useGameModalStore } from '@/stores/game/gameStore.jsx';
+import { useAnswerCheckStore } from '@/stores/game/quizStore.jsx';
 
 const GamePage = () => {
   const [isPlayerMode, setIsPlayerMode] = useState(true); // 테스트용 1인칭, 3인칭 모드 전환
