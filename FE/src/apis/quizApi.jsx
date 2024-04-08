@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useQuizStore } from '@stores/game/quizStore.jsx';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
@@ -57,7 +56,6 @@ export const useTestQuizApiHandler = (selected) => {
 
   const handleTestQuizApi = () => {
     axios
-      // .get(`${import.meta.env.VITE_BASE_API}/game/${selected}/first`)
       .get(`${import.meta.env.VITE_BASE_API}/game/${selected}`)
       .then((response) => {
         setQuiz(response.data.result);

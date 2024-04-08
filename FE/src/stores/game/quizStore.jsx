@@ -37,55 +37,39 @@ export const useHitsCategoryStore = create(
 );
 
 export const useAnswerCheckStore = create(
-  devtools(
-    // persist(
-    (set) => ({
-      openAnswerResult: false,
-      resultState: '',
-      quizIndex: 0,
-      actions: {
-        setOpenAnswerResult: () => set((state) => ({ openAnswerResult: !state.openAnswerResult })),
-        // setResultState: () => set((result) => ({ resultState: result })), 이렇게 하면 안됨. 객체를 받음
-        setResultState: (newResult) => set({ resultState: newResult }),
-        setQuizIndex: () => set((state) => ({ quizIndex: state.quizIndex + 1 })),
-      },
-      reset: () => set({ openAnswerResult: false, resultState: '', quizIndex: 0 }),
-    }),
-    // { name: 'useAnswerCheckStore', storage: createJSONStorage(() => sessionStorage) },
-    // ),
-  ),
+  devtools((set) => ({
+    openAnswerResult: false,
+    resultState: '',
+    quizIndex: 0,
+    actions: {
+      setOpenAnswerResult: () => set((state) => ({ openAnswerResult: !state.openAnswerResult })),
+      setResultState: (newResult) => set({ resultState: newResult }),
+      setQuizIndex: () => set((state) => ({ quizIndex: state.quizIndex + 1 })),
+    },
+    reset: () => set({ openAnswerResult: false, resultState: '', quizIndex: 0 }),
+  })),
 );
 
 // 퀴즈의 힌트 클릭여부 관리
 export const useClueIndexStore = create(
-  devtools(
-    // persist(
-    (set) => ({
-      cluesClicked: {},
-      toggleClueClick: (quizIndex, hintIndex) =>
-        set((state) => {
-          const key = `${quizIndex}-${hintIndex}`;
-          const updatedcluesClicked = { ...state.cluesClicked, [key]: !state.cluesClicked[key] };
-          return { cluesClicked: updatedcluesClicked };
-        }),
-      reset: () => set({ cluesClicked: {} }),
-    }),
-    // { name: 'useClueIndexStore', storage: createJSONStorage(() => sessionStorage) },
-    // ),
-  ),
+  devtools((set) => ({
+    cluesClicked: {},
+    toggleClueClick: (quizIndex, hintIndex) =>
+      set((state) => {
+        const key = `${quizIndex}-${hintIndex}`;
+        const updatedcluesClicked = { ...state.cluesClicked, [key]: !state.cluesClicked[key] };
+        return { cluesClicked: updatedcluesClicked };
+      }),
+    reset: () => set({ cluesClicked: {} }),
+  })),
 );
 
 export const useClueStateStore = create(
-  devtools(
-    // persist(
-    (set) => ({
-      showClueState: false,
-      setShowClueState: () => set((state) => ({ showClueState: !state.showClueState })),
-      reset: () => set({ showClueState: false }),
-    }),
-    // { name: 'useClueStateStore', storage: createJSONStorage(() => sessionStorage) },
-    // ),
-  ),
+  devtools((set) => ({
+    showClueState: false,
+    setShowClueState: () => set((state) => ({ showClueState: !state.showClueState })),
+    reset: () => set({ showClueState: false }),
+  })),
 );
 
 export const handleAnswerCheck = (inputValue, answer, mainCategory, dispatch, id) => {

@@ -19,15 +19,15 @@ const reducer = (state, action) => {
 const ChoiceQuiz = ({ answer, choices, mainCategory, id }) => {
   const [state, dispatch] = useReducer(reducer, inputChoiceState);
 
-  const handleChoiceSelect = (choiceIndex, choiceValue) => {
+  const handleChoiceSelect = (choiceIndex) => {
     dispatch({ type: 'SELECT_CHOICE', payload: choiceIndex });
     handleAnswerCheck(choiceIndex.toString(), answer, mainCategory, () => dispatch({ type: 'RESET_INPUT' }), id);
   };
 
   return (
-    <div className="w-full h-full flex justify-evenly items-center">
+    <div className="flex items-center w-full h-full justify-evenly">
       {choices.map((choice, index) => (
-        <div key={index} className="mr-5 flex flex-col justify-center items-center">
+        <div key={index} className="flex flex-col items-center justify-center mr-5">
           <button
             type="button"
             onClick={(event) => handleChoiceSelect(index.toString(), event.target.value)}

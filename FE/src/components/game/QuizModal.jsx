@@ -1,5 +1,4 @@
 import React from 'react';
-import { useSecondQuizApi } from '@apis/quizApi';
 import ClueContentButton from '@components/commons/buttons/ClueContentButton';
 import EntireContentButton from '@components/commons/buttons/EntireContentButton';
 import AnagramQuiz from '@components/quizTypes/AnagramQuiz.jsx';

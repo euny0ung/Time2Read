@@ -6,7 +6,6 @@ import D from '../../../public/images/D.png';
 import ESC from '../../../public/images/ESC.png';
 import LifeIcon from '../../../public/images/life.webp';
 import ClueIcon from '../../../public/images/news.webp';
-import Pointer from '../../../public/images/pointer.gif';
 import S from '../../../public/images/S.png';
 import W from '../../../public/images/W.png';
 import BaseModal from '../commons/modals/BaseModal.jsx';
@@ -27,8 +26,8 @@ const StartModal = ({ onClose }) => {
     left: 0,
     width: '100%',
     height: '100%',
-    pointerEvents: isNext ? 'none' : 'auto', // Disable pointer events when isNext is false
-    zIndex: 500, // Ensure the overlay is on top of everything
+    pointerEvents: isNext ? 'none' : 'auto',
+    zIndex: 500,
   };
 
   const renderShowModal = () => {

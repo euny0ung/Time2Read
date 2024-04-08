@@ -4,7 +4,7 @@ const TopButton = () => {
   const [showButton, setShowButton] = useState(false);
 
   const scrollToTop = () => {
-    const scrollStep = -window.scrollY / (500 / 15); // 스크롤 속도를 조절합니다.
+    const scrollStep = -window.scrollY / (500 / 15); // 스크롤 속도 조절
     const scrollInterval = setInterval(() => {
       if (window.scrollY !== 0) {
         window.scrollBy(0, scrollStep);
@@ -32,7 +32,7 @@ const TopButton = () => {
   useEffect(() => {
     const handleScrollToPage = (event) => {
       if (event.target.tagName === 'HTML') {
-        const moveto = '#top'; // 원하는 위치의 ID를 여기에 넣으세요
+        const moveto = '#top';
         const PageLocation = document.querySelector(moveto).offsetTop;
         document.body.scrollTo({ top: PageLocation, behavior: 'smooth' });
       }

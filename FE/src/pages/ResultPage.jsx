@@ -33,7 +33,6 @@ import {
 } from '../stores/game/quizStore.jsx';
 import { usePreLoginPathStore, usePreLoginStateStore } from '../stores/ui/preLoginStore.jsx';
 import useScrapStore from '../stores/ui/scrapStore.jsx';
-import { useScrollPositionStore } from '../stores/ui/scrollStore.jsx';
 
 const ResultPage = () => {
   const navigate = useNavigate();
@@ -52,13 +51,11 @@ const ResultPage = () => {
   const { hitsCategory } = useHitsCategoryStore();
   const { isSucceed, setIsSucceed } = checkGameSuccessStore();
   const { scrollPosition, openedQuiz } = usePreLoginStateStore();
-  const { scrapStatus } = useScrapStore();
 
   const gameYear = checkGameYearStore((state) => state.gameYear);
   const setResultData = useResultDataStore((state) => state.setResultData);
   const [openLoginInducementModal, setOpenLoginInducementModal] = useState(false);
 
-  // Json 형식의 파일을 만들어줘야 하는데 왜 자동저장하면 이렇게 되어버리지
   const resultData = {
     isSuccess: isSucceed,
     playYear: gameYear,
@@ -100,7 +97,6 @@ const ResultPage = () => {
       // 로그인 되어 있지 않을 때
       setOpenLoginInducementModal(true); // 로그인 유도 모달 표시
       usePreLoginPathStore.getState().setPreLoginPath('/mypage'); // 마이페이지로 경로 저장
-      // useScrollPositionStore.getState().setScrollPosition(window.scrollY); // 스크롤 위치 저장
     }
   };
 
@@ -192,8 +188,6 @@ const ResultPage = () => {
                       <div> 00:00 </div>
                     )}
                   </div>
-                  {/* <div> 시간 증가하는 거 테스트 </div>
-                  <TimeLoader targetNumber={'03:24'} /> */}
                 </WhiteContainerHoverEffect>
               </div>
 

@@ -7,7 +7,6 @@ const Lifes = (lifePositions) => {
   const [lifeList, setLifeList] = useState([]);
   const gltfRef = useRef(null);
   const loader = new GLTFLoader();
-  // C:\Users\SSAFY\Desktop\React\S10P22B307\FE\node_modules\three\examples\jsm\libs\draco\gltf
   const dracoLoader = new DRACOLoader(); // DRACOLoader 인스턴스 생성
   dracoLoader.setDecoderPath('/draco/gltf/'); // DRACO 디코더 파일들의 경로를 설정
   loader.setDRACOLoader(dracoLoader); // GLTFLoader에 DRACOLoader 설정

@@ -80,7 +80,6 @@ export const CheshireCat = () => {
   return (
     <RigidBody name="cheshireCat">
       <primitive object={cheshireCat.scene} scale={0.016} position={[-4, 0.4, 2.8]} />
-      {/* <axesHelper scale={10} /> */}
     </RigidBody>
   );
 };
@@ -119,8 +118,8 @@ export const CardSoldier = () => {
     }
   };
   useEffect(() => {
-    rotateCardSoldier(); // 컴포넌트가 렌더링된 후에 실행되도록 함
-  }, []); // 한 번만 실행
+    rotateCardSoldier();
+  }, []);
   return (
     <RigidBody name="cardSoldier">
       <primitive object={cardsoldier.scene} scale={0.2} position={[7.5, 2, -5.6]} />
@@ -153,8 +152,8 @@ export const Rabbit = () => {
     }
   };
   useEffect(() => {
-    rotateRabbit(); // 컴포넌트가 렌더링된 후에 실행되도록 함
-  }, []); // 한 번만 실행
+    rotateRabbit();
+  }, []);
   return (
     <RigidBody name="rabbit">
       <primitive object={rabbit.scene} scale={0.3} position={[0.8, 1, 9.5]} />

@@ -24,7 +24,6 @@ export const usePreLoginStateStore = create(
         openedQuiz: null, // { quizNumber: 0, articleId: 0 } // 기존에 보고 있던 문제 번호와 기사 인덱스
         setScrollPosition: (position) => set({ scrollPosition: position }),
         setOpenedQuiz: (quiz) => set({ openedQuiz: quiz }),
-        // 스토어 리셋
         reset: () => set({ scrollPosition: 0, openedQuiz: null }),
       }),
       { name: 'usePreLoginStateStore', storage: createJSONStorage(() => sessionStorage) },

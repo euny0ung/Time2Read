@@ -1,7 +1,6 @@
 import { useState, useEffect, useReducer } from 'react';
 import { handleAnswerCheck } from '@stores/game/quizStore';
 
-/* eslint-disable indent */
 const inputInitialState = {
   inputAnswer: [],
 };
