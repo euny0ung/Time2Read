@@ -14,6 +14,12 @@ services:
         source: ./elasticsearch/config/elasticsearch.yml # 설정 yml파일을 가져와 바인드
         target: /usr/share/elasticsearch/config/elasticsearch.yml
         read_only: true
+      - type: bind
+        source: ./elasticsearch/settings
+        target: /usr/share/elasticsearch/config/settings
+      - type: bind
+        source: ./backup
+        target: /usr/share/elasticsearch/backup
     ports:
       - 9200:9200
       - 9300:9300
@@ -43,6 +49,8 @@ services:
       - 9600:9600
     environment:
       LS_JAVA_OPTS: "-Xmx256m -Xms256m" # 사용할 수 있는 힙의 크기를 제한
+    depends_on:
+      - elasticsearch
     networks:
       - es-bridge
 
@@ -59,6 +67,8 @@ services:
         source: ./kibana/config/kibana.yml # 설정 yml파일을 가져와 바인드
         target: /usr/share/kibana/config/kibana.yml
         read_only: true
+    depends_on:
+      - elasticsearch
     networks:
       - es-bridge
 
