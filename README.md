@@ -26,7 +26,7 @@
 
 ## 주요 기능 소개  [[서비스 화면 자세히 보기]](https://handsome-airport-d67.notion.site/582fd2ceb02b4b64b38994bf7cdcbb61?pvs=4)
 ### 1. 빅데이터 기반의 퀴즈 생성
-![image](/uploads/53f7ffe2427783ef7c0212b13588ec51/image.png)  
+![퀴즈유형](/uploads/5fa9cc05830927ab6eaf04b265e12cdb/퀴즈유형.JPG) 
 2005년부터 2024년 현재까지의 뉴스 데이터 80만 개를 관리하고 있습니다. 사용자는 연도를 선택하여 해당연도에 대표되는 기사를 퀴즈 형식으로 접하고 추세를 파악할 수 있습니다.
 ### 2. 미로 탈출 퀴즈 게임  
 ![image](/uploads/7bc5a7351602efcafa6470542185bb24/image.png)  
@@ -166,7 +166,7 @@
 </div>
 
 ## 더보기
-### [PPT보기](https://www.notion.so/PPT-62dc3c3b6aa543f89f8c9e2a3f743f2c)   
-### [UCC보기](https://handsome-airport-d67.notion.site/UCC-ec68fdcc696843bba720e20183c61c10?pvs=4)
 ### [프론트엔드 파일 구조](https://handsome-airport-d67.notion.site/Frontend-fc01c67e54f0405580cc77e3aa87e2d7?pvs=4)  
 ### [백엔드 파일 구조](https://handsome-airport-d67.notion.site/Backend-c4e5630bde2048418b7d0f9cfb796341?pvs=4)
+### [PPT보기](https://www.notion.so/PPT-62dc3c3b6aa543f89f8c9e2a3f743f2c)   
+### [UCC보기](https://handsome-airport-d67.notion.site/UCC-ec68fdcc696843bba720e20183c61c10?pvs=4)
