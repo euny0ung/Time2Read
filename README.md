@@ -3,9 +3,6 @@
 > 도메인 : 빅데이터 - 분산  
 > 개발 기간 : 2024.02.19 ~ 2024.04.04
 
-
-
-
 ## 프로젝트 소개
 ![image](/uploads/99e7c31c16fe4596093df72a03612fe1/image.png)  
 과거의 뉴스가 현재와 미래를 이해하는 데 얼마나 중요한 역할을 하는지 알고 계시나요? 
@@ -27,7 +24,7 @@
 정보 습득하는 방법을 터득하는데 도움이 될 수 있어요.
 또한 그 당시의 사건으로 끝나는 것이 아니라 현재까지 이어져 오는 연결된 내용을 사용자에게 제공함으로써 지금은 어떻게 변화하고 있는지 파악할 수 있어요.
 
-## 주요 기능 소개
+## 주요 기능 소개  [[서비스 화면 자세히 보기]](https://handsome-airport-d67.notion.site/582fd2ceb02b4b64b38994bf7cdcbb61?pvs=4)
 ### 1. 빅데이터 기반의 퀴즈 생성
 ![image](/uploads/53f7ffe2427783ef7c0212b13588ec51/image.png)  
 2005년부터 2024년 현재까지의 뉴스 데이터 80만 개를 관리하고 있습니다. 사용자는 연도를 선택하여 해당연도에 대표되는 기사를 퀴즈 형식으로 접하고 추세를 파악할 수 있습니다.
@@ -38,7 +35,7 @@
 ![image](/uploads/241faf747f8a7e7e11b76e4153a87ddf/image.png)  
 단순히 퀴즈로 그 당시를 이해하기는 어렵습니다. 게임이 끝난 후 해당연도를 대표하는 키워드를 통해 빠르게 정보를 얻을 수 있습니다.
 ### 4. 지금까지 이어져 오는 정보의 연결고리
-![image](/uploads/fed49bb0f98c090f78c363df41f9456c/image.png)  
+![과거와연결된기사](/uploads/50fd44ce6df50c89a24c7d4383f0aacf/과거와연결된기사.JPG) 
 지금까지 이어져 오는 관련 기사를 같이 살펴봄으로써 현재의 흐름은 어떠한지 파악하며, 현재와 비교할 수 있도록 하였습니다.
 ### 5. 중요 기사 스크랩하기
 ![image](/uploads/cfa99a6e11fe03e49a05511ef5ac978e/image.png)  
@@ -46,18 +43,6 @@
 ### 6. 뱃지를 활용한 흥미 유발 요소 제공
 ![image](/uploads/5c88c8f5dab65ef235931dc731862159/image.png)  
 퀴즈 형식의 게임은 금방 질릴 수 있습니다. 그런 점을 충분히 알기에 뱃지 요소를 활용하여 사용자의 수집 욕구를 불러일으키고자 하였습니다. 
-
-## 서비스 화면
-| 게임 시작 |                               마이페이지                               |
-|:----:|:-----------------------------------------------------------------:|
-|![main](/uploads/29dc7ebd695eb9840170b38aec50d948/메인_페이지.gif)|    ![my](/uploads/2f9f34fde40f529cec559b55f656d11c/마이페이지.gif)     |
-| 키워드 퀴즈 |                              객관식 퀴즈                               |
-|![key](/uploads/701352a9c4c0b05095a9b25df79f463c/문고리_키워드.gif)|   ![객관식_짧](/uploads/0efaa496ce770547abd8f93d8ea09c2a/객관식_짧.gif)   |
-| 애너그램 퀴즈 |                               OX 퀴즈                               |
-|![gram](./img/고양이%20애너그램.gif)|    ![ox_짧](/uploads/6a1d7a4ffc62e3fb8d25b423b5e5f340/ox_짧.gif)    |
-| 워드클라우드 |                            과거와 연결된 기사                             |
-|![word](/uploads/04fc1476b80159a76de1a224bba585a2/워드클라우드.gif)| ![past](/uploads/9ab4b5c3cd7ab341b91b1b80960f5f4c/과거와_연결된_기사.gif) |
-
 
 ## 시스템 아키텍처
 ![비비빅_시스템_아키텍처](/uploads/7bc7df1716ef9ff35dd33e3f1a7730df/비비빅_시스템_아키텍처.png)
@@ -185,3 +170,7 @@
 <img src="https://img.shields.io/badge/JENKINS-%23D24939?style=for-the-badge&logo=jenkins&logoColor=white">
 <img src="https://img.shields.io/badge/portainer-13BEF9?style=for-the-badge&logo=portainer&logoColor=white"/>
 </div>
+
+## 더보기
+### [PPT보기](https://www.notion.so/PPT-62dc3c3b6aa543f89f8c9e2a3f743f2c)   
+### [UCC보기](https://handsome-airport-d67.notion.site/UCC-ec68fdcc696843bba720e20183c61c10?pvs=4)
