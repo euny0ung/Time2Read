@@ -1,4 +1,4 @@
-#  ![image](https://github.com/euny0ung/Time2Read/assets/56199780/62861e09-5069-478f-b228-e82916088a70) TimeTo Read  
+# TimeTo Read  
 > Samsung Software Academy For Youth 10기  
 > 도메인 : 빅데이터 - 분산  
 > 개발 기간 : 2024.02.19 ~ 2024.04.04
