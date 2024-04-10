@@ -28,9 +28,6 @@
 ## 주요 기능 소개  [[서비스 화면 자세히 보기]](https://handsome-airport-d67.notion.site/582fd2ceb02b4b64b38994bf7cdcbb61?pvs=4)
 ### 1. 빅데이터 기반의 퀴즈 생성
 ![image](https://github.com/euny0ung/Time2Read/assets/56199780/8b325900-a5fb-40d1-95fd-cbb13a941bad)
-![image](https://github.com/euny0ung/Time2Read/assets/56199780/0834a5c9-57dd-4239-8b0d-920672b3b385)
-![image](https://github.com/euny0ung/Time2Read/assets/56199780/d86de2e9-a137-46fc-8231-713b8a20f0db)
-![image](https://github.com/euny0ung/Time2Read/assets/56199780/6fdd8baa-7428-4f64-8aa7-868d6f71a9a5)
 
 2005년부터 2024년 현재까지의 뉴스 데이터 80만 개를 관리하고 있습니다. 사용자는 연도를 선택하여 해당연도에 대표되는 기사를 퀴즈 형식으로 접하고 추세를 파악할 수 있습니다.
 ### 2. 미로 탈출 퀴즈 게임  
